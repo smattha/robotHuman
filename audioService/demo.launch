@@ -1,0 +1,4 @@
+<launch>
+  <node name="listener" pkg="audioService" type="audioService.py" output="screen"/>
+  <node name="talker" pkg="audioService" type="test.py" output="screen"/>
+</launch>
