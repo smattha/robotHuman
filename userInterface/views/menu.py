@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_InsertMenu(object):
-    def setupUi(self, InsertMenu):
-        InsertMenu.setObjectName("InsertMenu")
-        InsertMenu.resize(579, 389)
-        self.centralwidget = QtWidgets.QWidget(InsertMenu)
+class Ui_menuWindow(object):
+    def setupUi(self, menuWindow):
+        menuWindow.setObjectName("menuWindow")
+        menuWindow.resize(579, 389)
+        self.centralwidget = QtWidgets.QWidget(menuWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.selectExercise = QtWidgets.QComboBox(self.centralwidget)
         self.selectExercise.setGeometry(QtCore.QRect(20, 260, 241, 21))
@@ -40,11 +40,11 @@ class Ui_InsertMenu(object):
         self.surnameLabel.setGeometry(QtCore.QRect(20, 70, 101, 21))
         self.surnameLabel.setObjectName("surnameLabel")
         self.saveMenu = QtWidgets.QPushButton(self.centralwidget)
-        self.saveMenu.setGeometry(QtCore.QRect(210, 180, 171, 31))
+        self.saveMenu.setGeometry(QtCore.QRect(220, 180, 171, 31))
         self.saveMenu.setObjectName("saveMenu")
-        self.selectButton = QtWidgets.QPushButton(self.centralwidget)
-        self.selectButton.setGeometry(QtCore.QRect(300, 260, 89, 25))
-        self.selectButton.setObjectName("selectButton")
+        self.selectExersiceButton = QtWidgets.QPushButton(self.centralwidget)
+        self.selectExersiceButton.setGeometry(QtCore.QRect(300, 260, 89, 25))
+        self.selectExersiceButton.setObjectName("selectExersiceButton")
         self.ageTextBox = QtWidgets.QTextEdit(self.centralwidget)
         self.ageTextBox.setGeometry(QtCore.QRect(160, 110, 211, 21))
         self.ageTextBox.setLineWidth(1)
@@ -53,24 +53,24 @@ class Ui_InsertMenu(object):
         self.ageLabel = QtWidgets.QLabel(self.centralwidget)
         self.ageLabel.setGeometry(QtCore.QRect(20, 110, 101, 21))
         self.ageLabel.setObjectName("ageLabel")
-        InsertMenu.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(InsertMenu)
+        menuWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(menuWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 579, 22))
         self.menubar.setObjectName("menubar")
-        InsertMenu.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(InsertMenu)
+        menuWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(menuWindow)
         self.statusbar.setObjectName("statusbar")
-        InsertMenu.setStatusBar(self.statusbar)
+        menuWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(InsertMenu)
-        QtCore.QMetaObject.connectSlotsByName(InsertMenu)
+        self.retranslateUi(menuWindow)
+        QtCore.QMetaObject.connectSlotsByName(menuWindow)
 
-    def retranslateUi(self, InsertMenu):
+    def retranslateUi(self, menuWindow):
         _translate = QtCore.QCoreApplication.translate
-        InsertMenu.setWindowTitle(_translate("InsertMenu", "MainWindow"))
-        self.clearMenu.setText(_translate("InsertMenu", "Εκκαθάριση"))
-        self.nameLabel.setText(_translate("InsertMenu", "Όνομα"))
-        self.surnameLabel.setText(_translate("InsertMenu", "Επίθετο"))
-        self.saveMenu.setText(_translate("InsertMenu", "Αποθήκευση"))
-        self.selectButton.setText(_translate("InsertMenu", "Select"))
-        self.ageLabel.setText(_translate("InsertMenu", "Ηλικία"))
+        menuWindow.setWindowTitle(_translate("menuWindow", "MainWindow"))
+        self.clearMenu.setText(_translate("menuWindow", "Εκκαθάριση"))
+        self.nameLabel.setText(_translate("menuWindow", "Όνομα"))
+        self.surnameLabel.setText(_translate("menuWindow", "Επίθετο"))
+        self.saveMenu.setText(_translate("menuWindow", "Αποθήκευση"))
+        self.selectExersiceButton.setText(_translate("menuWindow", "Select"))
+        self.ageLabel.setText(_translate("menuWindow", "Ηλικία"))

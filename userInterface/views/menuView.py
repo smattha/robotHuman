@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
-from views.menu import Ui_InsertMenu
+from views.menu import Ui_menuWindow
 
 
 class MenuView(QMainWindow):
@@ -9,7 +9,7 @@ class MenuView(QMainWindow):
 
         self._model = model
         self._main_controller = main_controller
-        self._ui = Ui_InsertMenu()
+        self._ui = Ui_menuWindow()
         self._ui.setupUi(self)
 
         ################################################################################################
@@ -18,7 +18,7 @@ class MenuView(QMainWindow):
         self._ui.clearMenu.clicked.connect(lambda: self._main_controller.clearClicked())
         self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.toPlainText(),self._ui.surname.toPlainText(),self._ui.ageTextBox.toPlainText()))
         
-        self._ui.selectButton.clicked.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentText()) )
+        self._ui.selectExersiceButton.clicked.connect(lambda:  self._main_controller.selectButtonClicked(''+self._ui.selectExercise.currentText()) )
         
         
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>InsertMenu</class>
- <widget class="QMainWindow" name="InsertMenu">
+ <class>menuWindow</class>
+ <widget class="QMainWindow" name="menuWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -98,7 +98,7 @@
    <widget class="QPushButton" name="saveMenu">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>220</x>
       <y>180</y>
       <width>171</width>
       <height>31</height>
@@ -108,7 +108,7 @@
      <string>Αποθήκευση</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="selectButton">
+   <widget class="QPushButton" name="selectExersiceButton">
     <property name="geometry">
      <rect>
       <x>300</x>

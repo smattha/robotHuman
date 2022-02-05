@@ -3,7 +3,7 @@ from PyQt5.QtCore import QObject, pyqtSlot
 import rospy
 from std_msgs.msg import String
 
-class MainController(QObject):
+class MainCntl(QObject):
     def __init__(self, model):
         super().__init__()
         self._model = model
