@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 
 
-class MainModel(QObject):
+class MainWindowModel(QObject):
 
 
     listAvailableExersice= ["1", "2", "3"]
