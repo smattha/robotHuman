@@ -24,6 +24,9 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetNoConstraint</enum>
+     </property>
      <item row="3" column="2">
       <widget class="QPushButton" name="saveMenu">
        <property name="text">

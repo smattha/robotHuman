@@ -18,11 +18,12 @@ class MenuView(QMainWindow):
         self._ui.clearMenu.clicked.connect(lambda: self._main_controller.clearClicked())
         self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.toPlainText(),self._ui.surname.toPlainText(),self._ui.ageTextBox.toPlainText()))
         
-        self._ui.selectExersiceButton.clicked.connect(lambda:  self._main_controller.selectButtonClicked(''+self._ui.selectExercise.currentText()) )
-        
-        
+        self._ui.selectExersiceButton.clicked.connect( lambda: self.close() )        
 
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
+
+
+        self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(''+self._ui.selectExercise.currentText()) )        
 
         #################################################################################################
         # # listen for model event signals
