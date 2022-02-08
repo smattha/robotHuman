@@ -12,11 +12,13 @@ class MenuCntl(QObject):
 	
     @pyqtSlot(int)
     def clearClicked(self):
+        self._model.reset()
         self._model.amount = 'TEST!!!!'
         print ('Press !!')
         self._model.name=''
         self._model.surname=''
         self._model.age=''
+        
 
 
         # calculate button enabled state
@@ -37,6 +39,7 @@ class MenuCntl(QObject):
         self._model.name=''
         self._model.surname=''
         self._model.age=''
+        self._model.resetFields()
 
     @pyqtSlot(str,str,str)
     def saveClicked(self,name,surname,age):
@@ -46,7 +49,40 @@ class MenuCntl(QObject):
         self._model.age=age
         
 
-    @pyqtSlot(str)
+    @pyqtSlot(int)
     def selectButtonClicked(self,value):
         print('Save main menu data ',value)
         self._model.selectedExercise=value
+
+    @pyqtSlot(int)
+    def clearClicked(self):
+        self._model.amount = 'TEST!!!!'
+        print ('Press !!')
+        self._model.name=''
+        self._model.surname=''
+        self._model.age=''
+
+
+        # calculate button enabled state
+        # self._model.enable_reset = True if value else False
+
+    def change_text(self, value):
+        self._model.amount = value
+        rospy.loginfo(value)
+        self.pub.publish(str(value))
+
+        # calculate button enabled state
+        self._model.enable_reset = True if value else False
+    
+
+    @pyqtSlot(str)
+    def clickLabel(self,value):
+        print('Save main menu data ',value)
+        # self._model.selectedExercise=value
+
+    @pyqtSlot(str)
+    def setPage(self,value):
+        print('Save main menu data ',value)
+        self._model.selectedExercise=value
+        self._model.trigger(int(value)+1)
+

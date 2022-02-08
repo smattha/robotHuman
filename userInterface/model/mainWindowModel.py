@@ -1,10 +1,24 @@
 from PyQt5.QtCore import QObject, pyqtSignal
+from sqlalchemy import true
 
 
 class MainWindowModel(QObject):
 
 
-    listAvailableExersice= ["1", "2", "3"]
+    listAvailableExersice= ["Δραστηριότητα 1", "Δραστηριότητα 2", "Δραστηριότητα 3"]
+
+    exersisesDescription = {
+    "1": "Περιγραφή Δραστηριότητα 1",
+    "2": "Περιγραφή Δραστηριότητα 2",
+    "3": "Περιγραφή Δραστηριότητα 3",
+}
+
+    #create signal
+    changeDscrSingal = pyqtSignal(str, name='valChanged')
+    resetFieldSingal = pyqtSignal(str, name='resetFieldChanged')
+    setPageSignal = pyqtSignal(int, name='setPageChanged')
+
+    
 
     @property
     def name(self):
@@ -26,9 +40,12 @@ class MainWindowModel(QObject):
 
     @selectedExercise.setter
     def selectedExercise(self, value):
-        self._name = value
-        print("selectedButton Setter")
-        # self.name_change.emit(value)
+        print(value)
+        # self._name = str(value+1)
+        print("selectedButton Setter",str(value+1))
+        self._description=self.exersisesDescription[str(value+1)]
+        print("selectedButton Setter",self._description)
+        self.changeDscrSingal.emit(self._description)
 
     @selectedExercise.getter
     def getSelectedExercise(self):
@@ -62,12 +79,35 @@ class MainWindowModel(QObject):
     def getAge(self):
         return self._age
 
+    @property
+    def description(self):
+        return self._description
+
+    @description.setter
+    def getDEscription(self, value):
+        self._description= value
+        print("description Setter")
+        # self.name_change.emit(value)
+
+    @description.getter
+    def getDescription(self):
+        return self._description
+
+
+    def resetFields(self):
+        print('reset data')
+        self.resetFieldSingal.emit('')
+
+    def trigger(self,page):
+        self.setPageSignal.emit(page)
+
+
     def __init__(self):
         super().__init__()
 
         self._name = ''
         self._surname = ''
         self._age = ''
-        self._selectedExercise='1'
+        self._selectedExercise=''
        
 
