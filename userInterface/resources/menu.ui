@@ -38,14 +38,14 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
+      <x>40</x>
+      <y>20</y>
       <width>891</width>
       <height>671</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="menuPage">
      <widget class="QTextEdit" name="descriptionTxt">
@@ -258,9 +258,9 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>540</y>
+        <y>550</y>
         <width>811</width>
-        <height>131</height>
+        <height>121</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -301,6 +301,19 @@
        </item>
       </layout>
      </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>540</y>
+        <width>581</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Απαντήσεις</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="ex2Page">
      <widget class="QLabel" name="ex2Title">
@@ -329,6 +342,66 @@
       </property>
       <property name="text">
        <string>3</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ex4Page"/>
+    <widget class="QWidget" name="ex5Page"/>
+    <widget class="QWidget" name="ex6Page"/>
+    <widget class="QWidget" name="feeback">
+     <widget class="QWidget" name="horizontalLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>180</y>
+        <width>801</width>
+        <height>261</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="easyFeedback">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="normalFeedback">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="difficultFeedback">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>110</y>
+        <width>261</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Πόσο εύκολος σου φάνηκε ο γρίφος</string>
       </property>
      </widget>
     </widget>

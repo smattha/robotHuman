@@ -81,6 +81,7 @@ class MenuCntl(QObject):
     def clickLabel(self,value):
         print('select Answer step1 ',value)
         self._exer1Controller.feedback()
+        self._model.trigger(7)
         # self._model.selectedExercise=value
 
     @pyqtSlot(str)

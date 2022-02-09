@@ -2,8 +2,14 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
 from views.ui.menu import Ui_menuWindow
+from views.ui.dialog import Ui_Dialog
 from PyQt5 import  QtWidgets,QtGui
 
+class DialogFeedback(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self._dialog = Ui_Dialog()
+        self._dialog.setupUi(self)
 
 class MenuView(QMainWindow):
     def __init__(self, model, main_controller):
@@ -13,9 +19,15 @@ class MenuView(QMainWindow):
         self._main_controller = main_controller
         self._ui = Ui_menuWindow()
         self._ui.setupUi(self)
+        DialogFeedback()
+
+        #self._dialog.hide()
         self.move(500,150)
         self.resize(943, 706)
         self._ui.mainImage.setPixmap(QtGui.QPixmap("./resources/images/ex1/mainImage.png"))
+        self._ui.easyFeedback.setPixmap(QtGui.QPixmap("./resources/images/happy.jpg"))
+        self._ui.normalFeedback.setPixmap(QtGui.QPixmap("./resources/images/normal.jpg"))
+        self._ui.difficultFeedback.setPixmap(QtGui.QPixmap("./resources/images/sad.jpg"))
         self._ui.stackedWidget.setCurrentIndex(0)
         ################################################################################################
         # # connect widgets to controller
