@@ -33,5 +33,5 @@ class Ex1Cntrl(QObject):
 
     @pyqtSlot(str)
     def clickLabel(self,value):
-        print('Save main menu data ',value)
+        print('Save main menu data!! ',value)
         # self._model.selectedExercise=value
