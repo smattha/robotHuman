@@ -3,7 +3,7 @@ from sqlalchemy import true
 
 
 class MainWindowModel(QObject):
-
+      
 
     listAvailableExersice= ["Δραστηριότητα 1", "Δραστηριότητα 2", "Δραστηριότητα 3",
                             "Δραστηριότητα 4", "Δραστηριότητα 5", "Δραστηριότητα 6"]
@@ -17,16 +17,25 @@ class MainWindowModel(QObject):
     "6": "Περιγραφή Δραστηριότητα 6",
 }
 
+
     #create signal
     changeDscrSingal = pyqtSignal(str, name='valChanged')
     resetFieldSingal = pyqtSignal(str, name='resetFieldChanged')
     setPageSignal = pyqtSignal(int, name='setPageChanged')
 
+    #Exercise 5
+    nextPageSignalEx5 = pyqtSignal(str, name='nextPageSignal')
+
+    #Exercise 4
+    nextPageSignalEx4 = pyqtSignal(str, name='nextPageSignal4')
     
+    #Exercise 6
+    nextPageSignalEx6 = pyqtSignal(str, name='nextPageSignal6')
+
 
     @property
     def name(self):
-        return self._name
+        return self._name    
 
     @name.setter
     def name(self, value):
@@ -105,6 +114,41 @@ class MainWindowModel(QObject):
     def trigger(self,page):
         self.setPageSignal.emit(page)
 
+    def nextPageEx2(self,value):
+        if self.stepImage3==0:
+            print(' next page image ', value)
+            self.nextPageSignalEx5.emit('0') 
+            self.stepImage3=self.stepImage3+1
+        else:
+            self.setPageSignal.emit(9)
+
+    def nextPageEx4(self,value):
+        if self.stepImage4==0:
+            print(' next page image ', value)
+            self.nextPageSignalEx4.emit("./resources/images/ex4/2.png") 
+            self.stepImage4=self.stepImage4+1
+        elif self.stepImage4==1:
+            print(' next page image ', value)
+            self.nextPageSignalEx4.emit("./resources/images/ex4/3.png") 
+            self.stepImage4=self.stepImage4+1
+        elif self.stepImage4==2:
+            print(' next page image ', value)
+            self.nextPageSignalEx4.emit("./resources/images/ex4/4.png") 
+            self.stepImage4=self.stepImage4+1
+        elif self.stepImage4==3:
+            print(' next page image ', value)
+            self.nextPageSignalEx4.emit("./resources/images/ex4/5.png") 
+            self.stepImage4=self.stepImage4+1           
+        elif self.stepImage4==4:
+            self.setPageSignal.emit(10)       
+
+    def nextPageEx6(self,value):
+        if self.stepImage6==0:
+            print(' next page image 6', value)
+            self.nextPageSignalEx6.emit("./resources/images/ex6/2.png") 
+            self.stepImage6=self.stepImage6+1       
+        else :
+            self.setPageSignal.emit(8)     
 
     def __init__(self):
         super().__init__()
@@ -113,5 +157,8 @@ class MainWindowModel(QObject):
         self._surname = ''
         self._age = ''
         self._selectedExercise=''
+        self.stepImage3=0
+        self.stepImage4=0
+        self.stepImage6=0
        
 

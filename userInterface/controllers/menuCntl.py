@@ -4,10 +4,11 @@ import rospy
 from std_msgs.msg import String
 
 class MenuCntl(QObject):
-    def __init__(self, model,exer1Controller):
+    def __init__(self, model,exercisesController):
         super().__init__()
         self._model = model
-        self._exer1Controller=exer1Controller
+        self._exercisesController=exercisesController
+
         # self.pub = rospy.Publisher('chatter', String, queue_size=10)
         # rospy.init_node('talker', anonymous=True)
 	
@@ -80,14 +81,32 @@ class MenuCntl(QObject):
     @pyqtSlot(str)
     def clickLabel(self,value):
         print('select Answer step1 ',value)
-        self._exer1Controller.feedback()
+        self._exercisesController.feedback()
         self._model.trigger(7)
         # self._model.selectedExercise=value
 
     @pyqtSlot(str)
     def setPage(self,value):
         print('Set page ',value)
+        # if (value==0):
         self._model.selectedExercise=value
         self._model.trigger(int(value)+1)
-        self._exer1Controller.readExersice()
-        self._exer1Controller.readAnswers()
+        self._exercisesController[value].readExersice()
+        self._exercisesController[value].readAnswers()
+
+    @pyqtSlot(str)
+    def nextPage3(self,value):
+        print('Change Image')
+        self._model.nextPageEx2('2')
+
+
+    @pyqtSlot(str)
+    def nextPage4(self,value):
+        print('Change Image')
+        self._model.nextPageEx4('2')
+
+
+    @pyqtSlot(str)
+    def nextPageEx6(self,value):
+        print('Change Image 6')
+        self._model.nextPageEx6('2')

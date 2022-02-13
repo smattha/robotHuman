@@ -38,14 +38,14 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>60</x>
       <y>20</y>
       <width>891</width>
       <height>671</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="menuPage">
      <widget class="QTextEdit" name="descriptionTxt">
@@ -54,8 +54,8 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>500</y>
+        <x>140</x>
+        <y>490</y>
         <width>581</width>
         <height>91</height>
        </rect>
@@ -70,8 +70,8 @@
      <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>120</y>
+        <x>140</x>
+        <y>130</y>
         <width>581</width>
         <height>309</height>
        </rect>
@@ -183,7 +183,7 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>90</x>
+        <x>160</x>
         <y>40</y>
         <width>581</width>
         <height>31</height>
@@ -316,17 +316,120 @@
      </widget>
     </widget>
     <widget class="QWidget" name="ex2Page">
-     <widget class="QLabel" name="ex2Title">
+     <widget class="QLabel" name="label_22">
       <property name="geometry">
        <rect>
-        <x>410</x>
-        <y>50</y>
-        <width>67</width>
-        <height>17</height>
+        <x>80</x>
+        <y>0</y>
+        <width>691</width>
+        <height>71</height>
        </rect>
       </property>
       <property name="text">
-       <string>2</string>
+       <string>Άσκηση προσοχής</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_9">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>550</y>
+        <width>811</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QPushButton" name="answer1Ex5_2">
+         <property name="text">
+          <string>A</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="answer2Ex5_2">
+         <property name="text">
+          <string>B</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="answer3Ex5_2">
+         <property name="text">
+          <string>Γ</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="answer4Ex5_2">
+         <property name="text">
+          <string>Δ</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="answer5Ex5_2">
+         <property name="text">
+          <string>Ε</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_5">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>70</y>
+        <width>411</width>
+        <height>461</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="mainImageEx2page">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="openExternalLinks">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>540</y>
+        <width>581</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Απαντήσεις</string>
       </property>
      </widget>
     </widget>
@@ -334,20 +437,588 @@
      <widget class="QLabel" name="ex3Label">
       <property name="geometry">
        <rect>
-        <x>410</x>
+        <x>110</x>
         <y>40</y>
-        <width>67</width>
-        <height>17</height>
+        <width>671</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>3</string>
+       <string>Θεωρία του Νου inspired by Wimmer and Perner, 1983</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>60</y>
+        <width>821</width>
+        <height>441</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="mainImageEx3">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="openExternalLinks">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="nextPageExercise3">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>510</y>
+        <width>111</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Επόμενο</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="ex4Page"/>
-    <widget class="QWidget" name="ex5Page"/>
-    <widget class="QWidget" name="ex6Page"/>
+    <widget class="QWidget" name="ex4Page">
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>30</y>
+        <width>721</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Κοινωνικές Ιστορίες inspired by Baron Kohen et al., 1999</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="nextPageEx4">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>530</y>
+        <width>111</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Επόμενο</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_11">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>80</y>
+        <width>821</width>
+        <height>441</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="mainImageEx4">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="openExternalLinks">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ex5Page">
+     <widget class="QStackedWidget" name="stackedWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>891</width>
+        <height>671</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <widget class="QWidget" name="menuPage_3">
+       <widget class="QTextEdit" name="descriptionTxt_3">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>500</y>
+          <width>581</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAsNeeded</enum>
+        </property>
+       </widget>
+       <widget class="QWidget" name="gridLayoutWidget_3">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>120</y>
+          <width>581</width>
+          <height>309</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetNoConstraint</enum>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="nameLabel_3">
+           <property name="text">
+            <string>Όνομα</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QPushButton" name="clearMenu_3">
+           <property name="text">
+            <string>Εκκαθάριση</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="2">
+          <widget class="QTextEdit" name="ageTextBox_3">
+           <property name="lineWidth">
+            <number>1</number>
+           </property>
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0" colspan="2">
+          <widget class="QComboBox" name="selectExercise_3"/>
+         </item>
+         <item row="3" column="1">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QTextEdit" name="surname_3">
+           <property name="lineWidth">
+            <number>1</number>
+           </property>
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="surnameLabel_3">
+           <property name="text">
+            <string>Επίθετο</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QPushButton" name="saveMenu_3">
+           <property name="text">
+            <string>Αποθήκευση</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="ageLabel_3">
+           <property name="text">
+            <string>Ηλικία</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="2">
+          <widget class="QPushButton" name="selectExersiceButton_3">
+           <property name="text">
+            <string>Έναρξη</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QTextEdit" name="name_3">
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOff</enum>
+           </property>
+           <property name="horizontalScrollBarPolicy">
+            <enum>Qt::ScrollBarAsNeeded</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="3">
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>Διαθέσιμες επιλογές</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label_17">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>40</y>
+          <width>581</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Προσωπικά στοιχεία</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="ex1Page_3">
+       <widget class="QLabel" name="label_18">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>0</y>
+          <width>691</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Άσκηση προσοχής</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QWidget" name="verticalLayoutWidget_4">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>70</y>
+          <width>411</width>
+          <height>461</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="leftMargin">
+          <number>10</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>10</number>
+         </property>
+         <property name="bottomMargin">
+          <number>100</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="imageExersice5">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+           <property name="openExternalLinks">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget_7">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>550</y>
+          <width>811</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QPushButton" name="answer1Ex5">
+           <property name="text">
+            <string>A</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="answer2Ex5">
+           <property name="text">
+            <string>B</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="answer3Ex5">
+           <property name="text">
+            <string>Γ</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="answer4Ex5">
+           <property name="text">
+            <string>Δ</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="answer5Ex5">
+           <property name="text">
+            <string>Ε</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label_19">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>540</y>
+          <width>581</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Απαντήσεις</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="ex2Page_3">
+       <widget class="QLabel" name="ex2Title_3">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>50</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>2</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="ex3Page_3">
+       <widget class="QLabel" name="ex3Label_3">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>40</y>
+          <width>67</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>3</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="ex4Page_3"/>
+      <widget class="QWidget" name="ex5Page_3"/>
+      <widget class="QWidget" name="ex6Page_3"/>
+      <widget class="QWidget" name="feeback_3">
+       <widget class="QWidget" name="horizontalLayoutWidget_8">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>180</y>
+          <width>801</width>
+          <height>261</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="easyFeedback_3">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="normalFeedback_3">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="difficultFeedback_3">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+           <property name="scaledContents">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QLabel" name="label_20">
+        <property name="geometry">
+         <rect>
+          <x>340</x>
+          <y>110</y>
+          <width>261</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Πόσο εύκολος σου φάνηκε ο γρίφος</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ex6Page">
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>881</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Εκφραστικό Λεξιλόγιο inspired by Βογινδρούκας και συν., 2009 (ελληνική έκδοση του Word Finding Vocabulary Test, 4η έκδοση, Renfrew, C., 1968)</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="nextPageEx6">
+      <property name="geometry">
+       <rect>
+        <x>750</x>
+        <y>520</y>
+        <width>111</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Επόμενο</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_12">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>70</y>
+        <width>821</width>
+        <height>441</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_12">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="topMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>100</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="mainImageExercise6">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="openExternalLinks">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
     <widget class="QWidget" name="feeback">
      <widget class="QWidget" name="horizontalLayoutWidget_2">
       <property name="geometry">
@@ -402,6 +1073,296 @@
       </property>
       <property name="text">
        <string>Πόσο εύκολος σου φάνηκε ο γρίφος</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>470</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Εύκολος</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>470</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>-</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>470</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Δυσκολός</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>178</x>
+        <y>560</y>
+        <width>171</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Τερματισμός</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>560</y>
+        <width>181</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Επόμενη δραστηριότητα</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="ex5Step2">
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>881</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Θέλεις να συνεχίσουμε</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_5">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>150</y>
+        <width>801</width>
+        <height>261</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="yesImage">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="noImage">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2">
+     <widget class="QWidget" name="horizontalLayoutWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>40</y>
+        <width>721</width>
+        <height>561</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="exercise5Answer2">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="exercise5Answer1">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>881</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>610</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>A</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>610</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>B</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page">
+     <widget class="QPushButton" name="pushButton_15">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>610</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>A</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_16">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>610</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>B</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="horizontalLayoutWidget_17">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>40</y>
+        <width>721</width>
+        <height>561</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_17">
+       <item>
+        <widget class="QLabel" name="exercise4Answer1">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="exercise4Answer2">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="exercise4Answer3">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_39">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>881</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_17">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>610</y>
+        <width>89</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Γ</string>
       </property>
      </widget>
     </widget>
