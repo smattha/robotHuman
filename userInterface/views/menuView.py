@@ -24,12 +24,14 @@ class MenuView(QMainWindow):
         #self._dialog.hide()
         self.move(500,150)
         self.resize(943, 706)
-        self._ui.mainImage.setPixmap(QtGui.QPixmap("./resources/images/ex1/mainImage.png"))
-        self._ui.mainImageEx2page.setPixmap(QtGui.QPixmap("./resources/images/ex2/mainImage.png"))
-        self._ui.imageExersice5.setPixmap(QtGui.QPixmap("./resources/images/ex5/image.png"))
-
+        #Exercise 1
+        self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
+        
+        #Exercise 2
+        self._ui.mainImageEx2page.setPixmap(QtGui.QPixmap(self._model.resourcesImage2))
+       
         #Exercise 3
-        self._ui.mainImageEx3.setPixmap(QtGui.QPixmap("./resources/images/ex3/1.png"))
+        self._ui.mainImageEx3.setPixmap(QtGui.QPixmap(self._model.resourcesImage3))
         self._ui.exercise5Answer1.setPixmap(QtGui.QPixmap("./resources/images/ex3/3.png"))
         self._ui.exercise5Answer2.setPixmap(QtGui.QPixmap("./resources/images/ex3/4.png"))
 
@@ -39,6 +41,8 @@ class MenuView(QMainWindow):
         self._ui.exercise4Answer2.setPixmap(QtGui.QPixmap("./resources/images/ex4/7.png"))
         self._ui.exercise4Answer3.setPixmap(QtGui.QPixmap("./resources/images/ex4/8.png"))                        
 
+        #Exercise 5
+        self._ui.imageExersice5.setPixmap(QtGui.QPixmap("./resources/images/ex5/image.png"))
 
         #Exercise 6
         self._ui.mainImageExercise6.setPixmap(QtGui.QPixmap("./resources/images/ex6/1.png"))  
@@ -46,9 +50,11 @@ class MenuView(QMainWindow):
         self._ui.easyFeedback.setPixmap(QtGui.QPixmap("./resources/images/happy.jpg"))
         self._ui.normalFeedback.setPixmap(QtGui.QPixmap("./resources/images/normal.jpg"))
         self._ui.difficultFeedback.setPixmap(QtGui.QPixmap("./resources/images/sad.jpg"))
-        self._ui.yesImage.setPixmap(QtGui.QPixmap("./resources/images/check.png"))
-        self._ui.noImage.setPixmap(QtGui.QPixmap("./resources/images/reject.jpg"))
+        # self._ui.yesImage.setPixmap(QtGui.QPixmap("./resources/images/check.png"))
+        # self._ui.noImage.setPixmap(QtGui.QPixmap("./resources/images/reject.jpg"))
         self._ui.stackedWidget.setCurrentIndex(0)
+
+
         ################################################################################################
         # # connect widgets to controller
         # #self._ui.spinBox_amount.valueChanged.connect(self._main_controller.change_amount)
@@ -61,20 +67,46 @@ class MenuView(QMainWindow):
 
 
         self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
-        self._ui.answer1.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer1.objectName()))
+        self._ui.answer1.clicked.connect(lambda: self._main_controller.clickLabel(1))
         self._ui.answer2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer2.objectName()))
         self._ui.answer3.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer3.objectName()))
         self._ui.answer4.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
         self._ui.answer5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
 
+        #Exersice 5
+        self._ui.answer1Ex2.clicked.connect(lambda: self._main_controller.clickLabel(1))
+        self._ui.answer2Ex2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer2.objectName()))
+        self._ui.answer3Ex2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer3.objectName()))
+        self._ui.answer4Ex2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
+        self._ui.answer5Ex2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+
         #Exercise3
         self._ui.nextPageExercise3.clicked.connect(lambda: self._main_controller.nextPage3(self._ui.answer5.objectName()))
+        self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
+        self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
 
         #Exercise4
         self._ui.nextPageEx4.clicked.connect(lambda: self._main_controller.nextPage4(self._ui.answer5.objectName()))
+        self._ui.answer1Exersice4.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
+        self._ui.answer2Exersice4.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+        self._ui.answer3Exersice4.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+
+        #Exersice 5
+        self._ui.answer1Ex5.clicked.connect(lambda: self._main_controller.clickLabel(1))
+        self._ui.answer2Ex5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer2.objectName()))
+        self._ui.answer3Ex5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer3.objectName()))
+        self._ui.answer4Ex5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
+        self._ui.answer5Ex5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+
 
         #Exercise6
         self._ui.nextPageEx6.clicked.connect(lambda: self._main_controller.nextPageEx6(self._ui.answer5.objectName()))
+
+        self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home())
+
+
+        #Feedback
+        self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
 
         #################################################################################################
         # # listen for model event signals

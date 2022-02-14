@@ -78,10 +78,10 @@ class MenuCntl(QObject):
         self._model.enable_reset = True if value else False
     
 
-    @pyqtSlot(str)
+    @pyqtSlot(int)
     def clickLabel(self,value):
-        print('select Answer step1 ',value)
-        self._exercisesController.feedback()
+        print('select Answer step1:',value)
+        self._exercisesController[self._model.currentExerciseID].feedback()
         self._model.trigger(7)
         # self._model.selectedExercise=value
 
@@ -89,10 +89,29 @@ class MenuCntl(QObject):
     def setPage(self,value):
         print('Set page ',value)
         # if (value==0):
+        self._currentExerciseID=value
         self._model.selectedExercise=value
         self._model.trigger(int(value)+1)
         self._exercisesController[value].readExersice()
         self._exercisesController[value].readAnswers()
+        self._model.currentExerciseID=value+1
+
+    @pyqtSlot(str)
+    def go2Home(self):
+       self._model.trigger(0)
+
+
+    @pyqtSlot(str)
+    def move2NextPage(self):
+        value=self._model.currentExerciseID
+        print('Move to next page ',self._model.currentExerciseID)
+        # if (value==0):value
+        self._model.currentExerciseID=value
+        self._model.trigger(int(value)+1)
+        self._exercisesController[value].readExersice()
+        self._exercisesController[value].readAnswers()
+        self._model.currentExerciseID=self._model.currentExerciseID+1
+
 
     @pyqtSlot(str)
     def nextPage3(self,value):

@@ -3,7 +3,7 @@ from sqlalchemy import true
 
 
 class MainWindowModel(QObject):
-      
+
 
     listAvailableExersice= ["Δραστηριότητα 1", "Δραστηριότητα 2", "Δραστηριότητα 3",
                             "Δραστηριότητα 4", "Δραστηριότητα 5", "Δραστηριότητα 6"]
@@ -16,7 +16,10 @@ class MainWindowModel(QObject):
     "5": "Περιγραφή Δραστηριότητα 5",
     "6": "Περιγραφή Δραστηριότητα 6",
 }
-
+    #Constants
+    resourcesImage1="./resources/images/ex1/mainImage.png"
+    resourcesImage2="./resources/images/ex2/mainImage.png"
+    resourcesImage3="./resources/images/ex3/1.png"
 
     #create signal
     changeDscrSingal = pyqtSignal(str, name='valChanged')
@@ -32,6 +35,20 @@ class MainWindowModel(QObject):
     #Exercise 6
     nextPageSignalEx6 = pyqtSignal(str, name='nextPageSignal6')
 
+
+    @property
+    def currentExerciseID(self):
+        return self._currentExerciseID    
+
+    @currentExerciseID.setter
+    def currentExerciseID(self, value):
+        self._currentExerciseID = value
+        print("setCurrentExerciseID Setter")
+        # self.name_change.emit(value)
+
+    @currentExerciseID.getter
+    def getCurrentExerciseID(self):
+        return self._currentExerciseID
 
     @property
     def name(self):
@@ -150,9 +167,7 @@ class MainWindowModel(QObject):
         else :
             self.setPageSignal.emit(8)     
 
-    def __init__(self):
-        super().__init__()
-
+    def reset(self):
         self._name = ''
         self._surname = ''
         self._age = ''
@@ -160,5 +175,10 @@ class MainWindowModel(QObject):
         self.stepImage3=0
         self.stepImage4=0
         self.stepImage6=0
-       
+        self._currentExerciseID=0
+
+    def __init__(self):
+        super().__init__()
+        self.reset()
+
 

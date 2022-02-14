@@ -38,14 +38,14 @@
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>20</y>
+      <x>50</x>
+      <y>0</y>
       <width>891</width>
       <height>671</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="menuPage">
      <widget class="QTextEdit" name="descriptionTxt">
@@ -343,35 +343,35 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_9">
        <item>
-        <widget class="QPushButton" name="answer1Ex5_2">
+        <widget class="QPushButton" name="answer1Ex2">
          <property name="text">
           <string>A</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="answer2Ex5_2">
+        <widget class="QPushButton" name="answer2Ex2">
          <property name="text">
           <string>B</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="answer3Ex5_2">
+        <widget class="QPushButton" name="answer3Ex2">
          <property name="text">
           <string>Γ</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="answer4Ex5_2">
+        <widget class="QPushButton" name="answer4Ex2">
          <property name="text">
           <string>Δ</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="answer5Ex5_2">
+        <widget class="QPushButton" name="answer5Ex2">
          <property name="text">
           <string>Ε</string>
          </property>
@@ -1127,7 +1127,7 @@
        <string>Τερματισμός</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="nextExersice">
       <property name="geometry">
        <rect>
         <x>610</x>
@@ -1152,43 +1152,24 @@
        </rect>
       </property>
       <property name="text">
-       <string>Θέλεις να συνεχίσουμε</string>
+       <string>Τέλος</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QWidget" name="horizontalLayoutWidget_5">
+     <widget class="QPushButton" name="go2Home">
       <property name="geometry">
        <rect>
-        <x>70</x>
-        <y>150</y>
-        <width>801</width>
-        <height>261</height>
+        <x>350</x>
+        <y>250</y>
+        <width>251</width>
+        <height>121</height>
        </rect>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <widget class="QLabel" name="yesImage">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="noImage">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="text">
+       <string>Αρχικό Μενού</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="page_2">
@@ -1240,7 +1221,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_6">
+     <widget class="QPushButton" name="answer1Ex3">
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -1253,7 +1234,7 @@
        <string>A</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_7">
+     <widget class="QPushButton" name="answer2Ex3">
       <property name="geometry">
        <rect>
         <x>650</x>
@@ -1268,7 +1249,7 @@
      </widget>
     </widget>
     <widget class="QWidget" name="page">
-     <widget class="QPushButton" name="pushButton_15">
+     <widget class="QPushButton" name="answer1Exersice4">
       <property name="geometry">
        <rect>
         <x>180</x>
@@ -1281,7 +1262,7 @@
        <string>A</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_16">
+     <widget class="QPushButton" name="answer2Exersice4">
       <property name="geometry">
        <rect>
         <x>420</x>
@@ -1352,7 +1333,7 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_17">
+     <widget class="QPushButton" name="answer3Exersice4">
       <property name="geometry">
        <rect>
         <x>660</x>

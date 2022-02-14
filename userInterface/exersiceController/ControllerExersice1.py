@@ -5,8 +5,9 @@ import sys
 
 class ControllerExersice1(object):
     def __init__(self,ros):
-        print("Init ")
+        print("Initialize the controller for Excersice 1 ")
         self._rosInterface=ros
+    
     def setupUi(self):
         print("main")
 
