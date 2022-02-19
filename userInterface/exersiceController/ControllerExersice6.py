@@ -6,11 +6,12 @@ import sys
 class ControllerExersice6(object):
 
 
-    def __init__(self,ros):
-        print("Initialize the controller for Excersice 6")
+    def __init__(self,ros,model):
+        print("Initialize the controller for Excersice 6 ")
         self._rosInterface=ros
         self.mainPage=6
-
+        self.model=model
+    
 
     def setupUi(self):
         print("main")

@@ -4,10 +4,12 @@ import sys
 
 
 class ControllerExersice3(object):
-    def __init__(self,ros):
-        print("Initialize the controller for Excersice 3")
+    def __init__(self,ros,model):
+        print("Initialize the controller for Excersice 3 ")
         self._rosInterface=ros
         self.mainPage=3
+        self.model=model
+    
 
 
     def setupUi(self):
@@ -22,6 +24,7 @@ class ControllerExersice3(object):
 
     def readExersice(self):
         print('Read Exercise')
+        
         self._rosInterface.talker('Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή')
         self.step1()
 

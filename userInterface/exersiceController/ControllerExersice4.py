@@ -4,11 +4,12 @@ import sys
 
 
 class ControllerExersice4(object):
-    def __init__(self,ros):
+    def __init__(self,ros,model):
         print("Initialize the controller for Excersice 4 ")
         self._rosInterface=ros
         self.mainPage=4
-
+        self.model=model
+    
     def setupUi(self):
         print("main")
 
