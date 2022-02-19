@@ -46,5 +46,5 @@ def handler(signal_received, frame):
 if __name__ == '__main__':
     
     app = App(sys.argv)
-    print('Starting main menu!!')
+    print('Application is up and running')
     app.exec_()

@@ -5,7 +5,9 @@ import sys
 
 class ControllerExersice5(object):
     def __init__(self,ros):
-        print("Init ")
+        print("Initialize the controller for Excersice 5")
+        self.mainPage=5
+
         self._rosInterface=ros
     def setupUi(self):
         print("main")
@@ -31,8 +33,11 @@ class ControllerExersice5(object):
     def feedback(self):
         print('feedback')
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+
+
     def continueDialog(self):
         print('continue Dialog')
+        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
 
 

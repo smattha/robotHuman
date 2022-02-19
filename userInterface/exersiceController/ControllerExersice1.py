@@ -7,6 +7,7 @@ class ControllerExersice1(object):
     def __init__(self,ros):
         print("Initialize the controller for Excersice 1 ")
         self._rosInterface=ros
+        self.mainPage=1
     
     def setupUi(self):
         print("main")
@@ -33,6 +34,7 @@ class ControllerExersice1(object):
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     def continueDialog(self):
         print('continue Dialog')
+        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
 
 

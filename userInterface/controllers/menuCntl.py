@@ -8,7 +8,9 @@ class MenuCntl(QObject):
         super().__init__()
         self._model = model
         self._exercisesController=exercisesController
-
+        self._exercise3Img=0;
+        self._exercise4Img=0;
+        
         # self.pub = rospy.Publisher('chatter', String, queue_size=10)
         # rospy.init_node('talker', anonymous=True)
 	
@@ -16,23 +18,12 @@ class MenuCntl(QObject):
     def clearClicked(self):
         self._model.reset()
         self._model.amount = 'TEST!!!!'
-        print ('Press !!')
         self._model.name=''
         self._model.surname=''
         self._model.age=''
-        
 
 
-        # calculate button enabled state
-        # self._model.enable_reset = True if value else False
 
-    def change_text(self, value):
-        self._model.amount = value
-        rospy.loginfo(value)
-        self.pub.publish(str(value))
-
-        # calculate button enabled state
-        self._model.enable_reset = True if value else False
     
     @pyqtSlot(int)
     def clearClicked(self):
@@ -45,7 +36,7 @@ class MenuCntl(QObject):
 
     @pyqtSlot(str,str,str)
     def saveClicked(self,name,surname,age):
-        print('S_ave main menu data  ',name,surname,age)
+        print('Save main menu data  ',name,surname,age)
         self._model.name=name
         self._model.surname=surname
         self._model.age=age
@@ -79,8 +70,7 @@ class MenuCntl(QObject):
     
 
     @pyqtSlot(int)
-    def clickLabel(self,value):
-        print('select Answer step1:',value)
+    def storeAnswer(self,value):
         self._exercisesController[self._model.currentExerciseID].feedback()
         self._model.trigger(7)
         # self._model.selectedExercise=value
@@ -89,9 +79,10 @@ class MenuCntl(QObject):
     def setPage(self,value):
         print('Set page ',value)
         # if (value==0):
+        pageId=self._exercisesController[value].mainPage
         self._currentExerciseID=value
         self._model.selectedExercise=value
-        self._model.trigger(int(value)+1)
+        self._model.trigger(pageId)
         self._exercisesController[value].readExersice()
         self._exercisesController[value].readAnswers()
         self._model.currentExerciseID=value+1
@@ -111,21 +102,60 @@ class MenuCntl(QObject):
         self._exercisesController[value].readExersice()
         self._exercisesController[value].readAnswers()
         self._model.currentExerciseID=self._model.currentExerciseID+1
+        self._model.showButtonFeedback='hide'
 
 
     @pyqtSlot(str)
     def nextPage3(self,value):
-        print('Change Image')
+        print('Change Image step 3 {}',self._exercise3Img)
         self._model.nextPageEx2('2')
-
+        if self._exercise3Img==0:
+            self._exercisesController[self._model.currentExerciseID-1].step2()
+        else:   
+            self._exercisesController[self._model.currentExerciseID-1].readAnswers2()
+        self._exercise3Img=self._exercise3Img+1
 
     @pyqtSlot(str)
     def nextPage4(self,value):
-        print('Change Image')
+        if self._exercise4Img==0:
+            self._exercisesController[self._model.currentExerciseID-1].step2()
+        elif self._exercise4Img==1:
+            self._exercisesController[self._model.currentExerciseID-1].step3()
+        elif self._exercise4Img==2:
+            self._exercisesController[self._model.currentExerciseID-1].step4()
+        elif self._exercise4Img==3:
+            self._exercisesController[self._model.currentExerciseID-1].step5()
+        else:
+            self._exercisesController[self._model.currentExerciseID-1].step6()
+        self._exercise4Img=self._exercise4Img+1;
         self._model.nextPageEx4('2')
+
 
 
     @pyqtSlot(str)
     def nextPageEx6(self,value):
         print('Change Image 6')
         self._model.nextPageEx6('2')
+
+
+    @pyqtSlot(str)
+    def feedback(self,value):
+        print('Feedback {}',value)
+        self._model.showButtonFeedback='show'
+        self._exercisesController[self._model.currentExerciseID].continueDialog()
+
+
+        # self._model.nextPageEx6('2')
+        
+    
+
+
+
+
+    def change_text(self, value):
+        self._model.amount = value
+        rospy.loginfo(value)
+        self.pub.publish(str(value))
+
+        # calculate button enabled state
+        self._model.enable_reset = True if value else False

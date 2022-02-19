@@ -45,7 +45,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>8</number>
+     <number>7</number>
     </property>
     <widget class="QWidget" name="menuPage">
      <widget class="QTextEdit" name="descriptionTxt">
@@ -1075,7 +1075,7 @@
        <string>Πόσο εύκολος σου φάνηκε ο γρίφος</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="feedbackEasyButton">
       <property name="geometry">
        <rect>
         <x>100</x>
@@ -1088,7 +1088,7 @@
        <string>Εύκολος</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="feedbackNormalButton">
       <property name="geometry">
        <rect>
         <x>370</x>
@@ -1101,7 +1101,7 @@
        <string>-</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="feedbackHardButton">
       <property name="geometry">
        <rect>
         <x>660</x>
@@ -1114,7 +1114,7 @@
        <string>Δυσκολός</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="terminateButton">
       <property name="geometry">
        <rect>
         <x>178</x>
@@ -1347,6 +1347,7 @@
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page_3"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

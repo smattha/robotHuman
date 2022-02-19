@@ -36,6 +36,9 @@ class MainWindowModel(QObject):
     nextPageSignalEx6 = pyqtSignal(str, name='nextPageSignal6')
 
 
+    #Exercise 6
+    feedbackShowButton = pyqtSignal(str, name='feedbackShowButton')
+
     @property
     def currentExerciseID(self):
         return self._currentExerciseID    
@@ -124,6 +127,21 @@ class MainWindowModel(QObject):
         return self._description
 
 
+    @property
+    def showButtonFeedback(self):
+        return self._description
+
+    @showButtonFeedback.setter
+    def showButtonFeedback(self, value):
+        self._showButtonFeedback= value
+        self.feedbackShowButton.emit(value)
+        # self.name_change.emit(value)
+
+    @showButtonFeedback.getter
+    def getshowButtonFeedback(self):
+        return self._showButtonFeedback
+
+
     def resetFields(self):
         print('reset data')
         self.resetFieldSingal.emit('')
@@ -140,6 +158,7 @@ class MainWindowModel(QObject):
             self.setPageSignal.emit(9)
 
     def nextPageEx4(self,value):
+        print('Change image step 4 {}',self.stepImage4)
         if self.stepImage4==0:
             print(' next page image ', value)
             self.nextPageSignalEx4.emit("./resources/images/ex4/2.png") 
@@ -157,7 +176,7 @@ class MainWindowModel(QObject):
             self.nextPageSignalEx4.emit("./resources/images/ex4/5.png") 
             self.stepImage4=self.stepImage4+1           
         elif self.stepImage4==4:
-            self.setPageSignal.emit(10)       
+            self.setPageSignal.emit(10)  
 
     def nextPageEx6(self,value):
         if self.stepImage6==0:
@@ -176,6 +195,8 @@ class MainWindowModel(QObject):
         self.stepImage4=0
         self.stepImage6=0
         self._currentExerciseID=0
+        self.feedback=''
+        self._showButtonFeedback=''
 
     def __init__(self):
         super().__init__()

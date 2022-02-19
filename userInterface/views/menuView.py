@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
+from sqlalchemy import false
 from views.ui.menu import Ui_menuWindow
 from views.ui.dialog import Ui_Dialog
 from PyQt5 import  QtWidgets,QtGui
@@ -55,6 +56,10 @@ class MenuView(QMainWindow):
         self._ui.stackedWidget.setCurrentIndex(0)
 
 
+        #Feedback
+        self._ui.terminateButton.hide()
+        self._ui.nextExersice.hide()
+
         ################################################################################################
         # # connect widgets to controller
         # #self._ui.spinBox_amount.valueChanged.connect(self._main_controller.change_amount)
@@ -66,37 +71,38 @@ class MenuView(QMainWindow):
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
 
 
+        #Exersice 1
         self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
-        self._ui.answer1.clicked.connect(lambda: self._main_controller.clickLabel(1))
-        self._ui.answer2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer2.objectName()))
-        self._ui.answer3.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer3.objectName()))
-        self._ui.answer4.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
-        self._ui.answer5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+        self._ui.answer1.clicked.connect(lambda: self._main_controller.storeAnswer(1))
+        self._ui.answer2.clicked.connect(lambda: self._main_controller.storeAnswer(2))
+        self._ui.answer3.clicked.connect(lambda: self._main_controller.storeAnswer(3))
+        self._ui.answer4.clicked.connect(lambda: self._main_controller.storeAnswer(4))
+        self._ui.answer5.clicked.connect(lambda: self._main_controller.storeAnswer(5))
 
-        #Exersice 5
-        self._ui.answer1Ex2.clicked.connect(lambda: self._main_controller.clickLabel(1))
-        self._ui.answer2Ex2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer2.objectName()))
-        self._ui.answer3Ex2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer3.objectName()))
-        self._ui.answer4Ex2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
-        self._ui.answer5Ex2.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+        #Exersice 2
+        self._ui.answer1Ex2.clicked.connect(lambda: self._main_controller.storeAnswer(1))
+        self._ui.answer2Ex2.clicked.connect(lambda: self._main_controller.storeAnswer(2))
+        self._ui.answer3Ex2.clicked.connect(lambda: self._main_controller.storeAnswer(3))
+        self._ui.answer4Ex2.clicked.connect(lambda: self._main_controller.storeAnswer(4))
+        self._ui.answer5Ex2.clicked.connect(lambda: self._main_controller.storeAnswer(5))
 
         #Exercise3
         self._ui.nextPageExercise3.clicked.connect(lambda: self._main_controller.nextPage3(self._ui.answer5.objectName()))
-        self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
-        self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+        self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer4.objectName()))
+        self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer5.objectName()))
 
         #Exercise4
         self._ui.nextPageEx4.clicked.connect(lambda: self._main_controller.nextPage4(self._ui.answer5.objectName()))
-        self._ui.answer1Exersice4.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
-        self._ui.answer2Exersice4.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
-        self._ui.answer3Exersice4.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+        self._ui.answer1Exersice4.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer4.objectName()))
+        self._ui.answer2Exersice4.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer5.objectName()))
+        self._ui.answer3Exersice4.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer5.objectName()))
 
         #Exersice 5
-        self._ui.answer1Ex5.clicked.connect(lambda: self._main_controller.clickLabel(1))
-        self._ui.answer2Ex5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer2.objectName()))
-        self._ui.answer3Ex5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer3.objectName()))
-        self._ui.answer4Ex5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer4.objectName()))
-        self._ui.answer5Ex5.clicked.connect(lambda: self._main_controller.clickLabel(self._ui.answer5.objectName()))
+        self._ui.answer1Ex5.clicked.connect(lambda: self._main_controller.storeAnswer(1))
+        self._ui.answer2Ex5.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer2.objectName()))
+        self._ui.answer3Ex5.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer3.objectName()))
+        self._ui.answer4Ex5.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer4.objectName()))
+        self._ui.answer5Ex5.clicked.connect(lambda: self._main_controller.storeAnswer(self._ui.answer5.objectName()))
 
 
         #Exercise6
@@ -107,6 +113,13 @@ class MenuView(QMainWindow):
 
         #Feedback
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
+        self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home())
+
+        self._ui.feedbackEasyButton.clicked.connect(lambda: self._main_controller.feedback('1'))
+        self._ui.feedbackNormalButton.clicked.connect(lambda: self._main_controller.feedback('2'))
+        self._ui.feedbackHardButton.clicked.connect(lambda: self._main_controller.feedback('3'))
+
+
 
         #################################################################################################
         # # listen for model event signals
@@ -116,6 +129,11 @@ class MenuView(QMainWindow):
         self._model.nextPageSignalEx5.connect(self.setImage)
         self._model.nextPageSignalEx4.connect(self.setImageEx4)
         self._model.nextPageSignalEx6.connect(self.nextPageSignalEx6)
+
+        #Feedback
+        self._model.feedbackShowButton.connect(self.feedbackShowButton)
+        
+
         # self._model.enable_reset_changed.connect(self.on_enable_reset_changed)
 
         # set a default value
@@ -149,16 +167,17 @@ class MenuView(QMainWindow):
     def setImageEx4(self, value):
         self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(value))
 
+    @pyqtSlot(str)
+    def feedbackShowButton(self,value):   
+        if value=='show':
+            self._ui.terminateButton.show()
+            self._ui.nextExersice.show()
+        else:
+            self._ui.terminateButton.hide()
+            self._ui.nextExersice.hide()           
 
-        
     @pyqtSlot(str)
     def nextPageSignalEx6(self, value):
         print("Image 6")
         self._ui.mainImageExercise6.setPixmap(QtGui.QPixmap(value))
-    # @pyqtSlot(str)
-    # def on_even_odd_changed(self, value):
-    #     self._ui.label_even_odd.setText(value)
 
-    # @pyqtSlot(bool)
-    # def on_enable_reset_changed(self, value):
-    #     self._ui.pushButton_reset.setEnabled(value)
