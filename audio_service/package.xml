@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>audioService</name>
+  <name>audio_service</name>
   <version>0.10.2</version>
   <description>
     This package attempts to show the features of ROS python API step-by-step,
@@ -25,6 +25,5 @@
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
   
-
   <test_depend>roscpp_tutorials</test_depend>
 </package>

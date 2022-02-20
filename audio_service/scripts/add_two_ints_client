@@ -33,39 +33,64 @@
 #
 # Revision $Id$
 
-## Simple demo of a rospy service that add two integers
-import speech_recognition as sr
+## Simple demo of a rospy service client that calls a service to add
+## two integers. 
+
+import sys
+import os
 
 
-filename='recording1.wav'
-
-NAME = 'add_two_ints_server'
-
-
-from audioService import *
+from audio_service.srv import *
 import rospy 
 
+## add two numbers using the add_two_ints service
+## @param x int: first number to add
+## @param y int: second number to add
+def add_two_ints_client(x, y):
 
-def add_two_ints(req):
-    print(".....................")
+    # NOTE: you don't have to call rospy.init_node() to make calls against
+    # a service. This is because service clients do not have to be
+    # nodes.
+
+    # block until the add_two_ints service is available
+    # you can optionally specify a timeout
+    rospy.wait_for_service('add_two_ints')
     
-    # initialize the recognizer
-    r = sr.Recognizer()
+    try:
+        # create a handle to the add_two_ints service
+        add_two_ints = rospy.ServiceProxy('add_two_ints', GetAudio)
+        
+        print("Requesting %s+%s"%(x, y))
+        
+        # simplified style
+        resp1 = add_two_ints()
 
-    with sr.Microphone() as source:
-    	audio_data = r.listen(source)
-    	# recognize (convert from speech to text)
-    	text = r.recognize_google(audio_data,language='el')
-    	print(text)
-    
-    return getTextResponse('text')
+        # formal style
+        resp2 = add_two_ints.call(GetAudioRequest())
+        
+        print(" replied {}",resp2)
 
-def add_two_ints_server():
-    rospy.init_node(NAME)
-    s = rospy.Service('add_two_ints', getText, add_two_ints)
+    except rospy.ServiceException as e:
+        print("Service call failed: %s"%e)
 
-    # spin() keeps Python from exiting until node is shutdown
-    rospy.spin()
+def usage():
+    return "%s [x y]"%sys.argv[0]
 
 if __name__ == "__main__":
-    add_two_ints_server()
+    
+    argv = rospy.myargv()
+    if len(argv) == 1:
+        import random
+        x = random.randint(-50000, 50000)
+        y = random.randint(-50000, 50000)
+    elif len(argv) == 3:
+        try:
+            x = int(argv[1])
+            y = int(argv[2])
+        except:
+            print(usage())
+            sys.exit(1)
+    else:
+        print(usage())
+        sys.exit(1)
+    print("%s + %s = %s"%(x, y, add_two_ints_client(x, y)))

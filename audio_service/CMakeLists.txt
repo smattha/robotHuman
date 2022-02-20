@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(audioService)
+project(audio_service)
 
 find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 
@@ -17,13 +17,15 @@ catkin_install_python(PROGRAMS
   scripts/audioService.py
   scripts/speechtotextMicrophone.py
   scripts/add_two_ints_server.py
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/audioService
+ DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 install(FILES
-  audioService/README
-  audioService/talker_listener.launch
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/audioService
+  README
+  #talker_listener.launch
+ DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+
+
 
 
 
