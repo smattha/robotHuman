@@ -46,7 +46,7 @@ import rospy
 ## add two numbers using the add_two_ints service
 ## @param x int: first number to add
 ## @param y int: second number to add
-def add_two_ints_client(x, y):
+def add_two_ints_client():
 
     # NOTE: you don't have to call rospy.init_node() to make calls against
     # a service. This is because service clients do not have to be
@@ -60,7 +60,6 @@ def add_two_ints_client(x, y):
         # create a handle to the add_two_ints service
         add_two_ints = rospy.ServiceProxy('add_two_ints', GetAudio)
         
-        print("Requesting %s+%s"%(x, y))
         
         # simplified style
         resp1 = add_two_ints()
@@ -77,20 +76,5 @@ def usage():
     return "%s [x y]"%sys.argv[0]
 
 if __name__ == "__main__":
-    
-    argv = rospy.myargv()
-    if len(argv) == 1:
-        import random
-        x = random.randint(-50000, 50000)
-        y = random.randint(-50000, 50000)
-    elif len(argv) == 3:
-        try:
-            x = int(argv[1])
-            y = int(argv[2])
-        except:
-            print(usage())
-            sys.exit(1)
-    else:
-        print(usage())
-        sys.exit(1)
-    print("%s + %s = %s"%(x, y, add_two_ints_client(x, y)))
+    add_two_ints_client()
+

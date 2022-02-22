@@ -42,6 +42,9 @@ class ControllerExersice5(object):
         print('continue Dialog')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
+    def stepb(self):
+        print("Exercise 5 part b")
+        self._rosInterface.talker('Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το μικρό σκυλάκι.')
 
 
 

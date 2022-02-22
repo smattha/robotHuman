@@ -45,7 +45,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>10</number>
     </property>
     <widget class="QWidget" name="menuPage">
      <widget class="QTextEdit" name="descriptionTxt">
@@ -1347,7 +1347,6 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_3"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

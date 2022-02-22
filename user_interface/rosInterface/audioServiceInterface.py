@@ -1,6 +1,9 @@
 import rospy
 from std_msgs.msg import String
 
+# from audio_service.srv import *
+import rospy 
+
 class Ros_Audio_Service(object):
     def __init__(self):
         try:
@@ -18,3 +21,29 @@ class Ros_Audio_Service(object):
         self._pub.publish(msg)
         # self._rate.sleep()
 
+    def add_two_ints_client(self):
+
+        # NOTE: you don't have to call rospy.init_node() to make calls against
+        # a service. This is because service clients do not have to be
+        # nodes.
+
+        # block until the add_two_ints service is available
+        # you can optionally specify a timeout
+        rospy.wait_for_service('add_two_ints')
+        
+        try:
+            # create a handle to the add_two_ints service
+            add_two_ints = rospy.ServiceProxy('add_two_ints', GetAudio)
+            
+            
+            
+            # simplified style
+            resp1 = add_two_ints()
+
+            # formal style
+            resp2 = add_two_ints.call(GetAudioRequest())
+            
+            print(" replied {}",resp2)
+
+        except rospy.ServiceException as e:
+            print("Service call failed: %s"%e)

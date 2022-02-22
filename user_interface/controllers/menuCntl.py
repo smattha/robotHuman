@@ -75,6 +75,12 @@ class MenuCntl(QObject):
         self._model.trigger(7)
         # self._model.selectedExercise=value
 
+    @pyqtSlot(int)
+    def storeAnswer5(self,value):
+        self._exercisesController[self._model.currentExerciseID].stepb()
+        self._model.trigger(11)
+        # self._model.selectedExercise=value
+
     @pyqtSlot(str)
     def setPage(self,value):
         print('Set page ',value)

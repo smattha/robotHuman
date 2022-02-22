@@ -16,7 +16,8 @@ def callback(data):
 	# the module that the converted audio should
 	# have a high speed
 	myobj = gTTS(text=data.data, lang=language, slow=False)
-
+	
+	print("Audio saved")
 	# Saving the converted audio in a mp3 file named
 	# welcome
 	myobj.save("audio.mp3")

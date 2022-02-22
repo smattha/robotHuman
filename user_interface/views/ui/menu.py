@@ -517,9 +517,6 @@ class Ui_menuWindow(object):
         self.answer3Exersice4.setGeometry(QtCore.QRect(660, 610, 89, 25))
         self.answer3Exersice4.setObjectName("answer3Exersice4")
         self.stackedWidget.addWidget(self.page)
-        self.page_3 = QtWidgets.QWidget()
-        self.page_3.setObjectName("page_3")
-        self.stackedWidget.addWidget(self.page_3)
         menuWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(menuWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1016, 22))
@@ -533,7 +530,7 @@ class Ui_menuWindow(object):
         menuWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
 
         self.retranslateUi(menuWindow)
-        self.stackedWidget.setCurrentIndex(7)
+        self.stackedWidget.setCurrentIndex(10)
         self.stackedWidget_3.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(menuWindow)
 
