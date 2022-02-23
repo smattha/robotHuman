@@ -45,7 +45,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>10</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="menuPage">
      <widget class="QTextEdit" name="descriptionTxt">
@@ -1358,6 +1358,58 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionExport_Data"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuSetting">
+    <property name="title">
+     <string>Setting</string>
+    </property>
+    <addaction name="actionMedia_Files_Folder"/>
+   </widget>
+   <widget class="QMenu" name="menuWindows">
+    <property name="title">
+     <string>Windows</string>
+    </property>
+    <widget class="QMenu" name="menuMove_to_Activity">
+     <property name="title">
+      <string>Move to Activity</string>
+     </property>
+     <addaction name="actionActivity_1"/>
+     <addaction name="actionActivity_2"/>
+     <addaction name="actionActivity_3"/>
+     <addaction name="actionActivity_4"/>
+     <addaction name="actionActivity_5"/>
+     <addaction name="actionActivity_6"/>
+    </widget>
+    <addaction name="menuMove_to_Activity"/>
+    <addaction name="actionMain_Menu"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAAbout"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuSetting"/>
+   <addaction name="menuWindows"/>
+   <addaction name="menuAbout"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -1371,6 +1423,56 @@
     <bool>false</bool>
    </attribute>
   </widget>
+  <action name="actionAAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionActivity_1">
+   <property name="text">
+    <string>Activity 1</string>
+   </property>
+  </action>
+  <action name="actionActivity_2">
+   <property name="text">
+    <string>Activity 2</string>
+   </property>
+  </action>
+  <action name="actionActivity_3">
+   <property name="text">
+    <string>Activity 3</string>
+   </property>
+  </action>
+  <action name="actionActivity_4">
+   <property name="text">
+    <string>Activity 4</string>
+   </property>
+  </action>
+  <action name="actionActivity_5">
+   <property name="text">
+    <string>Activity 5</string>
+   </property>
+  </action>
+  <action name="actionActivity_6">
+   <property name="text">
+    <string>Activity 6</string>
+   </property>
+  </action>
+  <action name="actionMain_Menu">
+   <property name="text">
+    <string>Main Menu</string>
+   </property>
+  </action>
+  <action name="actionExport_Data">
+   <property name="text">
+    <string>Export Data</string>
+   </property>
+  </action>
+  <action name="actionMedia_Files_Folder">
+   <property name="text">
+    <string>Media Files Folder</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

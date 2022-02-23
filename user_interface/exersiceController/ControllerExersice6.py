@@ -30,7 +30,7 @@ class ControllerExersice6(object):
 
     def readAnswers(self):
         print('Read Answers')
-        self._rosInterface.talker('Α  1 ,Β  2, Γ  3, Δ  4, Ε  5')
+        # self._rosInterface.talker('Α  1 ,Β  2, Γ  3, Δ  4, Ε  5')
 
     def reply(self):
         print('Get Reply')
@@ -44,5 +44,9 @@ class ControllerExersice6(object):
         print('continue Dialog')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
+
+    def stepb(self):
+        print("Exercise 5 part b")
+        self._rosInterface.talker('Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το μικρό σκυλάκι.')
 
 

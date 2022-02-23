@@ -77,7 +77,7 @@ class MenuCntl(QObject):
 
     @pyqtSlot(int)
     def storeAnswer5(self,value):
-        self._exercisesController[self._model.currentExerciseID].stepb()
+        self._exercisesController[5].stepb()
         self._model.trigger(11)
         # self._model.selectedExercise=value
 
