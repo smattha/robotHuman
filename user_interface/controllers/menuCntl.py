@@ -17,7 +17,7 @@ class MenuCntl(QObject):
     @pyqtSlot(int)
     def clearClicked(self):
         self._model.reset()
-        self._model.amount = 'TEST!!!!'
+        self._model.amount =''
         self._model.name=''
         self._model.surname=''
         self._model.age=''
@@ -71,13 +71,13 @@ class MenuCntl(QObject):
 
     @pyqtSlot(int)
     def storeAnswer(self,value):
-        self._exercisesController[self._model.currentExerciseID].feedback()
+        self._exercisesController[self._model.currentExerciseID-1].feedbackStore(self._model.result,value)
         self._model.trigger(7)
         # self._model.selectedExercise=value
 
     @pyqtSlot(int)
     def storeAnswer5(self,value):
-        self._exercisesController[5].stepb()
+        self._exercisesController[4].stepb(self._model.result,value)
         self._model.trigger(11)
         # self._model.selectedExercise=value
 
@@ -141,6 +141,7 @@ class MenuCntl(QObject):
     @pyqtSlot(str)
     def nextPageEx6(self,value):
         print('Change Image 6')
+        self._exercisesController[self._model.currentExerciseID-1].stepA(self._model.result,value)
         self._model.nextPageEx6('2')
 
 

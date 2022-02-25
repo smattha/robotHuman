@@ -1,6 +1,23 @@
 from PyQt5.QtCore import QObject, pyqtSignal
 from sqlalchemy import true
 
+class results():
+    
+    def __init__(self):
+        super().__init__()
+        self.name=''
+        self.age=''
+        self.surname=''
+
+        self.answerEx1=''
+        self.answerEx2=''
+        self.answerEx3=''
+        self.answerEx4=''
+        self.answerEx5a=''
+        self.answerEx5b=''
+        self.answerEx6a=''
+        self.answerEx6b=''
+
 
 class MainWindowModel(QObject):
 
@@ -20,6 +37,23 @@ class MainWindowModel(QObject):
     resourcesImage1="./resources/images/ex1/mainImage.png"
     resourcesImage2="./resources/images/ex2/mainImage.png"
     resourcesImage3="./resources/images/ex3/1.png"
+    
+    exersice3A="./resources/images/ex3/3.png"
+    exersice3B="./resources/images/ex3/4.png"
+    
+    exersice4A="./resources/images/ex4/1.png"
+    exersice4B="./resources/images/ex4/6.png"
+    exersice4C="./resources/images/ex4/7.png"
+    exersice4D="./resources/images/ex4/8.png"
+
+    exersice5A="./resources/images/ex5/image.png"
+
+    exersice6A="./resources/images/ex6/1.png"
+
+    easyFeedbackImg="./resources/images/happy.jpg"
+    normalFeedback="./resources/images/normal.jpg"
+    difficultFeedback="./resources/images/sad.jpg"  
+
 
     #create signal
     changeDscrSingal = pyqtSignal(str, name='valChanged')
@@ -200,6 +234,7 @@ class MainWindowModel(QObject):
 
     def __init__(self):
         super().__init__()
+        self.result=results()
         self.reset()
 
 

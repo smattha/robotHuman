@@ -42,10 +42,17 @@ class ControllerExersice5(object):
         print('continue Dialog')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
-    def stepb(self):
+    def stepb(self,model,value):
         print("Exercise 5 part b")
+        model.answerEx5A=value
         self._rosInterface.talker('Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το μικρό σκυλάκι.')
 
+
+    def feedbackStore(self,model,value):
+        model.answerEx5B=value
+        print('feedback')
+        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+    
 
 
 

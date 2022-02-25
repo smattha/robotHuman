@@ -30,7 +30,8 @@ class ControllerExersice1(object):
 
     def reply(self):
         print('Get Reply')
-    def feedback(self):
+    def feedback(self,model,value):
+        model.results.answerEx1=value
         print('feedback')
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     def continueDialog(self):
@@ -38,6 +39,8 @@ class ControllerExersice1(object):
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
 
-
-
-
+    def feedbackStore(self,model,value):
+        model.answerEx1=value
+        print('feedback')
+        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+   
