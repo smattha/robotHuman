@@ -33,44 +33,86 @@ class MenuView(QMainWindow):
         self.resize(943, 706)
         # #Exercise 1
         # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
-        
+        self.test1=(ScribbleArea(self._model.resourcesImage1))
+        self.test1.setController(main_controller)
+        self._ui.gridLayout_5.addWidget(self.test1, 3, 0, 1, 5)
+
         # #Exercise 2
-        self._ui.mainImageEx2page.setPixmap(QtGui.QPixmap(self._model.resourcesImage2))
+        # self._ui.mainImageEx2page.setPixmap(QtGui.QPixmap())
+
+        self.test2=(ScribbleArea(self._model.resourcesImage2))
+        self.test2.setController(main_controller)
+        self._ui.gridLayout_6.addWidget(self.test2, 1, 0, 1, 1)
        
         #Exercise 3
-        self._ui.mainImageEx3.setPixmap(QtGui.QPixmap(self._model.resourcesImage3))
+        # self._ui.mainImageEx3.setPixmap(QtGui.QPixmap(self._model.resourcesImage3))
+
+        self.test3=(ScribbleArea(self._model.resourcesImage3))
+        self.test3.setController(main_controller)
+        self._ui.verticalLayout_3.addWidget(self.test3, 1)
+        
         self._ui.exercise5Answer1.setPixmap(QtGui.QPixmap(self._model.exersice3A))
         self._ui.exercise5Answer2.setPixmap(QtGui.QPixmap(self._model.exersice3B))
 
         #Exercise 4
-        self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(self._model.exersice4A))
+        # self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(self._model.exersice4A))
+        self.test4=(ScribbleArea(self._model.exersice4A))
+        self.test4.setController(main_controller)
+        self._ui.verticalLayout_11.addWidget(self.test4, 1)
+        
+
         self._ui.exercise4Answer1.setPixmap(QtGui.QPixmap(self._model.exersice4B))
         self._ui.exercise4Answer2.setPixmap(QtGui.QPixmap(self._model.exersice4C))
         self._ui.exercise4Answer3.setPixmap(QtGui.QPixmap(self._model.exersice4D))                        
 
         #Exercise 5
-        self._ui.imageExersice5.setPixmap(QtGui.QPixmap(self._model.exersice5A))
+        # self._ui.imageExersice5.setPixmap(QtGui.QPixmap(self._model.exersice5A))
+
+        self.test5=(ScribbleArea(self._model.exersice5A))
+        self.test5.setController(main_controller)
+        self._ui.verticalLayout_4.addWidget(self.test5, 1)
         # self._ui.page_3(QtWidgets.QWidget(ScribbleArea()))
-        self.test=(ScribbleArea())
+        self.test=(ScribbleArea('/home/smatt/Documents/git/src/resources/images/ex5/image.png'))
         self.test.setController(main_controller)
 
         self._ui.stackedWidget.addWidget(self.test)
 
+    
 
-        self.test1=(ScribbleArea(self._ui.testing))
-        self.test1.setController(main_controller)
 
-        self._ui.testing=self.test1
         
         #Exercise 6
-        self._ui.mainImageExercise6.setPixmap(QtGui.QPixmap(self._model.exersice6A))  
+        # self._ui.mainImageExercise6.setPixmap(QtGui.QPixmap(self._model.exersice6A))  
 
 
 
+        self.test6=(ScribbleArea(self._model.exersice6A))
+        self.test6.setController(main_controller)
+        self._ui.verticalLayout_4.addWidget(self.test5, 1)
+        # self._ui.page_3(QtWidgets.QWidget(ScribbleArea()))
 
-        self._ui.easyFeedback.setPixmap(QtGui.QPixmap( self._model.easyFeedbackImg ))
-        self._ui.normalFeedback.setPixmap(QtGui.QPixmap( self._model.normalFeedback ))
-        self._ui.difficultFeedback.setPixmap(QtGui.QPixmap( self._model.difficultFeedback))
+
+        self._ui.verticalLayout_12.addWidget(self.test6)
+
+
+        # self._ui.easyFeedback.setPixmap(QtGui.QPixmap( self._model.easyFeedbackImg ))
+        # self._ui.normalFeedback.setPixmap(QtGui.QPixmap( self._model.normalFeedback ))
+        # self._ui.difficultFeedback.setPixmap(QtGui.QPixmap( self._model.difficultFeedback))
+
+
+        self.easy=(ScribbleArea(self._model.easyFeedbackImg ))
+        self.easy.setController(main_controller)
+        self._ui.gridLayout_10.addWidget(self.easy, 1, 0, 1, 1)
+
+
+        self.normal=(ScribbleArea(self._model.normalFeedback  ))
+        self.normal.setController(main_controller)
+        self._ui.gridLayout_10.addWidget(self.normal, 1, 1, 1, 1)
+
+        self.difficultFeedback=(ScribbleArea(self._model.difficultFeedback ))
+        self.difficultFeedback.setController(main_controller)
+        self._ui.gridLayout_10.addWidget(self.difficultFeedback, 1, 2, 1, 1)
+
         # self._ui.yesImage.setPixmap(QtGui.QPixmap("./resources/images/check.png"))
         # self._ui.noImage.setPixmap(QtGui.QPixmap("./resources/images/reject.jpg"))
         self._ui.stackedWidget.setCurrentIndex(0)
@@ -181,11 +223,19 @@ class MenuView(QMainWindow):
     def setImage(self, value):
         print('Set Image',value)
         if value=='0' : 
-            self._ui.mainImageEx3.setPixmap(QtGui.QPixmap("./resources/images/ex3/2.png"))
+            # self._ui.mainImageEx3.setPixmap(QtGui.QPixmap("./resources/images/ex3/2.png"))
+            # self.test3=(ScribbleArea(self._model.resourcesImage3))
+            self.test3.openImage("./resources/images/ex3/2.png")
+            self.test3.resize()
+            # self._ui.verticalLayout_3.addWidget(self.test3, 1)
+        
 
     @pyqtSlot(str)
     def setImageEx4(self, value):
-        self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(value))
+        # self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(value))
+            self.test4.openImage(value)
+            self.test4.resize()       
+
 
     @pyqtSlot(str)
     def feedbackShowButton(self,value):   
@@ -199,5 +249,7 @@ class MenuView(QMainWindow):
     @pyqtSlot(str)
     def nextPageSignalEx6(self, value):
         print("Image 6")
-        self._ui.mainImageExercise6.setPixmap(QtGui.QPixmap(value))
+        # self._ui.mainImageExercise6.setPixmap(QtGui.QPixmap(value))
+        self.test6.openImage(value)
+        self.test6.resize()     
 

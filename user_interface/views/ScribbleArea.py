@@ -11,8 +11,8 @@ from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QImage, QImageWriter, QPainter, QPen, qRgb
 
 class ScribbleArea(QWidget):
-    def __init__(self, parent=None):
-        super(ScribbleArea, self).__init__(parent)
+    def __init__(self,imagePath ,parent=None):
+        super(ScribbleArea, self).__init__()
 
         self.setAttribute(Qt.WA_StaticContents)
         self.modified = False
@@ -21,7 +21,8 @@ class ScribbleArea(QWidget):
         self.myPenColor = Qt.red
         self.image = QImage()
         self.lastPoint = QPoint()
-        self.openImage('/home/smatt/Documents/git/src/resources/images/ex5/image.png')
+        self.imagePath=imagePath
+        self.openImage(imagePath)
         self.counter=0
 
     def openImage(self, fileName):
@@ -30,11 +31,25 @@ class ScribbleArea(QWidget):
             return False
 
         newSize = loadedImage.size().expandedTo(self.size())
-        self.resizeImage(loadedImage, newSize)
+        # self.resizeImage(loadedImage, newSize)
         self.image = loadedImage
         self.modified = False
+        self.image.scaled(3000,3000,1)
+        self.imagePath=fileName
         self.update()
         return True
+
+    def openImage2(self, fileName):
+        loadedImage = QImage()
+        newSize = loadedImage.size().expandedTo(self.size())
+        # self.resizeImage(loadedImage, newSize)
+        self.image = loadedImage
+        self.modified = False
+        self.image.scaled(self.curSize,1)
+        self.imagePath=fileName
+        self.update()
+        return True
+
 
     def setController(self,controller):
         self.controller=controller
@@ -80,13 +95,25 @@ class ScribbleArea(QWidget):
         painter.drawImage(dirtyRect, self.image, dirtyRect)
 
     def resizeEvent(self, event):
-        if self.width() > self.image.width() or self.height() > self.image.height():
+            self.openImage(self.imagePath)
+        # if self.width() > self.image.width() or self.height() > self.image.height():
             newWidth = max(self.width() + 128, self.image.width())
             newHeight = max(self.height() + 128, self.image.height())
-            self.resizeImage(self.image, QSize(newWidth, newHeight))
+            self.image.scaled(newWidth,newHeight,1)
+            self.resizeImage(self.image, event.size())
+            self.curSize=event.size()
+            # QSize(newWidth, newHeight))
             self.update()
-
-        super(ScribbleArea, self).resizeEvent(event)
+    def resize(self):
+            self.openImage(self.imagePath)
+        # if self.width() > self.image.width() or self.height() > self.image.height():
+            # newWidth = max(self.width() + 128, self.image.width())
+            # newHeight = max(self.height() + 128, self.image.height())
+            # self.image.scaled(newWidth,newHeight,1)
+            self.resizeImage(self.image, self.size())
+            # QSize(newWidth, newHeight))
+            self.update()
+        # super(ScribbleArea, self).resizeEvent(event)
 
     # def drawLineTo(self, endPoint):
         # painter = QPainter(self.image)
@@ -118,10 +145,19 @@ class ScribbleArea(QWidget):
             return
 
         newImage = QImage(newSize, QImage.Format_RGB32)
-        newImage.fill(qRgb(255, 255, 255))
-        painter = QPainter(newImage)
-        painter.drawImage(QPoint(0, 0), image)
-        self.image = newImage
+        # newImage.fill(qRgb(255, 255, 255))
+        imagen=image.scaled(newSize)
+        painter = QPainter(image)
+        painter.drawImage(QPoint(0, 0), imagen)
+        self.image = image
+
+        # loadedImage = QImage()
+        # loadedImage.load('/home/smatt/Documents/git/src/resources/images/ex5/image.png')
+        
+        # newSize = loadedImage.size().expandedTo(self.size())
+        # self.image = loadedImage
+        
+
 
     def print_(self):
         printer = QPrinter(QPrinter.HighResolution)
