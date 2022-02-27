@@ -47,12 +47,19 @@ class ControllerExersice6(object):
 
     def stepA(self,model,value):
         print("Exercise 5 part b")
-        model.answerEx6A=value
+        valueText=self._rosInterface.getText()
+        model.answerEx6A=valueText
 
 
     def feedbackStore(self,model,value):
-        model.answerEx6B=value
+        valueText=self._rosInterface.getText()
+        model.answerEx6B=valueText
         print('feedback')
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     
+    def printResult(self,model):
+        print("Exersice1 :", model.answerEx6B)
 
+    def printResult(self):
+        print("Exersice 6 A:{},B:{} :", self.model.result.answerEx6A,self.model.result.answerEx6B)
+            

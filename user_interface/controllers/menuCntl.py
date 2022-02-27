@@ -76,6 +76,13 @@ class MenuCntl(QObject):
         # self._model.selectedExercise=value
 
     @pyqtSlot(int)
+    def storePose(self,value):
+        self._exercisesController[self._model.currentExerciseID-1].feedbackStore(self._model.result,value)
+        self._model.trigger(7)
+        # self._model.selectedExercise=value
+
+
+    @pyqtSlot(int)
     def storeAnswer5(self,value):
         self._exercisesController[4].stepb(self._model.result,value)
         self._model.trigger(11)
@@ -96,6 +103,7 @@ class MenuCntl(QObject):
     @pyqtSlot(str)
     def go2Home(self):
        self._model.trigger(0)
+       self.printResults()
 
 
     @pyqtSlot(str)
@@ -156,9 +164,6 @@ class MenuCntl(QObject):
         
     
 
-
-
-
     def change_text(self, value):
         self._model.amount = value
         rospy.loginfo(value)
@@ -166,3 +171,16 @@ class MenuCntl(QObject):
 
         # calculate button enabled state
         self._model.enable_reset = True if value else False
+
+    def printUserData(self):
+        print("Print User data :  Name: {},  Surname: {}, Age : {}", self._model.name,self._model.surname,self._model.age)
+
+
+    def printResults(self):
+        self.printUserData()
+        self._exercisesController[0].printResult()
+        self._exercisesController[1].printResult()
+        self._exercisesController[2].printResult()
+        self._exercisesController[3].printResult()
+        self._exercisesController[4].printResult()
+        self._exercisesController[5].printResult()

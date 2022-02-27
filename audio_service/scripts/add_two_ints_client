@@ -67,7 +67,8 @@ def add_two_ints_client():
         # formal style
         resp2 = add_two_ints.call(GetAudioRequest())
         
-        print(" replied {}",resp2)
+        
+        print(" replied {}",resp2.text)
 
     except rospy.ServiceException as e:
         print("Service call failed: %s"%e)

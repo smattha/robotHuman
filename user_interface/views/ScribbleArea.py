@@ -22,7 +22,7 @@ class ScribbleArea(QWidget):
         self.image = QImage()
         self.lastPoint = QPoint()
         self.imagePath=imagePath
-        self.openImage(imagePath)
+        self.openImage3(imagePath)
         self.counter=0
 
     def openImage(self, fileName):
@@ -32,6 +32,20 @@ class ScribbleArea(QWidget):
 
         newSize = loadedImage.size().expandedTo(self.size())
         # self.resizeImage(loadedImage, newSize)
+        self.image = loadedImage
+        self.modified = False
+        # self.image.scaled(3000,3000,1)
+        self.imagePath=fileName
+        self.update()
+        return True
+
+    def openImage3(self, fileName):
+        loadedImage = QImage()
+        if not loadedImage.load(fileName):
+            return False
+
+        newSize = loadedImage.size().expandedTo(self.size())
+        self.resizeImage(loadedImage, newSize)
         self.image = loadedImage
         self.modified = False
         self.image.scaled(3000,3000,1)
@@ -99,7 +113,7 @@ class ScribbleArea(QWidget):
         # if self.width() > self.image.width() or self.height() > self.image.height():
             newWidth = max(self.width() + 128, self.image.width())
             newHeight = max(self.height() + 128, self.image.height())
-            self.image.scaled(newWidth,newHeight,1)
+            self.image.scaled(self.width(),self.height())
             self.resizeImage(self.image, event.size())
             self.curSize=event.size()
             # QSize(newWidth, newHeight))
@@ -136,16 +150,14 @@ class ScribbleArea(QWidget):
         rad = self.myPenWidth / 2 + 2
         self.update()
         self.lastPoint = QPoint(endPoint)    
-        if self.counter>3:
-            self.controller.storeAnswer(1)
-        else :
-            self.counter=self.counter+1
+        self.controller.storeAnswer(1)
+        self.controller.storePose(endPoint)
+        
     def resizeImage(self, image, newSize):
         if image.size() == newSize:
             return
 
         newImage = QImage(newSize, QImage.Format_RGB32)
-        # newImage.fill(qRgb(255, 255, 255))
         imagen=image.scaled(newSize)
         painter = QPainter(image)
         painter.drawImage(QPoint(0, 0), imagen)

@@ -44,3 +44,5 @@ class ControllerExersice1(object):
         print('feedback')
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
    
+    def printResult(self):
+        print("Exersice1 :", self.model.result.answerEx1)

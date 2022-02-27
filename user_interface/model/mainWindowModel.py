@@ -1,3 +1,4 @@
+from turtle import position
 from PyQt5.QtCore import QObject, pyqtSignal
 from sqlalchemy import true
 
@@ -13,7 +14,7 @@ class results():
         self.answerEx2=''
         self.answerEx3=''
         self.answerEx4=''
-        self.answerEx5a=''
+        self.answerEx5A=''
         self.answerEx5b=''
         self.answerEx6a=''
         self.answerEx6b=''
@@ -33,6 +34,10 @@ class MainWindowModel(QObject):
     "5": "Περιγραφή Δραστηριότητα 5",
     "6": "Περιγραφή Δραστηριότητα 6",
 }
+    poseX=400
+    poseY=100
+    sizeX=1000
+    sizeY=800
     #Constants
     resourcesImage1="./resources/images/ex1/mainImage.png"
     resourcesImage2="./resources/images/ex2/mainImage.png"
@@ -51,14 +56,15 @@ class MainWindowModel(QObject):
     exersice6A="./resources/images/ex6/1.png"
 
     easyFeedbackImg="./resources/images/happy.jpg"
-    normalFeedback="./resources/images/normal.jpg"
-    difficultFeedback="./resources/images/sad.jpg"  
+    normalFeedback="./resources/images/normal.png"
+    difficultFeedback="./resources/images/sad.png"  
 
 
     #create signal
     changeDscrSingal = pyqtSignal(str, name='valChanged')
     resetFieldSingal = pyqtSignal(str, name='resetFieldChanged')
     setPageSignal = pyqtSignal(int, name='setPageChanged')
+
 
     #Exercise 5
     nextPageSignalEx5 = pyqtSignal(str, name='nextPageSignal')
@@ -80,8 +86,6 @@ class MainWindowModel(QObject):
     @currentExerciseID.setter
     def currentExerciseID(self, value):
         self._currentExerciseID = value
-        print("setCurrentExerciseID Setter")
-        # self.name_change.emit(value)
 
     @currentExerciseID.getter
     def getCurrentExerciseID(self):
@@ -107,11 +111,7 @@ class MainWindowModel(QObject):
 
     @selectedExercise.setter
     def selectedExercise(self, value):
-        print(value)
-        # self._name = str(value+1)
-        print("selectedButton Setter",str(value+1))
         self._description=self.exersisesDescription[str(value+1)]
-        print("selectedButton Setter",self._description)
         self.changeDscrSingal.emit(self._description)
 
     @selectedExercise.getter

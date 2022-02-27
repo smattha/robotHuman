@@ -46,4 +46,7 @@ class ControllerExersice2(object):
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
 
+    def printResult(self):
+        print("Exersice2 :", self.model.result.answerEx2)
+
 

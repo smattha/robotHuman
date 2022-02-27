@@ -6,7 +6,6 @@ from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication
 from model.mainWindowModel import MainWindowModel
 from controllers.menuCntl import MenuCntl
-from controllers.ex1Cntrl import Ex1Cntrl
 from views.menuView import MenuView
 from exersiceController.ControllerExersice1 import ControllerExersice1
 from exersiceController.ControllerExersice2 import ControllerExersice2
@@ -32,12 +31,8 @@ class App(QApplication):
         self._controllerEx6= ControllerExersice6(self._rosInterface,self.model)
         self.main_controller = MenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6])
         self.menu_view =MenuView(self.model, self.main_controller)
-        # self.verticalLayoutWidget.setGeometry(QtCore.QRect(60, 40, 811, 531))
         self.menu_view.show()
-        # self.main_view = MenuView(self.model, self.main_controller)
-        # self.ex1_controller = Ex1Cntrl(self.model)
-        # # self.ex1_view = Exercise1View(self.model, self.ex1_controller)
-        # self.ex1_view.show()
+
 
 def handler(signal_received, frame):
     # Handle any cleanup here
@@ -45,7 +40,9 @@ def handler(signal_received, frame):
     exit(0)
 
 if __name__ == '__main__':
-    
-    app = App(sys.argv)
-    print('Application is up and running')
-    app.exec_()
+    try:
+        app = App(sys.argv)
+        app.exec_()
+        print('Application is up and running')
+    except KeyboardInterrupt:
+        exit(0)

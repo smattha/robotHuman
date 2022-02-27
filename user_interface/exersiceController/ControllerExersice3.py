@@ -60,6 +60,7 @@ class ControllerExersice3(object):
         self._rosInterface.talker('Ο Γιωργάκης γυρνάει στο σπίτι για να φάει με λαχτάρα την σοκολάτα. Που θα ψάξει για την σοκολάτα του;')
 
 
-
+    def printResult(self):
+        print("Exersice 3:", self.model.result.answerEx3)
 
 

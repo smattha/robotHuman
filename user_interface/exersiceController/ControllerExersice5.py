@@ -54,5 +54,6 @@ class ControllerExersice5(object):
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     
 
-
+    def printResult(self):
+        print("Exersice 5 A:{},B:{} :", self.model.result.answerEx5A,self.model.result.answerEx5B)
 
