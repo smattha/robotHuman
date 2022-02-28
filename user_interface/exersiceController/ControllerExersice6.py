@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-
+from PyQt5.QtCore import QObject, pyqtSlot
 
 class ControllerExersice6(object):
 
@@ -11,6 +11,12 @@ class ControllerExersice6(object):
         self._rosInterface=ros
         self.mainPage=6
         self.model=model
+
+        self._feedback=''
+    
+    def feedbackAnswer(self,value):
+        print('Feedback {}',value)
+        self._feedback=value
     
 
     def setupUi(self):
@@ -62,4 +68,17 @@ class ControllerExersice6(object):
 
     def printResult(self):
         print("Exersice 6 A:{},B:{} :", self.model.result.answerEx6A,self.model.result.answerEx6B)
-            
+
+
+
+
+    @pyqtSlot(int)
+    def storeAnswer(self,value):
+        self.feedbackStore(self.model.result,value)
+        self.model.trigger(7)
+
+    @pyqtSlot(str)
+    def nextPageEx6(self,value):
+        print('Change Image 6')
+        self.stepA(self.model.result,value)
+        self.model.nextPageEx6('2')

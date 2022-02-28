@@ -15,9 +15,9 @@ class results():
         self.answerEx3=''
         self.answerEx4=''
         self.answerEx5A=''
-        self.answerEx5b=''
-        self.answerEx6a=''
-        self.answerEx6b=''
+        self.answerEx5B=''
+        self.answerEx6A=''
+        self.answerEx6B=''
 
 
 class MainWindowModel(QObject):
@@ -42,6 +42,7 @@ class MainWindowModel(QObject):
     resourcesImage1="./resources/images/ex1/mainImage.png"
     resourcesImage2="./resources/images/ex2/mainImage.png"
     resourcesImage3="./resources/images/ex3/1.png"
+    resourcesImage3B="./resources/images/ex3/2.png"
     
     exersice3A="./resources/images/ex3/3.png"
     exersice3B="./resources/images/ex3/4.png"

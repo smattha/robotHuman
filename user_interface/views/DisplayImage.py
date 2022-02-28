@@ -10,9 +10,9 @@ from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
 from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QImage, QImageWriter, QPainter, QPen, qRgb
 
-class ScribbleArea(QWidget):
+class DisplayImageWidget(QWidget):
     def __init__(self,imagePath ,parent=None):
-        super(ScribbleArea, self).__init__()
+        super(DisplayImageWidget, self).__init__()
 
         self.setAttribute(Qt.WA_StaticContents)
         self.modified = False
@@ -127,7 +127,7 @@ class ScribbleArea(QWidget):
             self.resizeImage(self.image, self.size())
             # QSize(newWidth, newHeight))
             self.update()
-        # super(ScribbleArea, self).resizeEvent(event)
+        # super(DisplayImageWidget, self).resizeEvent(event)
 
     # def drawLineTo(self, endPoint):
         # painter = QPainter(self.image)

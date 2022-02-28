@@ -11,9 +11,7 @@ class MenuCntl(QObject):
         self._exercise3Img=0;
         self._exercise4Img=0;
         
-        # self.pub = rospy.Publisher('chatter', String, queue_size=10)
-        # rospy.init_node('talker', anonymous=True)
-	
+
     @pyqtSlot(int)
     def clearClicked(self):
         self._model.reset()
@@ -70,23 +68,12 @@ class MenuCntl(QObject):
     
 
     @pyqtSlot(int)
-    def storeAnswer(self,value):
-        self._exercisesController[self._model.currentExerciseID-1].feedbackStore(self._model.result,value)
-        self._model.trigger(7)
-        # self._model.selectedExercise=value
-
-    @pyqtSlot(int)
     def storePose(self,value):
         self._exercisesController[self._model.currentExerciseID-1].feedbackStore(self._model.result,value)
         self._model.trigger(7)
         # self._model.selectedExercise=value
 
 
-    @pyqtSlot(int)
-    def storeAnswer5(self,value):
-        self._exercisesController[4].stepb(self._model.result,value)
-        self._model.trigger(11)
-        # self._model.selectedExercise=value
 
     @pyqtSlot(str)
     def setPage(self,value):
@@ -119,48 +106,14 @@ class MenuCntl(QObject):
         self._model.showButtonFeedback='hide'
 
 
-    @pyqtSlot(str)
-    def nextPage3(self,value):
-        print('Change Image step 3 {}',self._exercise3Img)
-        self._model.nextPageEx2('2')
-        if self._exercise3Img==0:
-            self._exercisesController[self._model.currentExerciseID-1].step2()
-        else:   
-            self._exercisesController[self._model.currentExerciseID-1].readAnswers2()
-        self._exercise3Img=self._exercise3Img+1
-
-    @pyqtSlot(str)
-    def nextPage4(self,value):
-        if self._exercise4Img==0:
-            self._exercisesController[self._model.currentExerciseID-1].step2()
-        elif self._exercise4Img==1:
-            self._exercisesController[self._model.currentExerciseID-1].step3()
-        elif self._exercise4Img==2:
-            self._exercisesController[self._model.currentExerciseID-1].step4()
-        elif self._exercise4Img==3:
-            self._exercisesController[self._model.currentExerciseID-1].step5()
-        else:
-            self._exercisesController[self._model.currentExerciseID-1].step6()
-        self._exercise4Img=self._exercise4Img+1;
-        self._model.nextPageEx4('2')
-
-
-
-    @pyqtSlot(str)
-    def nextPageEx6(self,value):
-        print('Change Image 6')
-        self._exercisesController[self._model.currentExerciseID-1].stepA(self._model.result,value)
-        self._model.nextPageEx6('2')
-
 
     @pyqtSlot(str)
     def feedback(self,value):
         print('Feedback {}',value)
         self._model.showButtonFeedback='show'
+        self._exercisesController[self._model.currentExerciseID-1].feedbackAnswer(value)
         self._exercisesController[self._model.currentExerciseID].continueDialog()
 
-
-        # self._model.nextPageEx6('2')
         
     
 
