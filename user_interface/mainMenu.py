@@ -24,7 +24,11 @@ class App(QApplication):
         
         self._rosInterface=Ros_Audio_Service()
         self._controllerEx1= ControllerExersice1(self._rosInterface,self.model)
-        self._controllerEx2= ControllerExersice2(self._rosInterface,self.model)
+        self._controllerEx1.setVariable1()
+
+        self._controllerEx2= ControllerExersice1(self._rosInterface,self.model)
+        self._controllerEx2.setVariable2()
+
         self._controllerEx3= ControllerExersice3(self._rosInterface,self.model)
         self._controllerEx4= ControllerExersice4(self._rosInterface,self.model)
         self._controllerEx5= ControllerExersice5(self._rosInterface,self.model)

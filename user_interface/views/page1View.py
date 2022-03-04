@@ -31,47 +31,34 @@ class page1View(QWidget):
         self.move(model.poseX,model.poseY)
         self.resize(model.sizeY, model.sizeY)
 
+        translate = QtCore.QCoreApplication.translate
+        self._ui.name.setText(translate("Form", self._main_controller.getTitle()))
 
         #####################################################################################
         # #Exercise 1
         #####################################################################################
 
         # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
-        self.displayMainImageExersice1=(DisplayImageWidget(self._model.resourcesImage1))
+        self.displayMainImageExersice1=(DisplayImageWidget(self._main_controller.getImagePath()))
         self.displayMainImageExersice1.setController(main_controller)
         self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
 
 
-        self._ui.gridLayout_4 = QtWidgets.QGridLayout(self)
-        self._ui.gridLayout_4.setObjectName("gridLayout_41")
-        self._ui.gridLayout_4.addLayout(self._ui.gridLayout_5, 0, 0, 1, 1)
+        # self._ui.gridLayout_4 = QtWidgets.QGridLayout(self)
+        # self._ui.gridLayout_4.setObjectName("gridLayout_41")
+        # self._ui.gridLayout_4.addLayout(self._ui.gridLayout_5, 0, 0, 1, 1)
       
         #Exersice 1
         # self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         
         
-        self._ui.answer1.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(1))
-        self._ui.answer2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(2))
-        self._ui.answer3.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(3))
-        self._ui.answer4.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(4))
-        self._ui.answer5.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(5))
+        self._ui.answer1.clicked.connect(lambda: self._main_controller.storeAnswer(1))
+        self._ui.answer2.clicked.connect(lambda: self._main_controller.storeAnswer(2))
+        self._ui.answer3.clicked.connect(lambda: self._main_controller.storeAnswer(3))
+        self._ui.answer4.clicked.connect(lambda: self._main_controller.storeAnswer(4))
+        self._ui.answer5.clicked.connect(lambda: self._main_controller.storeAnswer(5))
 
        
-
-        #################################################################################################
-        # # listen for model event signals
-        self._model.changeDscrSingal.connect(self.changeDscrChanged)
-        self._model.resetFieldSingal.connect(self.resetField)
-        self._model.setPageSignal.connect(self.setPage)
-        self._model.nextPageSignalEx5.connect(self.setImage)
-        self._model.nextPageSignalEx4.connect(self.setImageEx4)
-        self._model.nextPageSignalEx6.connect(self.nextPageSignalEx6)
-
-        #Feedback
-        self._model.feedbackShowButton.connect(self.feedbackShowButton)
-        
-
-
 
     @pyqtSlot(str)
     def changeDscrChanged(self, value):

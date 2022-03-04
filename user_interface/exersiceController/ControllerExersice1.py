@@ -11,6 +11,21 @@ class ControllerExersice1(object):
         self.mainPage=1
         self.model=model
         self._feedback=''
+   
+    
+    def setVariable1(self):
+        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
+        self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._title="Δραστηριότητα 1"
+        self._imagePath="./resources/images/ex1/mainImage.png"
+    
+    def setVariable2(self):
+        self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
+        self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._title="Άσκηση προσοχής"
+        self._imagePath="./resources/images/ex2/mainImage.png"
+        self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
+
 
     def setupUi(self):
         print("main")
@@ -24,11 +39,10 @@ class ControllerExersice1(object):
 
     def readExersice(self):
         print('Read Exercise 1')
-        self._rosInterface.talker('Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;')
-
+        self._rosInterface.talker(self._exersiceDsr)
     def readAnswers(self):
         print('Read Answers 1')
-        self._rosInterface.talker('Α  1 ,Β  2, Γ  3, Δ  4, Ε  5')
+        self._rosInterface.talker(self._answerDscr)
 
     def reply(self):
         print('Get Reply 1')
@@ -37,18 +51,19 @@ class ControllerExersice1(object):
         model.results.answerEx1=value
         print('feedback 1')
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+    
     def continueDialog(self):
         print('continue Dialog 1')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
 
     def feedbackStore(self,model,value):
-        model.answerEx1=value
+        self._answerEx1=value
         print('feedback')
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
    
     def printResult(self):
-        print("Exersice1 :", self.model.result.answerEx1, self._feedback)
+        print("Exersice1 :", self._answerEx1, self._feedback)
 
 
     @pyqtSlot(int)
@@ -59,3 +74,9 @@ class ControllerExersice1(object):
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
         self._feedback=value
+    
+    def getImagePath(self):
+        return self._imagePath
+
+    def getTitle(self):
+        return self._title

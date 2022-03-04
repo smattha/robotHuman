@@ -110,8 +110,15 @@ class MenuView(QMainWindow):
         ###################################################################################################################
         ###############################
         # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
-        # self.test1=page1View(self._model,self._main_controller._exercisesController[4])
-        # self._ui.stackedWidget.addWidget(self.test1._ui.widget)
+    
+        self.page1=page1View(self._model,self._main_controller._exercisesController[0])
+        self._ui.stackedWidget.addWidget(self.page1._ui.widget)
+
+        self.page2=page1View(self._model,self._main_controller._exercisesController[1])
+        self._ui.stackedWidget.addWidget(self.page2._ui.widget)
+
+        self.page3=page2View(self._model,self._main_controller._exercisesController[2])
+        self._ui.stackedWidget.addWidget(self.page3._ui.widget)
 
         # ###############################
         # # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
@@ -259,9 +266,15 @@ class MenuView(QMainWindow):
 
     @pyqtSlot(int)
     def setPage(self, value):
-        print('Empty field ',value)
-        self._ui.stackedWidget.setCurrentIndex(value)
-
+        print('Set page ',value)
+        if value==1:
+            self._ui.stackedWidget.setCurrentIndex(12)
+        elif value==2:
+            self._ui.stackedWidget.setCurrentIndex(13)
+        elif value==3:
+            self._ui.stackedWidget.setCurrentIndex(14)    
+        else:
+            self._ui.stackedWidget.setCurrentIndex(value)
     @pyqtSlot(str)
     def setImage(self, value):
         print('Set Image',value)

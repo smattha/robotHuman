@@ -5,7 +5,7 @@ from PyQt5.QtCore import QObject, pyqtSlot
 
 class ControllerExersice2(object):
     def __init__(self,ros,model):
-        print("Initialize the controller for Excersice 2 ")
+        print("Initialize the controller for Excersice 2 DEPRECATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         self._rosInterface=ros
         self.mainPage=2
         self.model=model
@@ -41,7 +41,7 @@ class ControllerExersice2(object):
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     
     def feedbackStore(self,model,value):
-        model.answerEx2=value
+        self._answer=value
         print('feedback')
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     
@@ -52,10 +52,16 @@ class ControllerExersice2(object):
 
 
     def printResult(self):
-        print("Exersice2 :", self.model.result.answerEx2)
+        print("Exersice2 :", self._answerEx)
 
 
     @pyqtSlot(int)
     def storeAnswer(self,value):
         self.feedbackStore(self.model.result,value)
         self.model.trigger(7)
+
+    def getImagePath(self):
+        return self.model.resourcesImage2
+
+    def getTitle(self):
+        return "Άσκηση προσοχής"
