@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
 from sqlalchemy import false
-from views.ui.page1 import Ui_Form
+from views.ui.page5 import Ui_Form
 from views.ui.dialog import Ui_Dialog
 from PyQt5 import  QtWidgets,QtGui
 from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
@@ -17,7 +17,7 @@ class DialogFeedback(QMainWindow):
         
     
 
-class page1View(QWidget):
+class page5View(QWidget):
     def __init__(self, model, main_controller):
         super().__init__()
 
@@ -32,29 +32,38 @@ class page1View(QWidget):
         self.resize(model.sizeY, model.sizeY)
 
 
+        self.label_4 = QtWidgets.QLabel()
+        self.label_4.setText("")
+        self.label_4.setPixmap(QtGui.QPixmap("./resources/images/ex4/1.png"))
+        self.label_4.setScaledContents(False)
+        self.label_4.setObjectName("label_4")
+        self.label_4.setMaximumSize(QtCore.QSize(120, 120))
+        self.label_4.setScaledContents(True)
+        self._ui.horizontalLayout.addWidget(self.label_4)
+
         #####################################################################################
         # #Exercise 1
         #####################################################################################
 
-        # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
-        self.displayMainImageExersice1=(DisplayImageWidget(self._model.resourcesImage1))
-        self.displayMainImageExersice1.setController(main_controller)
-        self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
+        # # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
+        # self.displayMainImageExersice1=(DisplayImageWidget(self._model.resourcesImage1))
+        # self.displayMainImageExersice1.setController(main_controller)
+        # self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
 
 
-        self._ui.gridLayout_4 = QtWidgets.QGridLayout(self)
-        self._ui.gridLayout_4.setObjectName("gridLayout_41")
-        self._ui.gridLayout_4.addLayout(self._ui.gridLayout_5, 0, 0, 1, 1)
+        # self._ui.gridLayout_4 = QtWidgets.QGridLayout(self)
+        # self._ui.gridLayout_4.setObjectName("gridLayout_41")
+        # self._ui.gridLayout_4.addLayout(self._ui.gridLayout_5, 0, 0, 1, 1)
       
         #Exersice 1
         # self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         
         
-        self._ui.answer1.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(1))
-        self._ui.answer2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(2))
-        self._ui.answer3.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(3))
-        self._ui.answer4.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(4))
-        self._ui.answer5.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(5))
+        # self._ui.answer1.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(1))
+        # self._ui.answer2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(2))
+        # self._ui.answer3.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(3))
+        # self._ui.answer4.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(4))
+        # self._ui.answer5.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(5))
 
        
 

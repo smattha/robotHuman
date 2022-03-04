@@ -10,6 +10,9 @@ from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
 from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QImage, QImageWriter, QPainter, QPen, qRgb
 from views.DisplayImage import DisplayImageWidget
+from views.page1View import page1View
+from views.page2View import page2View
+from views.page5View import page5View
 class DialogFeedback(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -100,7 +103,31 @@ class MenuView(QMainWindow):
         self.test.setController(self._main_controller._exercisesController[4])
         self._ui.stackedWidget.addWidget(self.test)
 
+
+
+
     
+        ###################################################################################################################
+        ###############################
+        # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
+        # self.test1=page1View(self._model,self._main_controller._exercisesController[4])
+        # self._ui.stackedWidget.addWidget(self.test1._ui.widget)
+
+        # ###############################
+        # # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
+        # self.test1=page2View(self._model,self._main_controller._exercisesController[4])
+        # self._ui.stackedWidget.addWidget(self.test1._ui.widget)
+
+
+        ###############################
+        # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
+        self.test1=page5View(self._model,self._main_controller._exercisesController[4])
+        self._ui.stackedWidget.addWidget(self.test1._ui.widget)
+
+
+
+    
+
         # self._ui.exercise5Answer1.setPixmap(QtGui.QPixmap(self._model.exersice3A))
         # self._ui.exercise5Answer2.setPixmap(QtGui.QPixmap(self._model.exersice3B))
 
