@@ -75,36 +75,60 @@ class page2View(QWidget):
         #Feedback
         # self._model.feedbackShowButton.connect(self.feedbackShowButton)
         
+ 
+        for row in self._main_controller._imagesAnswer:
+            
 
-        self.label_4 = QtWidgets.QLabel()
-        self.label_4.setText("")
-        self.label_4.setPixmap(QtGui.QPixmap("./resources/images/ex4/1.png"))
-        self.label_4.setScaledContents(False)
-        self.label_4.setObjectName("label_4")
-        self.label_4.setMaximumSize(QtCore.QSize(120, 120))
-        self.label_4.setScaledContents(True)
-        self._ui.horizontalLayout.addWidget(self.label_4)
-
-
-        self.answer5_2 = QtWidgets.QPushButton()
-        self.answer5_2.setObjectName("answer5_2")
-        self._ui.horizontalLayout_2.addWidget(self.answer5_2)
+            self.label_4 = QtWidgets.QLabel()
+            self.label_4.setText("")
+            self.label_4.setPixmap(QtGui.QPixmap(row[1]))
+            self.label_4.setScaledContents(False)
+            self.label_4.setObjectName(row[1])
+            self.label_4.setMaximumSize(QtCore.QSize(480, 480))
+            self.label_4.setScaledContents(True)
+            self._ui.horizontalLayout.addWidget(self.label_4)
 
 
+            answer5_2 = QtWidgets.QPushButton()
+            answer5_2.setObjectName(row[0])
+            answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(row[0]))
 
-        self.label_5 = QtWidgets.QLabel()
-        self.label_5.setText("")
-        self.label_5.setPixmap(QtGui.QPixmap("./resources/images/ex4/1.png"))
-        self.label_5.setScaledContents(False)
-        self.label_5.setObjectName("label_4")
-        self.label_5.setMaximumSize(QtCore.QSize(120, 120))
-        self.label_5.setScaledContents(True)
-        self._ui.horizontalLayout.addWidget(self.label_5)
+            self._ui.horizontalLayout_2.addWidget(answer5_2)
+
+            xxx=row[0]
+            #self._ui.answer5_2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(row[0]))
 
 
-        self.answer5_3 = QtWidgets.QPushButton()
-        self.answer5_3.setObjectName("answer5_3")
-        self._ui.horizontalLayout_2.addWidget(self.answer5_3)
+
+
+        # self.label_4 = QtWidgets.QLabel()
+        # self.label_4.setText("")
+        # self.label_4.setPixmap(QtGui.QPixmap("./resources/images/ex4/1.png"))
+        # self.label_4.setScaledContents(False)
+        # self.label_4.setObjectName("label_5")
+        # self.label_4.setMaximumSize(QtCore.QSize(120, 120))
+        # self.label_4.setScaledContents(True)
+        # self._ui.horizontalLayout.addWidget(self.label_4)
+
+
+        # self.answer5_2 = QtWidgets.QPushButton()
+        # self.answer5_2.setObjectName("answer5_3")
+        # self._ui.horizontalLayout_2.addWidget(self.answer5_2)
+
+
+        # self.label_5 = QtWidgets.QLabel()
+        # self.label_5.setText("")
+        # self.label_5.setPixmap(QtGui.QPixmap("./resources/images/ex4/1.png"))
+        # self.label_5.setScaledContents(False)
+        # self.label_5.setObjectName("label_4")
+        # self.label_5.setMaximumSize(QtCore.QSize(120, 120))
+        # self.label_5.setScaledContents(True)
+        # self._ui.horizontalLayout.addWidget(self.label_5)
+
+
+        # self.answer5_3 = QtWidgets.QPushButton()
+        # self.answer5_3.setObjectName("answer5_3")
+        # self._ui.horizontalLayout_2.addWidget(self.answer5_3)
 
 
     @pyqtSlot(str)

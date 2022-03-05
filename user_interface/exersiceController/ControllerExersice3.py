@@ -26,10 +26,10 @@ class ControllerExersice3(object):
  
         ]
 
-        self._imagesAnswer=  {
-                    "1": "./resources/images/ex3/3.png",
-                    "2": "./resources/images/ex3/4.png"
-                }
+        self._imagesAnswer=  [
+                    ["button11", "./resources/images/ex3/3.png"],
+                    ["button2", "./resources/images/ex3/4.png"]
+                    ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
 

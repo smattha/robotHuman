@@ -127,11 +127,15 @@ class MenuView(QMainWindow):
 
 
         ###############################
+        # # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
+        # self.test1=page5View(self._model,self._main_controller._exercisesController[4])
+        # self._ui.stackedWidget.addWidget(self.test1._ui.widget)
+
+
+        ###############################
         # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
-        self.test1=page5View(self._model,self._main_controller._exercisesController[4])
-        self._ui.stackedWidget.addWidget(self.test1._ui.widget)
-
-
+        self.test3=page1View(self._model,self._main_controller._exercisesController[4])
+        self._ui.stackedWidget.addWidget(self.test3._ui.widget)
 
     
 
@@ -273,6 +277,8 @@ class MenuView(QMainWindow):
             self._ui.stackedWidget.setCurrentIndex(13)
         elif value==3:
             self._ui.stackedWidget.setCurrentIndex(14)    
+        elif value==5:
+            self._ui.stackedWidget.setCurrentIndex(15)    
         else:
             self._ui.stackedWidget.setCurrentIndex(value)
     @pyqtSlot(str)
