@@ -65,7 +65,7 @@ class MainWindowModel(QObject):
     changeDscrSingal = pyqtSignal(str, name='valChanged')
     resetFieldSingal = pyqtSignal(str, name='resetFieldChanged')
     setPageSignal = pyqtSignal(int, name='setPageChanged')
-
+    nextImgSingal= pyqtSignal(str,name='nextImg')
 
     #Exercise 5
     nextPageSignalEx5 = pyqtSignal(str, name='nextPageSignal')
@@ -105,6 +105,21 @@ class MainWindowModel(QObject):
     @name.getter
     def getName(self):
         return self.__name
+
+
+
+    @property
+    def nextImage(self):
+        return self.nextImage
+
+    @nextImage.setter
+    def nextImage(self, value):
+        self.nextImgSingal.emit(value)
+
+    @nextImage.getter
+    def getNextImage(self):
+        return self.nextImage
+
 
     @property
     def selectedExercise(self):
@@ -232,6 +247,7 @@ class MainWindowModel(QObject):
         self._currentExerciseID=0
         self.feedback=''
         self._showButtonFeedback=''
+        self.nextImage=''
 
     def __init__(self):
         super().__init__()

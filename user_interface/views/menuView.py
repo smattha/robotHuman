@@ -118,7 +118,7 @@ class MenuView(QMainWindow):
         self._ui.stackedWidget.addWidget(self.page2._ui.widget)
 
         self.page3=page2View(self._model,self._main_controller._exercisesController[2])
-        self._ui.stackedWidget.addWidget(self.page3._ui.widget)
+        self._ui.stackedWidget.addWidget(self.page3._ui.stackedWidget)
 
         # ###############################
         # # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))

@@ -50,7 +50,7 @@ class page2View(QWidget):
         # self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         
         
-        # self._ui.answer1.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(1))
+        self._ui.answer5.clicked.connect(lambda: self._main_controller.nextPage3(1))
         # self._ui.answer2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(2))
         # self._ui.answer3.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(3))
         # self._ui.answer4.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(4))
@@ -60,17 +60,51 @@ class page2View(QWidget):
 
         #################################################################################################
         # # listen for model event signals
-        self._model.changeDscrSingal.connect(self.changeDscrChanged)
-        self._model.resetFieldSingal.connect(self.resetField)
-        self._model.setPageSignal.connect(self.setPage)
-        self._model.nextPageSignalEx5.connect(self.setImage)
-        self._model.nextPageSignalEx4.connect(self.setImageEx4)
-        self._model.nextPageSignalEx6.connect(self.nextPageSignalEx6)
+        self._model.nextImgSingal.connect(self.nextImg)
+        self._ui.stackedWidget.setCurrentIndex(0)
+        # self._model.resetFieldSingal.connect(self.resetField)
+        # self._model.setPageSignal.connect(self.setPage)
+        # self._model.nextPageSignalEx5.connect(self.setImage)
+        # self._model.nextPageSignalEx4.connect(self.setImageEx4)
+        # self._model.nextPageSignalEx6.connect(self.nextPageSignalEx6)
 
+
+        # self.answer5 = QtWidgets.QPushButton(self.widget)
+        # self.answer5.setObjectName("answer5")
+        # self.gridLayout_5.addWidget(self.answer5, 5, 1, 1, 1)
         #Feedback
-        self._model.feedbackShowButton.connect(self.feedbackShowButton)
+        # self._model.feedbackShowButton.connect(self.feedbackShowButton)
         
 
+        self.label_4 = QtWidgets.QLabel()
+        self.label_4.setText("")
+        self.label_4.setPixmap(QtGui.QPixmap("./resources/images/ex4/1.png"))
+        self.label_4.setScaledContents(False)
+        self.label_4.setObjectName("label_4")
+        self.label_4.setMaximumSize(QtCore.QSize(120, 120))
+        self.label_4.setScaledContents(True)
+        self._ui.horizontalLayout.addWidget(self.label_4)
+
+
+        self.answer5_2 = QtWidgets.QPushButton()
+        self.answer5_2.setObjectName("answer5_2")
+        self._ui.horizontalLayout_2.addWidget(self.answer5_2)
+
+
+
+        self.label_5 = QtWidgets.QLabel()
+        self.label_5.setText("")
+        self.label_5.setPixmap(QtGui.QPixmap("./resources/images/ex4/1.png"))
+        self.label_5.setScaledContents(False)
+        self.label_5.setObjectName("label_4")
+        self.label_5.setMaximumSize(QtCore.QSize(120, 120))
+        self.label_5.setScaledContents(True)
+        self._ui.horizontalLayout.addWidget(self.label_5)
+
+
+        self.answer5_3 = QtWidgets.QPushButton()
+        self.answer5_3.setObjectName("answer5_3")
+        self._ui.horizontalLayout_2.addWidget(self.answer5_3)
 
 
     @pyqtSlot(str)
@@ -80,11 +114,13 @@ class page2View(QWidget):
 
 
     @pyqtSlot(str)
-    def resetField(self, value):
-        print('Empty field ',value)
-        self._ui.name.setText('')
-        self._ui.ageTextBox.setText('')
-        self._ui.surname.setText('')
+    def nextImg(self, value):
+        if value=='0':
+            self._ui.stackedWidget.setCurrentIndex(1)           
+        else:
+            self.displayMainImageExersice1=(DisplayImageWidget(value))
+            self.displayMainImageExersice1.setController(self._main_controller)
+            self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
 
     @pyqtSlot(int)
     def setPage(self, value):

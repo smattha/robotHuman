@@ -30,6 +30,8 @@ class App(QApplication):
         self._controllerEx2.setVariable2()
 
         self._controllerEx3= ControllerExersice3(self._rosInterface,self.model)
+        self._controllerEx3.setVariables3()
+
         self._controllerEx4= ControllerExersice4(self._rosInterface,self.model)
         self._controllerEx5= ControllerExersice5(self._rosInterface,self.model)
         self._controllerEx6= ControllerExersice6(self._rosInterface,self.model)
