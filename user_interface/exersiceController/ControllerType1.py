@@ -4,27 +4,29 @@ import sys
 
 from PyQt5.QtCore import QObject, pyqtSlot
 
-class ControllerExersice51(object):
+class ControllerType1(object):
     def __init__(self,ros,model):
         print("Initialize the controller for Excersice 1 ")
         self._rosInterface=ros
-        self.mainPage=5
+        self.mainPage=1
         self.model=model
         self._feedback=''
    
     
     def setVariable1(self):
-        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
+        # self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
+        self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
         self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
-        self._title="Δραστηριότητα 10000000000000000"
+        self._title="Δραστηριότητα 1"
         self._imagePath="./resources/images/ex1/mainImage.png"
     
     def setVariable2(self):
-        self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
+        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
+        # self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
         self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Άσκηση προσοχής"
         self._imagePath="./resources/images/ex2/mainImage.png"
-        self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
+        #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
 
 
     def setupUi(self):
@@ -59,7 +61,7 @@ class ControllerExersice51(object):
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
-        print('feedback--------------------------------------------------')
+        print('feedback')
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
    
     def printResult(self):
@@ -69,7 +71,7 @@ class ControllerExersice51(object):
     @pyqtSlot(int)
     def storeAnswer(self,value):
         self.feedbackStore(self.model.result,value)
-        self.model.trigger(11)
+        self.model.trigger(7)
 
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
@@ -80,9 +82,3 @@ class ControllerExersice51(object):
 
     def getTitle(self):
         return self._title
-
-    @pyqtSlot(int)
-    def storePose(self,value):
-        self.feedbackStore(self.model.result,value)
-        self.model.trigger(7)
-        # self._model.selectedExercise=value

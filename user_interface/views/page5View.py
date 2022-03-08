@@ -3,17 +3,13 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
 from sqlalchemy import false
 from views.ui.page5 import Ui_Form
-from views.ui.dialog import Ui_Dialog
 from PyQt5 import  QtWidgets,QtGui
-from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
-        QInputDialog, QMainWindow, QMenu, QMessageBox, QWidget)
+from PyQt5.QtWidgets import ( QMainWindow, QWidget)
 from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
-from views.DisplayImage import DisplayImageWidget
+
 class DialogFeedback(QMainWindow):
     def __init__(self):
         super().__init__()
-        self._dialog = Ui_Dialog()
-        self._dialog.setupUi(self)
         
     
 

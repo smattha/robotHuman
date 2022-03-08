@@ -3,7 +3,6 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
 from sqlalchemy import false
 from views.ui.page2 import Ui_Form
-from views.ui.dialog import Ui_Dialog
 from PyQt5 import  QtWidgets,QtGui
 from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
         QInputDialog, QMainWindow, QMenu, QMessageBox, QWidget)
@@ -25,7 +24,6 @@ class page2View(QWidget):
         self._main_controller = main_controller
         self._ui = Ui_Form()
         self._ui.setupUi(self)
-        DialogFeedback()
 
         #self._dialog.hide()
         self.move(model.poseX,model.poseY)
@@ -53,7 +51,7 @@ class page2View(QWidget):
 
         self.answer51 = QtWidgets.QPushButton()
         self.answer51.setObjectName(self._main_controller.title)
-        self.answer51.clicked.connect(lambda: self._main_controller.nextPage3(1))
+        self.answer51.clicked.connect(lambda: self._main_controller.nextPage3(self._main_controller))
 
         self._ui.gridLayout_5.addWidget(self.answer51, 4, 1, 1, 1)
 
@@ -96,7 +94,7 @@ class page2View(QWidget):
 
             answer5_2 = QtWidgets.QPushButton()
             answer5_2.setObjectName(row[0])
-            answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(row[2]))
+            answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(self._main_controller))
             answer5_2.setText(row[0])
 
             self._ui.horizontalLayout_2.addWidget(answer5_2)

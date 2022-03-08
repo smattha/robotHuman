@@ -63,7 +63,7 @@ class Ui_Form(object):
         self.Results.setText(_translate("Form", "Απαντήσεις"))
         self.answer2.setText(_translate("Form", "B"))
         self.answer4.setText(_translate("Form", "Δ"))
-        self.name.setText(_translate("Form", "Δραστηριότητα 1_newVersion"))
+        self.name.setText(_translate("Form", "Δραστηριότητα"))
         self.answer5.setText(_translate("Form", "Ε"))
         self.answer1.setText(_translate("Form", "A"))
         self.answer3.setText(_translate("Form", "Γ"))

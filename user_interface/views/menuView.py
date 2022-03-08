@@ -3,7 +3,6 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
 from sqlalchemy import false
 from views.ui.menu import Ui_menuWindow
-from views.ui.dialog import Ui_Dialog
 from PyQt5 import  QtWidgets,QtGui
 from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
         QInputDialog, QMainWindow, QMenu, QMessageBox, QWidget)
@@ -16,8 +15,6 @@ from views.page5View import page5View
 class DialogFeedback(QMainWindow):
     def __init__(self):
         super().__init__()
-        self._dialog = Ui_Dialog()
-        self._dialog.setupUi(self)
         
     
 
@@ -41,52 +38,37 @@ class MenuView(QMainWindow):
         #####################################################################################
 
         # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
-        self.displayMainImageExersice1=(DisplayImageWidget(self._model.resourcesImage1))
-        self.displayMainImageExersice1.setController(main_controller)
-        self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
+        # self.displayMainImageExersice1=(DisplayImageWidget(self._model.resourcesImage1))
+        # self.displayMainImageExersice1.setController(main_controller)
+        # self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
 
 
-        #####################################################################################
-        # #Exercise 2
-        #####################################################################################
-        # self._ui.mainImageEx2page.setPixmap(QtGui.QPixmap())
 
-        self.test2=(DisplayImageWidget(self._model.resourcesImage2))
-        self.test2.setController(main_controller)
-        self._ui.gridLayout_6.addWidget(self.test2, 1, 0, 1, 1)
        
 
-        #####################################################################################
-        #Exercise 3
-        #####################################################################################
-        # self._ui.mainImageEx3.setPixmap(QtGui.QPixmap(self._model.resourcesImage3))
-
-        self.test3=(DisplayImageWidget(self._model.resourcesImage3))
-        self.test3.setController(main_controller)
-        self._ui.verticalLayout_3.addWidget(self.test3, 1)
         
 
         #####################################################################################
         #Exercise 4
         #####################################################################################
         # self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(self._model.exersice4A))
-        self.test4=(DisplayImageWidget(self._model.exersice4A))
-        self.test4.setController(main_controller)
-        self._ui.verticalLayout_11.addWidget(self.test4, 1)
+        # self.test4=(DisplayImageWidget(self._model.exersice4A))
+        # self.test4.setController(main_controller)
+        # self._ui.verticalLayout_11.addWidget(self.test4, 1)
         
-        self.exersice3B=(DisplayImageWidget(self._model.exersice3B))
-        self.exersice3B.setController(main_controller)
-        self._ui.gridLayout_14.addWidget(self.exersice3B, 0, 1, 1, 1)
+        # self.exersice3B=(DisplayImageWidget(self._model.exersice3B))
+        # self.exersice3B.setController(main_controller)
+        # self._ui.gridLayout_14.addWidget(self.exersice3B, 0, 1, 1, 1)
 
-        self.exersice3A=(DisplayImageWidget(self._model.exersice3A))
-        self.exersice3A.setController(main_controller)
-        self._ui.gridLayout_14.addWidget(self.exersice3A, 0, 0, 1, 1)
+        # self.exersice3A=(DisplayImageWidget(self._model.exersice3A))
+        # self.exersice3A.setController(main_controller)
+        # self._ui.gridLayout_14.addWidget(self.exersice3A, 0, 0, 1, 1)
 
 
 
-        self._ui.exercise4Answer1.setPixmap(QtGui.QPixmap(self._model.exersice4B))
-        self._ui.exercise4Answer2.setPixmap(QtGui.QPixmap(self._model.exersice4C))
-        self._ui.exercise4Answer3.setPixmap(QtGui.QPixmap(self._model.exersice4D))                        
+        # self._ui.exercise4Answer1.setPixmap(QtGui.QPixmap(self._model.exersice4B))
+        # self._ui.exercise4Answer2.setPixmap(QtGui.QPixmap(self._model.exersice4C))
+        # self._ui.exercise4Answer3.setPixmap(QtGui.QPixmap(self._model.exersice4D))                        
 
 
         #####################################################################################
@@ -94,14 +76,14 @@ class MenuView(QMainWindow):
         #####################################################################################
         # self._ui.imageExersice5.setPixmap(QtGui.QPixmap(self._model.exersice5A))
 
-        self.test5=(DisplayImageWidget(self._model.exersice5A))
-        self.test5.setController(main_controller)
-        self._ui.verticalLayout_4.addWidget(self.test5, 1)
+        # self.test5=(DisplayImageWidget(self._model.exersice5A))
+        # self.test5.setController(main_controller)
+        # self._ui.verticalLayout_4.addWidget(self.test5, 1)
 
-        # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
-        self.test=(DisplayImageWidget('/home/smatt/Documents/git/src/resources/images/ex5/image.png'))
-        self.test.setController(self._main_controller._exercisesController[4])
-        self._ui.stackedWidget.addWidget(self.test)
+        # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
+        # self.test=(DisplayImageWidget('/home/smatt/Documents/git/src/resources/images/ex5/image.png'))
+        # self.test.setController(self._main_controller._exercisesController[4])
+        # self._ui.stackedWidget.addWidget(self.test)
 
 
 
@@ -158,10 +140,10 @@ class MenuView(QMainWindow):
         # self._ui.mainImageExercise6.setPixmap(QtGui.QPixmap(self._model.exersice6A))  
         ####################################################################################
 
-        self.test6=(DisplayImageWidget(self._model.exersice6A))
-        self.test6.setController(main_controller)
-        # self._ui.gridLayout_13.addWidget(self.test6, 1, 1, 1, 4)
-        self._ui.verticalLayout_12.addWidget(self.test6)
+        # self.test6=(DisplayImageWidget(self._model.exersice6A))
+        # self.test6.setController(main_controller)
+        # # self._ui.gridLayout_13.addWidget(self.test6, 1, 1, 1, 4)
+        # self._ui.verticalLayout_12.addWidget(self.test6)
 
 
         self.easy=(DisplayImageWidget(self._model.easyFeedbackImg ))
@@ -200,40 +182,40 @@ class MenuView(QMainWindow):
         self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         
         
-        self._ui.answer1.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(1))
-        self._ui.answer2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(2))
-        self._ui.answer3.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(3))
-        self._ui.answer4.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(4))
-        self._ui.answer5.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(5))
+        # self._ui.answer1.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(1))
+        # self._ui.answer2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(2))
+        # self._ui.answer3.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(3))
+        # self._ui.answer4.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(4))
+        # self._ui.answer5.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(5))
 
-        #Exersice 2
-        self._ui.answer1Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(1))
-        self._ui.answer2Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(2))
-        self._ui.answer3Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(3))
-        self._ui.answer4Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(4))
-        self._ui.answer5Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(5))
+        # #Exersice 2
+        # self._ui.answer1Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(1))
+        # self._ui.answer2Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(2))
+        # self._ui.answer3Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(3))
+        # self._ui.answer4Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(4))
+        # self._ui.answer5Ex2.clicked.connect(lambda: self._main_controller._exercisesController[1].storeAnswer(5))
 
-        #Exercise3
-        self._ui.nextPageExercise3.clicked.connect(lambda: self._main_controller._exercisesController[2].nextPage3(self._ui.answer5.objectName()))
-        self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller._exercisesController[2].storeAnswer(self._ui.answer4.objectName()))
-        self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller._exercisesController[2].storeAnswer(self._ui.answer5.objectName()))
+        # #Exercise3
+        # self._ui.nextPageExercise3.clicked.connect(lambda: self._main_controller._exercisesController[2].nextPage3(self._ui.answer5.objectName()))
+        # self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller._exercisesController[2].storeAnswer(self._ui.answer4.objectName()))
+        # self._ui.answer1Ex3.clicked.connect(lambda: self._main_controller._exercisesController[2].storeAnswer(self._ui.answer5.objectName()))
 
-        #Exercise4
-        self._ui.nextPageEx4.clicked.connect(lambda: self._main_controller._exercisesController[3].nextPage4(self._ui.answer5.objectName()))
-        self._ui.answer1Exersice4.clicked.connect(lambda: self._main_controller._exercisesController[3].storeAnswer(self._ui.answer4.objectName()))
-        self._ui.answer2Exersice4.clicked.connect(lambda: self._main_controller._exercisesController[3].storeAnswer(self._ui.answer5.objectName()))
-        self._ui.answer3Exersice4.clicked.connect(lambda: self._main_controller._exercisesController[3].storeAnswer(self._ui.answer5.objectName()))
+        # #Exercise4
+        # self._ui.nextPageEx4.clicked.connect(lambda: self._main_controller._exercisesController[3].nextPage4(self._ui.answer5.objectName()))
+        # self._ui.answer1Exersice4.clicked.connect(lambda: self._main_controller._exercisesController[3].storeAnswer(self._ui.answer4.objectName()))
+        # self._ui.answer2Exersice4.clicked.connect(lambda: self._main_controller._exercisesController[3].storeAnswer(self._ui.answer5.objectName()))
+        # self._ui.answer3Exersice4.clicked.connect(lambda: self._main_controller._exercisesController[3].storeAnswer(self._ui.answer5.objectName()))
 
-        #Exersice 5
-        self._ui.answer1Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(1))
-        self._ui.answer2Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(2))
-        self._ui.answer3Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(3))
-        self._ui.answer4Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(4))
-        self._ui.answer5Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(5))
+        # #Exersice 5
+        # self._ui.answer1Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(1))
+        # self._ui.answer2Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(2))
+        # self._ui.answer3Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(3))
+        # self._ui.answer4Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(4))
+        # self._ui.answer5Ex5.clicked.connect(lambda: self._main_controller._exercisesController[4].storeAnswer5(5))
 
 
-        #Exercise6
-        self._ui.nextPageEx6.clicked.connect(lambda: self._main_controller._exercisesController[5].nextPageEx6(self._ui.answer5.objectName()))
+        # #Exercise6
+        # self._ui.nextPageEx6.clicked.connect(lambda: self._main_controller._exercisesController[5].nextPageEx6(self._ui.answer5.objectName()))
 
         self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home())
 
@@ -280,17 +262,17 @@ class MenuView(QMainWindow):
     def setPage(self, value):
         print('Set page ',value)
         if value==1:
-            self._ui.stackedWidget.setCurrentIndex(12)
+            self._ui.stackedWidget.setCurrentIndex(11)
         elif value==2:
-            self._ui.stackedWidget.setCurrentIndex(13)
+            self._ui.stackedWidget.setCurrentIndex(12)
         elif value==3:
-            self._ui.stackedWidget.setCurrentIndex(14)    
+            self._ui.stackedWidget.setCurrentIndex(13)    
         elif value==4:
-            self._ui.stackedWidget.setCurrentIndex(15)    
+            self._ui.stackedWidget.setCurrentIndex(14)    
         elif value==5:
-            self._ui.stackedWidget.setCurrentIndex(16)    
+            self._ui.stackedWidget.setCurrentIndex(15)    
         elif value==6:
-            self._ui.stackedWidget.setCurrentIndex(17)    
+            self._ui.stackedWidget.setCurrentIndex(16)    
         else:
             self._ui.stackedWidget.setCurrentIndex(value)
     @pyqtSlot(str)

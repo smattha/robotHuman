@@ -5,7 +5,7 @@ from typing import Counter
 from PyQt5.QtCore import QObject, pyqtSlot
 
 
-class ControllerExersice61(object):
+class ControllerType21(object):
     def __init__(self,ros,model):
         print("Initialize the controller for Excersice 3 ")
         self._rosInterface=ros
@@ -18,11 +18,12 @@ class ControllerExersice61(object):
         print('Feedback {}',value)
         self._feedback=value
 
-    def setVariable6(self):
+    def setVariables3(self):
         
-        self._imagesStory=  [                 
-                    ["Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο", "./resources/images/ex2/mainImage.png",'2'],
-                    ["Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω", "./resources/images/ex3/1.png",'1']
+        self._imagesStory=  [
+                    ["Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω", "./resources/images/ex3/1.png",'1'],
+                    ["Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο", "./resources/images/ex3/2.png",'2']
+ 
         ]
 
         self._imagesAnswer=  [
@@ -31,7 +32,7 @@ class ControllerExersice61(object):
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
-        self.title= 'Titlos611111'
+        self.title= 'Titlos'
 
 
     def setVariables4(self):
@@ -51,7 +52,7 @@ class ControllerExersice61(object):
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
-        self.title= 'Titlos2111111111'
+        self.title= 'Titlos2'
 
 
 
@@ -114,16 +115,16 @@ class ControllerExersice61(object):
     @pyqtSlot(int)
     def storeAnswer(self,value):
         self.feedbackStore(self.model.result,value)
-        self._counter=0
         self.model.trigger(7)
 
     @pyqtSlot(str)
     def nextPage3(self,value):
-        print('Change Image step 6666 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx{}',self._counter)
+        print('Change Image step 3 --------------------------------{}',self._counter)
         # self.model.nextPageEx2('2')
         if (len(self._imagesStory)>self._counter):
             self._rosInterface.talker(self._imagesStory[self._counter][0])
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
         else: 
-            self.model.trigger(7)
+            self.readAnswers2()
+            self.model.nextImage='0'

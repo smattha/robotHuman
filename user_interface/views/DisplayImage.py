@@ -3,7 +3,6 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
 from sqlalchemy import false
 from views.ui.menu import Ui_menuWindow
-from views.ui.dialog import Ui_Dialog
 from PyQt5 import  QtWidgets,QtGui
 from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
         QInputDialog, QMainWindow, QMenu, QMessageBox, QWidget)

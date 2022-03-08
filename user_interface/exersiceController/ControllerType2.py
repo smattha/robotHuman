@@ -5,7 +5,7 @@ from typing import Counter
 from PyQt5.QtCore import QObject, pyqtSlot
 
 
-class ControllerExersice3(object):
+class ControllerType2(object):
     def __init__(self,ros,model):
         print("Initialize the controller for Excersice 3 ")
         self._rosInterface=ros
@@ -32,7 +32,7 @@ class ControllerExersice3(object):
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
-        self.title= 'Titlos'
+        self.title= '3'
 
 
     def setVariables4(self):
@@ -51,8 +51,8 @@ class ControllerExersice3(object):
                     ["Γ", "./resources/images/ex4/8.png",'3']
                     ]
         self._counter=0
-        self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
-        self.title= 'Titlos2'
+        self._exerciseDscr=' Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
+        self.title= '4'
 
 
 

@@ -7,12 +7,10 @@ from PyQt5.QtWidgets import QApplication
 from model.mainWindowModel import MainWindowModel
 from controllers.menuCntl import MenuCntl
 from views.menuView import MenuView
-from exersiceController.ControllerExersice1 import ControllerExersice1
-from exersiceController.ControllerExersice2 import ControllerExersice2
-from exersiceController.ControllerExersice3 import ControllerExersice3
-from exersiceController.ControllerExersice4 import ControllerExersice4
-from exersiceController.ControllerExersice51 import ControllerExersice51
-from exersiceController.ControllerExersice61 import ControllerExersice61
+from exersiceController.ControllerType1 import ControllerType1
+from exersiceController.ControllerType2 import ControllerType2
+from exersiceController.ControllerExersice5 import ControllerExersice5
+from exersiceController.ControllerExersice6 import ControllerExersice6
 from rosInterface.audioServiceInterface import Ros_Audio_Service
 from signal import signal, SIGINT
 from sys import exit
@@ -23,22 +21,22 @@ class App(QApplication):
         self.model= MainWindowModel()
         
         self._rosInterface=Ros_Audio_Service()
-        self._controllerEx1= ControllerExersice1(self._rosInterface,self.model)
+        self._controllerEx1= ControllerType1(self._rosInterface,self.model)
         self._controllerEx1.setVariable1()
 
-        self._controllerEx2= ControllerExersice1(self._rosInterface,self.model)
+        self._controllerEx2= ControllerType1(self._rosInterface,self.model)
         self._controllerEx2.setVariable2()
 
-        self._controllerEx3= ControllerExersice3(self._rosInterface,self.model)
+        self._controllerEx3= ControllerType2(self._rosInterface,self.model)
         self._controllerEx3.setVariables3()
 
-        self._controllerEx4= ControllerExersice3(self._rosInterface,self.model)
+        self._controllerEx4= ControllerType2(self._rosInterface,self.model)
         self._controllerEx4.setVariables4()
 
-        self._controllerEx5= ControllerExersice51(self._rosInterface,self.model)
+        self._controllerEx5= ControllerExersice5(self._rosInterface,self.model)
         self._controllerEx5.setVariable1()
 
-        self._controllerEx6= ControllerExersice61(self._rosInterface,self.model)
+        self._controllerEx6= ControllerExersice6(self._rosInterface,self.model)
         self._controllerEx6.setVariable6()
 
         self.main_controller = MenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6])
