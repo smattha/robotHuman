@@ -5,7 +5,7 @@ from typing import Counter
 from PyQt5.QtCore import QObject, pyqtSlot
 
 
-class ControllerExersice3(object):
+class ControllerExersice31(object):
     def __init__(self,ros,model):
         print("Initialize the controller for Excersice 3 ")
         self._rosInterface=ros
@@ -115,7 +115,6 @@ class ControllerExersice3(object):
     @pyqtSlot(int)
     def storeAnswer(self,value):
         self.feedbackStore(self.model.result,value)
-        self._counter=0
         self.model.trigger(7)
 
     @pyqtSlot(str)

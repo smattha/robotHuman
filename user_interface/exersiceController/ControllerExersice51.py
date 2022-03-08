@@ -80,3 +80,9 @@ class ControllerExersice51(object):
 
     def getTitle(self):
         return self._title
+
+    @pyqtSlot(int)
+    def storePose(self,value):
+        self.feedbackStore(self.model.result,value)
+        self.model.trigger(7)
+        # self._model.selectedExercise=value

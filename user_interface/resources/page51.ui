@@ -30,7 +30,7 @@
       <item row="5" column="1">
        <widget class="QPushButton" name="answer5">
         <property name="text">
-         <string>Ε</string>
+         <string>Επόμενο</string>
         </property>
        </widget>
       </item>
@@ -66,7 +66,7 @@
                 <string/>
                </property>
                <property name="pixmap">
-                <pixmap>images/ex4/6.png</pixmap>
+                <pixmap>../../../../../.designer/backup/images/ex4/6.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -91,7 +91,7 @@
                 <string/>
                </property>
                <property name="pixmap">
-                <pixmap>images/ex4/1.png</pixmap>
+                <pixmap>../../../../../.designer/backup/images/ex4/1.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>

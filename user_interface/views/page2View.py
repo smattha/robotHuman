@@ -37,11 +37,11 @@ class page2View(QWidget):
         #####################################################################################
 
         # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
-        self.displayMainImageExersice1=(DisplayImageWidget(self._model.resourcesImage1))
-        self.displayMainImageExersice1.setController(main_controller)
-        self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
 
 
+
+        self._ui.label_3.setText(self._main_controller.title)
+        self._ui.label_7.setText(self._main_controller.title)
         # self._ui.gridLayout_4 = QtWidgets.QGridLayout(self)
         # self._ui.gridLayout_4.setObjectName("gridLayout_41")
         # self._ui.gridLayout_4.addLayout(self._ui.gridLayout_5, 0, 0, 1, 1)
@@ -49,14 +49,19 @@ class page2View(QWidget):
         #Exersice 1
         # self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         
-        
-        self._ui.answer5.clicked.connect(lambda: self._main_controller.nextPage3(1))
+        # self._ui.answer5.setObjectName(self._main_controller.title)
+
+        self.answer51 = QtWidgets.QPushButton()
+        self.answer51.setObjectName(self._main_controller.title)
+        self.answer51.clicked.connect(lambda: self._main_controller.nextPage3(1))
+
+        self._ui.gridLayout_5.addWidget(self.answer51, 4, 1, 1, 1)
+
         # self._ui.answer2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(2))
         # self._ui.answer3.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(3))
         # self._ui.answer4.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(4))
         # self._ui.answer5.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(5))
 
-       
 
         #################################################################################################
         # # listen for model event signals
@@ -91,12 +96,11 @@ class page2View(QWidget):
 
             answer5_2 = QtWidgets.QPushButton()
             answer5_2.setObjectName(row[0])
-            answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(row[0]))
+            answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(row[2]))
+            answer5_2.setText(row[0])
 
             self._ui.horizontalLayout_2.addWidget(answer5_2)
 
-            xxx=row[0]
-            #self._ui.answer5_2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(row[0]))
 
 
 
@@ -142,9 +146,10 @@ class page2View(QWidget):
         if value=='0':
             self._ui.stackedWidget.setCurrentIndex(1)           
         else:
-            self.displayMainImageExersice1=(DisplayImageWidget(value))
-            self.displayMainImageExersice1.setController(self._main_controller)
-            self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
+            self._ui.stackedWidget.setCurrentIndex(0)    
+            self._ui.label.setPixmap(QtGui.QPixmap(value))
+            self._ui.label.setMaximumSize(QtCore.QSize(640, 640))
+            self._ui.label.setScaledContents(True)
 
     @pyqtSlot(int)
     def setPage(self, value):

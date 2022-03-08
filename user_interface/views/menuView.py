@@ -120,6 +120,12 @@ class MenuView(QMainWindow):
         self.page3=page2View(self._model,self._main_controller._exercisesController[2])
         self._ui.stackedWidget.addWidget(self.page3._ui.stackedWidget)
 
+
+        self.page4=page2View(self._model,self._main_controller._exercisesController[3])
+        self._ui.stackedWidget.addWidget(self.page4._ui.stackedWidget)
+        
+
+
         # ###############################
         # # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
         # self.test1=page2View(self._model,self._main_controller._exercisesController[4])
@@ -138,6 +144,8 @@ class MenuView(QMainWindow):
         self._ui.stackedWidget.addWidget(self.test3._ui.widget)
 
     
+        self.test4=page2View(self._model,self._main_controller._exercisesController[5])
+        self._ui.stackedWidget.addWidget(self.test4._ui.widget)
 
         # self._ui.exercise5Answer1.setPixmap(QtGui.QPixmap(self._model.exersice3A))
         # self._ui.exercise5Answer2.setPixmap(QtGui.QPixmap(self._model.exersice3B))
@@ -277,8 +285,12 @@ class MenuView(QMainWindow):
             self._ui.stackedWidget.setCurrentIndex(13)
         elif value==3:
             self._ui.stackedWidget.setCurrentIndex(14)    
-        elif value==5:
+        elif value==4:
             self._ui.stackedWidget.setCurrentIndex(15)    
+        elif value==5:
+            self._ui.stackedWidget.setCurrentIndex(16)    
+        elif value==6:
+            self._ui.stackedWidget.setCurrentIndex(17)    
         else:
             self._ui.stackedWidget.setCurrentIndex(value)
     @pyqtSlot(str)

@@ -12,7 +12,7 @@ from exersiceController.ControllerExersice2 import ControllerExersice2
 from exersiceController.ControllerExersice3 import ControllerExersice3
 from exersiceController.ControllerExersice4 import ControllerExersice4
 from exersiceController.ControllerExersice51 import ControllerExersice51
-from exersiceController.ControllerExersice6 import ControllerExersice6
+from exersiceController.ControllerExersice61 import ControllerExersice61
 from rosInterface.audioServiceInterface import Ros_Audio_Service
 from signal import signal, SIGINT
 from sys import exit
@@ -32,11 +32,15 @@ class App(QApplication):
         self._controllerEx3= ControllerExersice3(self._rosInterface,self.model)
         self._controllerEx3.setVariables3()
 
-        self._controllerEx4= ControllerExersice4(self._rosInterface,self.model)
+        self._controllerEx4= ControllerExersice3(self._rosInterface,self.model)
+        self._controllerEx4.setVariables4()
+
         self._controllerEx5= ControllerExersice51(self._rosInterface,self.model)
         self._controllerEx5.setVariable1()
 
-        self._controllerEx6= ControllerExersice6(self._rosInterface,self.model)
+        self._controllerEx6= ControllerExersice61(self._rosInterface,self.model)
+        self._controllerEx6.setVariable6()
+
         self.main_controller = MenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6])
         self.menu_view =MenuView(self.model, self.main_controller)
         self.menu_view.show()
