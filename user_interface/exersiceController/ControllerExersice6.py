@@ -71,7 +71,6 @@ class ControllerExersice6(object):
         print('Read Exercise')
         self.model.nextImage='0'
         self.nextPage3(0)
-        self._counter=0
         self._rosInterface.talker(self._exerciseDscr)
         self.step1()
 
@@ -96,6 +95,7 @@ class ControllerExersice6(object):
     def feedbackStore(self,model,value):
         self.answerEx3=value
         print('feedback')
+        self.model.currentExerciseID=0
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     
 
@@ -119,11 +119,11 @@ class ControllerExersice6(object):
         self.feedbackStore(self.model.result,value)
         self._counter=0
         self._model.currentExerciseID=0
-        self.model.trigger(7)
+        self.model.trigger(8)
 
     @pyqtSlot(str)
     def nextPage3(self,value):
-        print('Change Image step 6666 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx{}',self._counter)
+        print('Change Image step 6666 {}',self._counter)
         # self.model.nextPageEx2('2')
         if (len(self._imagesStory)>self._counter):
             self._rosInterface.talker(self._imagesStory[self._counter][0])

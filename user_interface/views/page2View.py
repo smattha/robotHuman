@@ -52,6 +52,7 @@ class page2View(QWidget):
         self.answer51 = QtWidgets.QPushButton()
         self.answer51.setObjectName(self._main_controller.title)
         self.answer51.clicked.connect(lambda: self._main_controller.nextPage3(self._main_controller))
+        self.answer51.setText("Επόμενο")
 
         self._ui.gridLayout_5.addWidget(self.answer51, 4, 1, 1, 1)
 
