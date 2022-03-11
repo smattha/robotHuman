@@ -15,7 +15,7 @@ class Ui_menuWindow(object):
     def setupUi(self, menuWindow):
         menuWindow.setObjectName("menuWindow")
         menuWindow.setEnabled(True)
-        menuWindow.resize(1047, 1032)
+        menuWindow.resize(567, 596)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -409,7 +409,7 @@ class Ui_menuWindow(object):
         self.gridLayout_2.addLayout(self.verticalLayout, 0, 0, 1, 1)
         menuWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(menuWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1047, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 567, 22))
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")

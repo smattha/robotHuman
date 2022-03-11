@@ -36,9 +36,10 @@ class page1View(QWidget):
         #####################################################################################
 
         # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
-        self.displayMainImageExersice1=(DisplayImageWidget(self._main_controller.getImagePath()))
-        self.displayMainImageExersice1.setController(main_controller)
-        self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
+        # self.displayMainImageExersice1=(DisplayImageWidget(self._main_controller.getImagePath()))
+        # self.displayMainImageExersice1.setController(main_controller)
+        # self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
+        self._ui.mainImage.setPixmap(QtGui.QPixmap(  self._main_controller.getImagePath()  ))
 
 
         # self._ui.gridLayout_4 = QtWidgets.QGridLayout(self)

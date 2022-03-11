@@ -34,6 +34,27 @@ class ControllerExersice6(object):
         self.title= 'Titlos611111'
 
 
+
+    def setVariable6B(self):
+        
+        self._imagesStory=  [                 
+                    ["Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο", "./resources/images/exB6/1.jpeg",'2'],
+                    ["Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω", "./resources/images/exB6/2.png",'1']
+        ]
+
+        self._imagesAnswer=  [
+                    ["A", "./resources/images/ex3/3.png",'1'],
+                    ["B", "./resources/images/ex3/4.png",'2']
+                    ]
+        self._counter=0
+        self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
+        self.title= 'Titlos611111'
+
+
+
+
+
+
     def setVariables4(self):
         
         self._imagesStory=  [
