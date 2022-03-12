@@ -86,9 +86,7 @@ class MenuView(QMainWindow):
         self._model.changeDscrSingal.connect(self.changeDscrChanged)
         self._model.resetFieldSingal.connect(self.resetField)
         self._model.setPageSignal.connect(self.setPage)
-        self._model.nextPageSignalEx5.connect(self.setImage)
-        self._model.nextPageSignalEx4.connect(self.setImageEx4)
-        self._model.nextPageSignalEx6.connect(self.nextPageSignalEx6)
+
 
         #Feedback
         self._model.feedbackShowButton.connect(self.feedbackShowButton)
@@ -113,51 +111,44 @@ class MenuView(QMainWindow):
     def setPage(self, value):
         print('\t\t\t\tActivate Widget',value)
         if value==1:
-            # self._ui.stackedWidget.setCurrentIndex(11)
             j=self._ui.stackedWidget.count()
             self.page1=page1View(self._model,self._main_controller._exercisesController[0])
             self._ui.stackedWidget.addWidget(self.page1)
             self._ui.stackedWidget.setCurrentIndex(j)
+        
         elif value==2:
-            # self._ui.stackedWidget.setCurrentIndex(12)
             j=self._ui.stackedWidget.count()
             self.page2=page1View(self._model,self._main_controller._exercisesController[1])
             self._ui.stackedWidget.addWidget(self.page2)
             self._ui.stackedWidget.setCurrentIndex(j)
+        
         elif value==3:
             j=self._ui.stackedWidget.count()
             self.page3=page2View(self._model,self._main_controller._exercisesController[2])
             self._ui.stackedWidget.addWidget(self.page3._ui.stackedWidget)
             self._ui.stackedWidget.setCurrentIndex(j)
+        
         elif value==4:
             j=self._ui.stackedWidget.count()
-            # self._ui.stackedWidget.setCurrentIndex(14)    
-
             self.page4=page2View(self._model,self._main_controller._exercisesController[3])
             self._ui.stackedWidget.addWidget(self.page4._ui.stackedWidget)
             self._ui.stackedWidget.setCurrentIndex(j)
+
         elif value==5:
             j=self._ui.stackedWidget.count()
             self._ui.stackedWidget.setCurrentIndex(15)    
-            # # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
             self.test3=page1View(self._model,self._main_controller._exercisesController[4])
             self._ui.stackedWidget.addWidget(self.test3._ui.widget)
-
             self._ui.stackedWidget.setCurrentIndex(j)        
 
             j=self._ui.stackedWidget.count()
-            # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
             self._main_controller._exercisesController[4]._image2 = j
             self.test=(DisplayImageWidget(self._main_controller._exercisesController[4]._imagePath))
             self.test.setController(self._main_controller._exercisesController[4])
             self._ui.stackedWidget.addWidget(self.test)
 
-            # self._ui.exercise5Answer1.setPixmap(QtGui.QPixmap(self._model.exersice3A))
-            # self._ui.exercise5Answer2.setPixmap(QtGui.QPixmap(self._model.exersice3B))
-
         elif value==6:
             j=self._ui.stackedWidget.count()
-            # self._ui.stackedWidget.setCurrentIndex(16)    
             self.test4=page2View(self._model,self._main_controller._exercisesController[5])
             self._ui.stackedWidget.addWidget(self.test4._ui.widget)
             self._ui.stackedWidget.setCurrentIndex(j)
@@ -166,53 +157,45 @@ class MenuView(QMainWindow):
 
 
         elif value==7:
-            # self._ui.stackedWidget.setCurrentIndex(11)
             j=self._ui.stackedWidget.count()
             self.page7=page1View(self._model,self._main_controller._exercisesController[6])
             self._ui.stackedWidget.addWidget(self.page7)
             self._ui.stackedWidget.setCurrentIndex(j)
+
         elif value==8:
-            # self._ui.stackedWidget.setCurrentIndex(12)
             j=self._ui.stackedWidget.count()
             self.page8=page1View(self._model,self._main_controller._exercisesController[7])
             self._ui.stackedWidget.addWidget(self.page8)
             self._ui.stackedWidget.setCurrentIndex(j)
+
         elif value==9:
             j=self._ui.stackedWidget.count()
-            # self._ui.stackedWidget.setCurrentIndex(13)    
             self.page9=page2View(self._model,self._main_controller._exercisesController[8])
             self._ui.stackedWidget.addWidget(self.page9._ui.stackedWidget)
             self._ui.stackedWidget.setCurrentIndex(j)
 
         elif value==10:
             j=self._ui.stackedWidget.count()
-            # self._ui.stackedWidget.setCurrentIndex(14)    
-
             self.page10=page2View(self._model,self._main_controller._exercisesController[9])
             self._ui.stackedWidget.addWidget(self.page10._ui.stackedWidget)
             self._ui.stackedWidget.setCurrentIndex(j)
+
         elif value==11:
             j=self._ui.stackedWidget.count()
             self._ui.stackedWidget.setCurrentIndex(15)    
-            # # # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
             self.test11=page1View(self._model,self._main_controller._exercisesController[10])
             self._ui.stackedWidget.addWidget(self.test11._ui.widget)
 
             self._ui.stackedWidget.setCurrentIndex(j)        
-
             j=self._ui.stackedWidget.count()
-            # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
             self._main_controller._exercisesController[10]._image2 = j
             self.test10B=(DisplayImageWidget(self._main_controller._exercisesController[10]._imagePath))
             self.test10B.setController(self._main_controller._exercisesController[10])
             self._ui.stackedWidget.addWidget(self.test10B)
 
-            # self._ui.exercise5Answer1.setPixmap(QtGui.QPixmap(self._model.exersice3A))
-            # self._ui.exercise5Answer2.setPixmap(QtGui.QPixmap(self._model.exersice3B))
 
         elif value==12:
             j=self._ui.stackedWidget.count()
-            # self._ui.stackedWidget.setCurrentIndex(16)    
             self.test12=page2View(self._model,self._main_controller._exercisesController[11])
             self._ui.stackedWidget.addWidget(self.test12._ui.widget)
             self._ui.stackedWidget.setCurrentIndex(j)
@@ -223,19 +206,6 @@ class MenuView(QMainWindow):
             if value>100:
                 value=value-100
             self._ui.stackedWidget.setCurrentIndex(value)
-    @pyqtSlot(str)
-    def setImage(self, value):
-        print('Set Image',value)
-        if value=='0' : 
-            self.test3.openImage(self._model.resourcesImage3B)
-            self.test3.resize()
-        
-
-    @pyqtSlot(str)
-    def setImageEx4(self, value):
-        # self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(value))
-            self.test4.openImage(value)
-            self.test4.resize()       
 
 
     @pyqtSlot(str)
