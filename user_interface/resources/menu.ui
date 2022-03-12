@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>567</width>
-    <height>596</height>
+    <width>931</width>
+    <height>610</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,8 +21,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1920</width>
-    <height>1080</height>
+    <width>1000</width>
+    <height>800</height>
    </size>
   </property>
   <property name="palette">
@@ -518,7 +518,7 @@ p, li { white-space: pre-wrap; }
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="currentIndex">
-         <number>0</number>
+         <number>7</number>
         </property>
         <widget class="QWidget" name="menuPage">
          <layout class="QGridLayout" name="gridLayout_4">
@@ -758,6 +758,11 @@ p, li { white-space: pre-wrap; }
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>24</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Πόσο εύκολος σου φάνηκε ο γρίφος</string>
               </property>
@@ -947,7 +952,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>567</width>
+     <width>931</width>
      <height>22</height>
     </rect>
    </property>

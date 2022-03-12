@@ -15,13 +15,13 @@ class Ui_menuWindow(object):
     def setupUi(self, menuWindow):
         menuWindow.setObjectName("menuWindow")
         menuWindow.setEnabled(True)
-        menuWindow.resize(567, 596)
+        menuWindow.resize(931, 610)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(menuWindow.sizePolicy().hasHeightForWidth())
         menuWindow.setSizePolicy(sizePolicy)
-        menuWindow.setMaximumSize(QtCore.QSize(1920, 1080))
+        menuWindow.setMaximumSize(QtCore.QSize(1000, 800))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -330,6 +330,9 @@ class Ui_menuWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
         self.label_6.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
         self.gridLayout_10.addWidget(self.label_6, 0, 1, 1, 1)
         self.nextExersice = QtWidgets.QPushButton(self.feeback)
@@ -409,7 +412,7 @@ class Ui_menuWindow(object):
         self.gridLayout_2.addLayout(self.verticalLayout, 0, 0, 1, 1)
         menuWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(menuWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 567, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 931, 22))
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
@@ -471,7 +474,7 @@ class Ui_menuWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(menuWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(7)
         QtCore.QMetaObject.connectSlotsByName(menuWindow)
 
     def retranslateUi(self, menuWindow):

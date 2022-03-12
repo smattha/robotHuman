@@ -129,6 +129,11 @@ class MenuView(QMainWindow):
         self.test4=page2View(self._model,self._main_controller._exercisesController[5])
         self._ui.stackedWidget.addWidget(self.test4._ui.widget)
 
+        # self._ui.page_3(QtWidgets.QWidget(DisplayImageWidget()))
+        self.test=(DisplayImageWidget(self._main_controller._exercisesController[4]._imagePath))
+        self.test.setController(self._main_controller._exercisesController[4])
+        self._ui.stackedWidget.addWidget(self.test)
+
         # self._ui.exercise5Answer1.setPixmap(QtGui.QPixmap(self._model.exersice3A))
         # self._ui.exercise5Answer2.setPixmap(QtGui.QPixmap(self._model.exersice3B))
 

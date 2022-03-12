@@ -20,24 +20,44 @@ class App(QApplication):
         super(App, self).__init__(sys_argv)
         self.model= MainWindowModel()
         
+        # self._rosInterface=Ros_Audio_Service()
+        # self._controllerEx1= ControllerType1(self._rosInterface,self.model)
+        # self._controllerEx1.setVariable1()
+
+        # self._controllerEx2= ControllerType1(self._rosInterface,self.model)
+        # self._controllerEx2.setVariable2()
+
+        # self._controllerEx3= ControllerType2(self._rosInterface,self.model)
+        # self._controllerEx3.setVariables3()
+
+        # self._controllerEx4= ControllerType2(self._rosInterface,self.model)
+        # self._controllerEx4.setVariables4()
+
+        # self._controllerEx5= ControllerExersice5(self._rosInterface,self.model)
+        # self._controllerEx5.setVariable1()
+
+        # self._controllerEx6= ControllerExersice6(self._rosInterface,self.model)
+        # self._controllerEx6.setVariable6B()
+
         self._rosInterface=Ros_Audio_Service()
         self._controllerEx1= ControllerType1(self._rosInterface,self.model)
-        self._controllerEx1.setVariable1()
+        self._controllerEx1.setVariableB1()
 
         self._controllerEx2= ControllerType1(self._rosInterface,self.model)
-        self._controllerEx2.setVariable2()
+        self._controllerEx2.setVariableB2()
 
         self._controllerEx3= ControllerType2(self._rosInterface,self.model)
-        self._controllerEx3.setVariables3()
+        self._controllerEx3.setVariablesB3()
 
         self._controllerEx4= ControllerType2(self._rosInterface,self.model)
-        self._controllerEx4.setVariables4()
+        self._controllerEx4.setVariablesB4()
 
         self._controllerEx5= ControllerExersice5(self._rosInterface,self.model)
-        self._controllerEx5.setVariable1()
+        self._controllerEx5.setVariable2()
 
         self._controllerEx6= ControllerExersice6(self._rosInterface,self.model)
         self._controllerEx6.setVariable6B()
+
 
         self.main_controller = MenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6])
         self.menu_view =MenuView(self.model, self.main_controller)

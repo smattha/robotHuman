@@ -72,12 +72,12 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1" colspan="3">
+      <item row="1" column="1" colspan="3" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="mainImage">
         <property name="maximumSize">
          <size>
           <width>800</width>
-          <height>800</height>
+          <height>600</height>
          </size>
         </property>
         <property name="text">

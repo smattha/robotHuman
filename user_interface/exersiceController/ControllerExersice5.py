@@ -15,23 +15,27 @@ class ControllerExersice5(object):
     
     def setVariable1(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
-        self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
-        self._title="Δραστηριότητα 5!!!!!!!!"
+        self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο, Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._title="Δραστηριότητα 5"
         self._imagePath="./resources/images/ex5/image.png"
+        self._counter=1
+        self._part2="Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το κάστρο"
     
     def setVariable2(self):
-        self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
+        self._exersiceDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσες γάτες υπάρχουν;'
+        self._exersiceDsr2="Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια."
         self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Άσκηση προσοχής"
-        self._imagePath="./resources/images/ex2/mainImage.png"
-        self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
-
+        self._imagePath="./resources/images/exB5/1.jpg"
+        self._counter=2
+        self._part2="Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το κάστρο"
 
     def setVariableB5(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
         self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Δραστηριότητα 5!!!!!!!!"
         self._imagePath="./resources/images/exB5/1.jpg"
+        self._imagePath2="./resources/images/exB5/1.jpg"
 
     def setupUi(self):
         print("main")
@@ -56,7 +60,7 @@ class ControllerExersice5(object):
     def feedback(self,model,value):
         model.results.answerEx1=value
         print('feedback 1')
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     
     def continueDialog(self):
         print('continue Dialog 1')
@@ -66,7 +70,7 @@ class ControllerExersice5(object):
     def feedbackStore(self,model,value):
         self._answerEx1=value
         print('feedback--------------------------------------------------')
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
    
     def printResult(self):
         print("Exersice1 :", self._answerEx1, self._feedback)
@@ -75,7 +79,13 @@ class ControllerExersice5(object):
     @pyqtSlot(int)
     def storeAnswer(self,value):
         self.feedbackStore(self.model.result,value)
-        self.model.trigger(11)
+        if self._counter==2:
+            self._counter=1
+            self._rosInterface.talker(self._exersiceDsr2)
+            self.readAnswers()
+        else:
+            self._rosInterface.talker(self._part2)
+            self.model.trigger(17)
 
     def feedbackAnswer(self,value):
         print('Feedback {}',value)

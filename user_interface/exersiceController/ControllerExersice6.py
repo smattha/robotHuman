@@ -21,8 +21,8 @@ class ControllerExersice6(object):
     def setVariable6(self):
         
         self._imagesStory=  [                 
-                    ["Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο", "./resources/images/ex2/mainImage.png",'2'],
-                    ["Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω", "./resources/images/ex3/1.png",'1']
+                    ["", "./resources/images/ex6/1.png",'2'],
+                    ["", "./resources/images/ex6/2.png",'1']
         ]
 
         self._imagesAnswer=  [
@@ -30,16 +30,16 @@ class ControllerExersice6(object):
                     ["B", "./resources/images/ex3/4.png",'2']
                     ]
         self._counter=0
-        self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
-        self.title= 'Titlos611111'
+        self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
+        self.title= '6'
 
 
 
     def setVariable6B(self):
         
         self._imagesStory=  [                 
-                    ["Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο", "./resources/images/exB6/1.jpeg",'2'],
-                    ["Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω", "./resources/images/exB6/2.png",'1']
+                    ["", "./resources/images/exB6/1.jpeg",'2'],
+                    ["", "./resources/images/exB6/2.png",'1']
         ]
 
         self._imagesAnswer=  [
@@ -47,8 +47,8 @@ class ControllerExersice6(object):
                     ["B", "./resources/images/ex3/4.png",'2']
                     ]
         self._counter=0
-        self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
-        self.title= 'Titlos611111'
+        self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
+        self.title= '6'
 
 
 

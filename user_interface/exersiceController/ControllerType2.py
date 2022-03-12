@@ -33,16 +33,16 @@ class ControllerType2(object):
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
         self.title= '3'
-
+        self.answerEx3='Ο Γιωργάκης γυρνάει στο σπίτι για να φάει με λαχτάρα την σοκολάτα. Που θα ψάξει για την σοκολάτα του;'
 
     def setVariables4(self):
         
         self._imagesStory=  [
                     ["Η Μαρία είναι ένα μικρό κοριτσάκι 3 ετών'", "./resources/images/ex4/1.png",'1'],
                     ["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα'", "./resources/images/ex4/2.png",'2'],
-                    ["Η μαμά της Μαρίας λέει: «Καλημέρα!", "./resources/images/ex4/3.png",'3'],
-                    ["Ω νομίζω ότι δεν έχω γνωρίσει το γιο σου. Πως τον λένε;'", "./resources/images/ex4/4.png",'4'],
-                    ["Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;", "./resources/images/ex4/5.png",'5']
+                    ["Μια φίλη της μαμάς της Μαρίας ήρθε επίσκεψη", "./resources/images/ex4/3.png",'3'],
+                    ["Η μαμά της Μαρίας λέει: «Καλημέρα!", "./resources/images/ex4/4.png",'3'],
+                    ["Ω νομίζω ότι δεν έχω γνωρίσει το γιο σου. Πως τον λένε;'", "./resources/images/ex4/5.png",'4']
         ]
 
         self._imagesAnswer=  [
@@ -51,8 +51,9 @@ class ControllerType2(object):
                     ["Γ", "./resources/images/ex4/8.png",'3']
                     ]
         self._counter=0
-        self._exerciseDscr=' Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
+        self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
         self.title= '4'
+        self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
 
 
     def setVariablesB3(self):
@@ -63,12 +64,14 @@ class ControllerType2(object):
  
         ]
 
+        self.answerEx3=" "
+
         self._imagesAnswer=  [
                     ["A", "./resources/images/exB3/3.png",'1'],
                     ["B", "./resources/images/exB3/4.png",'2']
                     ]
         self._counter=0
-        self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
+        self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε την ιστορία ενός μικρού στρατιώτη. Αφού ακούσεις προσεκτικά την ιστορία θα χρειαστεί να απαντήσεις σωστά στην ερώτηση που θα σου κάνω. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
         self.title= '3'
 
 
@@ -81,6 +84,8 @@ class ControllerType2(object):
                     ["Τι απαίσια κασετίνα.. Ελπίζω σύντομα να πάρεις καινούρια»", "./resources/images/exB4/3.png",'2']
  
         ]
+
+        self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
 
         self._imagesAnswer=  [
                     ["A", "./resources/images/exB4/5.png",'1'],
@@ -104,9 +109,9 @@ class ControllerType2(object):
 
     def readExersice(self):
         print('Read Exercise')
-        self.nextPage3(0)
         self._rosInterface.talker(self._exerciseDscr)
-        self.step1()
+        self.nextPage3(0)
+        # self.step1()
 
     def step1(self):
         self._rosInterface.talker('Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω')
@@ -117,6 +122,7 @@ class ControllerType2(object):
 
     def readAnswers(self):
         print('Read Answers')
+
         # self._rosInterface.talker('Α  1 ,Β  2, Γ  3, Δ  4, Ε  5')
 
     def reply(self):
@@ -137,7 +143,7 @@ class ControllerType2(object):
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
     def readAnswers2(self):
-        self._rosInterface.talker('Ο Γιωργάκης γυρνάει στο σπίτι για να φάει με λαχτάρα την σοκολάτα. Που θα ψάξει για την σοκολάτα του;')
+        self._rosInterface.talker(self.answerEx3)
 
 
     def printResult(self):

@@ -44,10 +44,10 @@ class DisplayImageWidget(QWidget):
             return False
 
         newSize = loadedImage.size().expandedTo(self.size())
-        self.resizeImage(loadedImage, newSize)
+        # self.resizeImage(loadedImage, newSize)
         self.image = loadedImage
         self.modified = False
-        self.image.scaled(3000,3000,1)
+        self.image.scaled(240,200,1)
         self.imagePath=fileName
         self.update()
         return True
@@ -108,21 +108,21 @@ class DisplayImageWidget(QWidget):
         painter.drawImage(dirtyRect, self.image, dirtyRect)
 
     def resizeEvent(self, event):
-            self.openImage(self.imagePath)
-        # if self.width() > self.image.width() or self.height() > self.image.height():
-            newWidth = max(self.width() + 128, self.image.width())
-            newHeight = max(self.height() + 128, self.image.height())
-            self.image.scaled(self.width(),self.height())
-            self.resizeImage(self.image, event.size())
-            self.curSize=event.size()
+        #     self.openImage(self.imagePath)
+        # # if self.width() > self.image.width() or self.height() > self.image.height():
+        #     newWidth = max(self.width() + 128, self.image.width())
+        #     newHeight = max(self.height() + 128, self.image.height())
+        #     self.image.scaled(self.width(),self.height())
+        #     self.resizeImage(self.image, event.size())
+        #     self.curSize=event.size()
             # QSize(newWidth, newHeight))
             self.update()
     def resize(self):
             self.openImage(self.imagePath)
         # if self.width() > self.image.width() or self.height() > self.image.height():
-            # newWidth = max(self.width() + 128, self.image.width())
-            # newHeight = max(self.height() + 128, self.image.height())
-            # self.image.scaled(newWidth,newHeight,1)
+            newWidth = 400
+            newHeight =400
+            self.image.scaled(newWidth,newHeight,1)
             self.resizeImage(self.image, self.size())
             # QSize(newWidth, newHeight))
             self.update()
