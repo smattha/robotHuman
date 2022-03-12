@@ -77,12 +77,12 @@ class MenuCntl(QObject):
 
     @pyqtSlot(str)
     def setPage(self,value):
-        print('Set page ',value)
+        print('Main Page Controller:Set page ',value)
         # if (value==0):
-        pageId=self._exercisesController[value].mainPage
+        # pageId=self._exercisesController[value].mainPage
         self._currentExerciseID=value
         self._model.selectedExercise=value
-        self._model.trigger(pageId)
+        self._model.trigger(value+1)
         self._exercisesController[value].readExersice()
         self._exercisesController[value].readAnswers()
         self._model.currentExerciseID=value+1

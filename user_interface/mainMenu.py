@@ -20,46 +20,50 @@ class App(QApplication):
         super(App, self).__init__(sys_argv)
         self.model= MainWindowModel()
         
-        # self._rosInterface=Ros_Audio_Service()
-        # self._controllerEx1= ControllerType1(self._rosInterface,self.model)
-        # self._controllerEx1.setVariable1()
-
-        # self._controllerEx2= ControllerType1(self._rosInterface,self.model)
-        # self._controllerEx2.setVariable2()
-
-        # self._controllerEx3= ControllerType2(self._rosInterface,self.model)
-        # self._controllerEx3.setVariables3()
-
-        # self._controllerEx4= ControllerType2(self._rosInterface,self.model)
-        # self._controllerEx4.setVariables4()
-
-        # self._controllerEx5= ControllerExersice5(self._rosInterface,self.model)
-        # self._controllerEx5.setVariable1()
-
-        # self._controllerEx6= ControllerExersice6(self._rosInterface,self.model)
-        # self._controllerEx6.setVariable6B()
-
         self._rosInterface=Ros_Audio_Service()
+        
+        
         self._controllerEx1= ControllerType1(self._rosInterface,self.model)
-        self._controllerEx1.setVariableB1()
+        self._controllerEx1.setVariable1()
 
         self._controllerEx2= ControllerType1(self._rosInterface,self.model)
-        self._controllerEx2.setVariableB2()
+        self._controllerEx2.setVariable2()
 
         self._controllerEx3= ControllerType2(self._rosInterface,self.model)
-        self._controllerEx3.setVariablesB3()
+        self._controllerEx3.setVariables3()
 
         self._controllerEx4= ControllerType2(self._rosInterface,self.model)
-        self._controllerEx4.setVariablesB4()
+        self._controllerEx4.setVariables4()
 
         self._controllerEx5= ControllerExersice5(self._rosInterface,self.model)
-        self._controllerEx5.setVariable2()
+        self._controllerEx5.setVariable1()
 
         self._controllerEx6= ControllerExersice6(self._rosInterface,self.model)
-        self._controllerEx6.setVariable6B()
+        self._controllerEx6.setVariable6()
 
 
-        self.main_controller = MenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6])
+
+
+        self._controllerEx7= ControllerType1(self._rosInterface,self.model)
+        self._controllerEx7.setVariableB1()
+
+        self._controllerEx8= ControllerType1(self._rosInterface,self.model)
+        self._controllerEx8.setVariableB2()
+
+        self._controllerEx9= ControllerType2(self._rosInterface,self.model)
+        self._controllerEx9.setVariablesB3()
+
+        self._controllerEx10= ControllerType2(self._rosInterface,self.model)
+        self._controllerEx10.setVariablesB4()
+
+        self._controllerEx11= ControllerExersice5(self._rosInterface,self.model)
+        self._controllerEx11.setVariable2()
+
+        self._controllerEx12= ControllerExersice6(self._rosInterface,self.model)
+        self._controllerEx12.setVariable6B()
+
+        self.main_controller = MenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6,
+                                                   self._controllerEx7,self._controllerEx8,self._controllerEx9,self._controllerEx10,self._controllerEx11,self._controllerEx12])
         self.menu_view =MenuView(self.model, self.main_controller)
         self.menu_view.show()
 

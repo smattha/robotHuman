@@ -18,7 +18,7 @@ class Ros_Audio_Service(object):
             pass
 
     def talker(self,msg):
-        print('Send Message ',msg,' ')
+        print('Audio S2T:',msg,' ')
         self._pub.publish(msg)
         # self._rate.sleep()
 

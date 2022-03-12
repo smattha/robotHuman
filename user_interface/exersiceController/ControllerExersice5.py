@@ -11,6 +11,7 @@ class ControllerExersice5(object):
         self.mainPage=5
         self.model=model
         self._feedback=''
+        self._image2=0
    
     
     def setVariable1(self):
@@ -85,7 +86,7 @@ class ControllerExersice5(object):
             self.readAnswers()
         else:
             self._rosInterface.talker(self._part2)
-            self.model.trigger(17)
+            self.model.trigger(self._image2)
 
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
@@ -100,5 +101,5 @@ class ControllerExersice5(object):
     @pyqtSlot(int)
     def storePose(self,value):
         self.feedbackStore(self.model.result,value)
-        self.model.trigger(7)
+        self.model.trigger(107)
         # self._model.selectedExercise=value

@@ -39,7 +39,7 @@ class ControllerExersice6(object):
         
         self._imagesStory=  [                 
                     ["", "./resources/images/exB6/1.jpeg",'2'],
-                    ["", "./resources/images/exB6/2.png",'1']
+                    ["Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω", "./resources/images/exB6/2.png",'1']
         ]
 
         self._imagesAnswer=  [
@@ -151,4 +151,4 @@ class ControllerExersice6(object):
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
         else: 
-            self.model.trigger(7)
+            self.model.trigger(107)
