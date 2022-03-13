@@ -156,7 +156,7 @@ class ControllerType2(object):
     def storeAnswer(self,value):
         self.feedbackStore(self.model.result,value)
         self._counter=0
-        self.model.trigger(107)
+        self.model.trigger(101)
 
     @pyqtSlot(str)
     def nextPage3(self,value):

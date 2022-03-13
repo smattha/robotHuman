@@ -93,7 +93,7 @@ class ControllerType1(object):
     @pyqtSlot(int)
     def storeAnswer(self,value):
         self.feedbackStore(self.model.result,value)
-        self.model.trigger(107)
+        self.model.trigger(101)
 
     def feedbackAnswer(self,value):
         print('Feedback {}',value)

@@ -70,7 +70,7 @@ class MenuCntl(QObject):
     @pyqtSlot(int)
     def storePose(self,value):
         self._exercisesController[self._model.currentExerciseID-1].feedbackStore(self._model.result,value)
-        self._model.trigger(7)
+        self._model.trigger(2)
         # self._model.selectedExercise=value
 
 

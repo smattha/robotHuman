@@ -151,4 +151,4 @@ class ControllerExersice6(object):
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
         else: 
-            self.model.trigger(107)
+            self.model.trigger(101)

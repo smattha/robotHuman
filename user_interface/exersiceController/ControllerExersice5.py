@@ -101,5 +101,5 @@ class ControllerExersice5(object):
     @pyqtSlot(int)
     def storePose(self,value):
         self.feedbackStore(self.model.result,value)
-        self.model.trigger(107)
+        self.model.trigger(101)
         # self._model.selectedExercise=value

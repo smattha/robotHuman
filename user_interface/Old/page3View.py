@@ -2,18 +2,8 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
 from sqlalchemy import false
-from views.ui.page3 import Ui_Form
-from views.ui.dialog import Ui_Dialog
-from PyQt5 import  QtWidgets,QtGui
-from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
-        QInputDialog, QMainWindow, QMenu, QMessageBox, QWidget)
-from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
+from PyQt5.QtWidgets import (QMainWindow,  QWidget)
 from views.DisplayImage import DisplayImageWidget
-class DialogFeedback(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self._dialog = Ui_Dialog()
-        self._dialog.setupUi(self)
         
     
 
@@ -42,21 +32,7 @@ class page3View(QWidget):
         self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
 
 
-        # self._ui.gridLayout_4 = QtWidgets.QGridLayout(self)
-        # self._ui.gridLayout_4.setObjectName("gridLayout_41")
-        # self._ui.gridLayout_4.addLayout(self._ui.gridLayout_5, 0, 0, 1, 1)
-      
-        #Exersice 1
-        # self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
-        
-        
-        # self._ui.answer1.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(1))
-        # self._ui.answer2.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(2))
-        # self._ui.answer3.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(3))
-        # self._ui.answer4.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(4))
-        # self._ui.answer5.clicked.connect(lambda: self._main_controller._exercisesController[0].storeAnswer(5))
 
-       
 
         #################################################################################################
         # # listen for model event signals

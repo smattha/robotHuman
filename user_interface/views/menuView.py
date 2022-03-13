@@ -11,7 +11,6 @@ from PyQt5.QtGui import QImage, QImageWriter, QPainter, QPen, qRgb
 from views.DisplayImage import DisplayImageWidget
 from views.page1View import page1View
 from views.page2View import page2View
-from views.page5View import page5View
 
     
 
@@ -30,24 +29,19 @@ class MenuView(QMainWindow):
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
 
 
-        self.easy=(DisplayImageWidget(self._model.easyFeedbackImg ))
-        self.easy.setController(main_controller)
-        self._ui.gridLayout_10.addWidget(self.easy, 1, 0, 1, 1)
 
 
-        self.normal=(DisplayImageWidget(self._model.normalFeedback  ))
-        self.normal.setController(main_controller)
-        self._ui.gridLayout_10.addWidget(self.normal, 1, 1, 1, 1)
-
-        self.difficultFeedback=(DisplayImageWidget(self._model.difficultFeedback ))
-        self.difficultFeedback.setController(main_controller)
-        self._ui.gridLayout_10.addWidget(self.difficultFeedback, 1, 2, 1, 1)
+        self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
+        self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
+        self._ui.hard.setPixmap(QtGui.QPixmap(self._model.difficultFeedback))
 
         self._ui.mainImageHome.setPixmap(QtGui.QPixmap("./resources/images/mainScreen.jpg"))
 
         self._ui.stackedWidget.setCurrentIndex(0)
-        self._ui.terminateButton.hide()
-        self._ui.nextExersice.hide()
+
+
+        self._ui.terminateButton.setDisabled(True)
+        self._ui.nextExersice.setDisabled(True)
 
 
 
@@ -142,7 +136,7 @@ class MenuView(QMainWindow):
             self._ui.stackedWidget.setCurrentIndex(j)        
 
             j=self._ui.stackedWidget.count()
-            self._main_controller._exercisesController[4]._image2 = j
+            self._main_controller._exercisesController[4]._image2 = j+100
             self.test=(DisplayImageWidget(self._main_controller._exercisesController[4]._imagePath))
             self.test.setController(self._main_controller._exercisesController[4])
             self._ui.stackedWidget.addWidget(self.test)
@@ -188,7 +182,7 @@ class MenuView(QMainWindow):
 
             self._ui.stackedWidget.setCurrentIndex(j)        
             j=self._ui.stackedWidget.count()
-            self._main_controller._exercisesController[10]._image2 = j
+            self._main_controller._exercisesController[10]._image2 = j+100
             self.test10B=(DisplayImageWidget(self._main_controller._exercisesController[10]._imagePath))
             self.test10B.setController(self._main_controller._exercisesController[10])
             self._ui.stackedWidget.addWidget(self.test10B)
@@ -211,11 +205,12 @@ class MenuView(QMainWindow):
     @pyqtSlot(str)
     def feedbackShowButton(self,value):   
         if value=='show':
-            self._ui.terminateButton.show()
-            self._ui.nextExersice.show()
+            self._ui.terminateButton.setDisabled(False)
+            self._ui.nextExersice.setDisabled(False)
         else:
-            self._ui.terminateButton.hide()
-            self._ui.nextExersice.hide()           
+            self._ui.terminateButton.setDisabled(True)
+            self._ui.nextExersice.setDisabled(True)
+     
 
     @pyqtSlot(str)
     def nextPageSignalEx6(self, value):
