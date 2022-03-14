@@ -1,13 +1,9 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
-from PyQt5 import QtCore
 from sqlalchemy import false
 from views.ui.menu import Ui_menuWindow
-from PyQt5 import  QtWidgets,QtGui
-from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
-        QInputDialog, QMainWindow, QMenu, QMessageBox, QWidget)
-from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
-from PyQt5.QtGui import QImage, QImageWriter, QPainter, QPen, qRgb
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import ( QMainWindow)
 from views.DisplayImage import DisplayImageWidget
 from views.page1View import page1View
 from views.page2View import page2View
@@ -29,8 +25,6 @@ class MenuView(QMainWindow):
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
 
 
-
-
         self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
         self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
         self._ui.hard.setPixmap(QtGui.QPixmap(self._model.difficultFeedback))
@@ -48,7 +42,6 @@ class MenuView(QMainWindow):
 
         ################################################################################################
         # # connect widgets to controller
-        # #self._ui.spinBox_amount.valueChanged.connect(self._main_controller.change_amount)
         self._ui.clearMenu.clicked.connect(lambda: self._main_controller.clearClicked())
         self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.text,self._ui.surname.text,self._ui.ageTextBox.text))       
         self._ui.selectExersiceButton.clicked.connect( lambda: self._main_controller.setPage(self._ui.selectExercise.currentIndex()) )        
@@ -58,12 +51,6 @@ class MenuView(QMainWindow):
         #Exersice 1
         self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         
-        
-
-        
-
-
-
 
         self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home())
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())

@@ -3,7 +3,7 @@
 import sys
 from typing import Counter
 from PyQt5.QtCore import QObject, pyqtSlot
-
+from threading import Thread
 
 class ControllerExersice6(object):
     def __init__(self,ros,model):
@@ -13,6 +13,7 @@ class ControllerExersice6(object):
         self.model=model
         self._exercise3Img=0
         self._feedback=''
+        self.step=0
     
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
@@ -39,7 +40,7 @@ class ControllerExersice6(object):
         
         self._imagesStory=  [                 
                     ["", "./resources/images/exB6/1.jpeg",'2'],
-                    ["Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω", "./resources/images/exB6/2.png",'1']
+                    ["", "./resources/images/exB6/2.png",'1']
         ]
 
         self._imagesAnswer=  [
@@ -142,13 +143,33 @@ class ControllerExersice6(object):
         self._model.currentExerciseID=0
         self.model.trigger(8)
 
-    @pyqtSlot(str)
+
+
+    def getText(self):
+        if self.step==0:
+            self.answerEx3=self._rosInterface.getText()
+            print('reply!!!!!!!!!!!!!!')
+        else:
+            self.answerEx32=self._rosInterface.getText()
+            print('reply!!!!!!!!!!!!!!')
+        self.step=self.step+1
+
+
+    def getTextMainThread(self):
+        thread = Thread(target = self.getText,args=(),daemon=True)
+        thread.start()
+        print("thread finished...exiting") 
+       
+    
     def nextPage3(self,value):
-        print('Change Image step 6666 {}',self._counter)
+        print('Change Image step  {}',self._counter)
         # self.model.nextPageEx2('2')
+
         if (len(self._imagesStory)>self._counter):
             self._rosInterface.talker(self._imagesStory[self._counter][0])
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
+            self.getTextMainThread()
         else: 
+            self.getTextMainThread()
             self.model.trigger(101)

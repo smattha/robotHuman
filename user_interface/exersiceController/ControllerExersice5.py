@@ -20,7 +20,7 @@ class ControllerExersice5(object):
         self._title="Δραστηριότητα 5"
         self._imagePath="./resources/images/ex5/image.png"
         self._counter=1
-        self._part2="Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το κάστρο"
+        self._part2="Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το μικρό σκυλάκι."
     
     def setVariable2(self):
         self._exersiceDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσες γάτες υπάρχουν;'
@@ -70,7 +70,7 @@ class ControllerExersice5(object):
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
-        print('feedback--------------------------------------------------')
+        print('\t\t\tfeedback ',value)
         # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
    
     def printResult(self):
@@ -85,6 +85,7 @@ class ControllerExersice5(object):
             self._rosInterface.talker(self._exersiceDsr2)
             self.readAnswers()
         else:
+            print('--------------------------------------------------------------------------------------------------------------')
             self._rosInterface.talker(self._part2)
             self.model.trigger(self._image2)
 
@@ -100,6 +101,8 @@ class ControllerExersice5(object):
 
     @pyqtSlot(int)
     def storePose(self,value):
-        self.feedbackStore(self.model.result,value)
+        self._answerEx2=value
+        print('\t\t\tfeedback 2',value)
         self.model.trigger(101)
+        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
         # self._model.selectedExercise=value

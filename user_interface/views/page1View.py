@@ -35,20 +35,8 @@ class page1View(QWidget):
         # #Exercise 1
         #####################################################################################
 
-        # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
-        # self.displayMainImageExersice1=(DisplayImageWidget(self._main_controller.getImagePath()))
-        # self.displayMainImageExersice1.setController(main_controller)
-        # self._ui.gridLayout_5.addWidget(self.displayMainImageExersice1, 3, 0, 1, 5)
         self._ui.mainImage.setPixmap(QtGui.QPixmap(  self._main_controller.getImagePath()  ))
-
-
-        # self._ui.gridLayout_4 = QtWidgets.QGridLayout(self)
-        # self._ui.gridLayout_4.setObjectName("gridLayout_41")
-        # self._ui.gridLayout_4.addLayout(self._ui.gridLayout_5, 0, 0, 1, 1)
-      
-        #Exersice 1
-        # self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
-        
+       
         
         self._ui.answer1.clicked.connect(lambda: self._main_controller.storeAnswer(1))
         self._ui.answer2.clicked.connect(lambda: self._main_controller.storeAnswer(2))

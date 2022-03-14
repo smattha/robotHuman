@@ -83,7 +83,7 @@ class ControllerType1(object):
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
-        print('feedback')
+        print('\t\tFeedback:',value)
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
    
     def printResult(self):

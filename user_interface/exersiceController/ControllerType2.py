@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+from ast import Store
 import sys
 from typing import Counter
 from PyQt5.QtCore import QObject, pyqtSlot
+from threading import Thread
 
 
 class ControllerType2(object):
@@ -13,13 +15,15 @@ class ControllerType2(object):
         self.model=model
         self._exercise3Img=0
         self._feedback=''
+        self.step=1
+        self.nostep=1
     
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
         self._feedback=value
 
     def setVariables3(self):
-        
+    
         self._imagesStory=  [
                     ["Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω", "./resources/images/ex3/1.png",'1'],
                     ["Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο", "./resources/images/ex3/2.png",'2']
@@ -94,7 +98,7 @@ class ControllerType2(object):
         self._counter=0
         self._exerciseDscr='ώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα'
         self.title= '3'
-
+        self.nostep=3
 
 
     def setupUi(self):
@@ -120,6 +124,11 @@ class ControllerType2(object):
         self._rosInterface.talker('Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο')
     
 
+    def step2Store(self,value):
+        self.answerEx3_step2=value
+        self._rosInterface.talker('Γιατί;')
+        self.answerEx3_step3= self._rosInterface.getText()
+    
     def readAnswers(self):
         print('Read Answers')
 
@@ -146,17 +155,55 @@ class ControllerType2(object):
         self._rosInterface.talker(self.answerEx3)
 
 
+
+    def readAnswers3(self):
+        self._rosInterface.talker("Τι είπε ο ήρωας που διάλεξες που μπορεί να στεναχώρησε ή να θύμωσε κάποιον από τους ήρωες;")
+
+
+
     def printResult(self):
         print("Exersice 3:", self.result.answerEx3)
 
 
-
-
-    @pyqtSlot(int)
-    def storeAnswer(self,value):
+    def step2(self,value):
+        self._rosInterface.talker("Τι είπε ο ήρωας που διάλεξες που μπορεί να στεναχώρησε ή να θύμωσε κάποιον από τους ήρωες;")
         self.feedbackStore(self.model.result,value)
         self._counter=0
         self.model.trigger(101)
+
+    @pyqtSlot(int)
+    def storeAnswer(self,value):
+
+        if self.nostep==1:
+            self.feedbackStore(self.model.result,value)
+            self._counter=0
+            self.model.trigger(101)
+        elif self.nostep==3:
+            print("\t\t\Feedback for step1/3")
+            self.answerEx3=value
+            self.readAnswers3()
+            self.model.nextImage='1'    
+            self.nostep=self.nostep-1
+        elif self.nostep==2:
+            self
+
+
+    def getText(self):
+        if self.step==0:
+            self.answerEx3=self._rosInterface.getText()
+            print('reply!!!!!!!!!!!!!!')
+        else:
+            self.answerEx32=self._rosInterface.getText()
+            print('reply!!!!!!!!!!!!!!')
+        self.step=self.step+1
+
+
+    def getTextMainThread(self):
+        thread = Thread(target = self.getText,args=(),daemon=True)
+        thread.start()
+        print("thread finished...exiting") 
+       
+
 
     @pyqtSlot(str)
     def nextPage3(self,value):
@@ -166,6 +213,11 @@ class ControllerType2(object):
             self._rosInterface.talker(self._imagesStory[self._counter][0])
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
-        else: 
+            return 
+        
+        if self.step==1: 
             self.readAnswers2()
             self.model.nextImage='0'
+        if self.step==2: 
+            self.readAnswers3()
+            self.model.nextImage='1'    

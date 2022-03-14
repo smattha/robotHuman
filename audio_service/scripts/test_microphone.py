@@ -2,6 +2,7 @@
 
 import argparse
 import os
+from pickle import TRUE
 import queue
 import sounddevice as sd
 import vosk
@@ -42,7 +43,7 @@ class ControllerExersice5(object):
             '-r', '--samplerate', type=int, help='sampling rate')
         self.args = parser.parse_args(remaining)
 
-        self.args.model = "model"
+        self.args.model = "/home/smatt/Documents/model"
         
         if not os.path.exists(self.args.model):
             print ("Please download a model for your language from https://alphacephei.com/vosk/models")
@@ -73,25 +74,25 @@ class ControllerExersice5(object):
     def getText(self): 
 
 
-
+        self.flag=True
         self.rec = vosk.KaldiRecognizer(self.model, self.args.samplerate)
         with sd.RawInputStream(samplerate=self.args.samplerate, blocksize = 8000, device=self.args.device, dtype='int16',
                             channels=1, callback=self.callback):
-            while True:
+            while  self.flag:
                 data = self.q.get()
                 if self.rec.AcceptWaveform(data):
                     print(self.rec.Result())
                 else:
                     self.dataResults = json.loads(self.rec.PartialResult())
-                    print(self.rec.PartialResult())
+                    # print(self.rec.PartialResult())
                     if self.dataResults['partial']=='':
-                        print('..........................................................................................................')
+                        print('.......')
                     else:
-                        break
+                        self.flag=False
 
-            
-            print('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-            return self.dataResults['partial']
+        print(self.rec.PartialResult())    
+
+        return self.dataResults['partial']
 
     def add_two_ints(self,req):
         print("...................../\/")
