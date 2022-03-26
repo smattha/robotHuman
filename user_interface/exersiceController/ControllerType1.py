@@ -19,14 +19,37 @@ class ControllerType1(object):
         self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Δραστηριότητα 1"
         self._imagePath="./resources/images/ex1/mainImage.png"
+        
+        self._imageAnswer1='/home/smatt/Documents/git/src/user_interface/resources/images/ex1/answer1.png'
+        self._imageAnswer2='/home/smatt/Documents/git/src/user_interface/resources/images/ex1/answer2.png'
+        self._imageAnswer3='/home/smatt/Documents/git/src/user_interface/resources/images/ex1/answer3.png'
+        self._imageAnswer4='/home/smatt/Documents/git/src/user_interface/resources/images/ex1/answer4.png'
+        self._imageAnswer5='/home/smatt/Documents/git/src/user_interface/resources/images/ex1/answer5.png'
+
+        self._answerEx1Descr='1'
+        self._answerEx2Descr='2'
+        self._answerEx3Descr='3'
+        self._answerEx4Descr='4'
+        self._answerEx5Descr='5'
     
     def setVariable2(self):
-        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
+        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.\n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
         # self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
         self._answerDscr='Α   ,Β  , Γ  , Δ  , Ε  '
         self._title="Άσκηση προσοχής"
         self._imagePath="./resources/images/ex2/mainImage.png"
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
+        self._imageAnswer1='/home/smatt/Documents/git/src/user_interface/resources/images/ex2/answer1.png'
+        self._imageAnswer2='/home/smatt/Documents/git/src/user_interface/resources/images/ex2/answer2.png'
+        self._imageAnswer3='/home/smatt/Documents/git/src/user_interface/resources/images/ex2/answer3.png'
+        self._imageAnswer4='/home/smatt/Documents/git/src/user_interface/resources/images/ex2/answer4.png'
+        self._imageAnswer5='/home/smatt/Documents/git/src/user_interface/resources/images/ex2/answer5.png'
+        
+        self._answerEx1Descr='A'
+        self._answerEx2Descr='B'
+        self._answerEx3Descr='Γ'
+        self._answerEx4Descr='Δ'
+        self._answerEx5Descr='Ε'
 
 
 

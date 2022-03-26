@@ -53,6 +53,8 @@ class page2View(QWidget):
         
         self.answer51.setText("Επόμενο")
 
+        self._ui.descriptionBox.setText(self._main_controller._exersiceDsr)
+
         self._ui.gridLayout_5.addWidget(self.answer51, 4, 1, 1, 1)
 
 

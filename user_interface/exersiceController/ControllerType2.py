@@ -184,8 +184,6 @@ class ControllerType2(object):
             self.readAnswers3()
             self.model.nextImage='1'    
             self.nostep=self.nostep-1
-        elif self.nostep==2:
-            self
 
 
     def getText(self):

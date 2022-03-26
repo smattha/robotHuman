@@ -45,6 +45,19 @@ class page1View(QWidget):
         self._ui.answer5.clicked.connect(lambda: self._main_controller.storeAnswer(5))
 
        
+        self._ui.answer1Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer1 ))
+        self._ui.answer2Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer2 ))
+        self._ui.answer3Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer3 ))
+        self._ui.answer4Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer4 ))
+        self._ui.answer5Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer5 ))
+
+        self._ui.descriptionBox.setText(self._main_controller._exersiceDsr)
+
+        self._ui.answer1.setText(self._main_controller._answerEx1Descr)
+        self._ui.answer2.setText(self._main_controller._answerEx2Descr)
+        self._ui.answer3.setText(self._main_controller._answerEx3Descr)
+        self._ui.answer4.setText(self._main_controller._answerEx4Descr)
+        self._ui.answer5.setText(self._main_controller._answerEx5Descr)
 
     @pyqtSlot(str)
     def changeDscrChanged(self, value):

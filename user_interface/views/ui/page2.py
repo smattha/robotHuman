@@ -50,6 +50,9 @@ class Ui_Form(object):
         self.label.setObjectName("label")
         self.gridLayout_8.addWidget(self.label, 0, 0, 1, 1)
         self.gridLayout_5.addWidget(self.testing, 3, 0, 1, 2)
+        self.descriptionBox = QtWidgets.QLabel(self.widget)
+        self.descriptionBox.setObjectName("descriptionBox")
+        self.gridLayout_5.addWidget(self.descriptionBox, 1, 0, 1, 1)
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page)
         self.page_2 = QtWidgets.QWidget()
@@ -109,7 +112,7 @@ class Ui_Form(object):
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -118,6 +121,7 @@ class Ui_Form(object):
         self.answer5.setText(_translate("Form", "Επόμενο"))
         self.label_3.setText(_translate("Form", "Δραστηριότητα 1"))
         self.label.setText(_translate("Form", "TextLabel"))
+        self.descriptionBox.setText(_translate("Form", "TextLabel"))
         self.label_7.setText(_translate("Form", "Δραστηριότητα 1"))
         self.optionB.setText(_translate("Form", "Καλημέρα"))
         self.optionA.setText(_translate("Form", "Τι απαίσια κασετίνα"))

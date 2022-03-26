@@ -84,10 +84,11 @@ class ControllerExersice5(object):
             self._counter=1
             self._rosInterface.talker(self._exersiceDsr2)
             self.readAnswers()
-        else:
+        elif  self._counter==1:
             print('--------------------------------------------------------------------------------------------------------------')
             self._rosInterface.talker(self._part2)
             self.model.trigger(self._image2)
+            self._counter=0
 
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
