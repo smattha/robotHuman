@@ -34,6 +34,9 @@ class ControllerExersice5(object):
         self._answerEx3Descr='3'
         self._answerEx4Descr='4'
         self._answerEx5Descr='5'
+
+        self._exersiceTitleDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'
+
     
     
     def setVariable2(self):

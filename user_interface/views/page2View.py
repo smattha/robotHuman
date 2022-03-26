@@ -63,7 +63,7 @@ class page2View(QWidget):
         self._model.nextImgSingal.connect(self.nextImg)
         self._ui.stackedWidget.setCurrentIndex(0)
 
-
+        self._ui.label_7.setText(self._main_controller.answerEx3)
  
         for row in self._main_controller._imagesAnswer:
             
@@ -107,7 +107,7 @@ class page2View(QWidget):
             self._ui.label.setPixmap(QtGui.QPixmap(value))
             self._ui.label.setMaximumSize(QtCore.QSize(640, 640))
             self._ui.label.setScaledContents(True)
-            self._ui.descriptionBox.setText(self._main_controller._imagesStory[self._main_controller._counter-1][0])
+            self._ui.descriptionBox.setText(self._main_controller._imagesStoryCur)
 
     @pyqtSlot(int)
     def setPage(self, value):

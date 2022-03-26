@@ -17,7 +17,8 @@ class ControllerType2(object):
         self._feedback=''
         self.step=1
         self.nostep=1
-    
+        self._imagesStoryCur=''
+
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
         self._feedback=value
@@ -31,8 +32,8 @@ class ControllerType2(object):
         ]
 
         self._imagesAnswer=  [
-                    ["Αντικείμενο A", "./resources/images/ex3/3.png",'1'],
-                    ["Αντικείμενο Β", "./resources/images/ex3/4.png",'2']
+                    ["Ντουλάπι", "./resources/images/ex3/3.png",'1'],
+                    ["Ψυγείο", "./resources/images/ex3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
@@ -50,9 +51,9 @@ class ControllerType2(object):
         ]
 
         self._imagesAnswer=  [
-                    ["Αντικείμενο A", "./resources/images/ex4/6.png",'1'],
-                    ["Αντικείμενο B", "./resources/images/ex4/7.png",'2'],
-                    ["Αντικείμενο Γ", "./resources/images/ex4/8.png",'3']
+                    ["Mαρία ", "./resources/images/ex4/6.png",'1'],
+                    ["Μαμά", "./resources/images/ex4/7.png",'2'],
+                    ["Φίλη", "./resources/images/ex4/8.png",'3']
                     ]
         self._counter=0
         self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
@@ -64,15 +65,15 @@ class ControllerType2(object):
         
         self._imagesStory=  [
                     ["Κατά τη διάρκεια του πολέμου, ο κόκκινος στρατός έπιασε έναν στρατιώτη μέλος του μπλε στρατού", "./resources/images/exB3/1.png",'1'],
-                    ["Ήθελαν να τους πει πού βρίσκονται τα τανκς του στρατού του. Τα τανκς μπορεί να είναι είτε στη θάλασσα, είτε στο βουνό.Ο φυλακισμένος στρατιώτης είναι πολύ γενναίος και έξυπνος και θέλει να τους ξεγελάσει. Tα τανκς είναι στην πραγματικότητα στα βουνά. Οι αντίπαλοι στρατιώτες τον ρωτάνε πού είναι τα τανκς; Τι θα απαντήσει ο μπλε στρατιώτης»", "./resources/images/exB3/2.png",'2']
+                    ["Ήθελαν να τους πει πού βρίσκονται τα τανκς του στρατού του.\n Τα τανκς μπορεί να είναι είτε στη θάλασσα, είτε στο βουνό.\n Ο φυλακισμένος στρατιώτης είναι πολύ γενναίος και έξυπνος και θέλει να τους ξεγελάσει.\n Tα τανκς είναι στην πραγματικότητα στα βουνά.\n ", "./resources/images/exB3/2.png",'2']
  
         ]
 
-        self.answerEx3=" "
+        self.answerEx3="Οι αντίπαλοι στρατιώτες τον ρωτάνε πού είναι τα τανκς; Τι θα απαντήσει ο μπλε στρατιώτης "
 
         self._imagesAnswer=  [
-                    ["Αντικείμενο A", "./resources/images/exB3/3.png",'1'],
-                    ["Αντικείμενο B", "./resources/images/exB3/4.png",'2']
+                    ["Βουνό", "./resources/images/exB3/3.png",'1'],
+                    ["Θάλασσα", "./resources/images/exB3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε την ιστορία ενός μικρού στρατιώτη. Αφού ακούσεις προσεκτικά την ιστορία θα χρειαστεί να απαντήσεις σωστά στην ερώτηση που θα σου κάνω. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
@@ -92,8 +93,8 @@ class ControllerType2(object):
         self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
 
         self._imagesAnswer=  [
-                    ["Αντικείμενο A", "./resources/images/exB4/5.png",'1'],
-                    ["Αντικείμενο B", "./resources/images/exB4/6.png",'2']
+                    ["Σοφία", "./resources/images/exB4/5.png",'1'],
+                    ["Φίλης", "./resources/images/exB4/6.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='ώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα'
@@ -209,6 +210,7 @@ class ControllerType2(object):
         # self.model.nextPageEx2('2')
         if (len(self._imagesStory)>self._counter):
             self._rosInterface.talker(self._imagesStory[self._counter][0])
+            self._imagesStoryCur=self._imagesStory[self._counter][0]
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
             return 
