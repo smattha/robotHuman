@@ -44,14 +44,22 @@ class page1View(QWidget):
         self._ui.answer4.clicked.connect(lambda: self._main_controller.storeAnswer(4))
         self._ui.answer5.clicked.connect(lambda: self._main_controller.storeAnswer(5))
 
-       
-        self._ui.answer1Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer1 ))
-        self._ui.answer2Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer2 ))
-        self._ui.answer3Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer3 ))
-        self._ui.answer4Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer4 ))
-        self._ui.answer5Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer5 ))
+        if self._main_controller._imageAnswerFlag ==0 :
+            self._ui.answer1Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer1 ))
+            self._ui.answer2Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer2 ))
+            self._ui.answer3Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer3 ))
+            self._ui.answer4Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer4 ))
+            self._ui.answer5Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer5 ))
+        else:
+            self._ui.answer1Img.hide()
+            self._ui.answer2Img.hide()
+            self._ui.answer3Img.hide()
+            self._ui.answer4Img.hide()
+            self._ui.answer5Img.hide()
 
-        self._ui.descriptionBox.setText(self._main_controller._exersiceDsr)
+
+        self._ui.descriptionBox.setText(self._main_controller._exersiceTitleDsr)
+        self._ui.Results.setText(self._main_controller._answerDsr)
 
         self._ui.answer1.setText(self._main_controller._answerEx1Descr)
         self._ui.answer2.setText(self._main_controller._answerEx2Descr)

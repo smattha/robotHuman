@@ -31,8 +31,8 @@ class ControllerType2(object):
         ]
 
         self._imagesAnswer=  [
-                    ["A", "./resources/images/ex3/3.png",'1'],
-                    ["B", "./resources/images/ex3/4.png",'2']
+                    ["Αντικείμενο A", "./resources/images/ex3/3.png",'1'],
+                    ["Αντικείμενο Β", "./resources/images/ex3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
@@ -50,9 +50,9 @@ class ControllerType2(object):
         ]
 
         self._imagesAnswer=  [
-                    ["A", "./resources/images/ex4/6.png",'1'],
-                    ["B", "./resources/images/ex4/7.png",'2'],
-                    ["Γ", "./resources/images/ex4/8.png",'3']
+                    ["Αντικείμενο A", "./resources/images/ex4/6.png",'1'],
+                    ["Αντικείμενο B", "./resources/images/ex4/7.png",'2'],
+                    ["Αντικείμενο Γ", "./resources/images/ex4/8.png",'3']
                     ]
         self._counter=0
         self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
@@ -71,8 +71,8 @@ class ControllerType2(object):
         self.answerEx3=" "
 
         self._imagesAnswer=  [
-                    ["A", "./resources/images/exB3/3.png",'1'],
-                    ["B", "./resources/images/exB3/4.png",'2']
+                    ["Αντικείμενο A", "./resources/images/exB3/3.png",'1'],
+                    ["Αντικείμενο B", "./resources/images/exB3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε την ιστορία ενός μικρού στρατιώτη. Αφού ακούσεις προσεκτικά την ιστορία θα χρειαστεί να απαντήσεις σωστά στην ερώτηση που θα σου κάνω. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
@@ -92,8 +92,8 @@ class ControllerType2(object):
         self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
 
         self._imagesAnswer=  [
-                    ["A", "./resources/images/exB4/5.png",'1'],
-                    ["B", "./resources/images/exB4/6.png",'2']
+                    ["Αντικείμενο A", "./resources/images/exB4/5.png",'1'],
+                    ["Αντικείμενο B", "./resources/images/exB4/6.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='ώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα'

@@ -12,15 +12,29 @@ class ControllerExersice5(object):
         self.model=model
         self._feedback=''
         self._image2=0
+        self._imageAnswerFlag=1
    
     
     def setVariable1(self):
-        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
+        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.\n Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
         self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο, Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Δραστηριότητα 5"
         self._imagePath="./resources/images/ex5/image.png"
         self._counter=1
         self._part2="Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το μικρό σκυλάκι."
+
+        self._imageAnswer1=''
+        self._imageAnswer2=''
+        self._imageAnswer3=''
+        self._imageAnswer4=''
+        self._imageAnswer5=''
+
+        self._answerEx1Descr='1'
+        self._answerEx2Descr='2'
+        self._answerEx3Descr='3'
+        self._answerEx4Descr='4'
+        self._answerEx5Descr='5'
+    
     
     def setVariable2(self):
         self._exersiceDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσες γάτες υπάρχουν;'

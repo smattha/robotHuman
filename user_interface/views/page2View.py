@@ -53,7 +53,6 @@ class page2View(QWidget):
         
         self.answer51.setText("Επόμενο")
 
-        self._ui.descriptionBox.setText(self._main_controller._exersiceDsr)
 
         self._ui.gridLayout_5.addWidget(self.answer51, 4, 1, 1, 1)
 
@@ -108,6 +107,7 @@ class page2View(QWidget):
             self._ui.label.setPixmap(QtGui.QPixmap(value))
             self._ui.label.setMaximumSize(QtCore.QSize(640, 640))
             self._ui.label.setScaledContents(True)
+            self._ui.descriptionBox.setText(self._main_controller._imagesStory[self._main_controller._counter-1][0])
 
     @pyqtSlot(int)
     def setPage(self, value):

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from pickle import TRUE
 import sys
 
 from PyQt5.QtCore import QObject, pyqtSlot
@@ -11,11 +12,16 @@ class ControllerType1(object):
         self.mainPage=1
         self.model=model
         self._feedback=''
+        self._imageAnswerFlag=0
    
     
     def setVariable1(self):
         # self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
         self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
+        
+        self._exersiceTitleDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια.'
+        self._answerDsr='Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
+        
         self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Δραστηριότητα 1"
         self._imagePath="./resources/images/ex1/mainImage.png"
@@ -35,6 +41,10 @@ class ControllerType1(object):
     def setVariable2(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.\n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
         # self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
+        
+        self._exersiceTitleDsr='Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.'
+        self._answerDsr=' Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο;'
+        
         self._answerDscr='Α   ,Β  , Γ  , Δ  , Ε  '
         self._title="Άσκηση προσοχής"
         self._imagePath="./resources/images/ex2/mainImage.png"
@@ -56,9 +66,20 @@ class ControllerType1(object):
     def setVariableB1(self):
         self._exersiceDsr='Η μαμά καγκουρό ζυγίζει με το μωρό της 60 κιλά. Η μαμά ζυγίζει μόνη της 52 κιλά. Πόσα κιλά ζυγίζει το μωρό της'
         # self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
+        self._exersiceTitleDsr='Η μαμά καγκουρό ζυγίζει με το μωρό της 60 κιλά. Η μαμά ζυγίζει μόνη της 52 κιλά. .'
+        self._answerDsr=' Πόσα κιλά ζυγίζει το μωρό της;'
+
         self._answerDscr='Α 4,  Β 8, Γ 30, Δ 56, Ε 112'
         self._title="Άσκηση προσοχής"
         self._imagePath="./resources/images/exB1/1.png"
+        self._imageAnswerFlag=1
+        
+
+        self._answerEx1Descr='1 '
+        self._answerEx2Descr='2'
+        self._answerEx3Descr='3'
+        self._answerEx4Descr='4'
+        self._answerEx5Descr='5'
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
 
 
@@ -71,7 +92,22 @@ class ControllerType1(object):
         self._imagePath="./resources/images/exB2/image3.png"
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
 
+        self._exersiceTitleDsr='Ο Μάξιμος έκοψε ένα φύλλο χαρτί σε 2 κομμάτια.Το ένα κομμάτι εμφανίζεται στο πάνω μέρος της οθόνης.'
+        self._answerDsr=' Ποιο από τα κομμάτια στο κάτω μέρος της οθόνης είναι το άλλο;'
+        
 
+        #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
+        self._imageAnswer1='/home/smatt/Documents/git/src/user_interface/resources/images/exB2/answer1.png'
+        self._imageAnswer2='/home/smatt/Documents/git/src/user_interface/resources/images/exB2/answer2.png'
+        self._imageAnswer3='/home/smatt/Documents/git/src/user_interface/resources/images/exB2/answer3.png'
+        self._imageAnswer4='/home/smatt/Documents/git/src/user_interface/resources/images/exB2/answer4.png'
+        self._imageAnswer5='/home/smatt/Documents/git/src/user_interface/resources/images/exB2/answer5.png'
+        
+        self._answerEx1Descr='A'
+        self._answerEx2Descr='B'
+        self._answerEx3Descr='Γ'
+        self._answerEx4Descr='Δ'
+        self._answerEx5Descr='Ε'
 
 
     def setupUi(self):
