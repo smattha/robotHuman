@@ -42,18 +42,52 @@ class ControllerExersice5(object):
     def setVariable2(self):
         self._exersiceDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσες γάτες υπάρχουν;'
         self._exersiceDsr2="Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια."
-        self._answerDsr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια.'
         self._title="Άσκηση προσοχής"
         self._imagePath="./resources/images/exB5/1.jpg"
         self._counter=2
         self._part2="Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το κάστρο"
 
+        self._imageAnswer1=''
+        self._imageAnswer2=''
+        self._imageAnswer3=''
+        self._imageAnswer4=''
+        self._imageAnswer5=''
+
+        self._answerEx1Descr='1'
+        self._answerEx2Descr='2'
+        self._answerEx3Descr='3'
+        self._answerEx4Descr='4'
+        self._answerEx5Descr='5'
+
+        self._exersiceTitleDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'
+
+    
+
+
     def setVariableB5(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
-        self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._answerDsr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Δραστηριότητα 5!!!!!!!!"
         self._imagePath="./resources/images/exB5/1.jpg"
         self._imagePath2="./resources/images/exB5/1.jpg"
+
+        self._imageAnswer1=''
+        self._imageAnswer2=''
+        self._imageAnswer3=''
+        self._imageAnswer4=''
+        self._imageAnswer5=''
+
+        self._answerEx1Descr='1'
+        self._answerEx2Descr='2'
+        self._answerEx3Descr='3'
+        self._answerEx4Descr='4'
+        self._answerEx5Descr='5'
+
+        self._exersiceTitleDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'
+
+    
+
 
     def setupUi(self):
         print("main")
@@ -70,7 +104,7 @@ class ControllerExersice5(object):
         self._rosInterface.talker(self._exersiceDsr)
     def readAnswers(self):
         print('Read Answers 1')
-        self._rosInterface.talker(self._answerDscr)
+        self._rosInterface.talker(self._answerDsr)
 
     def reply(self):
         print('Get Reply 1')

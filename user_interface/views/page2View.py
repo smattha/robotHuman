@@ -52,11 +52,12 @@ class page2View(QWidget):
         self._ui.optionC.clicked.connect(lambda: self._main_controller.step2Store('C'))
         
         self.answer51.setText("Επόμενο")
-
+        self.answer51.hide()
 
         self._ui.gridLayout_5.addWidget(self.answer51, 4, 1, 1, 1)
 
 
+        # self.answer5.hide()
 
         #################################################################################################
         # # listen for model event signals
@@ -83,7 +84,7 @@ class page2View(QWidget):
             answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(self._main_controller))
             answer5_2.setText(row[0])
 
-            self._ui.horizontalLayout_2.addWidget(answer5_2)
+            self._ui.horizontalLayout_2.addWidget(answer5_2)        
 
 
 
