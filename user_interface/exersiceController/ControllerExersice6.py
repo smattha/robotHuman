@@ -14,6 +14,7 @@ class ControllerExersice6(object):
         self._exercise3Img=0
         self._feedback=''
         self.step=0
+        self._imagesStoryCur=''
     
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
@@ -168,6 +169,7 @@ class ControllerExersice6(object):
 
         if (len(self._imagesStory)>self._counter):
             self._rosInterface.talker(self._imagesStory[self._counter][0])
+            self._imagesStoryCur=self._imagesStory[self._counter][0]
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
             self.getTextMainThread()

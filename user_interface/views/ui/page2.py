@@ -52,7 +52,7 @@ class Ui_Form(object):
         self.gridLayout_5.addWidget(self.testing, 3, 0, 1, 2)
         self.descriptionBox = QtWidgets.QLabel(self.widget)
         self.descriptionBox.setObjectName("descriptionBox")
-        self.gridLayout_5.addWidget(self.descriptionBox, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.descriptionBox, 1, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page)
         self.page_2 = QtWidgets.QWidget()

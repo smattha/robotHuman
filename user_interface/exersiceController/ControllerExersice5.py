@@ -17,7 +17,7 @@ class ControllerExersice5(object):
     
     def setVariable1(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.\n Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
-        self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο, Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο'
         self._title="Δραστηριότητα 5"
         self._imagePath="./resources/images/ex5/image.png"
         self._counter=1
@@ -42,7 +42,7 @@ class ControllerExersice5(object):
     def setVariable2(self):
         self._exersiceDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσες γάτες υπάρχουν;'
         self._exersiceDsr2="Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια."
-        self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._answerDsr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Άσκηση προσοχής"
         self._imagePath="./resources/images/exB5/1.jpg"
         self._counter=2

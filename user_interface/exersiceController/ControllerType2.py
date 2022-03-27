@@ -5,6 +5,7 @@ import sys
 from typing import Counter
 from PyQt5.QtCore import QObject, pyqtSlot
 from threading import Thread
+import time
 
 
 class ControllerType2(object):
@@ -115,7 +116,8 @@ class ControllerType2(object):
     def readExersice(self):
         print('Read Exercise')
         self._rosInterface.talker(self._exerciseDscr)
-        self.nextPage3(0)
+        # self.nextPage3(0)
+        self.nextPageLoop()
         # self.step1()
 
     def step1(self):
@@ -187,22 +189,6 @@ class ControllerType2(object):
             self.nostep=self.nostep-1
 
 
-    def getText(self):
-        if self.step==0:
-            self.answerEx3=self._rosInterface.getText()
-            print('reply!!!!!!!!!!!!!!')
-        else:
-            self.answerEx32=self._rosInterface.getText()
-            print('reply!!!!!!!!!!!!!!')
-        self.step=self.step+1
-
-
-    def getTextMainThread(self):
-        thread = Thread(target = self.getText,args=(),daemon=True)
-        thread.start()
-        print("thread finished...exiting") 
-       
-
 
     @pyqtSlot(str)
     def nextPage3(self,value):
@@ -221,3 +207,33 @@ class ControllerType2(object):
         if self.step==2: 
             self.readAnswers3()
             self.model.nextImage='1'    
+    
+    @pyqtSlot(str)
+    def nextPage4(self):
+        self.nextPage3(0)   
+
+
+    def updateImages(self):
+        # while (len(self._imagesStory)>=self._counter):
+        #     time.sleep(5)
+        #     thread = Thread(target = self.nextPage4,args=(),daemon=True)
+        #     thread.start()
+        while (len(self._imagesStory)>self._counter):
+            self.nextPage4()
+            time.sleep(5)
+            print("\t\tthread running.......")  
+        self.nextPage4()
+
+    def getTextMainThread(self):
+        thread = Thread(target = self.updateImages,args=(),daemon=True)
+        thread.start()
+        print("Thread finished...exiting")   
+
+        
+
+
+    def nextPageLoop(self):
+        self.getTextMainThread()
+            # self.getTextMainThread()
+            # self.sleepThread()
+            

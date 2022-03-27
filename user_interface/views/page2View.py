@@ -63,7 +63,7 @@ class page2View(QWidget):
         self._model.nextImgSingal.connect(self.nextImg)
         self._ui.stackedWidget.setCurrentIndex(0)
 
-        self._ui.label_7.setText(self._main_controller.answerEx3)
+        # self._ui.label_7.setText(self._main_controller.answerEx3)
  
         for row in self._main_controller._imagesAnswer:
             

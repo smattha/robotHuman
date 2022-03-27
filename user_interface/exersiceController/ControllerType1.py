@@ -89,7 +89,7 @@ class ControllerType1(object):
         # self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
         self._answerDscr='Α ,  Β , Γ , Δ , Ε '
         self._title="Άσκηση προσοχής"
-        self._imagePath="./resources/images/exB2/image3.png"
+        self._imagePath="./resources/images/exB2/mainImage.png"
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
 
         self._exersiceTitleDsr='Ο Μάξιμος έκοψε ένα φύλλο χαρτί σε 2 κομμάτια.Το ένα κομμάτι εμφανίζεται στο πάνω μέρος της οθόνης.'
