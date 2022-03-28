@@ -29,13 +29,13 @@ class ControllerExersice5(object):
         self._imageAnswer4=''
         self._imageAnswer5=''
 
-        self._answerEx1Descr='1'
-        self._answerEx2Descr='2'
-        self._answerEx3Descr='3'
-        self._answerEx4Descr='4'
-        self._answerEx5Descr='5'
+        self._answerEx1Descr='\n1\n'
+        self._answerEx2Descr='\n2\n'
+        self._answerEx3Descr='\n3\n'
+        self._answerEx4Descr='\n4\n'
+        self._answerEx5Descr='\n5\n'
 
-        self._exersiceTitleDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'
+        self._exersiceTitleDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. \nΣτην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'
 
     
     
