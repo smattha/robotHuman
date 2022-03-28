@@ -33,8 +33,8 @@ class ControllerType2(object):
         ]
 
         self._imagesAnswer=  [
-                    ["Ντουλάπι", "./resources/images/ex3/3.png",'1'],
-                    ["Ψυγείο", "./resources/images/ex3/4.png",'2']
+                    ["\nΝτουλάπι\n", "./resources/images/ex3/3.png",'1'],
+                    ["\nΨυγείο\n", "./resources/images/ex3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
@@ -52,9 +52,9 @@ class ControllerType2(object):
         ]
 
         self._imagesAnswer=  [
-                    ["Mαρία ", "./resources/images/ex4/6.png",'1'],
-                    ["Μαμά", "./resources/images/ex4/7.png",'2'],
-                    ["Φίλη", "./resources/images/ex4/8.png",'3']
+                    ["\nMαρία\n", "./resources/images/ex4/6.png",'1'],
+                    ["\nΜαμά\n", "./resources/images/ex4/7.png",'2'],
+                    ["\nΦίλη\n", "./resources/images/ex4/8.png",'3']
                     ]
         self._counter=0
         self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
@@ -73,8 +73,8 @@ class ControllerType2(object):
         self.answerEx3="Οι αντίπαλοι στρατιώτες τον ρωτάνε πού είναι τα τανκς; Τι θα απαντήσει ο μπλε στρατιώτης "
 
         self._imagesAnswer=  [
-                    ["Βουνό", "./resources/images/exB3/3.png",'1'],
-                    ["Θάλασσα", "./resources/images/exB3/4.png",'2']
+                    ["\nΒουνό\n", "./resources/images/exB3/3.png",'1'],
+                    ["\nΘάλασσα\n", "./resources/images/exB3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε την ιστορία ενός μικρού στρατιώτη. Αφού ακούσεις προσεκτικά την ιστορία θα χρειαστεί να απαντήσεις σωστά στην ερώτηση που θα σου κάνω. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
@@ -94,8 +94,8 @@ class ControllerType2(object):
         self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
 
         self._imagesAnswer=  [
-                    ["Σοφία", "./resources/images/exB4/5.png",'1'],
-                    ["Φίλης", "./resources/images/exB4/6.png",'2']
+                    ["\nΣοφία\n", "./resources/images/exB4/5.png",'1'],
+                    ["\nΦίλη\n", "./resources/images/exB4/6.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='ώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα'

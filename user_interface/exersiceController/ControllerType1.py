@@ -32,11 +32,11 @@ class ControllerType1(object):
         self._imageAnswer4='/home/smatt/Documents/git/src/user_interface/resources/images/ex1/answer4.png'
         self._imageAnswer5='/home/smatt/Documents/git/src/user_interface/resources/images/ex1/answer5.png'
 
-        self._answerEx1Descr='1'
-        self._answerEx2Descr='2'
-        self._answerEx3Descr='3'
-        self._answerEx4Descr='4'
-        self._answerEx5Descr='5'
+        self._answerEx1Descr='\n1\n'
+        self._answerEx2Descr='\n2\n'
+        self._answerEx3Descr='\n3\n'
+        self._answerEx4Descr='\n4\n'
+        self._answerEx5Descr='\n5\n'
     
     def setVariable2(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.\n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
@@ -55,11 +55,11 @@ class ControllerType1(object):
         self._imageAnswer4='/home/smatt/Documents/git/src/user_interface/resources/images/ex2/answer4.png'
         self._imageAnswer5='/home/smatt/Documents/git/src/user_interface/resources/images/ex2/answer5.png'
         
-        self._answerEx1Descr='A'
-        self._answerEx2Descr='B'
-        self._answerEx3Descr='Γ'
-        self._answerEx4Descr='Δ'
-        self._answerEx5Descr='Ε'
+        self._answerEx1Descr='\nA\n'
+        self._answerEx2Descr='\nB\n'
+        self._answerEx3Descr='\nΓ\n'
+        self._answerEx4Descr='\nΔ\n'
+        self._answerEx5Descr='\nΕ\n'
 
 
 
@@ -75,11 +75,11 @@ class ControllerType1(object):
         self._imageAnswerFlag=1
         
 
-        self._answerEx1Descr='1 '
-        self._answerEx2Descr='2'
-        self._answerEx3Descr='3'
-        self._answerEx4Descr='4'
-        self._answerEx5Descr='5'
+        self._answerEx1Descr='\n1\n'
+        self._answerEx2Descr='\n2\n'
+        self._answerEx3Descr='\n3\n'
+        self._answerEx4Descr='\n4\n'
+        self._answerEx5Descr='\n5\n'
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
 
 
@@ -103,11 +103,11 @@ class ControllerType1(object):
         self._imageAnswer4='/home/smatt/Documents/git/src/user_interface/resources/images/exB2/answer4.png'
         self._imageAnswer5='/home/smatt/Documents/git/src/user_interface/resources/images/exB2/answer5.png'
         
-        self._answerEx1Descr='A'
-        self._answerEx2Descr='B'
-        self._answerEx3Descr='Γ'
-        self._answerEx4Descr='Δ'
-        self._answerEx5Descr='Ε'
+        self._answerEx1Descr='\nA\n'
+        self._answerEx2Descr='\nB\n'
+        self._answerEx3Descr='\nΓ\n'
+        self._answerEx4Descr='\nΔ\n'
+        self._answerEx5Descr='\nΕ\n'
 
 
     def setupUi(self):

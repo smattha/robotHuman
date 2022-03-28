@@ -190,6 +190,7 @@ class Ui_menuWindow(object):
         self.textEdit.setObjectName("textEdit")
         self.verticalLayout.addWidget(self.textEdit)
         self.stackedWidget = QtWidgets.QStackedWidget(self.centralwidget)
+        self.stackedWidget.setMaximumSize(QtCore.QSize(1920, 1080))
         self.stackedWidget.setObjectName("stackedWidget")
         self.menuPage = QtWidgets.QWidget()
         self.menuPage.setObjectName("menuPage")
@@ -272,9 +273,10 @@ class Ui_menuWindow(object):
         self.gridLayout_10.setVerticalSpacing(30)
         self.gridLayout_10.setObjectName("gridLayout_10")
         self.normal = QtWidgets.QLabel(self.feeback)
+        self.normal.setMaximumSize(QtCore.QSize(900, 600))
         self.normal.setScaledContents(True)
         self.normal.setObjectName("normal")
-        self.gridLayout_10.addWidget(self.normal, 1, 1, 1, 1)
+        self.gridLayout_10.addWidget(self.normal, 1, 1, 1, 1, QtCore.Qt.AlignHCenter)
         self.label_6 = QtWidgets.QLabel(self.feeback)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -287,9 +289,10 @@ class Ui_menuWindow(object):
         self.label_6.setObjectName("label_6")
         self.gridLayout_10.addWidget(self.label_6, 0, 0, 1, 3, QtCore.Qt.AlignHCenter)
         self.easy = QtWidgets.QLabel(self.feeback)
+        self.easy.setMaximumSize(QtCore.QSize(900, 600))
         self.easy.setScaledContents(True)
         self.easy.setObjectName("easy")
-        self.gridLayout_10.addWidget(self.easy, 1, 0, 1, 1)
+        self.gridLayout_10.addWidget(self.easy, 1, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.terminateButton = QtWidgets.QPushButton(self.feeback)
         self.terminateButton.setObjectName("terminateButton")
         self.gridLayout_10.addWidget(self.terminateButton, 3, 0, 1, 1)
@@ -300,8 +303,9 @@ class Ui_menuWindow(object):
         self.nextExersice.setObjectName("nextExersice")
         self.gridLayout_10.addWidget(self.nextExersice, 3, 2, 1, 1)
         self.hard = QtWidgets.QLabel(self.feeback)
+        self.hard.setMaximumSize(QtCore.QSize(900, 600))
         self.hard.setObjectName("hard")
-        self.gridLayout_10.addWidget(self.hard, 1, 2, 1, 1)
+        self.gridLayout_10.addWidget(self.hard, 1, 2, 1, 1, QtCore.Qt.AlignHCenter)
         self.feedbackEasyButton = QtWidgets.QPushButton(self.feeback)
         self.feedbackEasyButton.setObjectName("feedbackEasyButton")
         self.gridLayout_10.addWidget(self.feedbackEasyButton, 2, 0, 1, 1)
@@ -404,7 +408,7 @@ class Ui_menuWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(menuWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(menuWindow)
 
     def retranslateUi(self, menuWindow):
@@ -426,12 +430,22 @@ class Ui_menuWindow(object):
         self.normal.setText(_translate("menuWindow", "Normal"))
         self.label_6.setText(_translate("menuWindow", "Πόσο εύκολος σου φάνηκε ο γρίφος"))
         self.easy.setText(_translate("menuWindow", "Easy"))
-        self.terminateButton.setText(_translate("menuWindow", "Τερματισμός"))
-        self.feedbackHardButton.setText(_translate("menuWindow", "Δύσκολος"))
-        self.nextExersice.setText(_translate("menuWindow", "Επόμενη δραστηριότητα"))
+        self.terminateButton.setText(_translate("menuWindow", "\n"
+"Τερματισμός\n"
+""))
+        self.feedbackHardButton.setText(_translate("menuWindow", "\n"
+"Δύσκολος\n"
+""))
+        self.nextExersice.setText(_translate("menuWindow", "\n"
+"Επόμενη δραστηριότητα\n"
+""))
         self.hard.setText(_translate("menuWindow", "Hard"))
-        self.feedbackEasyButton.setText(_translate("menuWindow", "Εύκολος"))
-        self.feedbackNormalButton.setText(_translate("menuWindow", "Έτσι και έτσι"))
+        self.feedbackEasyButton.setText(_translate("menuWindow", "\n"
+"Εύκολος\n"
+""))
+        self.feedbackNormalButton.setText(_translate("menuWindow", "\n"
+"Έτσι και έτσι\n"
+""))
         self.label_11.setText(_translate("menuWindow", "Τέλος"))
         self.go2Home.setText(_translate("menuWindow", "Αρχικό Μενού"))
         self.menu.setTitle(_translate("menuWindow", "File"))

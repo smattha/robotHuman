@@ -106,8 +106,8 @@ class page2View(QWidget):
         else:
             self._ui.stackedWidget.setCurrentIndex(0)    
             self._ui.label.setPixmap(QtGui.QPixmap(value))
-            self._ui.label.setMaximumSize(QtCore.QSize(640, 640))
-            self._ui.label.setScaledContents(True)
+            self._ui.label.setMaximumSize(QtCore.QSize(900, 480))
+            # self._ui.label.setScaledContents(True)
             self._ui.descriptionBox.setText(self._main_controller._imagesStoryCur)
 
     @pyqtSlot(int)

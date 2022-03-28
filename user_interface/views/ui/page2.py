@@ -80,7 +80,7 @@ class Ui_Form(object):
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.horizontalLayout.addItem(spacerItem1)
         self.gridLayout_4.addLayout(self.horizontalLayout, 0, 0, 1, 1)
         self.gridLayout_3.addLayout(self.gridLayout_4, 0, 0, 1, 1)
@@ -112,7 +112,7 @@ class Ui_Form(object):
         self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -123,6 +123,24 @@ class Ui_Form(object):
         self.label.setText(_translate("Form", "TextLabel"))
         self.descriptionBox.setText(_translate("Form", "TextLabel"))
         self.label_7.setText(_translate("Form", "Δραστηριότητα 1"))
-        self.optionB.setText(_translate("Form", "Καλημέρα"))
-        self.optionA.setText(_translate("Form", "Τι απαίσια κασετίνα"))
-        self.optionC.setText(_translate("Form", "Τι απαίσιο φόρεμα"))
+        self.optionB.setText(_translate("Form", "\n"
+"\n"
+"\n"
+"Καλημέρα\n"
+"\n"
+"\n"
+""))
+        self.optionA.setText(_translate("Form", "\n"
+"\n"
+"\n"
+"Τι απαίσια κασετίνα\n"
+"\n"
+"\n"
+""))
+        self.optionC.setText(_translate("Form", "\n"
+"\n"
+"\n"
+"Τι απαίσιο φόρεμα\n"
+"\n"
+"\n"
+""))
