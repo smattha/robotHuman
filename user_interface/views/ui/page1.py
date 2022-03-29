@@ -34,7 +34,7 @@ class Ui_Form(object):
         self.answer4.setObjectName("answer4")
         self.gridLayout_5.addWidget(self.answer4, 6, 5, 1, 1)
         self.mainImage = QtWidgets.QLabel(self.widget)
-        self.mainImage.setMaximumSize(QtCore.QSize(800, 600))
+        self.mainImage.setMaximumSize(QtCore.QSize(700, 500))
         self.mainImage.setScaledContents(True)
         self.mainImage.setObjectName("mainImage")
         self.gridLayout_5.addWidget(self.mainImage, 2, 2, 1, 5, QtCore.Qt.AlignHCenter)
