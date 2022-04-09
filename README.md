@@ -9,8 +9,12 @@ pip install pyqt5
 pip install gTTS
 sudo apt-get install mpg321
 pip install pyqt5-tools
+pip install playsound
 
 
+sudo apt-get update -y
+sudo apt-get install -y python-sqlalchemy
+pip install sqlalchemy
 
 
 pyqt5-tools  designer
