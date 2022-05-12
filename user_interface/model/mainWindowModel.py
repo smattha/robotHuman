@@ -23,10 +23,10 @@ class results():
 class MainWindowModel(QObject):
 
 
-    listAvailableExersice= ["Δραστηριότητα 1", "Δραστηριότητα 2", "Δραστηριότητα 3",
-                            "Δραστηριότητα 4", "Δραστηριότητα 5", "Δραστηριότητα 6",
-                            "Δραστηριότητα 7", "Δραστηριότητα 8", "Δραστηριότητα 9",
-                            "Δραστηριότητα 10", "Δραστηριότητα 11", "Δραστηριότητα 12"]
+    listAvailableExersice= ["Το λιοντάρι και τα παπάκια", "Ασκηση προσοχής", "Ο Γιωργάκης και η σοκολάτα",
+                            "Η Μαρία και η μαμά της", "Ένα παιγνίδι με γρίφους", "Τι δείχνουν οι εικόνες",
+                            "Η μαμά καγκούρο", "Ο Μάξιμος", "Ο κοκκινός στρατός",
+                            "Η Σοφία στο σχολείο", "Δραστηριότητα 11", "Δραστηριότητα 12"]
 
     exersisesDescription = {
     "1": "Περιγραφή Δραστηριότητα 1",
@@ -64,9 +64,9 @@ class MainWindowModel(QObject):
 
     exersice6A="./resources/images/ex6/1.png"
 
-    easyFeedbackImg="./resources/images/happy.jpg"
-    normalFeedback="./resources/images/normal.png"
-    difficultFeedback="./resources/images/sad.png"  
+    easyFeedbackImg="./resources/images/3.png"
+    normalFeedback="./resources/images/2.jpg"
+    difficultFeedback="./resources/images/1.jpg"  
 
 
     #create signal

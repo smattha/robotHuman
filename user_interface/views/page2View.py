@@ -39,7 +39,7 @@ class page2View(QWidget):
 
 
         self._ui.label_3.setText(self._main_controller.title)
-        self._ui.label_7.setText(self._main_controller.title)
+        self._ui.label_7.setText(self._main_controller.answerEx3)
 
 
 
@@ -86,7 +86,7 @@ class page2View(QWidget):
 
             self._ui.horizontalLayout_2.addWidget(answer5_2)        
 
-
+        self._ui.answer5.hide()
 
 
 

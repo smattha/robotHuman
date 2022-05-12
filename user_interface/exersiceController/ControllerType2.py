@@ -38,7 +38,8 @@ class ControllerType2(object):
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
-        self.title= '3'
+        # self.title_= '3'
+        self.title='Ο Γιωργάκης και η σοκολάτα!'
         self.answerEx3='Ο Γιωργάκης γυρνάει στο σπίτι για να φάει με λαχτάρα την σοκολάτα. Που θα ψάξει για την σοκολάτα του;'
 
     def setVariables4(self):
@@ -58,7 +59,7 @@ class ControllerType2(object):
                     ]
         self._counter=0
         self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
-        self.title= '4'
+        self.title= 'Η Μαρία και η μαμά της'
         self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
 
 
@@ -220,7 +221,7 @@ class ControllerType2(object):
         #     thread.start()
         while (len(self._imagesStory)>self._counter):
             self.nextPage4()
-            time.sleep(5)
+            time.sleep(7)
             print("\t\tthread running.......")  
         self.nextPage4()
 
