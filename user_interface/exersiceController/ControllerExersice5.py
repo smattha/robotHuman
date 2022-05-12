@@ -39,6 +39,9 @@ class ControllerExersice5(object):
 
     
     
+
+
+    
     def setVariable2(self):
         self._exersiceDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσες γάτες υπάρχουν;'
         self._exersiceDsr2="Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια."
