@@ -2,17 +2,23 @@
 
 from pickle import TRUE
 import sys
+from threading import Thread
+import time
+from PyQt5.QtCore import QObject, pyqtSignal
 
 from PyQt5.QtCore import QObject, pyqtSlot
 
-class ControllerType1(object):
+class ControllerType1(QObject):
     def __init__(self,ros,model):
+        super().__init__()
         print("Initialize the controller for Excersice 1 ")
         self._rosInterface=ros
         self.mainPage=1
         self.model=model
         self._feedback=''
         self._imageAnswerFlag=0
+    
+    showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
    
     
     def setVariable1(self):
@@ -123,6 +129,8 @@ class ControllerType1(object):
     def readExersice(self):
         print('Read Exercise 1')
         self._rosInterface.talker(self._exersiceDsr)
+        self.stopBeforeShowImageMainThread()
+
     def readAnswers(self):
         print('Read Answers 1')
         self._rosInterface.talker(self._answerDscr)
@@ -163,3 +171,27 @@ class ControllerType1(object):
 
     def getTitle(self):
         return self._title
+
+
+    def stopBeforeShowImageMainThread(self):
+        thread = Thread(target = self.stopBeforeShowImageMain,args=(),daemon=True)
+        thread.start()
+        print("Thread finished...exiting")  
+
+
+    # #Exercise 6
+    # showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+    # showAnswerButtons.emit(self._description)
+
+    def stopBeforeShowImageMain(self):
+        # while (len(self._imagesStory)>=self._counter):
+        #     time.sleep(5)
+        #     thread = Thread(target = self.nextPage4,args=(),daemon=True)
+        #     thread.start()
+        # while (len(self._imagesStory)>self._counter):
+        # self.nextPage4()
+        time.sleep(5)
+        print("\t\tthread running.......")  
+        
+        self.showAnswerButtons.emit("")
+        # self.nextPage4()

@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from sqlalchemy import false
 from views.ui.menu import Ui_menuWindow
-from PyQt5 import QtGui
+from PyQt5 import QtGui,QtCore
 from PyQt5.QtWidgets import ( QMainWindow)
 from views.DisplayImage import DisplayImageWidget
 from views.page1View import page1View
@@ -28,6 +28,15 @@ class MenuView(QMainWindow):
         self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
         self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
         self._ui.hard.setPixmap(QtGui.QPixmap(self._model.difficultFeedback))
+
+        self._ui.easy.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
+        self._ui.easy.setScaledContents(True)
+
+        self._ui.normal.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
+        self._ui.normal.setScaledContents(True)
+
+        self._ui.hard.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
+        self._ui.hard.setScaledContents(True)
 
         self._ui.mainImageHome.setPixmap(QtGui.QPixmap("./resources/images/mainScreen.jpg"))
 

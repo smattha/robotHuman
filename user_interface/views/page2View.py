@@ -65,7 +65,7 @@ class page2View(QWidget):
         self._ui.stackedWidget.setCurrentIndex(0)
 
         # self._ui.label_7.setText(self._main_controller.answerEx3)
- 
+        self.i=self._model.i
         for row in self._main_controller._imagesAnswer:
             
 
@@ -74,7 +74,7 @@ class page2View(QWidget):
             self.label_4.setPixmap(QtGui.QPixmap(row[1]))
             self.label_4.setScaledContents(False)
             self.label_4.setObjectName(row[1])
-            self.label_4.setMaximumSize(QtCore.QSize(480, 480))
+            self.label_4.setMaximumSize(QtCore.QSize(480/self.i, 480/self.i))
             self.label_4.setScaledContents(True)
             self._ui.horizontalLayout.addWidget(self.label_4)
 
@@ -84,6 +84,9 @@ class page2View(QWidget):
             answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(self._main_controller))
             answer5_2.setText(row[0])
 
+            # i=self._model.i
+            # self._ui.answer5.setDisabled(True)
+            # self._ui.mainImage.setMaximumSize(QtCore.QSize(700/i, 500/i))
             self._ui.horizontalLayout_2.addWidget(answer5_2)        
 
         self._ui.answer5.hide()
@@ -106,7 +109,7 @@ class page2View(QWidget):
         else:
             self._ui.stackedWidget.setCurrentIndex(0)    
             self._ui.label.setPixmap(QtGui.QPixmap(value))
-            self._ui.label.setMaximumSize(QtCore.QSize(900, 480))
+            self._ui.label.setMaximumSize(QtCore.QSize(900/self.i, 480/self.i))
             # self._ui.label.setScaledContents(True)
             self._ui.descriptionBox.setText(self._main_controller._imagesStoryCur)
 

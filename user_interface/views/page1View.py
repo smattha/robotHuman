@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
-from sqlalchemy import false
+from sqlalchemy import false, true
 from views.ui.page1 import Ui_Form
 from PyQt5 import  QtWidgets,QtGui
 from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
@@ -43,6 +43,15 @@ class page1View(QWidget):
         self._ui.answer3.clicked.connect(lambda: self._main_controller.storeAnswer(3))
         self._ui.answer4.clicked.connect(lambda: self._main_controller.storeAnswer(4))
         self._ui.answer5.clicked.connect(lambda: self._main_controller.storeAnswer(5))
+        
+        self._ui.answer1.setDisabled(True)
+        self._ui.answer2.setDisabled(True)
+        self._ui.answer3.setDisabled(True)
+        self._ui.answer4.setDisabled(True)
+        self._ui.answer5.setDisabled(True)
+
+        i=model.i
+        self._ui.mainImage.setMaximumSize(QtCore.QSize(700/i, 500/i))
 
         if self._main_controller._imageAnswerFlag ==0 :
             self._ui.answer1Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer1 ))
@@ -50,6 +59,20 @@ class page1View(QWidget):
             self._ui.answer3Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer3 ))
             self._ui.answer4Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer4 ))
             self._ui.answer5Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer5 ))
+
+            self._ui.answer1Img.setScaledContents(True)
+            self._ui.answer2Img.setScaledContents(True)
+            self._ui.answer3Img.setScaledContents(True)
+            self._ui.answer4Img.setScaledContents(True)
+            self._ui.answer5Img.setScaledContents(True)
+
+            self._ui.answer1Img.setMaximumSize(QtCore.QSize(130/i, 130/i))
+            self._ui.answer2Img.setMaximumSize(QtCore.QSize(130/i, 130/i))
+            self._ui.answer3Img.setMaximumSize(QtCore.QSize(130/i, 130/i))
+            self._ui.answer4Img.setMaximumSize(QtCore.QSize(130/i, 130/i))
+            self._ui.answer5Img.setMaximumSize(QtCore.QSize(130/i, 130/i))
+
+
         else:
             self._ui.answer1Img.hide()
             self._ui.answer2Img.hide()
@@ -66,6 +89,8 @@ class page1View(QWidget):
         self._ui.answer3.setText(self._main_controller._answerEx3Descr)
         self._ui.answer4.setText(self._main_controller._answerEx4Descr)
         self._ui.answer5.setText(self._main_controller._answerEx5Descr)
+
+        self._main_controller.showAnswerButtons.connect(self.showButtons)
 
     @pyqtSlot(str)
     def changeDscrChanged(self, value):
@@ -115,3 +140,13 @@ class page1View(QWidget):
         self.test6.openImage(value)
         self.test6.resize()     
 
+
+
+    @pyqtSlot(str)
+    def showButtons(self, value):
+        print("Image 6")
+        self._ui.answer1.setDisabled(False)
+        self._ui.answer2.setDisabled(False)
+        self._ui.answer3.setDisabled(False)
+        self._ui.answer4.setDisabled(False)
+        self._ui.answer5.setDisabled(False)
