@@ -1,13 +1,14 @@
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
-from sqlalchemy import false
+from sqlalchemy import false, true
 from views.ui.menu import Ui_menuWindow
 from PyQt5 import QtGui,QtCore
 from PyQt5.QtWidgets import ( QMainWindow)
 from views.DisplayImage import DisplayImageWidget
 from views.page1View import page1View
 from views.page2View import page2View
-
+from threading import Thread
+import time
     
 
 class MenuView(QMainWindow):
@@ -196,6 +197,8 @@ class MenuView(QMainWindow):
             if value>100:
                 value=value-100
             self._ui.stackedWidget.setCurrentIndex(value)
+            if value==1:
+                self.hideButtons()
 
 
     @pyqtSlot(str)
@@ -214,3 +217,34 @@ class MenuView(QMainWindow):
         self.test6.openImage(value)
         self.test6.resize()     
 
+
+
+    def hideButtons(self):
+
+        self._ui.feedbackEasyButton.setDisabled(true)
+        self._ui.feedbackNormalButton.setDisabled(true)
+        self._ui.feedbackHardButton.setDisabled(true)
+        self._ui.terminateButton.setDisabled(True)
+        self._ui.nextExersice.setDisabled(True)
+     
+        thread = Thread(target = self.stopBeforeShowImageMain,args=(),daemon=True)
+        thread.start()
+        print("Thread finished...exiting")  
+
+
+    # #Exercise 6
+    # showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+    # showAnswerButtons.emit(self._description)
+
+    def showButtons(self):
+        # while (len(self._imagesStory)>=self._counter):
+        #     time.sleep(5)
+        #     thread = Thread(target = self.nextPage4,args=(),daemon=True)
+        #     thread.start()
+        # while (len(self._imagesStory)>self._counter):
+        # self.nextPage4()
+        time.sleep(5)
+        
+        self._ui.feedbackEasyButton.setDisabled(false)
+        self._ui.feedbackNormalButton.setDisabled(false)
+        self._ui.feedbackHArdButton.setDiable(false)
