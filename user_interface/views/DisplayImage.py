@@ -151,10 +151,11 @@ class DisplayImageWidget(QWidget):
         self.lastPoint = QPoint(endPoint)    
         self.controller.storeAnswer(1)
         self.controller.storePose(endPoint)
-        self.counter=self.counter+1
+        
         if self.counter==1:
                 self.counter=0
                 self.controller.trigger()
+        self.counter=self.counter+1
 
     def resizeImage(self, image, newSize):
         if image.size() == newSize:
