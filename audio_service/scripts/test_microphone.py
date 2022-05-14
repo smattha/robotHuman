@@ -43,7 +43,7 @@ class ControllerExersice5(object):
             '-r', '--samplerate', type=int, help='sampling rate')
         self.args = parser.parse_args(remaining)
 
-        self.args.model = "/home/smatt/Documents/model"
+        self.args.model = "/home/stergios/model"
         
         if not os.path.exists(self.args.model):
             print ("Please download a model for your language from https://alphacephei.com/vosk/models")

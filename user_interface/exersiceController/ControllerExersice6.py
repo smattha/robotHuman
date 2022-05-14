@@ -9,6 +9,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 
 class ControllerExersice6(QObject):
     def __init__(self,ros,model):
+        super().__init__()
         print("Initialize the controller for Excersice 3 ")
         self._rosInterface=ros
         self.mainPage=3
@@ -157,6 +158,7 @@ class ControllerExersice6(QObject):
             self.answerEx32=self._rosInterface.getText()
             print('reply!!!!!!!!!!!!!!')
         self.step=self.step+1
+        self.nextPage3(0)
 
 
     def getTextMainThread(self):

@@ -164,10 +164,12 @@ class ControllerExersice5(QObject):
     def storePose(self,value):
         self._answerEx2=value
         print('\t\t\tfeedback 2',value)
-        self.model.trigger(101)
+
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
         # self._model.selectedExercise=value
 
+    def trigger(self):
+        self.model.trigger(101)
 
 
     showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')

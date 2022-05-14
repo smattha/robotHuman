@@ -141,10 +141,12 @@ class MenuView(QMainWindow):
         elif value==6:
             j=self._ui.stackedWidget.count()
             self.test4=page2View(self._model,self._main_controller._exercisesController[5])
+            self.test4.answer51.show()
             self._ui.stackedWidget.addWidget(self.test4._ui.widget)
             self._ui.stackedWidget.setCurrentIndex(j)
             self._ui.stackedWidget.setCurrentIndex(0)
             self._ui.stackedWidget.setCurrentIndex(j)
+            
 
 
         elif value==7:
