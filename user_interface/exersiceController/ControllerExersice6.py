@@ -4,8 +4,10 @@ import sys
 from typing import Counter
 from PyQt5.QtCore import QObject, pyqtSlot
 from threading import Thread
+import time
+from PyQt5.QtCore import QObject, pyqtSignal
 
-class ControllerExersice6(object):
+class ControllerExersice6(QObject):
     def __init__(self,ros,model):
         print("Initialize the controller for Excersice 3 ")
         self._rosInterface=ros

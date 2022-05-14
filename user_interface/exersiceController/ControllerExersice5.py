@@ -3,9 +3,13 @@
 import sys
 
 from PyQt5.QtCore import QObject, pyqtSlot
+from threading import Thread
+import time
+from PyQt5.QtCore import QObject, pyqtSignal
 
-class ControllerExersice5(object):
+class ControllerExersice5(QObject):
     def __init__(self,ros,model):
+        super().__init__()
         print("Initialize the controller for Excersice 1 ")
         self._rosInterface=ros
         self.mainPage=5
@@ -101,10 +105,12 @@ class ControllerExersice5(object):
         self.reply()
         self.feedback()
         self.continueDialog()
+        
 
     def readExersice(self):
         print('Read Exercise 1')
         self._rosInterface.talker(self._exersiceDsr)
+        self.stopBeforeShowImageMainThread()
     def readAnswers(self):
         print('Read Answers 1')
         self._rosInterface.talker(self._answerDsr)
@@ -161,3 +167,30 @@ class ControllerExersice5(object):
         self.model.trigger(101)
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
         # self._model.selectedExercise=value
+
+
+
+    showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+   
+    def stopBeforeShowImageMainThread(self):
+        thread = Thread(target = self.stopBeforeShowImageMain,args=(),daemon=True)
+        thread.start()
+        print("Thread finished...exiting")  
+
+
+    # #Exercise 6
+    # showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+    # showAnswerButtons.emit(self._description)
+
+    def stopBeforeShowImageMain(self):
+        # while (len(self._imagesStory)>=self._counter):
+        #     time.sleep(5)
+        #     thread = Thread(target = self.nextPage4,args=(),daemon=True)
+        #     thread.start()
+        # while (len(self._imagesStory)>self._counter):
+        # self.nextPage4()
+        time.sleep(5)
+        print("\t\tthread running.......")  
+        
+        self.showAnswerButtons.emit("")
+        # self.nextPage4()

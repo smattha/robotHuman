@@ -18,8 +18,7 @@ class ControllerType1(QObject):
         self._feedback=''
         self._imageAnswerFlag=0
     
-    showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
-   
+
     
     def setVariable1(self):
         # self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
@@ -172,7 +171,10 @@ class ControllerType1(QObject):
     def getTitle(self):
         return self._title
 
+        
 
+    showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+   
     def stopBeforeShowImageMainThread(self):
         thread = Thread(target = self.stopBeforeShowImageMain,args=(),daemon=True)
         thread.start()

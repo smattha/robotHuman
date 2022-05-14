@@ -206,10 +206,16 @@ class MenuView(QMainWindow):
         if value=='show':
             self._ui.terminateButton.setDisabled(False)
             self._ui.nextExersice.setDisabled(False)
+            self._ui.feedbackEasyButton.setDisabled(True)
+            self._ui.feedbackNormalButton.setDisabled(True)
+            self._ui.feedbackHardButton.setDisabled(True)
         else:
             self._ui.terminateButton.setDisabled(True)
             self._ui.nextExersice.setDisabled(True)
-     
+            
+            self._ui.feedbackEasyButton.setDisabled(False)
+            self._ui.feedbackNormalButton.setDisabled(False)
+            self._ui.feedbackHardButton.setDisabled(False)
 
     @pyqtSlot(str)
     def nextPageSignalEx6(self, value):
@@ -220,31 +226,19 @@ class MenuView(QMainWindow):
 
 
     def hideButtons(self):
-
-        self._ui.feedbackEasyButton.setDisabled(true)
-        self._ui.feedbackNormalButton.setDisabled(true)
-        self._ui.feedbackHardButton.setDisabled(true)
+        self._ui.feedbackEasyButton.setDisabled(True)
+        self._ui.feedbackNormalButton.setDisabled(True)
+        self._ui.feedbackHardButton.setDisabled(True)
         self._ui.terminateButton.setDisabled(True)
         self._ui.nextExersice.setDisabled(True)
      
-        thread = Thread(target = self.stopBeforeShowImageMain,args=(),daemon=True)
+        thread = Thread(target = self.showButtons,args=(),daemon=True)
         thread.start()
         print("Thread finished...exiting")  
 
 
-    # #Exercise 6
-    # showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
-    # showAnswerButtons.emit(self._description)
-
     def showButtons(self):
-        # while (len(self._imagesStory)>=self._counter):
-        #     time.sleep(5)
-        #     thread = Thread(target = self.nextPage4,args=(),daemon=True)
-        #     thread.start()
-        # while (len(self._imagesStory)>self._counter):
-        # self.nextPage4()
         time.sleep(5)
-        
-        self._ui.feedbackEasyButton.setDisabled(false)
-        self._ui.feedbackNormalButton.setDisabled(false)
-        self._ui.feedbackHArdButton.setDiable(false)
+        self._ui.feedbackEasyButton.setDisabled(False)
+        self._ui.feedbackNormalButton.setDisabled(False)
+        self._ui.feedbackHardButton.setDisabled(False)
