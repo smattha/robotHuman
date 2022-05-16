@@ -18,6 +18,7 @@ class ControllerExersice6(QObject):
         self._feedback=''
         self.step=0
         self._imagesStoryCur=''
+        self.answerEx3=''
     
     def feedbackAnswer(self,value):
         print('Feedback {}',value)

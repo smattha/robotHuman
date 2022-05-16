@@ -84,6 +84,9 @@ class page1View(QWidget):
         self._ui.descriptionBox.setText(self._main_controller._exersiceTitleDsr)
         self._ui.Results.setText(self._main_controller._answerDsr)
 
+        self._ui.descriptionBox.setAlignment(QtCore.Qt.AlignCenter)
+        self._ui.Results.setAlignment(QtCore.Qt.AlignCenter)
+
         self._ui.answer1.setText(self._main_controller._answerEx1Descr)
         self._ui.answer2.setText(self._main_controller._answerEx2Descr)
         self._ui.answer3.setText(self._main_controller._answerEx3Descr)

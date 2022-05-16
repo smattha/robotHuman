@@ -1,3 +1,4 @@
+from pickle import TRUE
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
@@ -40,6 +41,7 @@ class page2View(QWidget):
 
         self._ui.label_3.setText(self._main_controller.title)
         # self._ui.label_7.setText(self._main_controller.answerEx3)
+        self._ui.label_3.setAlignment(QtCore.Qt.AlignCenter)
 
 
 
@@ -72,7 +74,7 @@ class page2View(QWidget):
             self.label_4 = QtWidgets.QLabel()
             self.label_4.setText("")
             self.label_4.setPixmap(QtGui.QPixmap(row[1]))
-            self.label_4.setScaledContents(False)
+            self.label_4.setScaledContents(True)
             self.label_4.setObjectName(row[1])
             self.label_4.setMaximumSize(QtCore.QSize(480/self.i, 480/self.i))
             self.label_4.setScaledContents(True)
@@ -90,7 +92,7 @@ class page2View(QWidget):
             self._ui.horizontalLayout_2.addWidget(answer5_2)        
 
         self._ui.answer5.hide()
-
+        self._ui.label_7.setText(self._main_controller.answerEx3)
 
 
 
@@ -98,6 +100,7 @@ class page2View(QWidget):
     def changeDscrChanged(self, value):
         print('Set Text ',value)
         self._ui.descriptionTxt.setText(value)
+        self._ui.descriptionText.setAlignment(QtCore.Qt.AlignCenter)
 
 
     @pyqtSlot(str)
@@ -109,6 +112,7 @@ class page2View(QWidget):
         else:
             self._ui.stackedWidget.setCurrentIndex(0)    
             self._ui.label.setPixmap(QtGui.QPixmap(value))
+            self._ui.label.setScaledContents(True)
             self._ui.label.setMaximumSize(QtCore.QSize(900/self.i, 480/self.i))
             # self._ui.label.setScaledContents(True)
             self._ui.descriptionBox.setText(self._main_controller._imagesStoryCur)
