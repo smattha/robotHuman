@@ -6,18 +6,32 @@ class results():
     
     def __init__(self):
         super().__init__()
-        self.name=''
-        self.age=''
-        self.surname=''
 
-        self.answerEx1=''
-        self.answerEx2=''
-        self.answerEx3=''
-        self.answerEx4=''
-        self.answerEx5A=''
-        self.answerEx5B=''
-        self.answerEx6A=''
-        self.answerEx6B=''
+        self.listWithNames= ["1"]
+        self.name='Όνομα'
+        self.age='Επίθετο'
+        self.surname='12'
+
+        self.answerEx1='Α'
+        self.answerEx2='Β'
+        self.answerEx3='Γ'
+        self.answerEx4='4'
+        self.answerEx5A='5'
+        self.answerEx5B='6'
+        self.answerEx6A='7'
+        self.answerEx6B='8'
+
+
+        self.answerEx7='7'
+        self.answerEx8='8'
+        self.answerEx9='9'
+        self.answerEx10='10'
+        self.answerEx11A='5'
+        self.answerEx11B='6'
+        self.answerEx12A='7'
+        self.answerEx12B='8'
+        self.name='Ονομα'
+        self.surname='Ματθαιάκης'
 
 
 class MainWindowModel(QObject):
@@ -26,7 +40,7 @@ class MainWindowModel(QObject):
     listAvailableExersice= ["Το λιοντάρι και τα παπάκια", "Ασκηση προσοχής", "Ο Γιωργάκης και η σοκολάτα",
                             "Η Μαρία και η μαμά της", "Ένα παιγνίδι με γρίφους", "Τι δείχνουν οι εικόνες",
                             "Η μαμά καγκούρο", "Ο Μάξιμος", "Ο κοκκινός στρατός",
-                            "Η Σοφία στο σχολείο", "Δραστηριότητα 11", "Δραστηριότητα 12"]
+                            "Η Σοφία στο σχολείο", "Ένα παιγνίδι με γρίφους 2", "Τι δείχνουν οι εικόνες 2"]
 
     exersisesDescription = {
     "1": "Περιγραφή Δραστηριότητα 1",

@@ -24,7 +24,8 @@ class MenuView(QMainWindow):
         self.move(model.poseX,model.poseY)
         self.resize(model.sizeY, model.sizeY)
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
-
+        self._ui.comboBox.addItems(self._model.result.listWithNames)
+        self.loadResults(self._model.result)
 
         self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
         self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
@@ -55,6 +56,8 @@ class MenuView(QMainWindow):
         self._ui.clearMenu.clicked.connect(lambda: self._main_controller.clearClicked())
         self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.text,self._ui.surname.text,self._ui.ageTextBox.text))       
         self._ui.selectExersiceButton.clicked.connect( lambda: self._main_controller.setPage(self._ui.selectExercise.currentIndex()) )        
+
+        self._ui.pushButtonMainResults.clicked.connect( lambda: self.setPage(103) )        
 
 
 
@@ -244,3 +247,22 @@ class MenuView(QMainWindow):
         self._ui.feedbackEasyButton.setDisabled(False)
         self._ui.feedbackNormalButton.setDisabled(False)
         self._ui.feedbackHardButton.setDisabled(False)
+
+    def loadResults(self,results):
+        # time.sleep(5)
+        self._ui.lineResultsEx1.setText(results.answerEx1)
+        self._ui.lineResultsEx2.setText(results.answerEx2)
+        self._ui.lineResultsEx3.setText(results.answerEx3)
+        self._ui.lineResultsEx4.setText(results.answerEx4)
+        self._ui.lineResultsEx5.setText(results.answerEx5A)
+        self._ui.lineResultsEx6.setText(results.answerEx6A)
+        self._ui.lineResultsEx7.setText(results.answerEx7)
+        self._ui.lineResultsEx8.setText(results.answerEx8)
+        self._ui.lineResultsEx9.setText(results.answerEx9)
+        self._ui.lineResultsEx10.setText(results.answerEx10)
+        self._ui.lineResultsEx11.setText(results.answerEx11A)
+        self._ui.lineResultsEx12.setText(results.answerEx12A)
+        self._ui.lineResultName.setText(results.name)
+        self._ui.lineResultsSurname.setText(results.surname)
+        # self._ui.feedbackNormalButton.setDisabled(False)
+        # self._ui.feedbackHardButton.setDisabled(False)
