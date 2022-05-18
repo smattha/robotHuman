@@ -1,37 +1,44 @@
 from turtle import position
 from PyQt5.QtCore import QObject, pyqtSignal
 from sqlalchemy import true
+class resultOfPerson():
+
+    def __init__(self):
+        super().__init__()
+        self.listWithNames = ["1"]
+
+        self.name = 'Όνομα'
+        self.age = 'Επίθετο'
+        self.surname = '12'
+
+        self.answerEx1 = 'Α'
+        self.answerEx2 = 'Β'
+        self.answerEx3 = 'Γ'
+        self.answerEx4 = '4'
+        self.answerEx5A = '5'
+        self.answerEx5B = '6'
+        self.answerEx6A = '7'
+        self.answerEx6B = '8'
+
+        self.answerEx7 = '7'
+        self.answerEx8 = '8'
+        self.answerEx9 = '9'
+        self.answerEx10 = '10'
+        self.answerEx11A = '5'
+        self.answerEx11B = '6'
+        self.answerEx12A = '7'
+        self.answerEx12B = '8'
+        self.name = 'Ονομα'
+        self.surname = 'Ματθαιάκης'
 
 class results():
     
     def __init__(self):
         super().__init__()
-
+        self.listResults = []
         self.listWithNames= ["1"]
-        self.name='Όνομα'
-        self.age='Επίθετο'
-        self.surname='12'
-
-        self.answerEx1='Α'
-        self.answerEx2='Β'
-        self.answerEx3='Γ'
-        self.answerEx4='4'
-        self.answerEx5A='5'
-        self.answerEx5B='6'
-        self.answerEx6A='7'
-        self.answerEx6B='8'
-
-
-        self.answerEx7='7'
-        self.answerEx8='8'
-        self.answerEx9='9'
-        self.answerEx10='10'
-        self.answerEx11A='5'
-        self.answerEx11B='6'
-        self.answerEx12A='7'
-        self.answerEx12B='8'
-        self.name='Ονομα'
-        self.surname='Ματθαιάκης'
+        self.result=resultOfPerson()
+        # self.listResults.append(resultOfPerson())
 
 
 class MainWindowModel(QObject):
@@ -61,6 +68,7 @@ class MainWindowModel(QObject):
     sizeX=1000
     sizeY=800
     i=2
+    sleepForAnswer=0 ;
     #Constants
     resourcesImage1="./resources/images/ex1/mainImage.png"
     resourcesImage2="./resources/images/ex2/mainImage.png"
@@ -76,7 +84,6 @@ class MainWindowModel(QObject):
     exersice4D="./resources/images/ex4/8.png"
 
     exersice5A="./resources/images/ex5/image.png"
-
     exersice6A="./resources/images/ex6/1.png"
 
     easyFeedbackImg="./resources/images/3.png"
@@ -242,6 +249,14 @@ class MainWindowModel(QObject):
         self.feedback=''
         self._showButtonFeedback=''
         self.nextImage=''
+
+
+    def createNewResult(self, newResult):
+
+        self.result.listResults.append(newResult)
+
+    def createNewResultObject(self):
+        return resultOfPerson()
 
     def __init__(self):
         super().__init__()

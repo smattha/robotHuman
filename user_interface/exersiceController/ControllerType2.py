@@ -221,7 +221,7 @@ class ControllerType2(object):
         #     thread.start()
         while (len(self._imagesStory)>self._counter):
             self.nextPage4()
-            time.sleep(7)
+            time.sleep(self.model.sleepForAnswer)
             print("\t\tthread running.......")  
         self.nextPage4()
 

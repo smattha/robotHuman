@@ -17,6 +17,8 @@ class ControllerType1(QObject):
         self.model=model
         self._feedback=''
         self._imageAnswerFlag=0
+        self._answerEx1=''
+        self._feedback=''
     
 
     
@@ -192,7 +194,7 @@ class ControllerType1(QObject):
         #     thread.start()
         # while (len(self._imagesStory)>self._counter):
         # self.nextPage4()
-        time.sleep(5)
+        time.sleep(self.model.sleepForAnswer)
         print("\t\tthread running.......")  
         
         self.showAnswerButtons.emit("")

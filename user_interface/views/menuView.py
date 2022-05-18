@@ -19,13 +19,14 @@ class MenuView(QMainWindow):
         self._main_controller = main_controller
         self._ui = Ui_menuWindow()
         self._ui.setupUi(self)
+        self.counter=0
 
         #self._dialog.hide()
         self.move(model.poseX,model.poseY)
         self.resize(model.sizeY, model.sizeY)
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
         self._ui.comboBox.addItems(self._model.result.listWithNames)
-        self.loadResults(self._model.result)
+
 
         self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
         self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
@@ -57,7 +58,9 @@ class MenuView(QMainWindow):
         self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.text,self._ui.surname.text,self._ui.ageTextBox.text))       
         self._ui.selectExersiceButton.clicked.connect( lambda: self._main_controller.setPage(self._ui.selectExercise.currentIndex()) )        
 
-        self._ui.pushButtonMainResults.clicked.connect( lambda: self.setPage(103) )        
+        self._ui.pushButtonMainResults.clicked.connect( lambda: self.setPage(103) )
+
+        self._ui.pushButtonResultsNext.clicked.connect( lambda: self.loadResultsByIDCounter(1) )
 
 
 
@@ -66,6 +69,9 @@ class MenuView(QMainWindow):
         
 
         self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home())
+        self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
+
+        self._ui.pushButtoResultPrevius.clicked.connect(lambda: self._main_controller.move2NextPage())
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
         
         self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home())
@@ -80,6 +86,8 @@ class MenuView(QMainWindow):
         self._model.changeDscrSingal.connect(self.changeDscrChanged)
         self._model.resetFieldSingal.connect(self.resetField)
         self._model.setPageSignal.connect(self.setPage)
+
+
 
 
         #Feedback
@@ -202,6 +210,8 @@ class MenuView(QMainWindow):
             if value>100:
                 value=value-100
             self._ui.stackedWidget.setCurrentIndex(value)
+            if value==3:
+                self.loadResultsByID(0)
             if value==1:
                 self.hideButtons()
 
@@ -243,7 +253,7 @@ class MenuView(QMainWindow):
 
 
     def showButtons(self):
-        time.sleep(5)
+        time.sleep(self._model.sleepForAnswer)
         self._ui.feedbackEasyButton.setDisabled(False)
         self._ui.feedbackNormalButton.setDisabled(False)
         self._ui.feedbackHardButton.setDisabled(False)
@@ -264,5 +274,14 @@ class MenuView(QMainWindow):
         self._ui.lineResultsEx12.setText(results.answerEx12A)
         self._ui.lineResultName.setText(results.name)
         self._ui.lineResultsSurname.setText(results.surname)
+
+    def loadResultsByID(self,i):
+        self.loadResults(self._model.result.listResults[i])
+
+    def loadResultsByIDCounter(self,value):
+        print(" change ",value)
+        self.counter=self.counter+value
+        print(" counter ",self.counter)
+        self.loadResults(self._model.result.listResults[self.counter])
         # self._ui.feedbackNormalButton.setDisabled(False)
         # self._ui.feedbackHardButton.setDisabled(False)

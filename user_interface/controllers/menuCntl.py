@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSlot
 
-import rospy
-from std_msgs.msg import String
+# import rospy
+# from std_msgs.msg import String
 
 class MenuCntl(QObject):
     def __init__(self, model,exercisesController):
@@ -130,10 +130,15 @@ class MenuCntl(QObject):
 
 
     def printResults(self):
+        newResult=self._model.createNewResultObject()
+        newResult.name=self._model.name
+        newResult.answerEx1=str(self._exercisesController[0]._answerEx1)
+        newResult.answerEx2=str(self._exercisesController[0]._answerEx1)
+        self._model.createNewResult(newResult)
         self.printUserData()
         self._exercisesController[0].printResult()
         self._exercisesController[1].printResult()
-        self._exercisesController[2].printResult()
-        self._exercisesController[3].printResult()
-        self._exercisesController[4].printResult()
-        self._exercisesController[5].printResult()
+        # self._exercisesController[2].printResult()
+        # self._exercisesController[3].printResult()
+        #self._exercisesController[4].printResult()
+        # self._exercisesController[5].printResult()
