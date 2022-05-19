@@ -83,7 +83,7 @@ class page2View(QWidget):
 
             answer5_2 = QtWidgets.QPushButton()
             answer5_2.setObjectName(row[0])
-            answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(self._main_controller))
+            answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(row[0]))
             answer5_2.setText(row[0])
 
             # i=self._model.i

@@ -19,6 +19,7 @@ class ControllerType2(object):
         self.step=1
         self.nostep=1
         self._imagesStoryCur=''
+        self.answerEx3=''
 
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
@@ -146,7 +147,7 @@ class ControllerType2(object):
 
     def feedbackStore(self,model,value):
         self.answerEx3=value
-        print('feedback')
+        print('feedback Answer store ',value)
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
     
 
@@ -166,7 +167,7 @@ class ControllerType2(object):
 
 
     def printResult(self):
-        print("Exersice 3:", self.result.answerEx3)
+        print("Exersice 3:", self.answerEx3)
 
 
     def step2(self,value):

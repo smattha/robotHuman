@@ -68,7 +68,7 @@ class MainWindowModel(QObject):
     sizeX=1000
     sizeY=800
     i=2
-    sleepForAnswer=0 ;
+    sleepForAnswer=1 ;
     #Constants
     resourcesImage1="./resources/images/ex1/mainImage.png"
     resourcesImage2="./resources/images/ex2/mainImage.png"
