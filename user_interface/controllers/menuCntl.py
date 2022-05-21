@@ -133,12 +133,36 @@ class MenuCntl(QObject):
         newResult=self._model.createNewResultObject()
         newResult.name=self._model.name
         newResult.answerEx1=str(self._exercisesController[0]._answerEx1)
-        newResult.answerEx2=str(self._exercisesController[0]._answerEx1)
+        newResult.answerEx2=str(self._exercisesController[1]._answerEx1)
+        newResult.answerEx3=str(self._exercisesController[2]._answerEx1)
+        newResult.answerEx4=str(self._exercisesController[3]._answerEx1)
+        newResult.answerEx5A = str(self._exercisesController[4]._answerEx1)
+        newResult.answerEx6A = str(self._exercisesController[5]._answerEx1)
+        newResult.answerEx7 = str(self._exercisesController[6]._answerEx1)
+        newResult.answerEx8 = str(self._exercisesController[7]._answerEx1)
+        newResult.answerEx9 = str(self._exercisesController[8]._answerEx1)
+        newResult.answerEx10 = str(self._exercisesController[9]._answerEx1)
+        newResult.answerEx11A = str(self._exercisesController[10]._answerEx1)
+        newResult.answerEx12A = str(self._exercisesController[11]._answerEx1)
+
         self._model.createNewResult(newResult)
         self.printUserData()
         self._exercisesController[0].printResult()
         self._exercisesController[1].printResult()
         self._exercisesController[2].printResult()
         self._exercisesController[3].printResult()
+
+        self._exercisesController[4].printResult()
+        self._exercisesController[5].printResult()
+        self._exercisesController[6].printResult()
+        self._exercisesController[7].printResult()
+        self._exercisesController[8].printResult()
+        self._exercisesController[9].printResult()
+        self._exercisesController[10].printResult()
+        self._exercisesController[11].printResult()
+
+
+
+
         #self._exercisesController[4].printResult()
         # self._exercisesController[5].printResult()

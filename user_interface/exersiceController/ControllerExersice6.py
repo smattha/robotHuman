@@ -18,7 +18,7 @@ class ControllerExersice6(QObject):
         self._feedback=''
         self.step=0
         self._imagesStoryCur=''
-        self.answerEx3=''
+        self._answerEx1=''
     
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
@@ -121,7 +121,7 @@ class ControllerExersice6(QObject):
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
 
     def feedbackStore(self,model,value):
-        self.answerEx3=value
+        self._answerEx1=value
         print('feedback')
         self.model.currentExerciseID=0
         self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
@@ -137,7 +137,7 @@ class ControllerExersice6(QObject):
 
 
     def printResult(self):
-        print("Exersice 3:", self.result.answerEx3)
+        print("Exersice 3:", self._answerEx1)
 
 
 
@@ -153,7 +153,7 @@ class ControllerExersice6(QObject):
 
     def getText(self):
         if self.step==0:
-            self.answerEx3=self._rosInterface.getText()
+            self._answerEx1=self._rosInterface.getText()
             print('reply!!!!!!!!!!!!!!')
         else:
             self.answerEx32=self._rosInterface.getText()

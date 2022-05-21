@@ -17,7 +17,8 @@ class ControllerExersice5(QObject):
         self._feedback=''
         self._image2=0
         self._imageAnswerFlag=1
-   
+        self._answerEx1=''
+
     
     def setVariable1(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.\n Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
