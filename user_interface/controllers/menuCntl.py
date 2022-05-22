@@ -163,6 +163,20 @@ class MenuCntl(QObject):
 
 
 
+        self._exercisesController[0].clearResults()
+        self._exercisesController[1].clearResults()
+        self._exercisesController[2].clearResults()
+        self._exercisesController[3].clearResults()
+
+        self._exercisesController[4].clearResults()
+        self._exercisesController[5].clearResults()
+        self._exercisesController[6].clearResults()
+        self._exercisesController[7].clearResults()
+        self._exercisesController[8].clearResults()
+        self._exercisesController[9].clearResults()
+        self._exercisesController[10].clearResults()
+        self._exercisesController[11].printResult()
+
 
         #self._exercisesController[4].printResult()
         # self._exercisesController[5].printResult()

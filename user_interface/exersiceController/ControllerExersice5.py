@@ -138,6 +138,11 @@ class ControllerExersice5(QObject):
         print("Exersice1 :", self._answerEx1, self._feedback)
 
 
+    def clearResults(self):
+        self._answerEx1=''
+        self._feedback=''
+
+
     @pyqtSlot(int)
     def storeAnswer(self,value):
         self.feedbackStore(self.model.result,value)

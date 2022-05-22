@@ -48,50 +48,102 @@ class results():
     def __init__(self):
         # super().__init__()
         self.listResults = []
-        # self.listWithNames = ["1"]
+        self.listWithNames = ["1"]
         # result = resultOfPerson()
-        #
+        # #
         # self.listResults.append(result)
         # self.listResults.append(result)
         # self.listResults.append(resultOfPerson())
 
     def toJSON(self):
-        return json.dumps(self.listResults, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__)
 
 
+class StoreJSONFile():
 
-fp= open('my_json.txt','w')
-data=resultOfPerson()
-json_data=data.__dict__,data.__dict__,
-json.dump(json_data, fp)
-
+    def __int__(self,str):
+        self.file=str
 
 
-fp= open('my_json.txt', 'r')
-data = json.load(fp)
-# x = json.loads(data, object_hook=lambda d: resultOfPerson(**d))
+    def __int__(self,):
+        self.file=''
+
+    def storeResults(self,results):
+        jsonFileHandler= open(self.file,'w')
+        # data=resultOfPerson()
+        # json_data=data.__dict__,data.__dict__,
+
+        # json.dump(data.listResults, fp)
+        json.dump(results.toJSON(), jsonFileHandler)
 
 
+    def readFromFile(self):
 
-# data1= resultOfPerson(data)
-# data1= resultOfPerson
-resultTotal=results()
-eject_name = namedtuple("ObjectName", data[0].keys())(*data[0].values())
-a=resultOfPerson()
-# resultTotal.listResutls.append(a)
-resultTotal.listResults.append(eject_name)
-resultTotal.listResults.append(a)
+            fp= open(self.file, 'r')
+            data = json.load(fp)
 
-eject_name = namedtuple("ObjectName", data[1].keys())(*data[1].values())
-resultTotal.listResults.append(eject_name)
-print ('1111111'+resultTotal.listResults[1].surname)
-print ('!!!!!!!!!!!!!!!!!!!!!')
+            jsonDataStr=json.loads(data)
+            data=jsonDataStr['listResults']
 
-# #     # data=resultOfPerson()
-# #     json.dump(data.toJSON(), fp)
 
-# tree = ET.parse('/home/stergios/Desktop/1.xml')
-# root = tree.getroot()
-# for child in root:
-#      print(child.tag, child.attrib)
+            resultsStored= results()
+
+            for d in  data:
+                newResult = namedtuple("result", d.keys())(*d.values())
+                resultsStored.listResults.append(newResult)
+            return resultsStored
+
+##########################################
+#Write data to file
+##########################################
+    # fp= open('my_json.txt','w')
+    # # data=resultOfPerson()
+    # # json_data=data.__dict__,data.__dict__,
+    #
+    # data=results()
+    #
+    #
+    # # json.dump(data.listResults, fp)
+    # json.dump(data.toJSON(), fp)
+
+#################################################
+###############Read from files###################
+#################################################
+# file='my_json.txt'
+#
+# fp= open(file, 'r')
+# data = json.load(fp)
+#
+# jsonDataStr=json.loads(data)
+# data=jsonDataStr['listResults']
+#
+#
+# resultsStored= results()
+#
+# for d in  data:
+#     newResult = namedtuple("result", d.keys())(*d.values())
+#     resultsStored.listResults.append(newResult)
+
+
+resultsA= results()
+
+personA= resultOfPerson()
+
+personA.name='Person 1'
+
+resultsA.listResults.append(personA)
+
+
+personB= resultOfPerson()
+
+personB.name='Person 2'
+
+resultsA.listResults.append(personB)
+
+storeJSONFile1=StoreJSONFile()
+storeJSONFile1.file='test.json'
+storeJSONFile1.storeResults(resultsA)
+resultsB=storeJSONFile1.readFromFile()
+
+
+a=1

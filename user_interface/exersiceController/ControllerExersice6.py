@@ -140,6 +140,11 @@ class ControllerExersice6(QObject):
         print("Exersice 3:", self._answerEx1)
 
 
+    def clearResults(self):
+        self._answerEx1=''
+        self._feedback=''
+
+
 
 
     @pyqtSlot(int)

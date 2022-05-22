@@ -169,6 +169,10 @@ class ControllerType2(object):
     def printResult(self):
         print("Exersice 3:", self._answerEx1,self._feedback)
 
+    def clearResults(self):
+        self._answerEx1=''
+        self._feedback=''
+
 
     def step2(self,value):
         self._rosInterface.talker("Τι είπε ο ήρωας που διάλεξες που μπορεί να στεναχώρησε ή να θύμωσε κάποιον από τους ήρωες;")

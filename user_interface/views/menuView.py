@@ -72,7 +72,7 @@ class MenuView(QMainWindow):
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
 
         self._ui.pushButtoResultPrevius.clicked.connect(lambda: self._main_controller.move2NextPage())
-        self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
+        # self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
         
         self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home())
         self._ui.feedbackEasyButton.clicked.connect(lambda: self._main_controller.feedback('1'))
@@ -81,7 +81,7 @@ class MenuView(QMainWindow):
 
 
 
-        #################################################################################################
+        #################################################################################################xml
         # # listen for model event signals
         self._model.changeDscrSingal.connect(self.changeDscrChanged)
         self._model.resetFieldSingal.connect(self.resetField)
