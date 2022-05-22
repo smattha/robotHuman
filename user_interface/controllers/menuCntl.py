@@ -132,6 +132,7 @@ class MenuCntl(QObject):
     def printResults(self):
         newResult=self._model.createNewResultObject()
         newResult.name=self._model.name
+        newResult.surname = self._model.surname
         newResult.answerEx1=str(self._exercisesController[0]._answerEx1)
         newResult.answerEx2=str(self._exercisesController[1]._answerEx1)
         newResult.answerEx3=str(self._exercisesController[2]._answerEx1)
@@ -144,6 +145,19 @@ class MenuCntl(QObject):
         newResult.answerEx10 = str(self._exercisesController[9]._answerEx1)
         newResult.answerEx11A = str(self._exercisesController[10]._answerEx1)
         newResult.answerEx12A = str(self._exercisesController[11]._answerEx1)
+
+        newResult.feedbackEx1=str(self._exercisesController[0]._feedback)
+        newResult.feedbackEx2=str(self._exercisesController[1]._feedback)
+        newResult.feedbackEx3=str(self._exercisesController[2]._feedback)
+        newResult.feedbackEx4=str(self._exercisesController[3]._feedback)
+        newResult.feedbackEx5=str(self._exercisesController[4]._feedback)
+        newResult.feedbackEx6=str(self._exercisesController[5]._feedback)
+        newResult.feedbackEx7=str(self._exercisesController[6]._feedback)
+        newResult.feedbackEx8=str(self._exercisesController[7]._feedback)
+        newResult.feedbackEx9=str(self._exercisesController[8]._feedback)
+        newResult.feedbackEx10=str(self._exercisesController[9]._feedback)
+        newResult.feedbackEx11=str(self._exercisesController[10]._feedback)
+        newResult.feedbackEx12=str(self._exercisesController[11]._feedback)
 
         self._model.createNewResult(newResult)
         self.printUserData()

@@ -42,6 +42,9 @@ class resultOfPerson(object):
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
+    def parser(self, dict):
+        for key in dict:
+            setattr(self, key,dict[key])
 
 class results():
 
@@ -89,7 +92,10 @@ class StoreJSONFile():
             resultsStored= results()
 
             for d in  data:
-                newResult = namedtuple("result", d.keys())(*d.values())
+                # newResult = namedtuple("result", d.keys())(*d.values())
+                newResult=resultOfPerson()
+                newResult.parser(d)
+                # newResult = namedtuple("result", d.keys())(*d.values())
                 resultsStored.listResults.append(newResult)
             return resultsStored
 

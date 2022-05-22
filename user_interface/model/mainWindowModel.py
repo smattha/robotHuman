@@ -4,7 +4,7 @@ from PyQt5.QtCore import QObject, pyqtSignal
 from sqlalchemy import true
 import json
 from collections import namedtuple
-
+from os.path import exists
 
 class resultOfPerson(object):
 
@@ -37,12 +37,29 @@ class resultOfPerson(object):
         self.answerEx11B = ''
         self.answerEx12A = ''
         self.answerEx12B = ''
+
+        self.feedbackE1 = ''
+        self.feedbackE2 = ''
+        self.feedbackE3 = ''
+        self.feedbackE4 = ''
+        self.feedbackE5 = ''
+        self.feedbackE6 = ''
+        self.feedbackE7 = ''
+        self.feedbackE8 = ''
+        self.feedbackE9 = ''
+        self.feedbackE10 = ''
+        self.feedbackE11 = ''
+        self.feedbackE12 = ''
         # self.name = 'Ονομα'
         # self.surname = 'Ματθαιάκης'
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
+
+    def parser(self, dict):
+        for key in dict:
+            setattr(self, key,dict[key])
 
 
 
@@ -81,6 +98,11 @@ class StoreJSONFile():
 
     def readFromFile(self):
 
+            if not exists(self.file):
+                print ('File doesnt exist')
+                return results()
+            else:
+                print ("file " +self.file+ ' ' +str(exists(self.file)))
             fp= open(self.file, 'r')
             data = json.load(fp)
 
@@ -91,7 +113,8 @@ class StoreJSONFile():
             resultsStored= results()
 
             for d in  data:
-                newResult = namedtuple("result", d.keys())(*d.values())
+                newResult=resultOfPerson()
+                newResult.parser(d)
                 resultsStored.listResults.append(newResult)
             return resultsStored
 
@@ -312,6 +335,7 @@ class MainWindowModel(QObject):
 
         storeJSONFile1 = StoreJSONFile()
         storeJSONFile1.file = 'test.json'
+        print('Read from file')
         self.result = storeJSONFile1.readFromFile()
         self.result.listResults.append(newResult)
         storeJSONFile1.storeResults(self.result)
