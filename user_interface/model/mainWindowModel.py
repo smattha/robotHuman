@@ -84,7 +84,8 @@ class StoreJSONFile():
         self.file=str
 
 
-    def __int__(self,):
+
+    def __int__(self):
         self.file=''
 
     def storeResults(self,results):
@@ -346,6 +347,12 @@ class MainWindowModel(QObject):
     def __init__(self):
         super().__init__()
         self.result=results()
+
+        storeJSONFile1 = StoreJSONFile()
+        storeJSONFile1.file = 'test.json'
+
+        self.result = storeJSONFile1.readFromFile()
+
         self.reset()
 
 

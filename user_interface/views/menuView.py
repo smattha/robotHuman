@@ -62,6 +62,9 @@ class MenuView(QMainWindow):
 
         self._ui.pushButtonResultsNext.clicked.connect( lambda: self.loadResultsByIDCounter(1) )
 
+        self._ui.pushButtoResultPrevius.clicked.connect( lambda: self.loadResultsByIDCounter(-1) )
+
+
 
 
         #Exersice 1
@@ -71,7 +74,7 @@ class MenuView(QMainWindow):
         self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home())
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
 
-        self._ui.pushButtoResultPrevius.clicked.connect(lambda: self._main_controller.move2NextPage())
+        # self._ui.pushButtoResultPrevius.clicked.connect(lambda: self._main_controller.move2NextPage())
         # self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
         
         self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home())
@@ -87,13 +90,10 @@ class MenuView(QMainWindow):
         self._model.resetFieldSingal.connect(self.resetField)
         self._model.setPageSignal.connect(self.setPage)
 
-
-
-
         #Feedback
         self._model.feedbackShowButton.connect(self.feedbackShowButton)
-        
 
+        self._ui.pushButtonHome.clicked.connect( lambda: self.setPage(0) )
 
 
     @pyqtSlot(str)
@@ -260,6 +260,44 @@ class MenuView(QMainWindow):
 
     def loadResults(self,results):
         # time.sleep(5)
+        self._ui.checkBox.setChecked(False)
+        self._ui.checkBox2.setChecked(False)
+        self._ui.checkBox3.setChecked(False)
+        self._ui.checkBox4.setChecked(False)
+        self._ui.checkBox5.setChecked(False)
+        self._ui.checkBox6.setChecked(False)
+        self._ui.checkBox7.setChecked(False)
+        self._ui.checkBox8.setChecked(False)
+        self._ui.checkBox9.setChecked(False)
+        self._ui.checkBox10.setChecked(False)
+        self._ui.checkBox11.setChecked(False)
+        self._ui.checkBox12.setChecked(False)
+        self._ui.checkBox13.setChecked(False)
+        self._ui.checkBox14.setChecked(False)
+        self._ui.checkBox15.setChecked(False)
+        self._ui.checkBox16.setChecked(False)
+        self._ui.checkBox17.setChecked(False)
+        self._ui.checkBox18.setChecked(False)
+        self._ui.checkBox19.setChecked(False)
+        self._ui.checkBox20.setChecked(False)
+        self._ui.checkBox21.setChecked(False)
+        self._ui.checkBox22.setChecked(False)
+        self._ui.checkBox23.setChecked(False)
+        self._ui.checkBox24.setChecked(False)
+        self._ui.checkBox25.setChecked(False)
+        self._ui.checkBox26.setChecked(False)
+        self._ui.checkBox27.setChecked(False)
+        self._ui.checkBox28.setChecked(False)
+        self._ui.checkBox29.setChecked(False)
+        self._ui.checkBox30.setChecked(False)
+        self._ui.checkBox31.setChecked(False)
+        self._ui.checkBox32.setChecked(False)
+        self._ui.checkBox33.setChecked(False)
+        self._ui.checkBox34.setChecked(False)
+        self._ui.checkBox35.setChecked(False)
+        self._ui.checkBox36.setChecked(True)
+
+
         self._ui.lineResultsEx1.setText(results.answerEx1)
         self._ui.lineResultsEx2.setText(results.answerEx2)
         self._ui.lineResultsEx3.setText(results.answerEx3)
@@ -285,7 +323,7 @@ class MenuView(QMainWindow):
         if(results.feedbackEx2=='1'):
             self._ui.checkBox2.setChecked(True)
         elif (results.feedbackEx2=='2'):
-            self._ui.checkBox_14.setChecked(True)
+            self._ui.checkBox14.setChecked(True)
         elif (results.feedbackEx2=='3'):
             self._ui.checkBox26.setChecked(True)
 
@@ -375,5 +413,9 @@ class MenuView(QMainWindow):
         self.counter=self.counter+value
         print(" counter ",self.counter)
         self.loadResults(self._model.result.listResults[self.counter])
+
+        if (self.counter==len(self._model.result.listResults)):
+            self._ui.pushButtonResultsNext.hide()
+
         # self._ui.feedbackNormalButton.setDisabled(False)
         # self._ui.feedbackHardButton.setDisabled(False)
