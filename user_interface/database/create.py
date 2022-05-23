@@ -6,6 +6,7 @@ from datetime import date
 from base import Session, engine, Base
 from tables.movie import Movie
 from tables.actor import Actor
+from tables.result import Result
 
 # 2 - generate database schema
 Base.metadata.create_all(engine)

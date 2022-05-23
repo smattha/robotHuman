@@ -313,92 +313,92 @@ class MenuView(QMainWindow):
         self._ui.lineResultName.setText(results.name)
         self._ui.lineResultsSurname.setText(results.surname)
 
-        if(results.feedbackEx1=='1'):
+        if(results.feedbackE1=='1'):
             self._ui.checkBox.setChecked(True)
-        elif (results.feedbackEx1=='2'):
+        elif (results.feedbackE1=='2'):
             self._ui.checkBox13.setChecked(True)
-        elif (results.feedbackEx1=='3'):
+        elif (results.feedbackE1=='3'):
             self._ui.checkBox25.setChecked(True)
 
-        if(results.feedbackEx2=='1'):
+        if(results.feedbackE2=='1'):
             self._ui.checkBox2.setChecked(True)
-        elif (results.feedbackEx2=='2'):
+        elif (results.feedbackE2=='2'):
             self._ui.checkBox14.setChecked(True)
-        elif (results.feedbackEx2=='3'):
+        elif (results.feedbackE2=='3'):
             self._ui.checkBox26.setChecked(True)
 
-        if(results.feedbackEx3=='1'):
+        if(results.feedbackE3=='1'):
             self._ui.checkBox3.setChecked(True)
-        elif (results.feedbackEx3=='2'):
+        elif (results.feedbackE3=='2'):
             self._ui.checkBox15.setChecked(True)
-        elif (results.feedbackEx2=='3'):
+        elif (results.feedbackE2=='3'):
             self._ui.checkBox27.setChecked(True)
 
-        if(results.feedbackEx4=='1'):
+        if(results.feedbackE4=='1'):
             self._ui.checkBox4.setChecked(True)
-        elif (results.feedbackEx4=='2'):
+        elif (results.feedbackE4=='2'):
             self._ui.checkBox16.setChecked(True)
-        elif (results.feedbackEx4=='3'):
+        elif (results.feedbackE4=='3'):
             self._ui.checkBox28.setChecked(True)
 
-        if(results.feedbackEx5=='1'):
+        if(results.feedbackE5=='1'):
             self._ui.checkBox5.setChecked(True)
-        elif (results.feedbackEx5=='2'):
+        elif (results.feedbackE5=='2'):
             self._ui.checkBox17.setChecked(True)
-        elif (results.feedbackEx5=='3'):
+        elif (results.feedbackE5=='3'):
             self._ui.checkBox29.setChecked(True)
 
-        if(results.feedbackEx6=='1'):
+        if(results.feedbackE6=='1'):
             self._ui.checkBox6.setChecked(True)
-        elif (results.feedbackEx5=='2'):
+        elif (results.feedbackE5=='2'):
             self._ui.checkBox18.setChecked(True)
-        elif (results.feedbackEx6=='3'):
+        elif (results.feedbackE6=='3'):
             self._ui.checkBox30.setChecked(True)
 
 
-        if(results.feedbackEx7=='1'):
+        if(results.feedbackE7=='1'):
             self._ui.checkBox7.setChecked(True)
-        elif (results.feedbackEx7=='2'):
+        elif (results.feedbackE7=='2'):
             self._ui.checkBox19.setChecked(True)
-        elif (results.feedbackEx7=='3'):
+        elif (results.feedbackE7=='3'):
             self._ui.checkBox31.setChecked(True)
 
 
-        if(results.feedbackEx8=='1'):
+        if(results.feedbackE8=='1'):
             self._ui.checkBox8.setChecked(True)
-        elif (results.feedbackEx8=='2'):
+        elif (results.feedbackE8=='2'):
             self._ui.checkBox20.setChecked(True)
-        elif (results.feedbackEx8=='3'):
+        elif (results.feedbackE8=='3'):
             self._ui.checkBox32.setChecked(True)
 
 
-        if(results.feedbackEx9=='1'):
+        if(results.feedbackE9=='1'):
             self._ui.checkBox9.setChecked(True)
-        elif (results.feedbackEx9=='2'):
+        elif (results.feedbackE9=='2'):
             self._ui.checkBox21.setChecked(True)
-        elif (results.feedbackEx9=='3'):
+        elif (results.feedbackE9=='3'):
             self._ui.checkBox33.setChecked(True)
 
-        if(results.feedbackEx10=='1'):
+        if(results.feedbackE10=='1'):
             self._ui.checkBox10.setChecked(True)
-        elif (results.feedbackEx10=='2'):
+        elif (results.feedbackE10=='2'):
             self._ui.checkBox22.setChecked(True)
-        elif (results.feedbackEx10=='3'):
+        elif (results.feedbackE10=='3'):
             self._ui.checkBox34.setChecked(True)
 
-        if(results.feedbackEx11=='1'):
+        if(results.feedbackE11=='1'):
             self._ui.checkBox11.setChecked(True)
-        elif (results.feedbackEx11=='2'):
+        elif (results.feedbackE11=='2'):
             self._ui.checkBox23.setChecked(True)
-        elif (results.feedbackEx11=='3'):
+        elif (results.feedbackE11=='3'):
             self._ui.checkBox35.setChecked(True)
 
 
-        if(results.feedbackEx12=='1'):
+        if(results.feedbackE12=='1'):
             self._ui.checkBox11.setChecked(True)
-        elif (results.feedbackEx12=='2'):
+        elif (results.feedbackE12=='2'):
             self._ui.checkBox23.setChecked(True)
-        elif (results.feedbackEx10=='3'):
+        elif (results.feedbackE10=='3'):
             self._ui.checkBox35.setChecked(True)
 
 

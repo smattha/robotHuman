@@ -5,53 +5,51 @@ from sqlalchemy import true
 import json
 from collections import namedtuple
 from os.path import exists
+from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer
 
-class resultOfPerson(object):
+from model.base import Base,Session
+# from base import Session, engine, Base
 
-    def __init__(self, my_dict):
-        for key in my_dict:
-            setattr(self, key, my_dict[key])
+class resultOfPerson(Base):
+    __tablename__ = 'results'
 
-    def __init__(self):
-        super().__init__()
-        self.listWithNames = ["1"]
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+    name = Column(String)
+    age = Column(String)
+    surname = Column(String)
 
-        self.name = ''
-        self.age = ''
-        self.surname = ''
+    answerEx1 = Column(String)
+    answerEx2 = Column(String)
+    answerEx3 = Column(String)
+    answerEx4 = Column(String)
+    answerEx5A = Column(String)
+    answerEx5B = Column(String)
+    answerEx6A = Column(String)
+    answerEx6B = Column(String)
 
-        self.answerEx1 = ''
-        self.answerEx2 = ''
-        self.answerEx3 = ''
-        self.answerEx4 = ''
-        self.answerEx5A = ''
-        self.answerEx5B = ''
-        self.answerEx6A = ''
-        self.answerEx6B = ''
+    answerEx7 = Column(String)
+    answerEx8 = Column(String)
+    answerEx9 = Column(String)
+    answerEx10 = Column(String)
+    answerEx11A = Column(String)
+    answerEx11B = Column(String)
+    answerEx12A = Column(String)
+    answerEx12B = Column(String)
 
-        self.answerEx7 = ''
-        self.answerEx8 = ''
-        self.answerEx9 = ''
-        self.answerEx10 = ''
-        self.answerEx11A = ''
-        self.answerEx11B = ''
-        self.answerEx12A = ''
-        self.answerEx12B = ''
-
-        self.feedbackE1 = ''
-        self.feedbackE2 = ''
-        self.feedbackE3 = ''
-        self.feedbackE4 = ''
-        self.feedbackE5 = ''
-        self.feedbackE6 = ''
-        self.feedbackE7 = ''
-        self.feedbackE8 = ''
-        self.feedbackE9 = ''
-        self.feedbackE10 = ''
-        self.feedbackE11 = ''
-        self.feedbackE12 = ''
-        # self.name = 'Ονομα'
-        # self.surname = 'Ματθαιάκης'
+    feedbackE1 = Column(String)
+    feedbackE2 = Column(String)
+    feedbackE3 = Column(String)
+    feedbackE4 = Column(String)
+    feedbackE5 = Column(String)
+    feedbackE6 = Column(String)
+    feedbackE7 = Column(String)
+    feedbackE8 = Column(String)
+    feedbackE9 = Column(String)
+    feedbackE10 = Column(String)
+    feedbackE11 = Column(String)
+    feedbackE12 = Column(String)
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__,
@@ -60,6 +58,7 @@ class resultOfPerson(object):
     def parser(self, dict):
         for key in dict:
             setattr(self, key,dict[key])
+
 
 
 
@@ -331,15 +330,28 @@ class MainWindowModel(QObject):
 
 
     def createNewResult(self, newResult):
+        self.session = Session()
 
-        self.result.listResults.append(newResult)
+        # 9 - persists data
+        self.session.add(newResult)
 
-        storeJSONFile1 = StoreJSONFile()
-        storeJSONFile1.file = 'test.json'
-        print('Read from file')
-        self.result = storeJSONFile1.readFromFile()
-        self.result.listResults.append(newResult)
-        storeJSONFile1.storeResults(self.result)
+
+        # 10 - commit and close session
+        self.session.commit()
+
+        self.result.listResults=self.session.query(resultOfPerson).all()
+
+
+        self.session.close()
+
+        # self.result.listResults.append(listTemp)
+
+        # storeJSONFile1 = StoreJSONFile()
+        # storeJSONFile1.file = 'test.json'
+        # print('Read from file')
+        # self.result = storeJSONFile1.readFromFile()
+        # self.result.listResults.append(newResult)
+        # storeJSONFile1.storeResults(self.result)
 
     def createNewResultObject(self):
         return resultOfPerson()
@@ -348,11 +360,12 @@ class MainWindowModel(QObject):
         super().__init__()
         self.result=results()
 
-        storeJSONFile1 = StoreJSONFile()
-        storeJSONFile1.file = 'test.json'
+        # storeJSONFile1 = StoreJSONFile()
+        # storeJSONFile1.file = 'test.json'
+        self.session = Session()
 
-        self.result = storeJSONFile1.readFromFile()
-
+        self.result.listResults = self.session.query(resultOfPerson).all()
+        self.session.close()
         self.reset()
 
 
