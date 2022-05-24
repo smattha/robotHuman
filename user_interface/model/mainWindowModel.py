@@ -183,7 +183,7 @@ class MainWindowModel(QObject):
     poseY=100
     sizeX=1000
     sizeY=800
-    i=2
+    i=1
     sleepForAnswer=1 ;
     #Constants
     resourcesImage1="./resources/images/ex1/mainImage.png"
