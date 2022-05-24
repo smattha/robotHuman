@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './resources/page1.ui'
+# Form implementation generated from reading ui file 'page1.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -17,7 +17,15 @@ class Ui_Form(object):
         Form.resize(1210, 754)
         self.gridLayout_2 = QtWidgets.QGridLayout(Form)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.widget = QtWidgets.QWidget(Form)
+        self.scrollArea = QtWidgets.QScrollArea(Form)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setObjectName("scrollArea")
+        self.scrollAreaWidgetContents = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1190, 734))
+        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+        self.gridLayout = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
+        self.gridLayout.setObjectName("gridLayout")
+        self.widget = QtWidgets.QWidget(self.scrollAreaWidgetContents)
         self.widget.setObjectName("widget")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.widget)
         self.gridLayout_5.setObjectName("gridLayout_5")
@@ -71,7 +79,9 @@ class Ui_Form(object):
         self.Results.setAlignment(QtCore.Qt.AlignCenter)
         self.Results.setObjectName("Results")
         self.gridLayout_5.addWidget(self.Results, 3, 2, 1, 5)
-        self.gridLayout_2.addWidget(self.widget, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        self.gridLayout_2.addWidget(self.scrollArea, 1, 0, 1, 1)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)

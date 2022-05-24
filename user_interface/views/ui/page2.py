@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file './resources/page2.ui'
+# Form implementation generated from reading ui file 'page2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -17,7 +17,15 @@ class Ui_Form(object):
         Form.resize(1210, 754)
         self.gridLayout_2 = QtWidgets.QGridLayout(Form)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.stackedWidget = QtWidgets.QStackedWidget(Form)
+        self.scrollArea = QtWidgets.QScrollArea(Form)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setObjectName("scrollArea")
+        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 1190, 734))
+        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        self.stackedWidget = QtWidgets.QStackedWidget(self.scrollAreaWidgetContents_2)
         self.stackedWidget.setObjectName("stackedWidget")
         self.page = QtWidgets.QWidget()
         self.page.setObjectName("page")
@@ -30,8 +38,9 @@ class Ui_Form(object):
         self.answer5 = QtWidgets.QPushButton(self.widget)
         self.answer5.setObjectName("answer5")
         self.gridLayout_5.addWidget(self.answer5, 4, 1, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_5.addItem(spacerItem, 4, 0, 1, 1)
+        self.descriptionBox = QtWidgets.QLabel(self.widget)
+        self.descriptionBox.setObjectName("descriptionBox")
+        self.gridLayout_5.addWidget(self.descriptionBox, 1, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.label_3 = QtWidgets.QLabel(self.widget)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
@@ -50,9 +59,8 @@ class Ui_Form(object):
         self.label.setObjectName("label")
         self.gridLayout_8.addWidget(self.label, 0, 0, 1, 1)
         self.gridLayout_5.addWidget(self.testing, 3, 0, 1, 2)
-        self.descriptionBox = QtWidgets.QLabel(self.widget)
-        self.descriptionBox.setObjectName("descriptionBox")
-        self.gridLayout_5.addWidget(self.descriptionBox, 1, 0, 1, 1, QtCore.Qt.AlignHCenter)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_5.addItem(spacerItem, 4, 0, 1, 1)
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page)
         self.page_2 = QtWidgets.QWidget()
@@ -109,19 +117,21 @@ class Ui_Form(object):
         self.horizontalLayout_3.addWidget(self.optionC)
         self.gridLayout_9.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_3)
-        self.gridLayout_2.addWidget(self.stackedWidget, 0, 0, 1, 1)
+        self.gridLayout_10.addWidget(self.stackedWidget, 0, 0, 1, 1)
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
+        self.gridLayout_2.addWidget(self.scrollArea, 1, 0, 1, 1)
 
         self.retranslateUi(Form)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.answer5.setText(_translate("Form", "Επόμενο"))
+        self.descriptionBox.setText(_translate("Form", "TextLabel"))
         self.label_3.setText(_translate("Form", "Δραστηριότητα 1"))
         self.label.setText(_translate("Form", "TextLabel"))
-        self.descriptionBox.setText(_translate("Form", "TextLabel"))
         self.label_7.setText(_translate("Form", "Δραστηριότητα 1"))
         self.optionB.setText(_translate("Form", "\n"
 "\n"
