@@ -87,11 +87,21 @@ class MenuCntl(QObject):
         self._exercisesController[value].readAnswers()
         self._model.currentExerciseID=value+1
 
+
     @pyqtSlot(str)
-    def go2Home(self):
+    def go2Home(self,name,surname,age):
        self._model.trigger(0)
+       self._model.name = name
+       self._model.surname = surname
+       self._model.age = age
        self.printResults()
 
+
+
+    @pyqtSlot(str)
+    def go2Home1(self):
+       self._model.trigger(0)
+       # self.printResults()
 
     @pyqtSlot(str)
     def move2NextPage(self):

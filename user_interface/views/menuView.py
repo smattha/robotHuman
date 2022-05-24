@@ -55,7 +55,7 @@ class MenuView(QMainWindow):
         ################################################################################################
         # # connect widgets to controller
         self._ui.clearMenu.clicked.connect(lambda: self._main_controller.clearClicked())
-        self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.text,self._ui.surname.text,self._ui.ageTextBox.text))       
+        self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.text(), self._ui.surname.text(), self._ui.ageTextBox.text()))
         self._ui.selectExersiceButton.clicked.connect( lambda: self._main_controller.setPage(self._ui.selectExercise.currentIndex()) )        
 
         self._ui.pushButtonMainResults.clicked.connect( lambda: self.setPage(103) )
@@ -71,13 +71,13 @@ class MenuView(QMainWindow):
         self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         
 
-        self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home())
+        self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home1())
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
 
         # self._ui.pushButtoResultPrevius.clicked.connect(lambda: self._main_controller.move2NextPage())
         # self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
         
-        self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home())
+        self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home(  self._ui.name.text(),self._ui.surname.text(),self._ui.ageTextBox.text() ) )
         self._ui.feedbackEasyButton.clicked.connect(lambda: self._main_controller.feedback('1'))
         self._ui.feedbackNormalButton.clicked.connect(lambda: self._main_controller.feedback('2'))
         self._ui.feedbackHardButton.clicked.connect(lambda: self._main_controller.feedback('3'))
@@ -211,6 +211,7 @@ class MenuView(QMainWindow):
                 value=value-100
             self._ui.stackedWidget.setCurrentIndex(value)
             if value==3:
+                self._ui.pushButtoResultPrevius.hide()
                 self.loadResultsByID(0)
             if value==1:
                 self.hideButtons()
@@ -295,7 +296,7 @@ class MenuView(QMainWindow):
         self._ui.checkBox33.setChecked(False)
         self._ui.checkBox34.setChecked(False)
         self._ui.checkBox35.setChecked(False)
-        self._ui.checkBox36.setChecked(True)
+        self._ui.checkBox36.setChecked(False)
 
 
         self._ui.lineResultsEx1.setText(results.answerEx1)
@@ -414,8 +415,16 @@ class MenuView(QMainWindow):
         print(" counter ",self.counter)
         self.loadResults(self._model.result.listResults[self.counter])
 
-        if (self.counter==len(self._model.result.listResults)):
+        if ( ( self.counter +1 )==len(self._model.result.listResults)):
             self._ui.pushButtonResultsNext.hide()
+        else:
+            self._ui.pushButtonResultsNext.show()
+
+
+        if ( 0== len(self._model.result.listResults)):
+            self._ui.pushButtoResultPrevius.hide()
+        else:
+            self._ui.pushButtoResultPrevius.show()
 
         # self._ui.feedbackNormalButton.setDisabled(False)
         # self._ui.feedbackHardButton.setDisabled(False)
