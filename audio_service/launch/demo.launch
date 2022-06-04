@@ -1,4 +1,9 @@
 <launch>
-  <node name="listener" pkg="audioService" type="audioService.py" output="screen"/>
-  <node name="talker" pkg="audioService" type="test.py" output="screen"/>
+
+  <node pkg="audio_service" type="audioService.py" name="text2Speech"  />
+	
+  <node pkg="audio_service" type="test_microphone.py" name="speech2Text"  />
+  
+  <node pkg="user_interface" type="mainMenu.py" name="ui"  />
+  
 </launch>

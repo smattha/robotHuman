@@ -17,6 +17,7 @@ catkin_install_python(PROGRAMS
   scripts/audioService.py
   scripts/speechtotextMicrophone.py
   scripts/add_two_ints_server.py
+  scripts/test_microphone.py
  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 install(FILES

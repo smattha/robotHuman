@@ -24,7 +24,7 @@ class ControllerExersice5(QObject):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.\n Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
         self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο'
         self._title="Δραστηριότητα 5"
-        self._imagePath="./resources/images/ex5/image.png"
+        self._imagePath="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex5/image.png"
         self._counter=1
         self._part2="Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το μικρό σκυλάκι."
 
@@ -52,7 +52,7 @@ class ControllerExersice5(QObject):
         self._exersiceDsr2="Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια."
         self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια.'
         self._title="Άσκηση προσοχής"
-        self._imagePath="./resources/images/exB5/1.jpg"
+        self._imagePath="/home/stergios/git/src/robotHuman/user_interface/resources/images/exB5/1.jpg"
         self._counter=2
         self._part2="Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το κάστρο"
 
@@ -77,8 +77,8 @@ class ControllerExersice5(QObject):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
         self._answerDsr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Δραστηριότητα 5!!!!!!!!"
-        self._imagePath="./resources/images/exB5/1.jpg"
-        self._imagePath2="./resources/images/exB5/1.jpg"
+        self._imagePath="/home/stergios/git/src/robotHuman/user_interface/resources/images/exB5/1.jpg"
+        self._imagePath2="/home/stergios/git/src/robotHuman/user_interface/resources/images/exB5/1.jpg"
 
         self._imageAnswer1=''
         self._imageAnswer2=''

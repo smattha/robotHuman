@@ -28,13 +28,13 @@ class ControllerExersice6(QObject):
     def setVariable6(self):
         
         self._imagesStory=  [                 
-                    ["", "./resources/images/ex6/1.png",'2'],
-                    ["", "./resources/images/ex6/2.png",'1']
+                    ["", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex6/1.png",'2'],
+                    ["", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex6/2.png",'1']
         ]
 
         self._imagesAnswer=  [
-                    ["A", "./resources/images/ex3/3.png",'1'],
-                    ["B", "./resources/images/ex3/4.png",'2']
+                    ["A", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/3.png",'1'],
+                    ["B", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
@@ -45,13 +45,13 @@ class ControllerExersice6(QObject):
     def setVariable6B(self):
         
         self._imagesStory=  [                 
-                    ["", "./resources/images/exB6/1.jpeg",'2'],
-                    ["", "./resources/images/exB6/2.png",'1']
+                    ["", "/home/stergios/git/src/robotHuman/user_interface/resources/images/exB6/1.jpeg",'2'],
+                    ["", "/home/stergios/git/src/robotHuman/user_interface/resources/images/exB6/2.png",'1']
         ]
 
         self._imagesAnswer=  [
-                    ["A", "./resources/images/ex3/3.png",'1'],
-                    ["B", "./resources/images/ex3/4.png",'2']
+                    ["A", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/3.png",'1'],
+                    ["B", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
@@ -65,17 +65,17 @@ class ControllerExersice6(QObject):
     def setVariables4(self):
         
         self._imagesStory=  [
-                    ["Η Μαρία είναι ένα μικρό κοριτσάκι 3 ετών'", "./resources/images/ex4/1.png",'1'],
-                    ["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα'", "./resources/images/ex4/2.png",'2'],
-                    ["Η μαμά της Μαρίας λέει: «Καλημέρα!", "./resources/images/ex4/3.png",'3'],
-                    ["Ω νομίζω ότι δεν έχω γνωρίσει το γιο σου. Πως τον λένε;'", "./resources/images/ex4/4.png",'4'],
-                    ["Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;", "./resources/images/ex4/5.png",'5']
+                    ["Η Μαρία είναι ένα μικρό κοριτσάκι 3 ετών'", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/1.png",'1'],
+                    ["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα'", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/2.png",'2'],
+                    ["Η μαμά της Μαρίας λέει: «Καλημέρα!", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/3.png",'3'],
+                    ["Ω νομίζω ότι δεν έχω γνωρίσει το γιο σου. Πως τον λένε;'", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/4.png",'4'],
+                    ["Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/5.png",'5']
         ]
 
         self._imagesAnswer=  [
-                    ["A", "./resources/images/ex4/6.png",'1'],
-                    ["B", "./resources/images/ex4/7.png",'2'],
-                    ["Γ", "./resources/images/ex4/8.png",'3']
+                    ["A", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/6.png",'1'],
+                    ["B", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/7.png",'2'],
+                    ["Γ", "/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/8.png",'3']
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'

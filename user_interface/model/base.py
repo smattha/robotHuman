@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-engine = create_engine('sqlite:///database/scheme/mysqlList.db')
+engine = create_engine('sqlite:////home/stergios/git/src/robotHuman/user_interface/database/scheme/mysqlList.db')
 Session = sessionmaker(bind=engine)
 
 

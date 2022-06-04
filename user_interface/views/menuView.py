@@ -41,7 +41,7 @@ class MenuView(QMainWindow):
         self._ui.hard.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
         self._ui.hard.setScaledContents(True)
 
-        self._ui.mainImageHome.setPixmap(QtGui.QPixmap("./resources/images/mainScreen.jpg"))
+        self._ui.mainImageHome.setPixmap(QtGui.QPixmap("/home/stergios/git/src/robotHuman/user_interface/resources/images/mainScreen.jpg"))
 
         self._ui.stackedWidget.setCurrentIndex(0)
 

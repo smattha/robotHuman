@@ -15,7 +15,7 @@ class Ui_menuWindow(object):
     def setupUi(self, menuWindow):
         menuWindow.setObjectName("menuWindow")
         menuWindow.setEnabled(True)
-        menuWindow.resize(1000, 800)
+        menuWindow.resize(1000, 693)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -335,7 +335,7 @@ class Ui_menuWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 946, 891))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 946, 890))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_7.setObjectName("gridLayout_7")
@@ -1110,7 +1110,7 @@ class Ui_menuWindow(object):
         self.gridLayout_2.addLayout(self.verticalLayout, 0, 0, 1, 1)
         menuWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(menuWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1000, 28))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1000, 27))
         self.menubar.setObjectName("menubar")
         self.menu = QtWidgets.QMenu(self.menubar)
         self.menu.setObjectName("menu")
@@ -1125,9 +1125,6 @@ class Ui_menuWindow(object):
         self.menuHelp = QtWidgets.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
         menuWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(menuWindow)
-        self.statusbar.setObjectName("statusbar")
-        menuWindow.setStatusBar(self.statusbar)
         self.toolBar = QtWidgets.QToolBar(menuWindow)
         self.toolBar.setObjectName("toolBar")
         menuWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
@@ -1199,7 +1196,7 @@ class Ui_menuWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(menuWindow)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(menuWindow)
 
     def retranslateUi(self, menuWindow):
@@ -1208,7 +1205,7 @@ class Ui_menuWindow(object):
         self.textEdit.setHtml(_translate("menuWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Sans\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
+"</style></head><body style=\" font-family:\'Ubuntu\'; font-size:14pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'arial,sans-serif\'; font-size:24pt; color:#8ab4f8;\">Εκπαιδευτική εφαρμογή</span></p></body></html>"))
         self.selectExersiceButton.setText(_translate("menuWindow", "Έναρξη"))
         self.clearMenu.setText(_translate("menuWindow", "Εκκαθάριση"))

@@ -103,14 +103,9 @@ class resultOfPerson(Base):
 class results():
 
     def __init__(self):
-        # super().__init__()
         self.listResults = []
         self.listWithNames = ["1"]
-        # result = resultOfPerson()
-        # #
-        # self.listResults.append(result)
-        # self.listResults.append(result)
-        # self.listResults.append(resultOfPerson())
+
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__)
@@ -127,10 +122,6 @@ class StoreJSONFile():
 
     def storeResults(self,results):
         jsonFileHandler= open(self.file,'w')
-        # data=resultOfPerson()
-        # json_data=data.__dict__,data.__dict__,
-
-        # json.dump(data.listResults, fp)
         json.dump(results.toJSON(), jsonFileHandler)
 
 
@@ -184,27 +175,27 @@ class MainWindowModel(QObject):
     sizeX=1000
     sizeY=800
     i=1
-    sleepForAnswer=1 ;
+    sleepForAnswer=5 ;
     #Constants
-    resourcesImage1="./resources/images/ex1/mainImage.png"
-    resourcesImage2="./resources/images/ex2/mainImage.png"
-    resourcesImage3="./resources/images/ex3/1.png"
-    resourcesImage3B="./resources/images/ex3/2.png"
-    
-    exersice3A="./resources/images/ex3/3.png"
-    exersice3B="./resources/images/ex3/4.png"
-    
-    exersice4A="./resources/images/ex4/1.png"
-    exersice4B="./resources/images/ex4/6.png"
-    exersice4C="./resources/images/ex4/7.png"
-    exersice4D="./resources/images/ex4/8.png"
+    resourcesImage1="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex1/mainImage.png"
+    resourcesImage2="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex2/mainImage.png"
+    resourcesImage3="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/1.png"
+    resourcesImage3B="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/2.png"
 
-    exersice5A="./resources/images/ex5/image.png"
-    exersice6A="./resources/images/ex6/1.png"
+    exersice3A="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/3.png"
+    exersice3B="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/4.png"
+    
+    exersice4A="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/1.png"
+    exersice4B="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/6.png"
+    exersice4C="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/7.png"
+    exersice4D="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/8.png"
 
-    easyFeedbackImg="./resources/images/3.png"
-    normalFeedback="./resources/images/2.jpg"
-    difficultFeedback="./resources/images/1.jpg"  
+    exersice5A="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex5/image.png"
+    exersice6A="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex6/1.png"
+
+    easyFeedbackImg="/home/stergios/git/src/robotHuman/user_interface/resources/images/3.png"
+    normalFeedback="/home/stergios/git/src/robotHuman/user_interface/resources/images/2.jpg"
+    difficultFeedback="/home/stergios/git/src/robotHuman/user_interface/resources/images/1.jpg"  
 
 
     #create signal
@@ -348,7 +339,7 @@ class MainWindowModel(QObject):
     def nextPageEx6(self,value):
         if self.stepImage6==0:
             print(' next page image 6', value)
-            self.nextPageSignalEx6.emit("./resources/images/ex6/2.png") 
+            self.nextPageSignalEx6.emit("/home/stergios/git/src/robotHuman/user_interface/resources/images/ex6/2.png") 
             self.stepImage6=self.stepImage6+1       
         else :
             self.setPageSignal.emit(8)     

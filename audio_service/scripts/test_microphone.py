@@ -21,11 +21,8 @@ import rospy
 
 class ControllerExersice5(object):
 
-    def __init__(self,args,parser):
-        self.args=args
-        if args.list_devices:
-            print(sd.query_devices())
-            parser.exit(0)
+    def __init__(self,parser):
+
         parser = argparse.ArgumentParser(
             description=__doc__,
             formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -41,8 +38,9 @@ class ControllerExersice5(object):
             help='input device (numeric ID or substring)')
         parser.add_argument(
             '-r', '--samplerate', type=int, help='sampling rate')
-        self.args = parser.parse_args(remaining)
-
+        args, remaining = parser.parse_known_args()
+        
+        self.args=args
         self.args.model = "/home/stergios/model"
         
         if not os.path.exists(self.args.model):
@@ -122,8 +120,9 @@ if __name__ == '__main__':
         parser.add_argument(
         '-l', '--list-devices', action='store_true',
         help='show list of audio devices and exit')
-        args, remaining = parser.parse_known_args()
-        app = ControllerExersice5(args,parser)
+        parser.add_argument('--no-zip', dest='no_zip', action='store_true')
+        
+        app = ControllerExersice5(parser)
         
         rospy.spin()
 
