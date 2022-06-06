@@ -307,6 +307,7 @@ class Ui_menuWindow(object):
         self.gridLayout_10.addWidget(self.nextExersice, 3, 2, 1, 1)
         self.hard = QtWidgets.QLabel(self.feeback)
         self.hard.setMaximumSize(QtCore.QSize(900, 600))
+        self.hard.setScaledContents(True)
         self.hard.setObjectName("hard")
         self.gridLayout_10.addWidget(self.hard, 1, 2, 1, 1, QtCore.Qt.AlignHCenter)
         self.feedbackEasyButton = QtWidgets.QPushButton(self.feeback)
@@ -1196,7 +1197,7 @@ class Ui_menuWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(menuWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(menuWindow)
 
     def retranslateUi(self, menuWindow):

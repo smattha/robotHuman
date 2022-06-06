@@ -41,8 +41,8 @@ class ControllerExersice5(object):
         args, remaining = parser.parse_known_args()
         
         self.args=args
-        self.args.model = "/home/stergios/model"
         
+        print('Model ',self.args.model )
         if not os.path.exists(self.args.model):
             print ("Please download a model for your language from https://alphacephei.com/vosk/models")
             print ("and unpack as 'model' in the current folder.")
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     try:
 
         parser = argparse.ArgumentParser(add_help=False)
-        parser.add_argument(
+        parser.add_argument( 
         '-l', '--list-devices', action='store_true',
         help='show list of audio devices and exit')
         parser.add_argument('--no-zip', dest='no_zip', action='store_true')

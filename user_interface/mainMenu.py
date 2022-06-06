@@ -20,7 +20,12 @@ class App(QApplication):
         super(App, self).__init__(sys_argv)
         self.model= MainWindowModel( "/home/stergios/git/src/robotHuman/user_interface")
         self.model.path="/home/stergios/git/src/robotHuman/user_interface"
-        
+
+        if (len(sys.argv)==2):
+            self.model.path = sys.argv[1]
+        else:
+            self.model.path = "/home/stergios/git/src/robotHuman/user_interface"
+
         self._rosInterface=Ros_Audio_Service()
         
         
