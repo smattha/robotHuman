@@ -103,7 +103,7 @@ class ControllerType2(object):
         self._counter=0
         self._exerciseDscr='ώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα'
         self.title= 'Η μικρή Σοφία!'
-        self.nostep=3
+        # self.nostep=3
 
 
     def setupUi(self):
