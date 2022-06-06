@@ -19,6 +19,7 @@ class ControllerType1(QObject):
         self._imageAnswerFlag=0
         self._answerEx1=''
         self._feedback=''
+        self.path=self.model.path
     
 
     
@@ -31,13 +32,13 @@ class ControllerType1(QObject):
         
         self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Το λιοντάρι και τα παπάκια!"
-        self._imagePath="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex1/mainImage.png"
+        self._imagePath=self.path+"/resources/images/ex1/mainImage.png"
         
-        self._imageAnswer1='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex1/answer1.png'
-        self._imageAnswer2='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex1/answer2.png'
-        self._imageAnswer3='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex1/answer3.png'
-        self._imageAnswer4='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex1/answer4.png'
-        self._imageAnswer5='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex1/answer5.png'
+        self._imageAnswer1=self.path+'/resources/images/ex1/answer1.png'
+        self._imageAnswer2=self.path+'/resources/images/ex1/answer2.png'
+        self._imageAnswer3=self.path+'/resources/images/ex1/answer3.png'
+        self._imageAnswer4=self.path+'/resources/images/ex1/answer4.png'
+        self._imageAnswer5=self.path+'/resources/images/ex1/answer5.png'
 
         self._answerEx1Descr='\nΈνα παπάκι\n'
         self._answerEx2Descr='\nΔύο παπάκια\n'
@@ -54,13 +55,13 @@ class ControllerType1(QObject):
         
         self._answerDscr='Α   ,Β  , Γ  , Δ  , Ε  '
         self._title="Άσκηση προσοχής"
-        self._imagePath="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex2/mainImage.png"
+        self._imagePath=self.path+"/resources/images/ex2/mainImage.png"
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
-        self._imageAnswer1='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex2/answer1.png'
-        self._imageAnswer2='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex2/answer2.png'
-        self._imageAnswer3='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex2/answer3.png'
-        self._imageAnswer4='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex2/answer4.png'
-        self._imageAnswer5='/home/stergios/git/src/robotHuman/user_interface/resources/images/ex2/answer5.png'
+        self._imageAnswer1=self.path+'/resources/images/ex2/answer1.png'
+        self._imageAnswer2=self.path+'/resources/images/ex2/answer2.png'
+        self._imageAnswer3=self.path+'/resources/images/ex2/answer3.png'
+        self._imageAnswer4=self.path+'/resources/images/ex2/answer4.png'
+        self._imageAnswer5=self.path+'/resources/images/ex2/answer5.png'
         
         self._answerEx1Descr='\nA\n'
         self._answerEx2Descr='\nB\n'
@@ -78,7 +79,7 @@ class ControllerType1(QObject):
 
         self._answerDscr='Α 4,  Β 8, Γ 30, Δ 56, Ε 112'
         self._title="Άσκηση προσοχής"
-        self._imagePath="/home/stergios/git/src/robotHuman/user_interface/resources/images/exB1/1.png"
+        self._imagePath=self.path+"/resources/images/exB1/1.png"
         self._imageAnswerFlag=1
         
 
@@ -96,7 +97,7 @@ class ControllerType1(QObject):
         # self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
         self._answerDscr='Α ,  Β , Γ , Δ , Ε '
         self._title="Άσκηση προσοχής"
-        self._imagePath="/home/stergios/git/src/robotHuman/user_interface/resources/images/exB2/mainImage.png"
+        self._imagePath=self.path+"/resources/images/exB2/mainImage.png"
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
 
         self._exersiceTitleDsr='Ο Μάξιμος έκοψε ένα φύλλο χαρτί σε 2 κομμάτια.Το ένα κομμάτι εμφανίζεται στο πάνω μέρος της οθόνης.'
@@ -104,11 +105,11 @@ class ControllerType1(QObject):
         
 
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
-        self._imageAnswer1='/home/stergios/git/src/robotHuman/user_interface/resources/images/exB2/answer1.png'
-        self._imageAnswer2='/home/stergios/git/src/robotHuman/user_interface/resources/images/exB2/answer2.png'
-        self._imageAnswer3='/home/stergios/git/src/robotHuman/user_interface/resources/images/exB2/answer3.png'
-        self._imageAnswer4='/home/stergios/git/src/robotHuman/user_interface/resources/images/exB2/answer4.png'
-        self._imageAnswer5='/home/stergios/git/src/robotHuman/user_interface/resources/images/exB2/answer5.png'
+        self._imageAnswer1=self.path+'/resources/images/exB2/answer1.png'
+        self._imageAnswer2=self.path+'/resources/images/exB2/answer2.png'
+        self._imageAnswer3=self.path+'/resources/images/exB2/answer3.png'
+        self._imageAnswer4=self.path+'/resources/images/exB2/answer4.png'
+        self._imageAnswer5=self.path+'/resources/images/exB2/answer5.png'
         
         self._answerEx1Descr='\nA\n'
         self._answerEx2Descr='\nB\n'

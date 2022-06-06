@@ -8,8 +8,13 @@ from os.path import exists
 from sqlalchemy import Column, String, Integer
 from sqlalchemy import Column, String, Integer
 
-from model.base import Base,Session
+from model.base import Base
 # from base import Session, engine, Base
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+from sqlalchemy import create_engine
 
 class resultOfPerson(Base):
     __tablename__ = 'results'
@@ -170,6 +175,8 @@ class MainWindowModel(QObject):
     "11": "Περιγραφή Δραστηριότητα 11",
     "12": "Περιγραφή Δραστηριότητα 12",
 }
+
+
     poseX=400
     poseY=100
     sizeX=1000
@@ -177,25 +184,26 @@ class MainWindowModel(QObject):
     i=1
     sleepForAnswer=5 ;
     #Constants
-    resourcesImage1="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex1/mainImage.png"
-    resourcesImage2="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex2/mainImage.png"
-    resourcesImage3="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/1.png"
-    resourcesImage3B="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/2.png"
+    path="/home/stergios/git/src/robotHuman/user_interface"
+    resourcesImage1=path+"/resources/images/ex1/mainImage.png"
+    resourcesImage2=path+"/resources/images/ex2/mainImage.png"
+    resourcesImage3=path+"/resources/images/ex3/1.png"
+    resourcesImage3B=path+"/resources/images/ex3/2.png"
 
-    exersice3A="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/3.png"
-    exersice3B="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex3/4.png"
+    exersice3A=path+"/resources/images/ex3/3.png"
+    exersice3B=path+"/resources/images/ex3/4.png"
     
-    exersice4A="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/1.png"
-    exersice4B="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/6.png"
-    exersice4C="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/7.png"
-    exersice4D="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex4/8.png"
+    exersice4A=path+"/resources/images/ex4/1.png"
+    exersice4B=path+"/resources/images/ex4/6.png"
+    exersice4C=path+"/resources/images/ex4/7.png"
+    exersice4D=path+"/resources/images/ex4/8.png"
 
-    exersice5A="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex5/image.png"
-    exersice6A="/home/stergios/git/src/robotHuman/user_interface/resources/images/ex6/1.png"
+    exersice5A=path+"/resources/images/ex5/image.png"
+    exersice6A=path+"/resources/images/ex6/1.png"
 
-    easyFeedbackImg="/home/stergios/git/src/robotHuman/user_interface/resources/images/3.png"
-    normalFeedback="/home/stergios/git/src/robotHuman/user_interface/resources/images/2.jpg"
-    difficultFeedback="/home/stergios/git/src/robotHuman/user_interface/resources/images/1.jpg"  
+    easyFeedbackImg=path+"/resources/images/3.png"
+    normalFeedback=path+"/resources/images/2.jpg"
+    difficultFeedback=path+"/resources/images/1.jpg"  
 
 
     #create signal
@@ -339,7 +347,7 @@ class MainWindowModel(QObject):
     def nextPageEx6(self,value):
         if self.stepImage6==0:
             print(' next page image 6', value)
-            self.nextPageSignalEx6.emit("/home/stergios/git/src/robotHuman/user_interface/resources/images/ex6/2.png") 
+            self.nextPageSignalEx6.emit(self.path+"/resources/images/ex6/2.png")
             self.stepImage6=self.stepImage6+1       
         else :
             self.setPageSignal.emit(8)     
@@ -355,10 +363,16 @@ class MainWindowModel(QObject):
         self._currentExerciseID=0
         self.feedback=''
         self._showButtonFeedback=''
+        self._showButtonFeedback=''
         self.nextImage=''
 
 
     def createNewResult(self, newResult):
+
+
+        engine = create_engine('sqlite:///' + self.path + '/database/scheme/mysqlList.db')
+        Session = sessionmaker(bind=engine)
+
         self.session = Session()
 
         # 9 - persists data
@@ -385,12 +399,17 @@ class MainWindowModel(QObject):
     def createNewResultObject(self):
         return resultOfPerson()
 
-    def __init__(self):
+    def __init__(self,path):
         super().__init__()
         self.result=results()
 
+        self.path =path
         # storeJSONFile1 = StoreJSONFile()
         # storeJSONFile1.file = 'test.json'
+
+        engine = create_engine('sqlite:///' + self.path + '/database/scheme/mysqlList.db')
+        Session = sessionmaker(bind=engine)
+
         self.session = Session()
 
         self.result.listResults = self.session.query(resultOfPerson).all()
