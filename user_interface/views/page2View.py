@@ -111,7 +111,7 @@ class page2View(QWidget):
             self._ui.stackedWidget.setCurrentIndex(2)              
         else:
             self._ui.stackedWidget.setCurrentIndex(0)
-            self._ui.label.setScaledContents(False)
+            self._ui.label.setScaledContents(True)
             self._ui.label.setPixmap(QtGui.QPixmap(value))
             self._ui.label.setMaximumSize(QtCore.QSize(900/self.i, 480/self.i))
             # self._ui.label.setScaledContents(True)

@@ -182,7 +182,9 @@ class MainWindowModel(QObject):
     sizeX=1000
     sizeY=800
     i=1
-    sleepForAnswer=5 ;
+    sleepForAnswer=10 ;
+
+    sleepForNextImage=7 ;
     #Constants
     path="/home/stergios/git/src/robotHuman/user_interface"
     resourcesImage1=path+"/resources/images/ex1/mainImage.png"

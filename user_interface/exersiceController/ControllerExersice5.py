@@ -131,7 +131,7 @@ class ControllerExersice5(QObject):
     def feedback(self,model,value):
         model.results.answerEx1=value
         print('feedback 1')
-        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
     
     def continueDialog(self):
         print('continue Dialog 1')
@@ -141,7 +141,7 @@ class ControllerExersice5(QObject):
     def feedbackStore(self,model,value):
         self._answerEx1=value
         print('\t\t\tfeedback ',value)
-        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
    
     def printResult(self):
         print("Exersice1 :", self._answerEx1, self._feedback)
@@ -180,7 +180,7 @@ class ControllerExersice5(QObject):
         self._answerEx2=value
         print('\t\t\tfeedback 2',value)
         self._counter == 1
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
         # self._model.selectedExercise=value
 
     def trigger(self):
@@ -206,7 +206,7 @@ class ControllerExersice5(QObject):
         #     thread.start()
         # while (len(self._imagesStory)>self._counter):
         # self.nextPage4()
-        time.sleep(self.model.sleepForAnswer)
+        time.sleep(self.model.sleepForNextImage)
         print("\t\tthread running.......")  
         
         self.showAnswerButtons.emit("")

@@ -144,12 +144,12 @@ class ControllerType2(object):
         print('Get Reply')
     def feedback(self):
         print('feedback')
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
         print('feedback Answer store ',value)
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε ένα ανθρωπάκι. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 3 ανθρωπάκια')
+        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
     
 
 
@@ -225,9 +225,13 @@ class ControllerType2(object):
         #     time.sleep(5)
         #     thread = Thread(target = self.nextPage4,args=(),daemon=True)
         #     thread.start()
+        counter=1
         while (len(self._imagesStory)>self._counter):
             self.nextPage4()
-            time.sleep(self.model.sleepForAnswer)
+            if (counter==1):
+                time.sleep(self.model.sleepForAnswer)
+                counter=0
+            time.sleep(self.model.sleepForNextImage)
             print("\t\tthread running.......")  
         self.nextPage4()
 
