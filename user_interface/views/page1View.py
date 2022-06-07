@@ -51,7 +51,7 @@ class page1View(QWidget):
         self._ui.answer5.setDisabled(True)
 
         i=model.i
-        self._ui.mainImage.setMaximumSize(QtCore.QSize(700/i, 500/i))
+        self._ui.mainImage.setMaximumSize(QtCore.QSize(700/i, 800/i))
 
         if self._main_controller._imageAnswerFlag ==0 :
             self._ui.answer1Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer1 ))

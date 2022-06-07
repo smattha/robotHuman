@@ -27,7 +27,7 @@ class ControllerExersice5(QObject):
         self._title="Δραστηριότητα 5"
         path=self.model.path
         self._imagePath=path+"/resources/images/ex5/image.png"
-        self._exersiceDsr2 = "Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το μικρό σκυλάκι."
+        self._exersiceDsr2 = "Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το λαγουδάκι."
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
         print (""+path + " " +self._imagePath)
@@ -56,7 +56,7 @@ class ControllerExersice5(QObject):
 
     
     def setVariable2(self):
-        self._exersiceDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσες γάτες υπάρχουν;'
+        self._exersiceDsr=' '
         self._exersiceDsr2="Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια."
         self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια.'
         self._title="Άσκηση προσοχής"
@@ -82,7 +82,7 @@ class ControllerExersice5(QObject):
 
 
     def setVariableB5(self):
-        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις. Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
+        self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.'
         self._answerDsr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title="Δραστηριότητα 5!!!!!!!!"
         self._imagePath=self.path+"/resources/images/exB5/1.jpg"
@@ -184,7 +184,9 @@ class ControllerExersice5(QObject):
         # self._model.selectedExercise=value
 
     def trigger(self):
+        time.sleep(5)
         self.model.trigger(101)
+
 
 
     showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
