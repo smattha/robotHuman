@@ -6,4 +6,7 @@
   
   <node pkg="user_interface" type="mainMenu.py" name="ui" args=" /home/stergios/git/src/robotHuman/user_interface "  />
   
+  
+    <node pkg="user_interface" type="mainMenu.py" name="ui" args="/home/stergios/git/src/robotHuman/user_interface"  />
+  
 </launch>
