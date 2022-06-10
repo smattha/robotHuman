@@ -4,7 +4,7 @@ project(audio_service)
 find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 
 #add_message_files(DIRECTORY msg FILES Floats.msg HeaderString.msg)
-add_service_files(DIRECTORY srv FILES GetAudio.srv)
+add_service_files(DIRECTORY srv FILES GetAudio.srv text2Speech.srv)
 
 generate_messages(DEPENDENCIES std_msgs)
 

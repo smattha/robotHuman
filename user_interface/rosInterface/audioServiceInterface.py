@@ -76,4 +76,26 @@ class Ros_Audio_Service(object):
 
         return resp2
 
+    def speechToTextBlocking(self,text):
+
+        if self.flag == 'test':
+            sleep(10)
+            return 'TEST'
+
+        rospy.wait_for_service('textToSpeechBlocking')
+
+        # create a handle to the add_two_ints service
+        getText_ROS = rospy.ServiceProxy('textToSpeechBlocking', text2Speech)
+
+
+
+        s1=text2SpeechRequest()
+        s1.text="aaaaaaaaaa"
+        # formal style
+        resp2 = getText_ROS.call(  s1 )
+
+        print(" Replied {}", resp2.text)
+
+        return resp2
+
 

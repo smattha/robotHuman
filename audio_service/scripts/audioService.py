@@ -25,7 +25,7 @@ def callback(data):
 	# Playing the converted file
 	#os.system("mpg321 welcome.mp3")
 	# for playing note.wav file
-	playsound('audio.mp3')
+	playsound('audio.mp3', block=True)
 	os.remove('audio.mp3')
 	
 
