@@ -31,7 +31,7 @@ class App(QApplication):
 
         self._rosInterface=Ros_Audio_Service()
         
-        self._rosInterface.speechToTextBlocking('testttt')
+        #self._rosInterface.speechToTextBlocking('testttt')
         self._controllerEx1= ControllerType1(self._rosInterface,self.model)
         self._controllerEx1.setVariable1()
 
