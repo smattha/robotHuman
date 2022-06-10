@@ -18,13 +18,16 @@ from sys import exit
 class App(QApplication):
     def __init__(self, sys_argv):
         super(App, self).__init__(sys_argv)
-        self.model= MainWindowModel( "/home/stergios/git/src/robotHuman/user_interface")
-        self.model.path="/home/stergios/git/src/robotHuman/user_interface"
+
+        self.path="/home/stergios/git/src/robotHuman/user_interface"
 
         if (len(sys.argv)==2):
-            self.model.path = sys.argv[1]
+            self.path = sys.argv[1]
+            print("...................")
         else:
-            self.model.path = "/home/stergios/git/src/robotHuman/user_interface"
+            self.path = "/home/stergios/git/src/robotHuman/user_interface"
+
+        self.model= MainWindowModel( self.path)
 
         self._rosInterface=Ros_Audio_Service()
         
