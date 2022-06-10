@@ -1,0 +1,10 @@
+<launch>
+
+  <node pkg="audio_service" type="audioService.py" name="text2Speech"  />
+	
+  <node pkg="audio_service" type="test_microphone.py" name="speech2Text" args=" -m=/home/isarafis/code/src/model " />
+  
+  <node pkg="user_interface" type="mainMenu.py" name="ui" 
+  args="/home/isarafis/code/src/robotHuman/user_interface"  />
+  
+</launch>
