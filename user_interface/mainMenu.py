@@ -21,7 +21,7 @@ class App(QApplication):
 
         self.path="/home/stergios/git/src/robotHuman/user_interface"
 
-        if (len(sys.argv)==2):
+        if (len(sys.argv)>2):
             self.path = sys.argv[1]
             print("...................")
         else:

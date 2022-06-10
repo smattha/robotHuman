@@ -4,7 +4,7 @@
 	
   <node pkg="audio_service" type="test_microphone.py" name="speech2Text" args=" -m=/home/stergios/model\ " />
   
-  <node pkg="user_interface" type="mainMenu.py" name="ui1" args=" /home/stergios/git/src/robotHuman/user_interface "  />
+  <node pkg="user_interface" type="mainMenu.py" name="ui1" args=" /home/stergios/git/src/robotHuman/user_interface"  />
   
   
   
