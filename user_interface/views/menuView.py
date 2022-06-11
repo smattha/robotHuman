@@ -95,6 +95,8 @@ class MenuView(QMainWindow):
         self._model.resetFieldSingal.connect(self.resetField)
         self._model.setPageSignal.connect(self.setPage)
 
+        self._model.showButtons.connect(self.showButtons)
+
         #Feedback
         self._model.feedbackShowButton.connect(self.feedbackShowButton)
 
@@ -253,13 +255,13 @@ class MenuView(QMainWindow):
         self._ui.terminateButton.setDisabled(True)
         self._ui.nextExersice.setDisabled(True)
      
-        thread = Thread(target = self.showButtons,args=(),daemon=True)
-        thread.start()
-        print("Thread finished...exiting")  
+        # thread = Thread(target = self.showButtons,args=(),daemon=True)
+        # thread.start()
+        # print("Thread finished...exiting")
 
 
-    def showButtons(self):
-        time.sleep(self._model.sleepForAnswer)
+    def showButtons(self,str):
+        # time.sleep(self._model.sleepForAnswer)
         self._ui.feedbackEasyButton.setDisabled(False)
         self._ui.feedbackNormalButton.setDisabled(False)
         self._ui.feedbackHardButton.setDisabled(False)

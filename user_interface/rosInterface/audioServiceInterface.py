@@ -19,7 +19,7 @@ class Ros_Audio_Service(object):
             print('Exception Occured in ros audio service')
             pass
 
-    def talker(self,msg):
+    def talker1(self,msg):
         print('Audio S2T:',msg,' ')
         self._pub.publish(msg)
         # self._rate.sleep()
@@ -76,7 +76,7 @@ class Ros_Audio_Service(object):
 
         return resp2
 
-    def speechToTextBlocking(self,text):
+    def talker(self,msg):
 
         if self.flag == 'test':
             sleep(10)
@@ -90,7 +90,7 @@ class Ros_Audio_Service(object):
 
 
         s1=text2SpeechRequest()
-        s1.text="aaaaaaaaaa"
+        s1.text=msg
         # formal style
         resp2 = getText_ROS.call(  s1 )
 

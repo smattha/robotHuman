@@ -120,13 +120,23 @@ class ControllerExersice6(QObject):
         print('Get Reply')
     def feedback(self):
         print('feedback')
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+        self.feedbackFN()
+        # self._rosInterface.talker1('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+
+    def feedbackFN(self):
+        thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
+        thread.start()
+
+    def stopBeforeShowImageMainF(self):
+        self._rosInterface.talker(
+            'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+        self.model.showButtonsFeedback()
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
         print('feedback')
         self.model.currentExerciseID=0
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
     
 
 
@@ -180,7 +190,8 @@ class ControllerExersice6(QObject):
         # self.model.nextPageEx2('2')
 
         if (len(self._imagesStory)>self._counter):
-            self._rosInterface.talker(self._imagesStory[self._counter][0])
+            # self._rosInterface.talker()
+            self.playAudio(self._imagesStory[self._counter][0])
             self._imagesStoryCur=self._imagesStory[self._counter][0]
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
@@ -188,3 +199,15 @@ class ControllerExersice6(QObject):
         else: 
             self.getTextMainThread()
             self.model.trigger(101)
+
+
+    def playAudio(self,msg):
+        self.msg = msg
+        thread = Thread(target=self.playAudioThread, args=(), daemon=True)
+        thread.start()
+        print("Thread finished...exiting")
+
+    def playAudioThread(self):
+        print("\t\tthread running.......")
+        self._rosInterface.talker(self.msg)
+        # self._rosInterface.talker(self._answerDsr)

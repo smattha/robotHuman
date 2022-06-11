@@ -130,12 +130,11 @@ class ControllerType1(QObject):
 
     def readExersice(self):
         print('Read Exercise 1')
-        self._rosInterface.talker(self._exersiceDsr)
+
         self.stopBeforeShowImageMainThread()
 
     def readAnswers(self):
         print('Read Answers 1')
-        self._rosInterface.talker(self._answerDscr)
 
     def reply(self):
         print('Get Reply 1')
@@ -143,18 +142,30 @@ class ControllerType1(QObject):
     def feedback(self,model,value):
         model.results.answerEx1=value
         print('feedback 1')
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+        self.model.feedback()
+        # self._rosInterface.talker1('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
     
     def continueDialog(self):
         print('continue Dialog 1')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
 
-    def feedbackStore(self,model,value):
+    def feedbackStore(self,model1,value):
         self._answerEx1=value
         print('\t\tFeedback:',value)
-        self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
-   
+        self.feedbackFN()
+        # self._rosInterface.talker1('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+
+
+    def feedbackFN(self):
+            thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
+            thread.start()
+
+    def stopBeforeShowImageMainF(self):
+            self._rosInterface.talker(
+                'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+            self.model.showButtonsFeedback()
+
     def printResult(self):
         print("Exersice1 :", self._answerEx1, self._feedback)
 
@@ -192,14 +203,7 @@ class ControllerType1(QObject):
     # showAnswerButtons.emit(self._description)
 
     def stopBeforeShowImageMain(self):
-        # while (len(self._imagesStory)>=self._counter):
-        #     time.sleep(5)
-        #     thread = Thread(target = self.nextPage4,args=(),daemon=True)
-        #     thread.start()
-        # while (len(self._imagesStory)>self._counter):
-        # self.nextPage4()
-        time.sleep(self.model.sleepForAnswer)
-        print("\t\tthread running.......")  
-        
+        self._rosInterface.talker(self._exersiceDsr + self._answerDscr )
         self.showAnswerButtons.emit("")
+
         # self.nextPage4()

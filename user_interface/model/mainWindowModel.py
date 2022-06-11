@@ -15,6 +15,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 from sqlalchemy import create_engine
+from threading import Thread
 
 class resultOfPerson(Base):
     __tablename__ = 'results'
@@ -215,6 +216,8 @@ class MainWindowModel(QObject):
     resetFieldSingal = pyqtSignal(str, name='resetFieldChanged')
     setPageSignal = pyqtSignal(int, name='setPageChanged')
     nextImgSingal= pyqtSignal(str,name='nextImg')
+
+    showButtons= pyqtSignal(str,name='showButtons')
 
     #Exercise 5
     nextPageSignalEx5 = pyqtSignal(str, name='nextPageSignal')
@@ -421,3 +424,7 @@ class MainWindowModel(QObject):
         self.reset()
 
 
+
+
+    def showButtonsFeedback(self):
+        self.showButtons.emit("")

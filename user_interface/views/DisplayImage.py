@@ -42,12 +42,13 @@ class DisplayImageWidget(QWidget):
         loadedImage = QImage()
         if not loadedImage.load(fileName):
             return False
+        i=5
 
-        newSize = loadedImage.size().expandedTo(self.size())
-        # self.resizeImage(loadedImage, newSize)
-        self.image = loadedImage
+        newSize = loadedImage.size().expandedTo(self.size()/i)
+        self.resizeImage(loadedImage, self.size()/i)
+        #self.image = loadedImage
         self.modified = False
-        self.image.scaled(240,200,1)
+        self.image.scaled(20,20,1)
         self.imagePath=fileName
         self.update()
         return True
@@ -120,8 +121,8 @@ class DisplayImageWidget(QWidget):
     def resize(self):
             self.openImage(self.imagePath)
         # if self.width() > self.image.width() or self.height() > self.image.height():
-            newWidth = 400
-            newHeight =400
+            newWidth = 480
+            newHeight =480
             self.image.scaled(newWidth,newHeight,1)
             self.resizeImage(self.image, self.size())
             # QSize(newWidth, newHeight))
@@ -165,7 +166,7 @@ class DisplayImageWidget(QWidget):
         imagen=image.scaled(newSize)
         painter = QPainter(image)
         painter.drawImage(QPoint(0, 0), imagen)
-        self.image = image
+        self.image = imagen
 
         # loadedImage = QImage()
         # loadedImage.load('/home/smatt/Documents/git/src/resources/images/ex5/image.png')
