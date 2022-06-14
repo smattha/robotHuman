@@ -10,7 +10,7 @@ from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QImage, QImageWriter, QPainter, QPen, qRgb
 
 class DisplayImageWidget(QWidget):
-    def __init__(self,imagePath ,parent=None):
+    def __init__(self,imagePath ,ratio,parent=None):
         super(DisplayImageWidget, self).__init__()
 
         self.setAttribute(Qt.WA_StaticContents)
@@ -18,11 +18,14 @@ class DisplayImageWidget(QWidget):
         self.scribbling = False
         self.myPenWidth = 2
         self.myPenColor = Qt.red
+        self.ratio=ratio
+
         self.image = QImage()
         self.lastPoint = QPoint()
         self.imagePath=imagePath
         self.openImage3(imagePath)
         self.counter=0
+
 
     def openImage(self, fileName):
         loadedImage = QImage()
@@ -42,7 +45,7 @@ class DisplayImageWidget(QWidget):
         loadedImage = QImage()
         if not loadedImage.load(fileName):
             return False
-        i=5
+        i=self.ratio;
 
         newSize = loadedImage.size().expandedTo(self.size()/i)
         self.resizeImage(loadedImage, self.size()/i)

@@ -183,6 +183,8 @@ class MainWindowModel(QObject):
     sizeX=1000
     sizeY=800
     i=1
+
+    diplayImageRatio=1;
     sleepForAnswer=9 ;
 
     sleepForAnswer2=10 ;
