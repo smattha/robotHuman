@@ -6,7 +6,7 @@ from PyQt5.QtCore import QObject, pyqtSlot
 from threading import Thread
 import time
 from PyQt5.QtCore import QObject, pyqtSignal
-
+import time
 class ControllerExersice6(QObject):
     def __init__(self,ros,model):
         super().__init__()
@@ -121,11 +121,13 @@ class ControllerExersice6(QObject):
     def feedback(self):
         print('feedback')
         self.feedbackFN()
+        time.sleep(0.4)
         # self._rosInterface.talker1('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
 
     def feedbackFN(self):
         thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
         thread.start()
+        # thread.sleep(1)
 
     def stopBeforeShowImageMainF(self):
         self._rosInterface.talker(
@@ -182,7 +184,8 @@ class ControllerExersice6(QObject):
     def getTextMainThread(self):
         thread = Thread(target = self.getText,args=(),daemon=True)
         thread.start()
-        print("thread finished...exiting") 
+        print("thread finished...exiting")
+        return thread
        
     
     def nextPage3(self,value):
@@ -195,9 +198,11 @@ class ControllerExersice6(QObject):
             self._imagesStoryCur=self._imagesStory[self._counter][0]
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1
-            self.getTextMainThread()
+            self.thread=self.getTextMainThread()
+
         else: 
-            self.getTextMainThread()
+
+            self.feedback()
             self.model.trigger(101)
 
 

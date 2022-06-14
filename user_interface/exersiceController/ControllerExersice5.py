@@ -56,7 +56,7 @@ class ControllerExersice5(QObject):
 
     
     def setVariable2(self):
-        self._exersiceDsr=' '
+        self._exersiceDsr='Άσκηση προσοχής'
         self._exersiceDsr2="Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια."
         self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια.'
         self._title="Άσκηση προσοχής"

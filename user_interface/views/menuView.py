@@ -209,6 +209,7 @@ class MenuView(QMainWindow):
             j=self._ui.stackedWidget.count()
             self.test12=page2View(self._model,self._main_controller._exercisesController[11])
             self._ui.stackedWidget.addWidget(self.test12._ui.widget)
+            self.test12.answer51.show()
             self._ui.stackedWidget.setCurrentIndex(j)
             self._ui.stackedWidget.setCurrentIndex(0)
             self._ui.stackedWidget.setCurrentIndex(j)

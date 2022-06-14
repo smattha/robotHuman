@@ -31,7 +31,7 @@ class App(QApplication):
             self.path = "/home/stergios/git/src/robotHuman/user_interface"
             self.i=1
             self.displaymageRation=1
-            self.flag="test"
+            self.flag="tes"
 
         self.model= MainWindowModel( self.path)
 

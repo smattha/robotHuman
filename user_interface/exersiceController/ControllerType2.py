@@ -159,6 +159,7 @@ class ControllerType2(object):
     def feedbackStore(self,model,value):
         self._answerEx1=value
         print('feedback Answer store ',value)
+        self.feedback()
         # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
     
 
@@ -168,12 +169,12 @@ class ControllerType2(object):
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
     def readAnswers2(self):
-        self._rosInterface.talker(self.answerEx3)
+        self.playAudio(self.answerEx3)
 
 
 
     def readAnswers3(self):
-        self._rosInterface.talker("Τι είπε ο ήρωας που διάλεξες που μπορεί να στεναχώρησε ή να θύμωσε κάποιον από τους ήρωες;")
+        self.playAudio("Τι είπε ο ήρωας που διάλεξες που μπορεί να στεναχώρησε ή να θύμωσε κάποιον από τους ήρωες;")
 
 
 
@@ -264,4 +265,15 @@ class ControllerType2(object):
         self.getTextMainThread()
             # self.getTextMainThread()
             # self.sleepThread()
-            
+
+
+    def playAudio(self,msg):
+        self.msg = msg
+        thread = Thread(target=self.playAudioThread, args=(), daemon=True)
+        thread.start()
+        print("Thread finished...exiting")
+
+    def playAudioThread(self):
+        print("\t\tthread running.......")
+        self._rosInterface.talker(self.msg)
+        # self._rosInterface.talker(self._answerDsr)
