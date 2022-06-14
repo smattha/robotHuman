@@ -79,7 +79,7 @@ class Ros_Audio_Service(object):
     def talker(self,msg):
 
         if self.flag == 'test':
-            sleep(10)
+            sleep(1)
             return 'TEST'
 
         rospy.wait_for_service('textToSpeechBlocking')

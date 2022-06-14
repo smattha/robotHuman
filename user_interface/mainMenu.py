@@ -21,15 +21,26 @@ class App(QApplication):
 
         self.path="/home/stergios/git/src/robotHuman/user_interface"
 
-        if (len(sys.argv)>2):
-            self.path = sys.argv[1]
+        if (len(sys.argv)>=2):
+            self.path =  sys.argv[1]
+            self.i=int( sys.argv[2])
+            self.displaymageRation=int(sys.argv[3])
+            self.flag=sys.argv[4]
             print("...................")
         else:
             self.path = "/home/stergios/git/src/robotHuman/user_interface"
+            self.i=1
+            self.displaymageRation=1
+            self.flag="test"
 
         self.model= MainWindowModel( self.path)
 
+        self.model.i= self.i
+        self.model.displayImageRatio =self.displaymageRation
+
+
         self._rosInterface=Ros_Audio_Service()
+        self._rosInterface.flag=self.flag
         
         #self._rosInterface.speechToTextBlocking('testttt')
         self._controllerEx1= ControllerType1(self._rosInterface,self.model)

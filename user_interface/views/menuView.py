@@ -152,7 +152,7 @@ class MenuView(QMainWindow):
 
             j=self._ui.stackedWidget.count()
             self._main_controller._exercisesController[4]._image2 = j+100
-            self.test=(DisplayImageWidget(self._main_controller._exercisesController[4]._imagePath,self._model.diplayImageRatio))
+            self.test=(DisplayImageWidget(self._main_controller._exercisesController[4]._imagePath,self._model.displayImageRatio))
             self.test.setController(self._main_controller._exercisesController[4])
             self._ui.stackedWidget.addWidget(self.test)
 
@@ -200,7 +200,7 @@ class MenuView(QMainWindow):
             self._ui.stackedWidget.setCurrentIndex(j)        
             j=self._ui.stackedWidget.count()
             self._main_controller._exercisesController[10]._image2 = j+100
-            self.test10B=(DisplayImageWidget(self._main_controller._exercisesController[10]._imagePath,self._model.diplayImageRatio))
+            self.test10B=(DisplayImageWidget(self._main_controller._exercisesController[10]._imagePath,self._model.displayImageRatio))
             self.test10B.setController(self._main_controller._exercisesController[10])
             self._ui.stackedWidget.addWidget(self.test10B)
 
