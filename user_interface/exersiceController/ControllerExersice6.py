@@ -100,7 +100,8 @@ class ControllerExersice6(QObject):
         print('Read Exercise')
         self.model.nextImage='0'
         self.nextPage3(0)
-        self._rosInterface.talker(self._exerciseDscr)
+        # self._rosInterface.talker(self._exerciseDscr)
+        self.playAudio(self._exerciseDscr)
         self.step1()
 
     def step1(self):
