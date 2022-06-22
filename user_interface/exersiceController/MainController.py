@@ -52,7 +52,7 @@ class MainController(QObject):
         self._rosInterface.talker(
             'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
         self.model.showButtonsFeedback()
-        self.continueDialog()
+
 
     def printResult(self):
         print("Exersice1 :", self._answerEx1, self._feedback)
@@ -69,6 +69,7 @@ class MainController(QObject):
     def feedbackAnswer(self, value):
         print('Feedback {}', value)
         self._feedback = value
+        self.continueDialog()
 
     def getImagePath(self):
         return self._imagePath
