@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
-import sys
 
 from PyQt5.QtCore import QObject, pyqtSlot
 from threading import Thread
 import time
 from PyQt5.QtCore import QObject, pyqtSignal
+from exersiceController.MainController import MainController
 
-class ControllerExersice5(QObject):
+class ControllerExersice5(MainController):
     def __init__(self,ros,model):
         super().__init__()
         print("Initialize the controller for Excersice 1 ")
@@ -23,7 +23,7 @@ class ControllerExersice5(QObject):
     
     def setVariable1(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.\n Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
-        self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο'
+        self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο'
         self._title=""
         path=self.model.path
         self._imagePath=path+"/resources/images/ex5/image.png"
@@ -58,7 +58,7 @@ class ControllerExersice5(QObject):
     def setVariable2(self):
         self._exersiceDsr='Άσκηση προσοχής'
         self._exersiceDsr2="Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια."
-        self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια.'
+        self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια.'
         self._title="Άσκηση προσοχής"
         self._imagePath=self.path+"/resources/images/exB5/1.jpg"
         self._counter=1
@@ -83,7 +83,7 @@ class ControllerExersice5(QObject):
 
     def setVariableB5(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.'
-        self._answerDsr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
         self._title=""
         self._imagePath=self.path+"/resources/images/exB5/1.jpg"
         self._imagePath2=self.path+"/resources/images/exB5/1.jpg"
@@ -205,28 +205,3 @@ class ControllerExersice5(QObject):
         self.feedbackFN()
 
 
-    showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
-   
-    def stopBeforeShowImageMainThread(self):
-        thread = Thread(target = self.stopBeforeShowImageMain,args=(),daemon=True)
-        thread.start()
-        print("Thread finished...exiting")  
-
-    def stopBeforeShowImageMain(self):
-        print("\t\tthread running.......")
-        self._rosInterface.talker(self._exersiceDsr)
-        self._rosInterface.talker(self._answerDsr)
-        # self.playAudio( self._part2)
-        self.showAnswerButtons.emit("")
-        # self.nextPage4()
-
-    def playAudio(self,msg):
-            self.msg=msg
-            thread = Thread(target=self.playAudioThread, args=(), daemon=True)
-            thread.start()
-            print("Thread finished...exiting")
-
-    def playAudioThread(self):
-            print("\t\tthread running.......")
-            self._rosInterface.talker(self.msg)
-            # self._rosInterface.talker(self._answerDsr)

@@ -232,6 +232,8 @@ class MainWindowModel(QObject):
     #Exercise 6
     feedbackShowButton = pyqtSignal(str, name='feedbackShowButton')
 
+    showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+
     @property
     def currentExerciseID(self):
         return self._currentExerciseID    
@@ -396,12 +398,7 @@ class MainWindowModel(QObject):
 
         # self.result.listResults.append(listTemp)
 
-        # storeJSONFile1 = StoreJSONFile()
-        # storeJSONFile1.file = 'test.json'
-        # print('Read from file')
-        # self.result = storeJSONFile1.readFromFile()
-        # self.result.listResults.append(newResult)
-        # storeJSONFile1.storeResults(self.result)
+        showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
 
     def createNewResultObject(self):
         return resultOfPerson()
@@ -425,6 +422,8 @@ class MainWindowModel(QObject):
 
 
 
+    def showAnswerButtonsFunction(self):
+        self.showAnswerButtons.emit("")
 
     def showButtonsFeedback(self):
         self.showButtons.emit("")

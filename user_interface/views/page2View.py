@@ -1,20 +1,9 @@
-from pickle import TRUE
-from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
-from sqlalchemy import false
 from views.ui.page2 import Ui_Form
 from PyQt5 import  QtWidgets,QtGui
-from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
-        QInputDialog, QMainWindow, QMenu, QMessageBox, QWidget)
-from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
-from views.DisplayImage import DisplayImageWidget
-class DialogFeedback(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self._dialog = Ui_Dialog()
-        self._dialog.setupUi(self)
-        
+from PyQt5.QtWidgets import QWidget
+
     
 
 class page2View(QWidget):
@@ -35,14 +24,9 @@ class page2View(QWidget):
         # #Exercise 1
         #####################################################################################
 
-        # self._ui.mainImage.setPixmap(QtGui.QPixmap(self._model.resourcesImage1))
-
-
 
         self._ui.label_3.setText(self._main_controller.title)
-        # self._ui.label_7.setText(self._main_controller.answerEx3)
         self._ui.label_3.setAlignment(QtCore.Qt.AlignCenter)
-
 
 
         self.answer51 = QtWidgets.QPushButton()
@@ -59,7 +43,6 @@ class page2View(QWidget):
         self._ui.gridLayout_5.addWidget(self.answer51, 4, 1, 1, 1)
 
 
-        # self.answer5.hide()
 
         #################################################################################################
         # # listen for model event signals
@@ -86,10 +69,7 @@ class page2View(QWidget):
             answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(row[0]))
             answer5_2.setText(row[0])
 
-            # i=self._model.i
-            # self._ui.answer5.setDisabled(True)
-            # self._ui.mainImage.setMaximumSize(QtCore.QSize(700/i, 500/i))
-            self._ui.horizontalLayout_2.addWidget(answer5_2)        
+            self._ui.horizontalLayout_2.addWidget(answer5_2)
 
         self._ui.answer5.hide()
         self._ui.label_7.setText(self._main_controller.answerEx3)
@@ -120,7 +100,7 @@ class page2View(QWidget):
     @pyqtSlot(int)
     def setPage(self, value):
         print('Empty field ',value)
-        # self._ui.stackedWidget.setCurrentIndex(value)
+
 
     @pyqtSlot(str)
     def setImage(self, value):
@@ -132,7 +112,6 @@ class page2View(QWidget):
 
     @pyqtSlot(str)
     def setImageEx4(self, value):
-        # self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(value))
             self.test4.openImage(value)
             self.test4.resize()       
 

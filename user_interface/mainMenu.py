@@ -12,7 +12,7 @@ from exersiceController.ControllerType2 import ControllerType2
 from exersiceController.ControllerExersice5 import ControllerExersice5
 from exersiceController.ControllerExersice6 import ControllerExersice6
 from rosInterface.audioServiceInterface import Ros_Audio_Service
-from signal import signal, SIGINT
+
 from sys import exit
 
 class App(QApplication):
@@ -29,9 +29,9 @@ class App(QApplication):
             print("...................")
         else:
             self.path = "/home/stergios/git/src/robotHuman/user_interface"
-            self.i=1
+            self.i=2
             self.displaymageRation=1
-            self.flag="tes"
+            self.flag="test"
 
         self.model= MainWindowModel( self.path)
 
@@ -42,7 +42,7 @@ class App(QApplication):
         self._rosInterface=Ros_Audio_Service()
         self._rosInterface.flag=self.flag
         
-        #self._rosInterface.speechToTextBlocking('testttt')
+
         self._controllerEx1= ControllerType1(self._rosInterface,self.model)
         self._controllerEx1.setVariable1()
 
@@ -87,11 +87,6 @@ class App(QApplication):
         self.menu_view =MenuView(self.model, self.main_controller)
         self.menu_view.show()
 
-
-def handler(signal_received, frame):
-    # Handle any cleanup here
-    print('SIGINT or CTRL-C detected. Exiting gracefully')
-    exit(0)
 
 if __name__ == '__main__':
     try:

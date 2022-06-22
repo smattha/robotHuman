@@ -1,15 +1,11 @@
-from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
-from sqlalchemy import false, true
 from views.ui.menu import Ui_menuWindow
 from PyQt5 import QtGui,QtCore
 from PyQt5.QtWidgets import ( QMainWindow)
 from views.DisplayImage import DisplayImageWidget
 from views.page1View import page1View
 from views.page2View import page2View
-from threading import Thread
-import time
-    
+
 
 class MenuView(QMainWindow):
     def __init__(self, model, main_controller):
@@ -27,8 +23,6 @@ class MenuView(QMainWindow):
         self.resize(model.sizeY, model.sizeY)
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
         self._ui.comboBox.addItems(self._model.result.listWithNames)
-
-
         self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
         self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
         self._ui.hard.setPixmap(QtGui.QPixmap(self._model.difficultFeedback))
@@ -41,7 +35,6 @@ class MenuView(QMainWindow):
 
         self._ui.hard.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
         self._ui.hard.setScaledContents(True)
-
 
         self._ui.mainImageHome.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
         self._ui.mainImageHome.setScaledContents(True)
@@ -79,9 +72,7 @@ class MenuView(QMainWindow):
         self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home1())
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
 
-        # self._ui.pushButtoResultPrevius.clicked.connect(lambda: self._main_controller.move2NextPage())
-        # self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
-        
+
         self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home(  self._ui.name.text(),self._ui.surname.text(),self._ui.ageTextBox.text() ) )
         self._ui.feedbackEasyButton.clicked.connect(lambda: self._main_controller.feedback('1'))
         self._ui.feedbackNormalButton.clicked.connect(lambda: self._main_controller.feedback('2'))
@@ -256,10 +247,6 @@ class MenuView(QMainWindow):
         self._ui.terminateButton.setDisabled(True)
         self._ui.nextExersice.setDisabled(True)
      
-        # thread = Thread(target = self.showButtons,args=(),daemon=True)
-        # thread.start()
-        # print("Thread finished...exiting")
-
 
     def showButtons(self,str):
         # time.sleep(self._model.sleepForAnswer)
@@ -306,7 +293,6 @@ class MenuView(QMainWindow):
         self._ui.checkBox35.setChecked(False)
         self._ui.checkBox36.setChecked(False)
 
-
         self._ui.lineResultsEx1.setText(results.answerEx1)
         self._ui.lineResultsEx2.setText(results.answerEx2)
         self._ui.lineResultsEx3.setText(results.answerEx3)
@@ -328,7 +314,6 @@ class MenuView(QMainWindow):
             self._ui.checkBox13.setChecked(True)
         elif (results.feedbackE1=='3'):
             self._ui.checkBox25.setChecked(True)
-
         if(results.feedbackE2=='1'):
             self._ui.checkBox2.setChecked(True)
         elif (results.feedbackE2=='2'):
@@ -412,8 +397,6 @@ class MenuView(QMainWindow):
 
 
 
-        # if (se)
-
     def loadResultsByID(self,i):
         self.loadResults(self._model.result.listResults[i])
 
@@ -434,5 +417,3 @@ class MenuView(QMainWindow):
         else:
             self._ui.pushButtoResultPrevius.show()
 
-        # self._ui.feedbackNormalButton.setDisabled(False)
-        # self._ui.feedbackHardButton.setDisabled(False)

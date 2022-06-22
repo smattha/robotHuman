@@ -1,13 +1,9 @@
-from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore
-from sqlalchemy import false, true
 from views.ui.page1 import Ui_Form
-from PyQt5 import  QtWidgets,QtGui
-from PyQt5.QtWidgets import (QAction, QApplication, QColorDialog, QFileDialog,
-        QInputDialog, QMainWindow, QMenu, QMessageBox, QWidget)
-from PyQt5.QtCore import QDir, QPoint, QRect, QSize, Qt
-from views.DisplayImage import DisplayImageWidget
+from PyQt5 import  QtGui
+from PyQt5.QtWidgets import  QMainWindow, QWidget
+
 class DialogFeedback(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -93,7 +89,7 @@ class page1View(QWidget):
         self._ui.answer4.setText(self._main_controller._answerEx4Descr)
         self._ui.answer5.setText(self._main_controller._answerEx5Descr)
 
-        self._main_controller.showAnswerButtons.connect(self.showButtons)
+        self._main_controller.model.showAnswerButtons.connect(self.showButtons)
 
     @pyqtSlot(str)
     def changeDscrChanged(self, value):
@@ -123,7 +119,6 @@ class page1View(QWidget):
 
     @pyqtSlot(str)
     def setImageEx4(self, value):
-        # self._ui.mainImageEx4.setPixmap(QtGui.QPixmap(value))
             self.test4.openImage(value)
             self.test4.resize()       
 

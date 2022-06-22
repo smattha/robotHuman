@@ -123,7 +123,7 @@ class MenuCntl(QObject):
         print('Feedback {}',value)
         self._model.showButtonFeedback='show'
         self._exercisesController[self._model.currentExerciseID-1].feedbackAnswer(value)
-        self._exercisesController[self._model.currentExerciseID].continueDialog()
+        # self._exercisesController[self._model.currentExerciseID].continueDialog()
 
         
     
