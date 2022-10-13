@@ -3,7 +3,7 @@ from pickle import TRUE
 from tkinter import FALSE
 from motor.Ax12 import Ax12
 
-class MotorTest():
+class MoveController():
         def __init__(self):
             super().__init__()
             self.offline=TRUE
@@ -35,12 +35,18 @@ class MotorTest():
             Ax12.disconnect()
         
         def move(self,motor_id,input_pos):
-                print("Move motor "+ str(motor_id)+ " "+ str(input_pos))
+                print("Move motor" , str(motor_id) , " by  " ,str(input_pos))
                 if self.offline==FALSE:
                     my_dxl2 = Ax12(motor_id)
                     my_dxl2.set_goal_position(my_dxl2.get_present_position()+input_pos)
                     my_dxl2.set_moving_speed(85)
                     
+        def moveAbs(self,motor_id,input_pos):
+                print("Move motor" , str(motor_id) , " to pos  " ,str(input_pos))
+                if self.offline==FALSE:
+                    my_dxl2 = Ax12(motor_id)
+                    my_dxl2.set_goal_position(input_pos)
+                    my_dxl2.set_moving_speed(85)
 
 # # create AX12 instance with ID 10
 # motor_id = 0

@@ -1,3 +1,4 @@
+from xxlimited import Str
 from PyQt5.QtCore import pyqtSlot
 # from views.ui.menu import Ui_menuWindow
 from PyQt5 import QtGui,QtCore
@@ -18,72 +19,40 @@ class MenuView(QMainWindow):
         self._ui.setupUi(self)
         self.counter=0
         self.motor=motor
-    # self.path=self._model.path
-
-    #     #self._dialog.hide()
-    #     self.move(model.poseX,model.poseY)
-    #     self.resize(model.sizeY, model.sizeY)
-    #     self._ui.selectExercise.addItems(self._model.listAvailableExersice)
-    #     self._ui.comboBox.addItems(self._model.result.listWithNames)
-    #     self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
-    #     self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
-    #     self._ui.hard.setPixmap(QtGui.QPixmap(self._model.difficultFeedback))
-
-    #     self._ui.easy.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
-    #     self._ui.easy.setScaledContents(True)
-
-    #     self._ui.normal.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
-    #     self._ui.normal.setScaledContents(True)
-
-    #     self._ui.hard.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
-    #     self._ui.hard.setScaledContents(True)
-
-    #     self._ui.mainImageHome.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
-    #     self._ui.mainImageHome.setScaledContents(True)
-
-    #     self._ui.mainImageHome.setPixmap(QtGui.QPixmap(self.path+"/resources/images/mainScreen.jpg"))
-
-    #     self._ui.stackedWidget.setCurrentIndex(0)
-
-
-    #     self._ui.terminateButton.setDisabled(True)
-    #     self._ui.nextExersice.setDisabled(True)
-
-
-
-
-    #     ################################################################################################
-    #     # # connect widgets to controller
-    #     self._ui.clearMenu.clicked.connect(lambda: self._main_controller.clearClicked())
-    #     self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.text(), self._ui.surname.text(), self._ui.ageTextBox.text()))
-    #     self._ui.selectExersiceButton.clicked.connect( lambda: self._main_controller.setPage(self._ui.selectExercise.currentIndex()) )        
 
         value='1'
 
         self.startUpdateThread()
 
-        self._ui.minusA.clicked.connect( lambda: self.setPage(-10,0) )
-        self._ui.plusA.clicked.connect( lambda: self.setPage(10,0) )
+        self._ui.minusA.clicked.connect( lambda: self.moveMotor(-1,0) )
+        self._ui.plusA.clicked.connect( lambda: self.moveMotor(1,0) )
 
-        self._ui.minusB.clicked.connect( lambda: self.setPage(-10,1) )
-        self._ui.plusB.clicked.connect( lambda: self.setPage(10,1) )
+        self._ui.minusB.clicked.connect( lambda: self.moveMotor(-1,1) )
+        self._ui.plusB.clicked.connect( lambda: self.moveMotor(1,1) )
 
-        self._ui.minusD.clicked.connect( lambda: self.setPage(-10,3) )
-        self._ui.plusD.clicked.connect( lambda: self.setPage(10,3) )
+        self._ui.minusD.clicked.connect( lambda: self.moveMotor(-1,3) )
+        self._ui.plusD.clicked.connect( lambda: self.moveMotor(1,3) )
 
-        self._ui.minusE.clicked.connect( lambda: self.setPage(-10,4) )
-        self._ui.plusE.clicked.connect( lambda: self.setPage(10,4) )
+        self._ui.minusE.clicked.connect( lambda: self.moveMotor(-1,4) )
+        self._ui.plusE.clicked.connect( lambda: self.moveMotor(1,4) )
 
-        self._ui.minusF.clicked.connect( lambda: self.setPage(-10,5) )
-        self._ui.plusF.clicked.connect( lambda: self.setPage(10,5) )
+        self._ui.minusF.clicked.connect( lambda: self.moveMotor(-1,5) )
+        self._ui.plusF.clicked.connect( lambda: self.moveMotor(1,5) )
 
 
-        self._ui.minusC.clicked.connect( lambda: self.setPage(-10,6) )
-        self._ui.plusC.clicked.connect( lambda: self.setPage(10,6) )
+        self._ui.minusC.clicked.connect( lambda: self.moveMotor(-1,6) )
+        self._ui.plusC.clicked.connect( lambda: self.moveMotor(1,6) )
+
+
+        self._ui.moveButton.clicked.connect( lambda: self.moveMotorToPos() )
+
+        self._ui.sync.clicked.connect( lambda: self.syncPosWithTarget() )
         
-        # self.startUpdateThread()
+        self.syncPosWithTarget()
+        # self.startUpdateThread()  
 
-    def setPage(self, value,id):
+    def moveMotor(self, mult,id):
+        value=mult *int(self._ui.movingStep.text())
         print('\t\t\t\tActivate Widget',value)
         self.motor.move(id,value)
         # time.sleep(1.2)
@@ -94,21 +63,41 @@ class MenuView(QMainWindow):
         # self.updatePos()   
 
     def startUpdateThread(self):
-        thread = Thread(target=self.updatePos, args=(), daemon=True)
+        thread = Thread(target=self.updatePosThread, args=(), daemon=True)
         thread.start()
         print("Thread finished...exiting")
 
 
 
-    def updatePos(self):
+    def updatePosThread(self):
         while 1==1:
+            self.updatePos()
+            time.sleep(1)
+
+    def updatePos(self):
             self._ui.motorAPosition.setText(str(self.motor.getPosition(0)))
             self._ui.motorBPosition.setText(str(self.motor.getPosition(1)))
             self._ui.motorCPosition.setText(str(self.motor.getPosition(6)))
             self._ui.motorDPosition.setText(str(self.motor.getPosition(3)))
             self._ui.motorEPosition.setText(str(self.motor.getPosition(4)))
             self._ui.motorFPosition.setText(str(self.motor.getPosition(5)))
-            time.sleep(1)
+
+    def syncPosWithTarget(self):
+            self._ui.targetPosA.setText(str(self.motor.getPosition(0)))
+            self._ui.targetPosB.setText(str(self.motor.getPosition(1)))
+            self._ui.targetPosC.setText(str(self.motor.getPosition(6)))
+            self._ui.targetPosD.setText(str(self.motor.getPosition(3)))
+            self._ui.targetPosE.setText(str(self.motor.getPosition(4)))
+            self._ui.targetPosF.setText(str(self.motor.getPosition(5)))
+
+    def moveMotorToPos(self):
+            self.motor.moveAbs(self._ui.targetPosA.text(),0)
+            self.motor.moveAbs(self._ui.targetPosB.text(),1) 
+            self.motor.moveAbs(self._ui.targetPosC.text(),6) 
+            self.motor.moveAbs(self._ui.targetPosD.text(),3) 
+            self.motor.moveAbs(self._ui.targetPosE.text(),4) 
+            self.motor.moveAbs(self._ui.targetPosF.text(),5) 
+           
         # self._ui.goalA.textChanged.connect(self.setGoal(1))
         
     #     self._ui.pushButtonResultsNext.clicked.connect( lambda: self.loadResultsByIDCounter(1) )
@@ -138,14 +127,14 @@ class MenuView(QMainWindow):
     #     # # listen for model event signals
     #     self._model.changeDscrSingal.connect(self.changeDscrChanged)
     #     self._model.resetFieldSingal.connect(self.resetField)
-    #     self._model.setPageSignal.connect(self.setPage)
+    #     self._model.moveMotorSignal.connect(self.moveMotor)
 
     #     self._model.showButtons.connect(self.showButtons)
 
     #     #Feedback
     #     self._model.feedbackShowButton.connect(self.feedbackShowButton)
 
-    #     self._ui.pushButtonHome.clicked.connect( lambda: self.setPage(0) )
+    #     self._ui.pushButtonHome.clicked.connect( lambda: self.moveMotor(0) )
 
 
     # @pyqtSlot(str)
