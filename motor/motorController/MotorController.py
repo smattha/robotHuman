@@ -1,13 +1,23 @@
 
 from pickle import TRUE
 from tkinter import FALSE
-from motor.Ax12 import Ax12
+from motorController.Ax12 import Ax12
 
 class MoveController():
         def __init__(self):
             super().__init__()
             self.offline=TRUE
             self.pos=0;
+
+            self.leftHand=1
+            self.rightHand=2
+            self.rightShoulder=6
+            self.leftShoulder=3
+            self.torso=4
+            self.head=5
+
+            self.speed=85
+
             if self.offline== FALSE:
             
                 # e.g 'COM3' windows or '/dev/ttyUSB0' for Linux
@@ -24,7 +34,7 @@ class MoveController():
                 self.pos=self.pos+1
                 return 10000*motor_id+self.pos
             my_dxl2 = Ax12(motor_id)
-            my_dxl2.set_moving_speed(85)
+            my_dxl2.set_moving_speed(self.speed)
             my_dxl2.set_led(0)
             print("\nPosition of dxl ID: %d is %d " %
                     (my_dxl2.id, my_dxl2.get_present_position()))
@@ -41,7 +51,7 @@ class MoveController():
                     my_dxl2.set_goal_position(my_dxl2.get_present_position()+input_pos)
                     my_dxl2.set_moving_speed(85)
                     
-        def moveAbs(self,motor_id,input_pos):
+        def moveAbs(self,input_pos,motor_id):
                 print("Move motor" , str(motor_id) , " to pos  " ,str(input_pos))
                 if self.offline==FALSE:
                     my_dxl2 = Ax12(motor_id)

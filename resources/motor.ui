@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>852</width>
-    <height>638</height>
+    <width>1660</width>
+    <height>664</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,6 +30,47 @@
     </size>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_11">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetDefaultConstraint</enum>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QTableWidget" name="tableWidget">
+        <column>
+         <property name="text">
+          <string>Motor 1</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>New Column</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Motor 2</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Motor 3</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Motor 5</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Motor 6</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -46,6 +87,13 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="recordButton">
+          <property name="text">
+           <string>Record</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="sync">
@@ -122,7 +170,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>20</width>
             <height>20</height>
            </size>
           </property>
@@ -192,11 +240,55 @@
        </layout>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>MotorC</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="motorCPosition"/>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="minusC">
+          <property name="text">
+           <string>-</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="targetPosC"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="plusC">
+          <property name="text">
+           <string>+</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>MotorC</string>
+           <string>MotorD</string>
           </property>
          </widget>
         </item>
@@ -240,7 +332,7 @@
         <item>
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>MotorD</string>
+           <string>MotorE</string>
           </property>
          </widget>
         </item>
@@ -284,7 +376,7 @@
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>MotorE</string>
+           <string>MotorF</string>
           </property>
          </widget>
         </item>
@@ -323,50 +415,6 @@
         </item>
        </layout>
       </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>MotorF</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="motorCPosition"/>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="minusC">
-          <property name="text">
-           <string>-</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="targetPosC"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="plusC">
-          <property name="text">
-           <string>+</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
      </layout>
     </item>
    </layout>
@@ -376,7 +424,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>852</width>
+     <width>1660</width>
      <height>20</height>
     </rect>
    </property>

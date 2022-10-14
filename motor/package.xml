@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>user_interface</name>
+  <name>motor</name>
   <version>0.10.2</version>
   <description>
     This package attempts to show the features of ROS python API step-by-step,

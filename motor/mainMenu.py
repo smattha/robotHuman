@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-
 from pyexpat import model
 import sys
 from PyQt5.QtWidgets import QApplication
 from views.menuView import MenuView
 from rosInterface.audioServiceInterface import Ros_Audio_Service
-from motor.MotorController import MoveController
+# from motor.MotorController import MoveController
+from motorController.MotorController import MoveController
 
 from sys import exit
 
