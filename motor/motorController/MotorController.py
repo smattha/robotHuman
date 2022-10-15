@@ -6,15 +6,15 @@ from motorController.Ax12 import Ax12
 class MoveController():
         def __init__(self):
             super().__init__()
-            self.offline=TRUE
+            self.offline=FALSE
             self.pos=0;
 
-            self.leftHand=1
-            self.rightHand=2
-            self.rightShoulder=6
-            self.leftShoulder=3
+            self.leftHand=0
+            self.rightHand=1
+            self.rightShoulder=3
+            self.leftShoulder=5
             self.torso=4
-            self.head=5
+            self.head=6
 
             self.speed=85
 

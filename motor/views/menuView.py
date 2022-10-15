@@ -181,7 +181,7 @@ class MenuView(QMainWindow):
     def updatePosThread(self):
         while 1==1:
             self.updatePos()
-            time.sleep(1)
+            time.sleep(10)
 
     def updatePos(self):
             self._ui.motorAPosition.setText(str(self.motor.getPosition(self.motor.leftHand)))
@@ -200,12 +200,12 @@ class MenuView(QMainWindow):
             self._ui.targetPosF.setText(str(self.motor.getPosition(self.motor.head)))
 
     def moveMotorToPos(self):
-            self.motor.moveAbs(self._ui.targetPosA.text(),self.motor.leftHand)
-            self.motor.moveAbs(self._ui.targetPosB.text(),self.motor.rightHand)
-            self.motor.moveAbs(self._ui.targetPosC.text(),self.motor.rightShoulder)
-            self.motor.moveAbs(self._ui.targetPosD.text(),self.motor.leftShoulder)
-            self.motor.moveAbs(self._ui.targetPosE.text(),self.motor.torso)
-            self.motor.moveAbs(self._ui.targetPosF.text(),self.motor.head)
+            self.motor.moveAbs(int(self._ui.targetPosA.text()),self.motor.leftHand)
+            self.motor.moveAbs(int(self._ui.targetPosB.text()),self.motor.rightHand)
+            self.motor.moveAbs(int(self._ui.targetPosC.text()),self.motor.rightShoulder)
+            self.motor.moveAbs(int(self._ui.targetPosD.text()),self.motor.leftShoulder)
+            self.motor.moveAbs(int(self._ui.targetPosE.text()),self.motor.torso)
+            self.motor.moveAbs(int(self._ui.targetPosF.text()),self.motor.head)
            
         # self._ui.goalA.textChanged.connect(self.setGoal(1))
         
