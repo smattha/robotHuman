@@ -34,7 +34,7 @@
      <enum>QLayout::SetDefaultConstraint</enum>
     </property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QTableWidget" name="tableWidget">
         <column>
@@ -69,6 +69,19 @@
         </column>
        </widget>
       </item>
+      <item>
+       <spacer name="horizontalSpacer_10">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
     </item>
     <item>
@@ -82,7 +95,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>600</width>
+            <width>5</width>
             <height>20</height>
            </size>
           </property>
@@ -156,7 +169,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>MotorA</string>
+           <string>Left Hand        </string>
           </property>
          </widget>
         </item>
@@ -170,7 +183,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
+            <width>10</width>
             <height>20</height>
            </size>
           </property>
@@ -200,7 +213,7 @@
         <item>
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>MotorB</string>
+           <string>Right Hand      </string>
           </property>
          </widget>
         </item>
@@ -214,7 +227,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>10</width>
             <height>20</height>
            </size>
           </property>
@@ -244,7 +257,7 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>MotorC</string>
+           <string>Right Shoulder</string>
           </property>
          </widget>
         </item>
@@ -258,7 +271,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>10</width>
             <height>20</height>
            </size>
           </property>
@@ -288,7 +301,7 @@
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>MotorD</string>
+           <string>Left Shoulder   </string>
           </property>
          </widget>
         </item>
@@ -302,7 +315,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>10</width>
             <height>20</height>
            </size>
           </property>
@@ -332,7 +345,7 @@
         <item>
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>MotorE</string>
+           <string>Torso               </string>
           </property>
          </widget>
         </item>
@@ -346,7 +359,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>10</width>
             <height>20</height>
            </size>
           </property>
@@ -376,7 +389,7 @@
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>MotorF</string>
+           <string>Head               </string>
           </property>
          </widget>
         </item>
@@ -390,7 +403,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
+            <width>10</width>
             <height>20</height>
            </size>
           </property>
