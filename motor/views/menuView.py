@@ -177,7 +177,7 @@ class MenuView(QMainWindow):
     def updatePosThread(self):
         while 1==1:
             self.updatePos()
-            time.sleep(0.1)
+            time.sleep(0.3)
 
     def updatePos(self):
             self._ui.motorAPosition.setText(str(self.motor.getPosition(self.motor.leftHand)))
