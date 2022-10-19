@@ -39,10 +39,12 @@ from views.database.pointsClass import pointsClass
 class MenuView(QMainWindow):
     def __init__(self,motor):
         super().__init__()
+        
 
         self.path='/home/stergios/git/src/robotHuman/user_interface'
         engine = create_engine('sqlite:///' + self.path + '/database/scheme/mysqlList.db')
         Session = sessionmaker(bind=engine)
+        
         # con = engine.connect()
         # rs = con.execute("SELECT * FROM points t where t.id=1")
 
@@ -50,7 +52,7 @@ class MenuView(QMainWindow):
 
         rs=session.query(pointsClass).filter(pointsClass.id>1).all()
         
-        print (rs.pop().motorA)
+        # print (rs.pop().motorA)
 
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
@@ -91,7 +93,27 @@ class MenuView(QMainWindow):
 
         self._ui.tableWidget.cellClicked.connect(self.updateUiCellClick)
 
+        self._ui.deleteRow.clicked.connect(self.deleteRow)
 
+        # self.resultTemp=self.session.query(pointsClass).all()
+
+        for x in rs:
+            point=[x.motorA,x.motorB,x.motorC,x.motorD,x.motorE,x.motorF,x.name]
+            self.addRow(point)
+
+    def deleteRow(self):
+        print('A')
+        self._ui.tableWidget.removeRow(self.selectedRow)
+        point=pointsClass()
+        # point.motorA=str(self.motor.getPosition(self.motor.leftHand))
+        # point.motorB=str(self.motor.getPosition(self.motor.rightHand))
+        # point.motorC=str(self.motor.getPosition(self.motor.rightShoulder))
+        # point.motorD=str(self.motor.getPosition(self.motor.leftShoulder))
+        # point.motorE=str(self.motor.getPosition(self.motor.torso))
+        # point.motorF=str(self.motor.getPosition(self.motor.head))
+        point.name=(str(self._ui.tableWidget.item(self.selectedRow,6).text()))
+        # self.storePoints(res)
+        self.deletePoint(point)
 
     def storePoints(self, newResult):
 
@@ -115,11 +137,23 @@ class MenuView(QMainWindow):
 
         # self.result.listResults.append(listTemp)
 
-        showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+
+    def deletePoint(self, newResult):
+
+        self.path='/home/stergios/git/src/robotHuman/user_interface'
+        engine = create_engine('sqlite:///' + self.path + '/database/scheme/mysqlList.db')
+        Session = sessionmaker(bind=engine)
+
+        self.session = Session()
+        self.session.query(pointsClass).filter(pointsClass.name==newResult.name).delete()
+        self.session.commit()
+
+        self.session.close()
+
 
     def updateUiCellClick(self, row, cell):
         print()
-
+        self.selectedRow=row;
         self._ui.targetPosA.setText(str(self._ui.tableWidget.item(row,0).text()))
         self._ui.targetPosB.setText(str(self._ui.tableWidget.item(row,1).text()))
         self._ui.targetPosC.setText(str(self._ui.tableWidget.item(row,2).text()))
@@ -142,8 +176,22 @@ class MenuView(QMainWindow):
         thread.start()
         print("Thread started")
 
-    
+    def addRow(self,position):
+        self._ui.tableWidget.setRowCount(self.counter+1)
+        
+        localCounter=0;
 
+        for x in position:
+            # print(x)
+            self._ui.tableWidget.setItem(self.counter, localCounter, QTableWidgetItem(x))
+            localCounter=localCounter+1     
+        self.counter=self.counter+1
+
+        # self._ui.tableWidget.setItem(self.counter, 1, QTableWidgetItem(str(self.motor.getPosition(self.motor.rightHand))))
+        # self._ui.tableWidget.setItem(self.counter, 2, QTableWidgetItem(str(self.motor.getPosition(self.motor.rightShoulder))))
+        # self._ui.tableWidget.setItem(self.counter, 3, QTableWidgetItem(str(self.motor.getPosition(self.motor.leftShoulder))))
+        # self._ui.tableWidget.setItem(self.counter, 4, QTableWidgetItem(str(self.motor.getPosition(self.motor.torso))))
+        # self._ui.tableWidget.setItem(self.counter, 5, QTableWidgetItem(str(self._ui.nameOfPoint.text())))
 
     def record(self):
         
@@ -157,6 +205,7 @@ class MenuView(QMainWindow):
         self._ui.tableWidget.setItem(self.counter, 3, QTableWidgetItem(str(self.motor.getPosition(self.motor.leftShoulder))))
         self._ui.tableWidget.setItem(self.counter, 4, QTableWidgetItem(str(self.motor.getPosition(self.motor.torso))))
         self._ui.tableWidget.setItem(self.counter, 5, QTableWidgetItem(str(self.motor.getPosition(self.motor.head))))
+        self._ui.tableWidget.setItem(self.counter, 6, QTableWidgetItem(str(self._ui.nameOfPoint.text())))
 
         res=pointsClass()
         res.motorA=str(self.motor.getPosition(self.motor.leftHand))
@@ -165,11 +214,12 @@ class MenuView(QMainWindow):
         res.motorD=str(self.motor.getPosition(self.motor.leftShoulder))
         res.motorE=str(self.motor.getPosition(self.motor.torso))
         res.motorF=str(self.motor.getPosition(self.motor.head))
+        res.name=str(self._ui.nameOfPoint.text())
         self.storePoints(res)
 
-        self.resultTemp=self.session.query(pointsClass).all()
 
 
+        
 
         self.counter=self.counter+1;
         

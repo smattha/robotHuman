@@ -36,15 +36,24 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
+       <widget class="QPushButton" name="loadAllPoints">
+        <property name="text">
+         <string>Load All</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="deleteRow">
+        <property name="text">
+         <string>Delete Row</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QTableWidget" name="tableWidget">
         <column>
          <property name="text">
           <string>Motor 1</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>New Column</string>
          </property>
         </column>
         <column>
@@ -59,12 +68,22 @@
         </column>
         <column>
          <property name="text">
+          <string>Motor 4</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
           <string>Motor 5</string>
          </property>
         </column>
         <column>
          <property name="text">
           <string>Motor 6</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Name</string>
          </property>
         </column>
        </widget>
@@ -88,6 +107,9 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <item>
+         <widget class="QLineEdit" name="nameOfPoint"/>
+        </item>
         <item>
          <spacer name="horizontalSpacer_7">
           <property name="orientation">

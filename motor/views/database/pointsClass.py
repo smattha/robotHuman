@@ -45,5 +45,5 @@ class pointsClass(Base):
     motorD = Column(String)
     motorE = Column(String)
     motorF = Column(String)
-
+    name = Column(String)
 
