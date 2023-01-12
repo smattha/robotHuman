@@ -15,7 +15,7 @@ catkin_package(CATKIN_DEPENDS message_runtime std_msgs)
 
 
 catkin_install_python(PROGRAMS
-  scripts/test.py
+  scripts/display_img.py
  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
