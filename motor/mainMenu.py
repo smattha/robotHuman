@@ -14,7 +14,7 @@ class App(QApplication):
     def __init__(self, sys_argv):
         super(App, self).__init__(sys_argv)
 
-        motor=MoveController(False);
+        motor=MoveController(True);
         
         # motor.rotate()
         #motor.complex2()
