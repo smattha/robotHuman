@@ -7,11 +7,17 @@ find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 #add_service_files(DIRECTORY srv FILES GetAudio.srv)
 
 #generate_messages(DEPENDENCIES std_msgs)
-add_service_files(DIRECTORY srv FILES motor.srv )
+add_service_files(DIRECTORY srv FILES imageName.srv )
 generate_messages(DEPENDENCIES std_msgs)
 
 
 catkin_package(CATKIN_DEPENDS message_runtime std_msgs)
+
+
+catkin_install_python(PROGRAMS
+  scripts/test.py
+ DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 # do not wildcard install files since the root folder of the package will contain a debian folder for releasing
 #catkin_install_python(PROGRAMS
