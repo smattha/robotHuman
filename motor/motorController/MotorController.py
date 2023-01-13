@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from motorController.Ax12 import Ax12
 import threading 
 import time 

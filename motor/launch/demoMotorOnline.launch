@@ -1,0 +1,6 @@
+<launch>
+
+  <node pkg="motor" type="motorsControllerRos.py" name="motor"  args=" True" />
+	 
+  
+</launch>
