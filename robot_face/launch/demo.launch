@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="robot_face" type="robotface.py" name="robot_face"  args=" /home/stergios/git/src/robotHuman "/>
+</launch>
+

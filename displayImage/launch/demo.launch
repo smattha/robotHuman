@@ -1,3 +1,0 @@
-<launch>
-  <node pkg="displayImage" type="display_img.py" name="display_img"  />
-</launch>
