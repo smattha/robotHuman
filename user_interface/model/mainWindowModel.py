@@ -190,25 +190,7 @@ class MainWindowModel(QObject):
 
     #Constants
     path="/home/stergios/git/src/robotHuman/user_interface"
-    resourcesImage1=path+"/resources/images/ex1/mainImage.png"
-    resourcesImage2=path+"/resources/images/ex2/mainImage.png"
-    resourcesImage3=path+"/resources/images/ex3/1.png"
-    resourcesImage3B=path+"/resources/images/ex3/2.png"
 
-    exersice3A=path+"/resources/images/ex3/3.png"
-    exersice3B=path+"/resources/images/ex3/4.png"
-    
-    exersice4A=path+"/resources/images/ex4/1.png"
-    exersice4B=path+"/resources/images/ex4/6.png"
-    exersice4C=path+"/resources/images/ex4/7.png"
-    exersice4D=path+"/resources/images/ex4/8.png"
-
-    exersice5A=path+"/resources/images/ex5/image.png"
-    exersice6A=path+"/resources/images/ex6/1.png"
-
-    easyFeedbackImg=path+"/resources/images/3.png"
-    normalFeedback=path+"/resources/images/2.jpg"
-    difficultFeedback=path+"/resources/images/1.jpg"  
 
 
     #create signal
@@ -408,10 +390,27 @@ class MainWindowModel(QObject):
         self.result=results()
 
         self.path =path
-        # storeJSONFile1 = StoreJSONFile()
-        # storeJSONFile1.file = 'test.json'
+        self.resourcesImage1=path+"/resources/images/ex1/mainImage.png"
+        self.resourcesImage2=path+"/resources/images/ex2/mainImage.png"
+        self.resourcesImage3=path+"/resources/images/ex3/1.png"
+        self.resourcesImage3B=path+"/resources/images/ex3/2.png"
 
-        engine = create_engine('sqlite:///' + self.path + '/database/scheme/mysqlList.db')
+        self.exersice3A=path+"/resources/images/ex3/3.png"
+        self.exersice3B=path+"/resources/images/ex3/4.png"
+        self.exersice4A=path+"/resources/images/ex4/1.png"
+        self.exersice4B=path+"/resources/images/ex4/6.png"
+        self.exersice4C=path+"/resources/images/ex4/7.png"
+        self.exersice4D=path+"/resources/images/ex4/8.png"
+
+        self.exersice5A=path+"/resources/images/ex5/image.png"
+        self.exersice6A=path+"/resources/images/ex6/1.png"
+
+        self.easyFeedbackImg=path+"/resources/images/3.png"
+        self.normalFeedback=path+"/resources/images/2.jpg"
+        self.difficultFeedback=path+"/resources/images/1.jpg"  
+
+
+        engine = create_engine('sqlite:///' + self.path + '/resources/database/scheme/mysqlList.db')
         Session = sessionmaker(bind=engine)
 
         self.session = Session()

@@ -37,12 +37,12 @@ from views.database.pointsClass import pointsClass
 # from views.base import base
 
 class MenuView(QMainWindow):
-    def __init__(self,motor):
+    def __init__(self,motor,path):
         super().__init__()
         
 
-        self.path='/home/stergios/git/src/robotHuman/user_interface'
-        engine = create_engine('sqlite:///' + self.path + '/database/scheme/mysqlList.db')
+        self.path=path
+        engine = create_engine('sqlite:///' + self.path + '/resources/database/scheme/mysqlList.db')
         Session = sessionmaker(bind=engine)
         
         # con = engine.connect()

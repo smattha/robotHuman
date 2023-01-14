@@ -69,7 +69,7 @@ class App(QApplication):
         
         motor.moveMotorsAbs(180,	433,818,196,818,572)
 
-        self.menu_view =MenuView(motor)
+        self.menu_view =MenuView(motor,'/home/stergios/git/src/robotHuman')
         self.menu_view.show()
 
 
