@@ -41,7 +41,7 @@ class ControllerExersice5(object):
         args, remaining = parser.parse_known_args()
         
         self.args=args
-        
+        print('------------------model===--------'+self.args.model)
         print('Model ',self.args.model )
         if not os.path.exists(self.args.model):
             print ("Please download a model for your language from https://alphacephei.com/vosk/models")

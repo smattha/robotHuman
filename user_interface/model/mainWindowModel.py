@@ -361,7 +361,7 @@ class MainWindowModel(QObject):
     def createNewResult(self, newResult):
 
 
-        engine = create_engine('sqlite:///' + self.path + '/database/scheme/mysqlList.db')
+        engine = create_engine('sqlite:///' + self.path + '/resources/database/scheme/mysqlList.db')
         Session = sessionmaker(bind=engine)
 
         self.session = Session()

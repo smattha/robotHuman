@@ -21,52 +21,24 @@ class ControllerType2(MainController,ControllerType2Data):
         self._answerEx1=''
         self.path=self.model.path
 
-    def feedbackAnswer(self,value):
-        print('Feedback {}',value)
-        self._feedback=value
-
-    def setupUi(self):
-        print("main")
-
 
     def readExersice(self):
         print('Read Exercise')
-        self.nextPageLoop()
+        # self.nextPageLoop()
+        self.getTextMainThread()
 
 
-    def step1(self):
-        self._rosInterface.talker('Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω')
-    
-    def step2(self):
-        self._rosInterface.talker('Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο')
-    
 
     def step2Store(self,value):
         self.answerEx3_step2=value
         self._rosInterface.talker('Γιατί;')
         self.answerEx3_step3= self._rosInterface.getText()
     
-    def readAnswers(self):
-        print('Read Answers')
-
 
     def feedback(self):
         print('feedback')
         self.feedbackFN()
 
-    def feedbackFN(self):
-        thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
-        thread.start()
-
-    def stopBeforeShowImageMainF(self):
-        self._rosInterface.talker(
-            'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
-        self.model.showButtonsFeedback()
-
-    def feedbackStore(self,model,value):
-        self._answerEx1=value
-        print('feedback Answer store ',value)
-        self.feedback()
 
     def readAnswers2(self):
         self.playAudio(self.answerEx3)
@@ -135,5 +107,39 @@ class ControllerType2(MainController,ControllerType2Data):
         thread.start()
         print("Thread finished...exiting")
 
-    def nextPageLoop(self):
-        self.getTextMainThread()
+    # def nextPageLoop(self):
+    #     self.getTextMainThread()
+
+
+    # def feedbackAnswer(self,value):
+    #     print('Feedback {}',value)
+    #     self._feedback=value
+
+    # def setupUi(self):
+    #     print("main")
+
+        # def feedbackFN(self):
+    #     thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
+    #     thread.start()
+
+    # def stopBeforeShowImageMainF(self):
+    #     self._rosInterface.talker(
+    #         'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+    #     self.model.showButtonsFeedback()
+
+    # def feedbackStore(self,model,value):
+    #     self._answerEx1=value
+    #     print('feedback Answer store ',value)
+    #     self.feedback()
+
+
+    # def step1(self):
+    #     self._rosInterface.talker('Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω')
+    
+    # def step2(self):
+    #     self._rosInterface.talker('Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο')
+    
+    # def readAnswers(self):
+    #     print('Read Answers')
+
+
