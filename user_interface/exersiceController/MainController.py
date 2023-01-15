@@ -36,7 +36,7 @@ class MainController(QObject):
         self.model.feedback()
 
     def continueDialog(self):
-        print('continue Dialog 1')
+        print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε ')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
     def feedbackStore(self, model1, value):

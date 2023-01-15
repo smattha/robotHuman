@@ -1,10 +1,12 @@
+from time import sleep
+
 import rospy
 from std_msgs.msg import String
 from audio_service.srv import *
-from time import sleep
+from motors_controller.srv import *
+from robot_face.srv import *
 
-# from audio_service.srv import *
-import rospy 
+
 
 class Ros_Audio_Service(object):
     def __init__(self):
@@ -87,11 +89,9 @@ class Ros_Audio_Service(object):
         # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('textToSpeechBlocking', text2Speech)
 
-
-
         s1=text2SpeechRequest()
         s1.text=msg
-        # formal style
+
         resp2 = getText_ROS.call(  s1 )
 
         print(" Replied {}", resp2.text)
@@ -99,3 +99,50 @@ class Ros_Audio_Service(object):
         return resp2
 
 
+
+    def displayImg(self):
+
+        # if self.flag == 'test':
+        #     sleep(1)
+        #     return 'TEST'
+
+        rospy.wait_for_service('robot_face_srv')
+
+        # create a handle to the add_two_ints service
+        getText_ROS = rospy.ServiceProxy('robot_face_srv', imageName)
+
+        s1=imageNameRequest()
+        s1.name='/home/stergios/Downloads/1.jpeg'
+
+        resp2 = getText_ROS.call(  s1 )
+
+        print(" Replied {}", resp2.sum)
+
+        return resp2
+
+
+
+    def moveRobot(self,a,b,c,d,e,f):
+
+        if self.flag == 'test':
+            print('Running robot in test mode! Sleep for 1 sec to simulate the robot motion.')
+            sleep(1)
+            return 'TEST'
+
+        rospy.wait_for_service('motors_controller_ros_intf_srv_abs')
+
+        # create a handle to the add_two_ints service
+        getText_ROS = rospy.ServiceProxy('motors_controller_ros_intf_srv_abs', motors_controller)
+
+        position=motors_controllerRequest()
+        position.a=a
+        position.b=b
+        position.c=c
+        position.d=d
+        position.e=e
+        position.f=f
+
+        resp2 = getText_ROS.call(  position )
+        print(" Replied {}", resp2.sum)
+
+        return resp2

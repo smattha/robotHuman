@@ -19,7 +19,7 @@ class App(QApplication):
     def __init__(self, sys_argv):
         super(App, self).__init__(sys_argv)
 
-        self.path="/home/stergios/git/src/robotHuman/user_interface"
+        self.path="/home/stergios/git/src/robotHuman"
 
         if (len(sys.argv)>=2):
             self.path =  sys.argv[1]
@@ -28,7 +28,7 @@ class App(QApplication):
             self.flag=sys.argv[4]
             print("...................")
         else:
-            self.path = "/home/stergios/git/src/robotHuman/user_interface"
+            self.path = "/home/stergios/git/src/robotHuman"
             self.i=2
             self.displaymageRation=1
             self.flag="test"
@@ -41,7 +41,7 @@ class App(QApplication):
 
         self._rosInterface=Ros_Audio_Service()
         self._rosInterface.flag=self.flag
-        
+
 
         self._controllerEx1= ControllerType1(self._rosInterface,self.model)
         self._controllerEx1.setVariable1()

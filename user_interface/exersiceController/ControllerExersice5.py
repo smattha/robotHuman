@@ -49,20 +49,16 @@ class ControllerExersice5(MainController,ControllerExersice5Data):
     def feedback(self,model,value):
         model.results.answerEx1=value
         print('feedback 1')
-        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
-    
+       
     def continueDialog(self):
         print('continue Dialog 1')
-        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
+        self._rosInterface.talker('||||||||||||||||||||||||||||||||||||||||||||||||||Controller 5 Είσαι έτοιμος να προχωρήσουμε')
 
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
         print('\t\t\tfeedback ',value)
-        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
-
-        # self._rosInterface.talker1('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
-
+      
 
     def feedbackFN(self):
             thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
@@ -114,11 +110,8 @@ class ControllerExersice5(MainController,ControllerExersice5Data):
         self._answerEx2=value
         print('\t\t\tfeedback 2',value)
         self._counter == 1
-        # self._rosInterface.talker1('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
-        # self._model.selectedExercise=value
 
     def trigger(self):
-        #time.sleep(5)
         self.model.trigger(101)
         self.feedbackFN()
 

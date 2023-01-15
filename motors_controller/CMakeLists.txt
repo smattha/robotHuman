@@ -13,10 +13,10 @@ generate_messages(DEPENDENCIES std_msgs)
 
 catkin_package(CATKIN_DEPENDS message_runtime std_msgs)
 
-catkin_install_python(PROGRAMS
-  motors_controller_ros.py
-   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
+#catkin_install_python(PROGRAMS
+ # motors_controller_ros.py
+ #  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#)
 
 # do not wildcard install files since the root folder of the package will contain a debian folder for releasing
 #catkin_install_python(PROGRAMS
