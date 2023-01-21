@@ -15,7 +15,7 @@ class page1View(QWidget):
         super().__init__()
 
         self._model = model
-        self._main_controller = main_controller
+        self._ex_controller = main_controller
         self._ui = Ui_Form()
         self._ui.setupUi(self)
         DialogFeedback()
@@ -25,20 +25,20 @@ class page1View(QWidget):
         self.resize(model.sizeY, model.sizeY)
 
         translate = QtCore.QCoreApplication.translate
-        self._ui.name.setText(translate("Form", self._main_controller.getTitle()))
+        self._ui.name.setText(translate("Form", self._ex_controller.getTitle()))
 
         #####################################################################################
         # #Exercise 1
         #####################################################################################
 
-        self._ui.mainImage.setPixmap(QtGui.QPixmap(  self._main_controller.getImagePath()  ))
+        self._ui.mainImage.setPixmap(QtGui.QPixmap(  self._ex_controller.getImagePath()  ))
        
         
-        self._ui.answer1.clicked.connect(lambda: self._main_controller.storeAnswer(1))
-        self._ui.answer2.clicked.connect(lambda: self._main_controller.storeAnswer(2))
-        self._ui.answer3.clicked.connect(lambda: self._main_controller.storeAnswer(3))
-        self._ui.answer4.clicked.connect(lambda: self._main_controller.storeAnswer(4))
-        self._ui.answer5.clicked.connect(lambda: self._main_controller.storeAnswer(5))
+        self._ui.answer1.clicked.connect(lambda: self._ex_controller.storeAnswer(1))
+        self._ui.answer2.clicked.connect(lambda: self._ex_controller.storeAnswer(2))
+        self._ui.answer3.clicked.connect(lambda: self._ex_controller.storeAnswer(3))
+        self._ui.answer4.clicked.connect(lambda: self._ex_controller.storeAnswer(4))
+        self._ui.answer5.clicked.connect(lambda: self._ex_controller.storeAnswer(5))
         
         self._ui.answer1.setDisabled(True)
         self._ui.answer2.setDisabled(True)
@@ -49,12 +49,12 @@ class page1View(QWidget):
         i=model.i
         self._ui.mainImage.setMaximumSize(QtCore.QSize(700/i, 800/i))
 
-        if self._main_controller._imageAnswerFlag ==0 :
-            self._ui.answer1Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer1 ))
-            self._ui.answer2Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer2 ))
-            self._ui.answer3Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer3 ))
-            self._ui.answer4Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer4 ))
-            self._ui.answer5Img.setPixmap(QtGui.QPixmap(  self._main_controller._imageAnswer5 ))
+        if self._ex_controller._imageAnswerFlag ==0 :
+            self._ui.answer1Img.setPixmap(QtGui.QPixmap(  self._ex_controller._imageAnswer1 ))
+            self._ui.answer2Img.setPixmap(QtGui.QPixmap(  self._ex_controller._imageAnswer2 ))
+            self._ui.answer3Img.setPixmap(QtGui.QPixmap(  self._ex_controller._imageAnswer3 ))
+            self._ui.answer4Img.setPixmap(QtGui.QPixmap(  self._ex_controller._imageAnswer4 ))
+            self._ui.answer5Img.setPixmap(QtGui.QPixmap(  self._ex_controller._imageAnswer5 ))
 
             self._ui.answer1Img.setScaledContents(True)
             self._ui.answer2Img.setScaledContents(True)
@@ -77,19 +77,19 @@ class page1View(QWidget):
             self._ui.answer5Img.hide()
 
 
-        self._ui.descriptionBox.setText(self._main_controller._exersiceTitleDsr)
-        self._ui.Results.setText(self._main_controller._answerDsr)
+        self._ui.descriptionBox.setText(self._ex_controller._exersiceTitleDsr)
+        self._ui.Results.setText(self._ex_controller._answerDsr)
 
         self._ui.descriptionBox.setAlignment(QtCore.Qt.AlignCenter)
         self._ui.Results.setAlignment(QtCore.Qt.AlignCenter)
 
-        self._ui.answer1.setText(self._main_controller._answerEx1Descr)
-        self._ui.answer2.setText(self._main_controller._answerEx2Descr)
-        self._ui.answer3.setText(self._main_controller._answerEx3Descr)
-        self._ui.answer4.setText(self._main_controller._answerEx4Descr)
-        self._ui.answer5.setText(self._main_controller._answerEx5Descr)
+        self._ui.answer1.setText(self._ex_controller._answerEx1Descr)
+        self._ui.answer2.setText(self._ex_controller._answerEx2Descr)
+        self._ui.answer3.setText(self._ex_controller._answerEx3Descr)
+        self._ui.answer4.setText(self._ex_controller._answerEx4Descr)
+        self._ui.answer5.setText(self._ex_controller._answerEx5Descr)
 
-        self._main_controller.model.showAnswerButtons.connect(self.showButtons)
+        self._ex_controller.model.showAnswerButtons.connect(self.showButtons)
 
     @pyqtSlot(str)
     def changeDscrChanged(self, value):

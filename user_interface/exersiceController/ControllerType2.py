@@ -3,10 +3,10 @@
 
 from PyQt5.QtCore import  pyqtSlot
 from threading import Thread
-from exersiceController.MainController import MainController
+from exersiceController.RootController import RootController
 from exersiceController.ControllerType2Data import ControllerType2Data
 
-class ControllerType2(MainController,ControllerType2Data):
+class ControllerType2(RootController,ControllerType2Data):
     def __init__(self,ros,model):
         super().__init__()
         print("Initialize the controller for Excersice 3 ")

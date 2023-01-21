@@ -3,7 +3,7 @@ from PyQt5.QtCore import QObject, pyqtSlot
 # import rospy
 # from std_msgs.msg import String
 
-class MenuCntl(QObject):
+class MainMenuCntl(QObject):
     def __init__(self, model,exercisesController):
         super().__init__()
         self._model = model
@@ -55,15 +55,11 @@ class MenuCntl(QObject):
         self._model.age=''
 
 
-        # calculate button enabled state
-        # self._model.enable_reset = True if value else False
 
     def change_text(self, value):
         self._model.amount = value
         rospy.loginfo(value)
         self.pub.publish(str(value))
-
-        # calculate button enabled state
         self._model.enable_reset = True if value else False
     
 
@@ -72,15 +68,10 @@ class MenuCntl(QObject):
         self._exercisesController[self._model.currentExerciseID-1].feedbackStore(self._model.result,value)
         self._model.trigger(2)
 
-        # self._model.selectedExercise=value
-
-
 
     @pyqtSlot(str)
     def setPage(self,value):
         print('Main Page Controller:Set page ',value)
-        # if (value==0):
-        # pageId=self._exercisesController[value].mainPage
         self._currentExerciseID=value
         self._model.selectedExercise=value
         self._model.trigger(value+1)
@@ -102,7 +93,7 @@ class MenuCntl(QObject):
     @pyqtSlot(str)
     def go2Home1(self):
        self._model.trigger(0)
-       # self.printResults()
+
 
     @pyqtSlot(str)
     def move2NextPage(self):
@@ -123,7 +114,6 @@ class MenuCntl(QObject):
         print('Feedback {}',value)
         self._model.showButtonFeedback='show'
         self._exercisesController[self._model.currentExerciseID-1].feedbackAnswer(value)
-        # self._exercisesController[self._model.currentExerciseID].continueDialog()
 
         
     
@@ -132,8 +122,6 @@ class MenuCntl(QObject):
         self._model.amount = value
         rospy.loginfo(value)
         self.pub.publish(str(value))
-
-        # calculate button enabled state
         self._model.enable_reset = True if value else False
 
     def printUserData(self):
@@ -157,52 +145,22 @@ class MenuCntl(QObject):
         newResult.answerEx11A = str(self._exercisesController[10]._answerEx1)
         newResult.answerEx12A = str(self._exercisesController[11]._answerEx1)
 
-        newResult.feedbackEx1=str(self._exercisesController[0]._feedback)
-        newResult.feedbackEx2=str(self._exercisesController[1]._feedback)
-        newResult.feedbackEx3=str(self._exercisesController[2]._feedback)
-        newResult.feedbackEx4=str(self._exercisesController[3]._feedback)
-        newResult.feedbackEx5=str(self._exercisesController[4]._feedback)
-        newResult.feedbackEx6=str(self._exercisesController[5]._feedback)
-        newResult.feedbackEx7=str(self._exercisesController[6]._feedback)
-        newResult.feedbackEx8=str(self._exercisesController[7]._feedback)
-        newResult.feedbackEx9=str(self._exercisesController[8]._feedback)
-        newResult.feedbackEx10=str(self._exercisesController[9]._feedback)
-        newResult.feedbackEx11=str(self._exercisesController[10]._feedback)
-        newResult.feedbackEx12=str(self._exercisesController[11]._feedback)
+        newResult.feedbackE1=str(self._exercisesController[0]._feedback)
+        newResult.feedbackE2=str(self._exercisesController[1]._feedback)
+        newResult.feedbackE3=str(self._exercisesController[2]._feedback)
+        newResult.feedbackE4=str(self._exercisesController[3]._feedback)
+        newResult.feedbackE5=str(self._exercisesController[4]._feedback)
+        newResult.feedbackE6=str(self._exercisesController[5]._feedback)
+        newResult.feedbackE7=str(self._exercisesController[6]._feedback)
+        newResult.feedbackE8=str(self._exercisesController[7]._feedback)
+        newResult.feedbackE9=str(self._exercisesController[8]._feedback)
+        newResult.feedbackE10=str(self._exercisesController[9]._feedback)
+        newResult.feedbackE11=str(self._exercisesController[10]._feedback)
+        newResult.feedbackE12=str(self._exercisesController[11]._feedback)
 
         self._model.createNewResult(newResult)
         self.printUserData()
-        self._exercisesController[0].printResult()
-        self._exercisesController[1].printResult()
-        self._exercisesController[2].printResult()
-        self._exercisesController[3].printResult()
-
-        self._exercisesController[4].printResult()
-        self._exercisesController[5].printResult()
-        self._exercisesController[6].printResult()
-        self._exercisesController[7].printResult()
-        self._exercisesController[8].printResult()
-        self._exercisesController[9].printResult()
-        self._exercisesController[10].printResult()
-        self._exercisesController[11].printResult()
-
-
-
-        self._exercisesController[0].clearResults()
-        self._exercisesController[1].clearResults()
-        self._exercisesController[2].clearResults()
-        self._exercisesController[3].clearResults()
-
-        self._exercisesController[4].clearResults()
-        self._exercisesController[5].clearResults()
-        self._exercisesController[6].clearResults()
-        self._exercisesController[7].clearResults()
-        self._exercisesController[8].clearResults()
-        self._exercisesController[9].clearResults()
-        self._exercisesController[10].clearResults()
-        self._exercisesController[11].printResult()
-
-
-        #self._exercisesController[4].printResult()
-        # self._exercisesController[5].printResult()
+        for i in self._exercisesController:
+              i.printResult()
+              i.clearResults()
 

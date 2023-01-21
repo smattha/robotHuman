@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-from threading import Thread
-from exersiceController.MainController import MainController
-
 class ControllerType1Data():
     def __init__(self):
         super().__init__()

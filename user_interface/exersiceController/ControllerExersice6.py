@@ -5,7 +5,7 @@ from typing import Counter
 from PyQt5.QtCore import QObject, pyqtSlot
 from threading import Thread
 import time
-from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtCore import QObject
 import time
 class ControllerExersice6(QObject):
     def __init__(self,ros,model):

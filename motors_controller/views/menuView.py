@@ -16,7 +16,7 @@ import time
 
 import json
 from turtle import position
-from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtCore import QObject
 from sqlalchemy import true
 import json
 from collections import namedtuple
@@ -187,11 +187,6 @@ class MenuView(QMainWindow):
             localCounter=localCounter+1     
         self.counter=self.counter+1
 
-        # self._ui.tableWidget.setItem(self.counter, 1, QTableWidgetItem(str(self.motor.getPosition(self.motor.rightHand))))
-        # self._ui.tableWidget.setItem(self.counter, 2, QTableWidgetItem(str(self.motor.getPosition(self.motor.rightShoulder))))
-        # self._ui.tableWidget.setItem(self.counter, 3, QTableWidgetItem(str(self.motor.getPosition(self.motor.leftShoulder))))
-        # self._ui.tableWidget.setItem(self.counter, 4, QTableWidgetItem(str(self.motor.getPosition(self.motor.torso))))
-        # self._ui.tableWidget.setItem(self.counter, 5, QTableWidgetItem(str(self._ui.nameOfPoint.text())))
 
     def record(self):
         

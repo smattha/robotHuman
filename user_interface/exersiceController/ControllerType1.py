@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 from threading import Thread
-from exersiceController.MainController import MainController
+from exersiceController.RootController import RootController
 from exersiceController.ControllerType1Data import  ControllerType1Data
-class ControllerType1(MainController,ControllerType1Data):
+class ControllerType1(RootController,ControllerType1Data):
     def __init__(self,ros,model):
         super().__init__()
         print("Initialize the controller for Excersice 1 ")

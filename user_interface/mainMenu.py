@@ -5,7 +5,7 @@ import sys
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication
 from model.mainWindowModel import MainWindowModel
-from controllers.menuCntl import MenuCntl
+from controllers.MainMenuCntl import MainMenuCntl
 from views.menuView import MenuView
 from exersiceController.ControllerType1 import ControllerType1
 from exersiceController.ControllerType2 import ControllerType2
@@ -82,7 +82,7 @@ class App(QApplication):
         self._controllerEx12= ControllerExersice6(self._rosInterface,self.model)
         self._controllerEx12.setVariable6B()
 
-        self.main_controller = MenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6,
+        self.main_controller = MainMenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6,
                                                    self._controllerEx7,self._controllerEx8,self._controllerEx9,self._controllerEx10,self._controllerEx11,self._controllerEx12])
         self.menu_view =MenuView(self.model, self.main_controller)
         self.menu_view.show()

@@ -5,7 +5,7 @@ from threading import Thread
 from PyQt5.QtCore import QObject, pyqtSlot
 
 
-class MainController(QObject):
+class RootController(QObject):
     def __init__(self):
         super().__init__()
 
@@ -68,7 +68,7 @@ class MainController(QObject):
 
     def feedbackAnswer(self, value):
         print('Feedback {}', value)
-        self._feedback = value
+
         self.continueDialog()
 
     def getImagePath(self):

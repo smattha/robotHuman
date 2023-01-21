@@ -1,12 +1,8 @@
-import json
 from turtle import position
 from PyQt5.QtCore import QObject, pyqtSignal
 from sqlalchemy import true
-import json
 from collections import namedtuple
 from os.path import exists
-from sqlalchemy import Column, String, Integer
-from sqlalchemy import Column, String, Integer
 
 from model.base import Base
 # from base import Session, engine, Base
@@ -15,143 +11,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 from sqlalchemy import create_engine
-from threading import Thread
-
-class resultOfPerson(Base):
-    __tablename__ = 'results'
-
-    id = Column(Integer, primary_key=True)
-    title = Column(String)
-    name = Column(String)
-    age = Column(String)
-    surname = Column(String)
-
-    answerEx1 = Column(String)
-    answerEx2 = Column(String)
-    answerEx3 = Column(String)
-    answerEx4 = Column(String)
-    answerEx5A = Column(String)
-    answerEx5B = Column(String)
-    answerEx6A = Column(String)
-    answerEx6B = Column(String)
-
-    answerEx7 = Column(String)
-    answerEx8 = Column(String)
-    answerEx9 = Column(String)
-    answerEx10 = Column(String)
-    answerEx11A = Column(String)
-    answerEx11B = Column(String)
-    answerEx12A = Column(String)
-    answerEx12B = Column(String)
-
-    feedbackE1 = Column(String)
-    feedbackE2 = Column(String)
-    feedbackE3 = Column(String)
-    feedbackE4 = Column(String)
-    feedbackE5 = Column(String)
-    feedbackE6 = Column(String)
-    feedbackE7 = Column(String)
-    feedbackE8 = Column(String)
-    feedbackE9 = Column(String)
-    feedbackE10 = Column(String)
-    feedbackE11 = Column(String)
-    feedbackE12 = Column(String)
-
-
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
-
-    def parser(self, dict):
-        for key in dict:
-            setattr(self, key,dict[key])
-
-    def __init__(self):
-        self.title = ''
-        self.name = ''
-        self.age = ''
-        self.surname = ''
-
-        self.answerEx1 = ''
-        self.answerEx2 = ''
-        self.answerEx3 = ''
-        self.answerEx4 = ''
-        self.answerEx5A = ''
-        self.answerEx5B = ''
-        self.answerEx6A = ''
-        self.answerEx6B = ''
-
-        self.answerEx7 = ''
-        self.answerEx8 = ''
-        self.answerEx9 = ''
-        self.answerEx10 = ''
-        self.answerEx11A = ''
-        self.answerEx11B = ''
-        self.answerEx12A = ''
-        self.answerEx12B = ''
-
-        self.feedbackE1 = ''
-        self.feedbackE2 = ''
-        self.feedbackE3 = ''
-        self.feedbackE4 = ''
-        self.feedbackE5 = ''
-        self.feedbackE6 = ''
-        self.feedbackE7 = ''
-        self.feedbackE8 = ''
-        self.feedbackE9 = ''
-        self.feedbackE10 = ''
-        self.feedbackE11 = ''
-        self.feedbackE12 = ''
-
-
-
-
-class results():
-
-    def __init__(self):
-        self.listResults = []
-        self.listWithNames = ["1"]
-
-
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__)
-
-class StoreJSONFile():
-
-    def __int__(self,str):
-        self.file=str
-
-
-
-    def __int__(self):
-        self.file=''
-
-    def storeResults(self,results):
-        jsonFileHandler= open(self.file,'w')
-        json.dump(results.toJSON(), jsonFileHandler)
-
-
-    def readFromFile(self):
-
-            if not exists(self.file):
-                print ('File doesnt exist')
-                return results()
-            else:
-                print ("file " +self.file+ ' ' +str(exists(self.file)))
-            fp= open(self.file, 'r')
-            data = json.load(fp)
-
-            jsonDataStr=json.loads(data)
-            data=jsonDataStr['listResults']
-
-
-            resultsStored= results()
-
-            for d in  data:
-                newResult=resultOfPerson()
-                newResult.parser(d)
-                resultsStored.listResults.append(newResult)
-            return resultsStored
+from model.Results import Results
 
 
 class MainWindowModel(QObject):
@@ -365,29 +225,21 @@ class MainWindowModel(QObject):
         Session = sessionmaker(bind=engine)
 
         self.session = Session()
-
-        # 9 - persists data
         self.session.add(newResult)
-
-
-        # 10 - commit and close session
         self.session.commit()
-
-        self.result.listResults=self.session.query(resultOfPerson).all()
-
-
+        self.result.listResults=self.session.query(Results).all()
         self.session.close()
 
-        # self.result.listResults.append(listTemp)
 
-        showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+        
+    showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
 
     def createNewResultObject(self):
-        return resultOfPerson()
+        return Results()
 
     def __init__(self,path):
         super().__init__()
-        self.result=results()
+        self.result=Results()
 
         self.path =path
         self.resourcesImage1=path+"/resources/images/ex1/mainImage.png"
@@ -415,7 +267,7 @@ class MainWindowModel(QObject):
 
         self.session = Session()
 
-        self.result.listResults = self.session.query(resultOfPerson).all()
+        self.result.listResults = self.session.query(Results).all()
         self.session.close()
         self.reset()
 

@@ -4,7 +4,7 @@
 from PyQt5.QtCore import  pyqtSlot
 from threading import Thread
 
-from exersiceController.MainController import MainController
+from exersiceController.RootController import RootController
 
 class ControllerExersice5Data():
     def __init__(self):

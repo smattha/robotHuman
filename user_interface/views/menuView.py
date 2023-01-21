@@ -22,7 +22,7 @@ class MenuView(QMainWindow):
         self.move(model.poseX,model.poseY)
         self.resize(model.sizeY, model.sizeY)
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
-        self._ui.comboBox.addItems(self._model.result.listWithNames)
+        # self._ui.comboBox.addItems(self._model.result.listWithNames)
         self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
         self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
         self._ui.hard.setPixmap(QtGui.QPixmap(self._model.difficultFeedback))
@@ -96,7 +96,7 @@ class MenuView(QMainWindow):
 
     @pyqtSlot(str)
     def changeDscrChanged(self, value):
-        print('Set Text ',value)
+        print('Set Text!!!!!!!!! ',value)
         self._ui.descriptionTxt.setText(value)
 
 
