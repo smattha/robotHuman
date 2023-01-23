@@ -1,0 +1,8 @@
+https://github.com/MahmudulAlam/Unified-Gesture-and-Fingertip-Detection
+
+runs with:
+	python3 real-time.py
+
+detects only fingertips
+	
+
