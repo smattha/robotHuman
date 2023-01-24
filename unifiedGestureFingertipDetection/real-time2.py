@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import rospy 
 import cv2
 import numpy as np
@@ -15,26 +16,16 @@ import time
 import cv2
 import os
 from std_msgs.msg import String
+import rospy
 
 class detection():
 	def __init__(self,ap):
 		self.found=False
-		self.hand_detection_method = 'yolo'
-
-		if self.hand_detection_method is 'solo':
-			self.hand = SOLO(weights='/home/stergios/git/src/weights/solo.h5', threshold=0.8)
-		elif self.hand_detection_method is 'yolo':
-			self.hand = YOLO(weights='/home/stergios/git/src/weights/yolo.h5', threshold=0.8)
-		else:
-			assert False, "'" + self.hand_detection_method + \
-					"' hand detection does not exist. use either 'solo' or 'yolo' as hand detection method"
-
-		self.fingertips = Fingertips(weights='/home/stergios/git/src/weights/fingertip.h5')
 
 					
 		ap.add_argument("-d", "--detector", required=True,
 			help="path to OpenCV's deep learning face detector")
-		ap.add_argument("-m", "--embedding-model", required=True,
+		ap.add_argument("-m", "--embedding", required=True,
 			help="path to OpenCV's deep learning face embedding model")
 		ap.add_argument("-r", "--recognizer", required=True,
 			help="path to model trained to recognize faces")
@@ -42,8 +33,41 @@ class detection():
 			help="path to label encoder")
 		ap.add_argument("-c", "--confidence", type=float, default=0.5,
 			help="minimum probability to filter weak detections")
-		args = vars(ap.parse_args())
-		
+		ap.add_argument("-hm", "--hand_detection_method", required=True,
+			help="path to OpenCV's deep learning face detector")
+		ap.add_argument("-hp", "--hand_detection_method_weight", required=True,
+			help="path to OpenCV's deep learning face detector")
+		ap.add_argument("-f", "--fingertips", required=True,
+			help="path to OpenCV's deep learning face detector")
+
+		argsTemp, unknown = ap.parse_known_args()
+		args = vars(argsTemp)
+
+
+		rospy.logerr("---------------------------------------------args[detector] |%s|-----------------", args["detector"])
+		rospy.logerr("---------------------------------------------args[recognizer] |%s|-----------------", args["recognizer"])
+		rospy.logerr("---------------------------------------------args[le] |%s|-----------------", args["le"])
+		rospy.logerr("---------------------------------------------args[confidence] |%s|-----------------", args["confidence"])
+		rospy.logerr("---------------------------------------------args[hand_detection_method] |%s|-----------------", args["hand_detection_method"])
+		rospy.logerr("---------------------------------------------args[hand_detection_method_weight] |%s|-----------------", args["hand_detection_method_weight"])
+		rospy.logerr("---------------------------------------------args[fingertips] |%s|-----------------", args["fingertips"])
+		rospy.logerr("---------------------------------------------args[embedding-model] |%s|-----------------", args["embedding"])
+
+
+
+        #./real-time2.py --detector face_detection_model --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer output2/recognizer.pickle --le output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5
+		self.fingertips = Fingertips(weights=args["fingertips"])
+		self.hand_detection_method = args["hand_detection_method"]
+		self.hand_detection_method_weight = args["hand_detection_method_weight"]
+
+		if self.hand_detection_method == 'solo':
+			self.hand = SOLO(weights=self.hand_detection_method_weight, threshold=0.8)
+		elif self.hand_detection_method == 'yolo':
+			self.hand = YOLO(weights=self.hand_detection_method_weight, threshold=0.8)
+		else:
+			assert False, "'" + self.hand_detection_method + \
+					"' hand detection does not exist. use either 'solo' or 'yolo' as hand detection method"
+
 		self.confidence=args["confidence"]
 		# load our serialized face detector from disk
 		print("[INFO] loading face detector...")
@@ -54,7 +78,7 @@ class detection():
 
 		# load our serialized face embedding model from disk
 		print("[INFO] loading face recognizer...")
-		self.embedder = cv2.dnn.readNetFromTorch(args["embedding_model"])
+		self.embedder = cv2.dnn.readNetFromTorch(args["embedding"])
 
 		# load the actual face recognition model along with the label encoder
 		self.recognizer = pickle.loads(open(args["recognizer"], "rb").read())
@@ -129,7 +153,6 @@ class detection():
 					self.found=True
 					index = index + 2
 				print (index)
-				print('echo')
 				data = [0.0, 1.0]
 
 				#self._pub.publish(Float32MultiArray(data=posSend))
@@ -227,6 +250,31 @@ class detection():
 
 if __name__ == '__main__':
 	ap = argparse.ArgumentParser()
+
+
+					
+	# ap.add_argument("-d", "--detector", required=True,
+	# 		help="path to OpenCV's deep learning face detector")
+	# ap.add_argument("-m", "--embedding-model", required=True,
+	# 		help="path to OpenCV's deep learning face embedding model")
+	# ap.add_argument("-r", "--recognizer", required=True,
+	# 		help="path to model trained to recognize faces")
+	# ap.add_argument("-l", "--le", required=True,
+	# 		help="path to label encoder")
+	# ap.add_argument("-c", "--confidence", type=float, default=0.5,
+	# 		help="minimum probability to filter weak detections")
+	# ap.add_argument("-hm", "--hand_detection_method", required=True,
+	# 		help="path to OpenCV's deep learning face detector")
+	# ap.add_argument("-hp", "--hand_detection_method_weight", required=True,
+	# 		help="path to OpenCV's deep learning face detector")
+	# ap.add_argument("-f", "--fingertips", required=True,
+	# 		help="path to OpenCV's deep learning face detector")
+
+	# argsTemp, unknown = ap.parse_known_args()
+	# args = vars(argsTemp)
+		
+
+
 	det=detection(ap)
 	det.found=False
 	#while not det.found:

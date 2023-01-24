@@ -1,0 +1,8 @@
+<launch>
+
+  <node pkg="unifiedGestureFingertipDetection" type="real-time2.py" name="detector"  args=" --detector face_detection_model --embedding /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer output2/recognizer.pickle --le output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5 " />
+
+
+		
+  
+</launch>
