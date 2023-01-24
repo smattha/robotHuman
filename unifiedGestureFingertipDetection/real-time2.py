@@ -6,6 +6,8 @@ import numpy as np
 from hand_detector.detector import SOLO, YOLO
 from unified_detector.unifiedDetector import Fingertips
 from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import String
+import rospy
 from imutils.video import VideoStream
 from imutils.video import FPS
 import numpy as np
@@ -15,8 +17,7 @@ import pickle
 import time
 import cv2
 import os
-from std_msgs.msg import String
-import rospy
+
 
 class detection():
 	def __init__(self,ap):
@@ -89,8 +90,8 @@ class detection():
 		try:
 			rate=0.1
 			print('Initialize ROS service,Rate',rate)
-			self._pub = rospy.Publisher('chatter', Float32MultiArray, queue_size=10)
-			self._pub_name = rospy.Publisher('name__',String, queue_size=10)
+			self._pub = rospy.Publisher('fingers', Float32MultiArray, queue_size=10)
+			self._pub_name = rospy.Publisher('face',String, queue_size=10)
 			rospy.init_node('talker', anonymous=True)
 			self._rate = rospy.Rate(rate) # 10hz
 		except rospy.ROSInterruptException:
@@ -250,31 +251,6 @@ class detection():
 
 if __name__ == '__main__':
 	ap = argparse.ArgumentParser()
-
-
-					
-	# ap.add_argument("-d", "--detector", required=True,
-	# 		help="path to OpenCV's deep learning face detector")
-	# ap.add_argument("-m", "--embedding-model", required=True,
-	# 		help="path to OpenCV's deep learning face embedding model")
-	# ap.add_argument("-r", "--recognizer", required=True,
-	# 		help="path to model trained to recognize faces")
-	# ap.add_argument("-l", "--le", required=True,
-	# 		help="path to label encoder")
-	# ap.add_argument("-c", "--confidence", type=float, default=0.5,
-	# 		help="minimum probability to filter weak detections")
-	# ap.add_argument("-hm", "--hand_detection_method", required=True,
-	# 		help="path to OpenCV's deep learning face detector")
-	# ap.add_argument("-hp", "--hand_detection_method_weight", required=True,
-	# 		help="path to OpenCV's deep learning face detector")
-	# ap.add_argument("-f", "--fingertips", required=True,
-	# 		help="path to OpenCV's deep learning face detector")
-
-	# argsTemp, unknown = ap.parse_known_args()
-	# args = vars(argsTemp)
-		
-
-
 	det=detection(ap)
 	det.found=False
 	#while not det.found:

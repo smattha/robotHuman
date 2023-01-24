@@ -5,7 +5,9 @@ from std_msgs.msg import String
 from audio_service.srv import *
 from motors_controller.srv import *
 from robot_face.srv import *
-
+from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import String
+import rospy
 
 
 class Ros_Audio_Service(object):
@@ -146,3 +148,21 @@ class Ros_Audio_Service(object):
         print(" Replied {}", resp2.sum)
 
         return resp2
+
+    def callback1(self,data):
+        rospy.loginfo('!!Msg received!: "%s" ', type(data.data))
+        d=data.data
+        # Language in which you want to convert
+        
+
+    def listener(self):
+
+        # rospy.Subscriber('fingers', Float32MultiArray, self.callback)
+        rospy.Subscriber('face', String, self.callback1)
+        rospy.spin()
+
+    def callback(self,data):
+        rospy.loginfo('Msg received: "%s" ', len(data.data))
+        rospy.loginfo('Msg received: "%s" ', data.data[0])
+        
+	    # Language in which you want to convert

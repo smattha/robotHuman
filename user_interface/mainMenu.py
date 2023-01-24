@@ -34,12 +34,16 @@ class App(QApplication):
             self.flag="test"
 
         self.model= MainWindowModel( self.path)
+        
 
         self.model.i= self.i
         self.model.displayImageRatio =self.displaymageRation
 
 
         self._rosInterface=Ros_Audio_Service()
+        
+        self._rosInterface.listener()
+
         self._rosInterface.flag=self.flag
 
 
