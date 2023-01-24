@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(unifiedGestureFingertipDetection)
 
-find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
+find_package(catkin REQUIRED COMPONENTS message_generation std_msgs )
 
 #add_message_files(DIRECTORY msg FILES Floats.msg HeaderString.msg)
-#add_service_files(DIRECTORY srv FILES GetAudio.srv)
+add_service_files(DIRECTORY srv FILES face.srv fingers.srv)
 
 generate_messages(DEPENDENCIES std_msgs)
 

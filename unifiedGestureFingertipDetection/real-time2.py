@@ -17,10 +17,10 @@ import pickle
 import time
 import cv2
 import os
-
+from unifiedGestureFingertipDetection.srv import *
 
 class detection():
-	def __init__(self,ap):
+	def __init__(self,ap,topicFlag):
 		self.found=False
 
 					
@@ -43,7 +43,7 @@ class detection():
 
 		argsTemp, unknown = ap.parse_known_args()
 		args = vars(argsTemp)
-
+		self.topicFlag=topicFlag
 
 		rospy.logerr("---------------------------------------------args[detector] |%s|-----------------", args["detector"])
 		rospy.logerr("---------------------------------------------args[recognizer] |%s|-----------------", args["recognizer"])
@@ -149,7 +149,12 @@ class detection():
 						posSend[counter]=pos[index]
 						posSend[counter+1]=pos[index+1]
 						counter=counter+2
-						self._pub.publish(Float32MultiArray(data=posSend))
+						if self.topicFlag==True:
+							self._pub.publish(Float32MultiArray(data=posSend))
+						else:
+							self.fingerPos=posSend
+							return True;
+
 					
 					self.found=True
 					index = index + 2
@@ -157,7 +162,7 @@ class detection():
 				data = [0.0, 1.0]
 
 				#self._pub.publish(Float32MultiArray(data=posSend))
-
+			return False
 			cv2.waitKey(1)
 				#if cv2.waitKey(1) & 0xff == 27:
 				#break
@@ -241,21 +246,60 @@ class detection():
 					cv2.putText(frame, text, (startX, y),
 						cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 
-					self._pub_name.publish(text)
-
+					if self.topicFlag==True:
+						self._pub_name.publish(text)
+					else:
+						self.faceTxt=text
+						print('Found!!!!!!!!!!!!!!!!!!!!!!!')
+						return True;
 
 
 			# show the output frame
 			cv2.imshow("Frame", frame)
 			key = cv2.waitKey(1) & 0xFF
+			print('Return false')
+			return False
+
+
+	def faceSrv(self,req):
+			print (req.text)   
+			det.grapImg()
+			while self.detect2()==False:
+				print('Pending!')
+				det.grapImg()		
+
+			return faceResponse(self.fingerPos)
+
+		
+
+	def fingers(self,req):
+			print (req.text)   
+			det.grapImg()
+			while self.detect()==False:
+				print('Pending!')
+				det.grapImg()		
+
+			return fingersResponse("Found")
+
+
+
 
 if __name__ == '__main__':
 	ap = argparse.ArgumentParser()
-	det=detection(ap)
+	det=detection(ap,False)
 	det.found=False
-	#while not det.found:
-	while True:
-		det.grapImg()
-		det.detect2()
-		det.detect()
+
+	# s = rospy.Service('face', face,det.faceSrv)
+	# print('Ready to receive!')
+	
+	s = rospy.Service('fingers', fingers,det.fingers)
+	print('Ready to receive!')
+
+	rospy.spin()
+
+
+	# while True:
+	# 	det.grapImg()
+	# 	det.detect2()
+	# 	det.detect()
 	det.destroy()
