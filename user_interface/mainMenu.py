@@ -42,8 +42,7 @@ class App(QApplication):
 
         self._rosInterface=Ros_Audio_Service()
         
-        print(self._rosInterface.getFinger())
-        
+        # self._rosInterface.listener()
 
         self._rosInterface.flag=self.flag
 

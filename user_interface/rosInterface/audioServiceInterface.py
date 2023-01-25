@@ -8,6 +8,7 @@ from robot_face.srv import *
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import String
 import rospy
+from unifiedGestureFingertipDetection.srv import *
 
 
 class Ros_Audio_Service(object):
@@ -123,6 +124,46 @@ class Ros_Audio_Service(object):
         return resp2
 
 
+    def getFace(self):
+
+        # if self.flag == 'test':
+        #     sleep(1)
+        #     return 'TEST'
+
+        rospy.wait_for_service('facd')
+
+        # create a handle to the add_two_ints service
+        getText_ROS = rospy.ServiceProxy('face', face)
+
+        s1=faceRequest()
+        # s1.text='/home/stergios/Downloads/1.jpeg'
+
+        resp2 = getText_ROS.call(  s1 )
+
+        print(" Replied {}", resp2.text)
+
+        return resp2
+
+
+    def getFinger(self):
+
+        # if self.flag == 'test':
+        #     sleep(1)
+        #     return 'TEST'
+
+        rospy.wait_for_service('fingers')
+
+        # create a handle to the add_two_ints service
+        getText_ROS = rospy.ServiceProxy('fingers', fingers)
+
+        s1=fingersRequest()
+        #s1.text='/home/stergios/Downloads/1.jpeg'
+
+        resp2 = getText_ROS.call(  s1 )
+
+        print(" Replied {}", resp2.text)
+
+        return resp2
 
     def moveRobot(self,a,b,c,d,e,f):
 
