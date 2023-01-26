@@ -18,9 +18,11 @@ import time
 import cv2
 import os
 from unifiedGestureFingertipDetection.srv import *
+from  threading import Thread
+import time 
 
 class detection():
-	def __init__(self,ap,topicFlag):
+	def __init__(self,ap):
 		self.found=False
 
 					
@@ -40,20 +42,15 @@ class detection():
 			help="path to OpenCV's deep learning face detector")
 		ap.add_argument("-f", "--fingertips", required=True,
 			help="path to OpenCV's deep learning face detector")
+		ap.add_argument("-o", "--offline", required=True,
+			help="offline")
+		ap.add_argument("-t", "--topic", required=True,
+			help="offline")
 
 		argsTemp, unknown = ap.parse_known_args()
 		args = vars(argsTemp)
-		self.topicFlag=topicFlag
-
-		rospy.logerr("---------------------------------------------args[detector] |%s|-----------------", args["detector"])
-		rospy.logerr("---------------------------------------------args[recognizer] |%s|-----------------", args["recognizer"])
-		rospy.logerr("---------------------------------------------args[le] |%s|-----------------", args["le"])
-		rospy.logerr("---------------------------------------------args[confidence] |%s|-----------------", args["confidence"])
-		rospy.logerr("---------------------------------------------args[hand_detection_method] |%s|-----------------", args["hand_detection_method"])
-		rospy.logerr("---------------------------------------------args[hand_detection_method_weight] |%s|-----------------", args["hand_detection_method_weight"])
-		rospy.logerr("---------------------------------------------args[fingertips] |%s|-----------------", args["fingertips"])
-		rospy.logerr("---------------------------------------------args[embedding-model] |%s|-----------------", args["embedding"])
-
+		self.topicFlag=('True'==args["topic"])
+		self.offline=('True'==args["offline"])
 
 
         #./real-time2.py --detector face_detection_model --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer output2/recognizer.pickle --le output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5
@@ -87,18 +84,22 @@ class detection():
 
 
 
-		try:
-			rate=0.1
-			print('Initialize ROS service,Rate',rate)
-			self._pub = rospy.Publisher('fingers', Float32MultiArray, queue_size=10)
-			self._pub_name = rospy.Publisher('face',String, queue_size=10)
-			rospy.init_node('talker', anonymous=True)
-			self._rate = rospy.Rate(rate) # 10hz
-		except rospy.ROSInterruptException:
-			print('Exception Occured in ros audio service')
-			pass
-	
+		if self.offline==False:
+			try:
+				rate=0.1
+				print('Initialize ROS service,Rate',rate)
+				self._pub = rospy.Publisher('fingers', Float32MultiArray, queue_size=10)
+				self._pub_name = rospy.Publisher('face',String, queue_size=10)
+				rospy.init_node('talker', anonymous=True)
+				self._rate = rospy.Rate(rate) # 10hz
+			except rospy.ROSInterruptException:
+				print('Exception Occured in ros audio service')
+				pass
+		
 		self.cam = cv2.VideoCapture(0)
+
+		rospy.logerr("---------------------------------------------args[topicFlag]|%s|-----------------", self.topicFlag)
+		rospy.logerr("---------------------------------------------=args[offline] |%s|-----------------", self.offline)
 
 	def talker1(self,msg):
 		print('Audio S2T:',msg,' ')
@@ -106,7 +107,7 @@ class detection():
 		# self._rate.sleep()
 
 
-	def detect(self):
+	def detectFingers(self):
 			print('Unified Gesture & Fingertips Detection')
 			# ret, image = self.cam.read()
 			image=self.img_frame
@@ -141,7 +142,7 @@ class detection():
 				color = [(15, 15, 240), (15, 240, 155), (240, 155, 15), (240, 15, 155), (240, 15, 240)]
 				image = cv2.rectangle(image, (tl[0], tl[1]), (br[0], br[1]), (235, 26, 158), 2)
 				for c, p in enumerate(prob):
-					if p > 0.2:
+					if p > 0.3:
 						image = cv2.circle(image, (int(pos[index]), int(pos[index + 1])), radius=12,
 											color=color[c], thickness=-2)
 						print(pos[index])
@@ -149,11 +150,12 @@ class detection():
 						posSend[counter]=pos[index]
 						posSend[counter+1]=pos[index+1]
 						counter=counter+2
-						if self.topicFlag==True:
-							self._pub.publish(Float32MultiArray(data=posSend))
-						else:
-							self.fingerPos=posSend
-							return True;
+						if self.offline==False:
+							if self.topicFlag==True:
+								self._pub.publish(Float32MultiArray(data=posSend))
+							else:
+								self.fingerPos=posSend
+								return True;
 
 					
 					self.found=True
@@ -162,13 +164,15 @@ class detection():
 				data = [0.0, 1.0]
 
 				#self._pub.publish(Float32MultiArray(data=posSend))
-			return False
-			cv2.waitKey(1)
+			#return False
+			# cv2.waitKey(1)
 				#if cv2.waitKey(1) & 0xff == 27:
 				#break
 
 				# display image
 			cv2.imshow('Unified Gesture & Fingertips Detection', image)
+			return False
+			
 
 	def destroy(self):	
 		self.cam.release()
@@ -177,7 +181,7 @@ class detection():
 	def grapImg(self):
 			self.ret,self.img_frame = self.cam.read()
 
-	def detect2(self):
+	def detectFace(self):
 
 
 
@@ -245,13 +249,13 @@ class detection():
 						(0, 0, 255), 2)
 					cv2.putText(frame, text, (startX, y),
 						cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
-
-					if self.topicFlag==True:
-						self._pub_name.publish(text)
-					else:
-						self.faceTxt=text
-						print('Found!!!!!!!!!!!!!!!!!!!!!!!')
-						return True;
+					if self.offline==False:
+						if self.topicFlag==True:
+							self._pub_name.publish(text)
+						else:
+							self.faceTxt=text
+							print('Found!!!!!!!!!!!!!!!!!!!!!!!')
+							return True;
 
 
 			# show the output frame
@@ -264,7 +268,7 @@ class detection():
 	def faceSrv(self,req):
 			print (req.text)   
 			det.grapImg()
-			while self.detect2()==False:
+			while self.detectFace()==False:
 				print('Pending!')
 				det.grapImg()		
 
@@ -275,7 +279,7 @@ class detection():
 	def fingers(self,req):
 			print (req.text)   
 			det.grapImg()
-			while self.detect()==False:
+			while self.detectFingers()==False:
 				print('Pending!')
 				det.grapImg()		
 
@@ -286,20 +290,34 @@ class detection():
 
 if __name__ == '__main__':
 	ap = argparse.ArgumentParser()
-	det=detection(ap,False)
-	det.found=False
+	det=detection(ap,)
+	# det.found=False
 
-	# s = rospy.Service('face', face,det.faceSrv)
-	# print('Ready to receive!')
+
+	rospy.logerr("---------------------------------------------det.topicFlag|%s|-----------------", det.topicFlag)
+    
 	
-	s = rospy.Service('fingers', fingers,det.fingers)
-	print('Ready to receive!')
+     
+	if det.topicFlag==True:
 
-	rospy.spin()
+		thread = Thread(target = det.grapImg,args=(),daemon=True)
+		time.sleep(2)
+		thread.start()
+		while True:
+			# det.grapImg()
+			
+			det.detectFace()
+			det.detectFingers()
+
+	else :
+		s = rospy.Service('face', face,det.faceSrv)
+		print('Ready to receive!')
+		
+		s = rospy.Service('fingers', fingers,det.fingers)
+		print('Ready to receive!')
+
+		rospy.spin()
 
 
-	# while True:
-	# 	det.grapImg()
-	# 	det.detect2()
-	# 	det.detect()
+
 	det.destroy()
