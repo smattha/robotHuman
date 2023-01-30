@@ -19,7 +19,6 @@ import cv2
 import os
 from unifiedGestureFingertipDetection.srv import *
 from  threading import Thread
-import time 
 
 class detection():
 	def __init__(self,ap):
@@ -295,16 +294,11 @@ if __name__ == '__main__':
 
 
 	rospy.logerr("---------------------------------------------det.topicFlag|%s|-----------------", det.topicFlag)
-    
-	
+
      
 	if det.topicFlag==True:
-
-		thread = Thread(target = det.grapImg,args=(),daemon=True)
-		time.sleep(2)
-		thread.start()
 		while True:
-			# det.grapImg()
+			det.grapImg()
 			
 			det.detectFace()
 			det.detectFingers()

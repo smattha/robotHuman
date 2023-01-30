@@ -1,6 +1,6 @@
 <launch>
 
-  <node pkg="unifiedGestureFingertipDetection" type="real-time2.py" name="detector"  args=" --detector /home/stergios/git/src/robotHuman/unifiedGestureFingertipDetection/face_detection_model --embedding /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer /home/stergios/git/src/robotHuman/unifiedGestureFingertipDetection/output2/recognizer.pickle --le /home/stergios/git/src/robotHuman/unifiedGestureFingertipDetection/output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5 --offline True --topic True" />
+  <node pkg="unifiedGestureFingertipDetection" type="real-time2.py" name="detector"  args=" --detector /home/stergios/git/src/robotHuman/unifiedGestureFingertipDetection/face_detection_model --embedding /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer /home/stergios/git/src/robotHuman/unifiedGestureFingertipDetection/output2/recognizer.pickle --le /home/stergios/git/src/robotHuman/unifiedGestureFingertipDetection/output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5 --offline False --topic True " />
 
   
 		

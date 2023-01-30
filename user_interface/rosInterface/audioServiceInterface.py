@@ -191,19 +191,33 @@ class Ros_Audio_Service(object):
         return resp2
 
     def callback1(self,data):
-        rospy.loginfo('!!Msg received!: "%s" ', type(data.data))
+        # rospy.loginfo('!!Msg received!: "%s" ', type(data.data))
         d=data.data
+        x=d.split(":")
+        rospy.loginfo('!!Msg received!: "%s", "%s" ', x[0],x[1])
+
         # Language in which you want to convert
-        
+    def getName(self):
+        data=rospy.wait_for_message("face", String, timeout=None)
+        d=data.data
+        x=d.split(":")
+        rospy.loginfo('!!Msg received!: "%s", "%s" ', x[0],x[1])
+
+    def getPalm(self):
+        data=rospy.wait_for_message("fingers", Float32MultiArray, timeout=None)
+        d=data.data
+        rospy.loginfo('Msg received: "%s" ', data.data[0])
+
 
     def listener(self):
 
-        # rospy.Subscriber('fingers', Float32MultiArray, self.callback)
+        #rospy.Subscriber('fingers', Float32MultiArray, self.callback)
         rospy.Subscriber('face', String, self.callback1)
+        # rospy.Subscriber('fingers', String, self.callback)
         rospy.spin()
 
     def callback(self,data):
-        rospy.loginfo('Msg received: "%s" ', len(data.data))
+        # rospy.loginfo('Msg received: "%s" ', len(data.data))
         rospy.loginfo('Msg received: "%s" ', data.data[0])
         
 	    # Language in which you want to convert
