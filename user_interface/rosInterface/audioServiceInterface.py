@@ -202,6 +202,7 @@ class Ros_Audio_Service(object):
         d=data.data
         x=d.split(":")
         rospy.loginfo('!!Msg received!: "%s", "%s" ', x[0],x[1])
+        return x[0]
 
     def getPalm(self):
         data=rospy.wait_for_message("fingers", Float32MultiArray, timeout=None)

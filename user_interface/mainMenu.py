@@ -42,7 +42,8 @@ class App(QApplication):
 
         self._rosInterface=Ros_Audio_Service()
         
-        self._rosInterface.getPalm()
+
+        #self._rosInterface.displayImg()
 
         self._rosInterface.flag=self.flag
 

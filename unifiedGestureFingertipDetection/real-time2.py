@@ -124,24 +124,28 @@ class detection():
 				prob, pos = self.fingertips.classify(image=cropped_image)
 				pos = np.mean(pos, 0)
 
+				self.propability=0.3
 				# post-processing
-				prob = np.asarray([(p >= 0.3) * 1.0 for p in prob])
+				prob = np.asarray([(p >= self.propability) * 1.0 for p in prob])
 				for i in range(0, len(pos), 2):
 					pos[i] = pos[i] * width + tl[0]
 					pos[i + 1] = pos[i + 1] * height + tl[1]
 
 				counter=0
+				self.fingersCounter=0
 				for c, p in enumerate(prob):
-					if p > 0.2:
+					if p > self.propability:
 						counter=counter+2
+						self.fingersCounter=self.fingersCounter+1
 				posSend = np.empty(shape= counter)
+
 				# drawing
 				index = 0
 				counter=0
 				color = [(15, 15, 240), (15, 240, 155), (240, 155, 15), (240, 15, 155), (240, 15, 240)]
 				image = cv2.rectangle(image, (tl[0], tl[1]), (br[0], br[1]), (235, 26, 158), 2)
 				for c, p in enumerate(prob):
-					if p > 0.3:
+					if p > self.propability:
 						image = cv2.circle(image, (int(pos[index]), int(pos[index + 1])), radius=12,
 											color=color[c], thickness=-2)
 						print(pos[index])
@@ -151,7 +155,8 @@ class detection():
 						counter=counter+2
 						if self.offline==False:
 							if self.topicFlag==True:
-								self._pub.publish(Float32MultiArray(data=posSend))
+								if (self.fingersCounter>3):
+									self._pub.publish(Float32MultiArray(data=posSend))
 							else:
 								self.fingerPos=posSend
 								return True;

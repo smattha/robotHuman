@@ -83,6 +83,14 @@ class RootController(QObject):
         print("Thread finished...exiting")
 
     def stopBeforeShowImageMain(self):
+        
+        
+        name=self._rosInterface.getName()
+        
+        self._rosInterface.talker("Καλημέρα "+name+" όταν είσαι ετοιμός να προχωρήσουμε σήλωσε το χέρι")
+
+        self._rosInterface.getPalm()
+
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
         self.model.showAnswerButtonsFunction()
 
