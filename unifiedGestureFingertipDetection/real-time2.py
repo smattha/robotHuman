@@ -23,7 +23,8 @@ from  threading import Thread
 class detection():
 	def __init__(self,ap):
 		self.found=False
-
+		self.xx=10
+		self.yy=10
 					
 		ap.add_argument("-d", "--detector", required=True,
 			help="path to OpenCV's deep learning face detector")
@@ -124,7 +125,7 @@ class detection():
 				prob, pos = self.fingertips.classify(image=cropped_image)
 				pos = np.mean(pos, 0)
 
-				self.propability=0.3
+				self.propability=0.8
 				# post-processing
 				prob = np.asarray([(p >= self.propability) * 1.0 for p in prob])
 				for i in range(0, len(pos), 2):
@@ -139,11 +140,25 @@ class detection():
 						self.fingersCounter=self.fingersCounter+1
 				posSend = np.empty(shape= counter)
 
+				if(counter<3):
+					return
 				# drawing
 				index = 0
 				counter=0
 				color = [(15, 15, 240), (15, 240, 155), (240, 155, 15), (240, 15, 155), (240, 15, 240)]
 				image = cv2.rectangle(image, (tl[0], tl[1]), (br[0], br[1]), (235, 26, 158), 2)
+				
+				x= round( (tl[0]+br[0])/2)
+				y= round ( (tl[1]+br[1])/2)
+				image = cv2.circle(image, (x, y), radius=12,
+											color=color[c], thickness=-2)
+				image = cv2.circle(image, (self.xx,self.yy), radius=12,
+						color=(15, 15, 240), thickness=-2)				
+
+				image = cv2.line(image, (x,y), (self.xx,self.yy), 
+				color=(240, 240, 240), thickness=2)				
+				
+
 				for c, p in enumerate(prob):
 					if p > self.propability:
 						image = cv2.circle(image, (int(pos[index]), int(pos[index + 1])), radius=12,
@@ -251,7 +266,14 @@ class detection():
 					y = startY - 10 if startY - 10 > 10 else startY + 10
 					cv2.rectangle(frame, (startX, startY), (endX, endY),
 						(0, 0, 255), 2)
-					cv2.putText(frame, text, (startX, y),
+					
+					self.xx=round((startX+endX)/2)
+					self.yy=round((startY+endY)/2)
+					
+					image = cv2.circle(frame, (self.xx,self.yy), radius=12,
+						color=(15, 15, 240), thickness=-2)
+					
+					cv2.putText(frame, text, (startX, startY),
 						cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 					if self.offline==False:
 						if self.topicFlag==True:
