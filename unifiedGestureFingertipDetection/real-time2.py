@@ -15,10 +15,13 @@ import argparse
 import imutils
 import pickle
 import time
-import cv2
 import os
 from unifiedGestureFingertipDetection.srv import *
 from  threading import Thread
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+import mediapipe as mp
 
 class detection():
 	def __init__(self,ap):
@@ -82,6 +85,26 @@ class detection():
 		self.recognizer = pickle.loads(open(args["recognizer"], "rb").read())
 		self.le = pickle.loads(open(args["le"], "rb").read())
 
+
+		# initialize mediapipe
+		self.mpHands = mp.solutions.hands
+		#hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.7)
+		self.hands = self.mpHands.Hands(max_num_hands=1, min_detection_confidence=0.3)
+
+		self.mpDraw = mp.solutions.drawing_utils
+
+		# Load the gesture recognizer model
+
+		path='/home/stergios/git/src/faceNew/'
+		modelPath=path+'mp_hand_gesture'
+		print(modelPath)
+		self.handModel = load_model(modelPath)
+
+		# Load class names
+		namePath=path+'gesture.names'
+		f = open( namePath, 'r')
+		self.classNames = f.read().split('\n')
+		f.close()
 
 
 		if self.offline==False:
@@ -192,6 +215,31 @@ class detection():
 			cv2.imshow('Unified Gesture & Fingertips Detection', image)
 			return False
 			
+
+	def detectFingersNew(self):
+		print('Unified Gesture & Fingertips Detection')
+		# ret, image = self.cam.read()
+		frameNew=self.img_frame
+
+
+		imageRGB = cv2.cvtColor(frameNew, cv2.COLOR_BGR2RGB)
+		results = self.hands.process(imageRGB)
+
+
+		if results.multi_hand_landmarks:
+			for handLms in results.multi_hand_landmarks: # working with each hand
+				for id, lm in enumerate(handLms.landmark):
+					h, w, c = self.img_frame.shape
+					cx, cy = int(lm.x * w), int(lm.y * h)
+					if id == 8 :
+						cv2.circle(frameNew, (cx, cy), 25, (255, 0, 255), cv2.FILLED)
+						image = cv2.line(frameNew, (cx,cy), (self.xx,self.yy), 
+				color=(240, 240, 240), thickness=2)		
+				self.mpDraw.draw_landmarks(image, handLms, self.mpHands.HAND_CONNECTIONS)
+		cv2.imshow("Output", frameNew) 
+
+
+
 
 	def destroy(self):	
 		self.cam.release()
@@ -326,9 +374,10 @@ if __name__ == '__main__':
 	if det.topicFlag==True:
 		while True:
 			det.grapImg()
-			
 			det.detectFace()
-			det.detectFingers()
+			det.detectFingersNew()			
+			
+			# det.detectFingers()
 
 	else :
 		s = rospy.Service('face', face,det.faceSrv)
