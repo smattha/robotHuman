@@ -47,6 +47,8 @@ class detection():
 			help="path to OpenCV's deep learning face detector")
 		ap.add_argument("-o", "--offline", required=True,
 			help="offline")
+		ap.add_argument("-faceNew", "--faceNew", required=True,
+			help="faceNew")
 		ap.add_argument("-t", "--topic", required=True,
 			help="offline")
 
@@ -95,7 +97,7 @@ class detection():
 
 		# Load the gesture recognizer model
 
-		path='/home/stergios/git/src/faceNew/'
+		path=args["faceNew"] 
 		modelPath=path+'mp_hand_gesture'
 		print(modelPath)
 		self.handModel = load_model(modelPath)
@@ -121,8 +123,8 @@ class detection():
 		
 		self.cam = cv2.VideoCapture(0)
 
-		rospy.logerr("---------------------------------------------args[topicFlag]|%s|-----------------", self.topicFlag)
-		rospy.logerr("---------------------------------------------=args[offline] |%s|-----------------", self.offline)
+		rospy.loginfo("---------------------------------------------args[topicFlag]|%s|-----------------", self.topicFlag)
+		rospy.loginfo("---------------------------------------------=args[offline] |%s|-----------------", self.offline)
 
 	def talker1(self,msg):
 		print('Audio S2T:',msg,' ')
@@ -368,7 +370,7 @@ if __name__ == '__main__':
 	# det.found=False
 
 
-	rospy.logerr("---------------------------------------------det.topicFlag|%s|-----------------", det.topicFlag)
+	rospy.loginfo("---------------------------------------------det.topicFlag|%s|-----------------", det.topicFlag)
 
      
 	if det.topicFlag==True:
