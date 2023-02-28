@@ -22,6 +22,9 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 import mediapipe as mp
+import sys
+import dlib
+import cv2
 
 class detection():
 	def __init__(self,ap):
@@ -123,6 +126,7 @@ class detection():
 		
 		self.cam = cv2.VideoCapture(0)
 
+		self.contactdetector = dlib.get_frontal_face_detector()
 		rospy.loginfo("---------------------------------------------args[topicFlag]|%s|-----------------", self.topicFlag)
 		rospy.loginfo("---------------------------------------------=args[offline] |%s|-----------------", self.offline)
 
@@ -340,6 +344,19 @@ class detection():
 			print('Return false')
 			return False
 
+	def contact(self):
+
+		img=self.img_frame
+		color_green = (0,255,0)
+		line_width = 3
+		
+		rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+		dets = self.contactdetector(rgb_image)
+		for det in dets:
+			cv2.rectangle(img,(det.left(), det.top()), (det.right(), det.bottom()), color_green, line_width)
+		cv2.imshow('my webcam', img)
+
+
 
 	def faceSrv(self,req):
 			print (req.text)   
@@ -378,7 +395,7 @@ if __name__ == '__main__':
 			det.grapImg()
 			det.detectFace()
 			det.detectFingersNew()			
-			
+			det.contact()
 			# det.detectFingers()
 
 	else :
