@@ -1,59 +1,146 @@
-from math import ceil
-import tensorflow as tf
-from net.network import model
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import ModelCheckpoint
-from generator import train_generator, valid_generator
+# USAGE
+# python3 extract_embeddingsC.py --dataset dataset  --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 
+
+from imutils import paths
+import numpy as np
+import argparse
+import imutils
+import pickle
+import cv2
+import os
+from sklearn.preprocessing import LabelEncoder
+from sklearn.svm import SVC
+import argparse
+import pickle
+
+# construct the argument parser and parse the arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--dataset", required=True,
+    help="path to input directory of faces + images")
+# ap.add_argument("-e", "--embeddings", required=True,
+#   help="path to output serialized db of facial embeddings")
+# ap.add_argument("-d", "--detector", required=True,
+#   help="path to OpenCV's deep learning face detector")
+ap.add_argument("-m", "--embedding-model", required=True,
+    help="path to OpenCV's deep learning face embedding model")
+# ap.add_argument("-r", "--recognizer", required=True,
+#   help="path to output model trained to recognize faces")
+# ap.add_argument("-l", "--le", required=True,
+#   help="path to output label encoder")
+
+args = vars(ap.parse_args())
+
+# load the face detector from disk
+print("Loading Caffe based face detector to localize faces in an image")
+protoPath = os.path.sep.join(["face_detection_model", "deploy.prototxt"])
+modelPath = os.path.sep.join(["face_detection_model",
+    "res10_300x300_ssd_iter_140000.caffemodel"])
+detector = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
+
+# load the face embedding model from disk
+print("Loading Openface imlementation of Facenet model")
+embedder = cv2.dnn.readNetFromTorch(args["embedding_model"])
+
+# grab the paths to the input images in our dataset
+print("Load image dataset..")
+imagePaths = list(paths.list_images(args["dataset"]))
+
+# initialize our lists of extracted facial embeddings and
+# corresponding people names
+knownEmbeddings = []
+knownNames = []
+
+# initialize the total number of faces processed
+total = 0
+
+# loop over the image paths
+for (i, imagePath) in enumerate(imagePaths):
+    # extract the person name from the image path
+    name = imagePath.split(os.path.sep)[-2]
+
+    # load the image, resize it to have a width of 600 pixels (while
+    # maintaining the aspect ratio), and then grab the image
+    # dimensions
+    image = cv2.imread(imagePath)
+    image = imutils.resize(image, width=600)
+    (h, w) = image.shape[:2]
+
+    # construct a blob from the image
+    imageBlob = cv2.dnn.blobFromImage(
+        cv2.resize(image, (300, 300)), 1.0, (300, 300),
+        (104.0, 177.0, 123.0), swapRB=False, crop=False)
+
+    # apply OpenCV's deep learning-based face detector to localize
+    # faces in the input image
+    detector.setInput(imageBlob)
+    detections = detector.forward()
+
+    # ensure at least one face was found
+    if len(detections) > 0:
+        # we're making the assumption that each image has only ONE
+        # face, so find the bounding box with the largest probability
+        i = np.argmax(detections[0, 0, :, 2])
+        confidence = detections[0, 0, i, 2]
+
+        # ensure that the detection with the 50% probabilty thus helping filter out weak detections
+        if confidence > 0.5:
+            # compute the (x, y)-coordinates of the bounding box for
+            # the face
+            box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+            (startX, startY, endX, endY) = box.astype("int")
+
+            # extract the face ROI and grab the ROI dimensions
+            face = image[startY:endY, startX:endX]
+            (fH, fW) = face.shape[:2]
+
+            # ensure the face width and height are sufficiently large
+            if fW < 20 or fH < 20:
+                continue
+
+            # construct a blob for the face ROI, then pass the blob
+            # through our face embedding model to obtain the 128-d
+            # quantification of the face
+            faceBlob = cv2.dnn.blobFromImage(face, 1.0 / 255,
+                (96, 96), (0, 0, 0), swapRB=True, crop=False)
+            embedder.setInput(faceBlob)
+            vec = embedder.forward()
+
+            # add the name of the person + corresponding face
+            # embedding to their respective lists
+            knownNames.append(name)
+            knownEmbeddings.append(vec.flatten())
+            total += 1
+
+# dump the facial embeddings + names to disk
+data = {"embeddings": knownEmbeddings, "names": knownNames}
+f = open("output/embeddings.pickle", "wb")
+f.write(pickle.dumps(data))
+f.close()
 
 
-def loss_function_1(y_true, y_pred):
-    """ Probabilistic output loss """
-    a = tf.clip_by_value(y_pred, 1e-20, 1)
-    b = tf.clip_by_value(tf.subtract(1.0, y_pred), 1e-20, 1)
-    cross_entropy = - tf.multiply(y_true, tf.math.log(a)) - tf.multiply(tf.subtract(1.0, y_true), tf.math.log(b))
-    cross_entropy = tf.reduce_mean(cross_entropy, 0)
-    loss = tf.reduce_mean(cross_entropy)
-    return loss
 
 
-def loss_function_2(y_true, y_pred):
-    """ Positional output loss """
-    square_diff = tf.math.squared_difference(y_true, y_pred)
-    mask = tf.not_equal(y_true, 0)
-    mask = tf.cast(mask, tf.float32)
-    square_diff = tf.multiply(square_diff, mask)
-    square_diff = tf.reduce_mean(square_diff, 1)
-    square_diff = tf.reduce_mean(square_diff, 0)
-    loss = tf.reduce_mean(square_diff)
-    return loss
+# load the face embeddings
+print("Loading face embeddings of the dataset")
+data = pickle.loads(open("output/embeddings.pickle", "rb").read())
 
+# encode the labels
+print("Encoding image labels")
+le = LabelEncoder()
+labels = le.fit_transform(data["names"])
 
-# Creating the model
-model = model()
-model.summary()
+# train the model used to accept the 128-d embeddings of the face and
+# then produce the actual face recognition
+print("Training the model usng SVM...")
+recognizer = SVC(C=1.0, kernel="linear", probability=True)
+recognizer.fit(data["embeddings"], labels)
 
-# Compile
-adam = Adam(lr=1e-5, beta_1=0.9, beta_2=0.999, epsilon=1e-10, decay=0.0)
-loss_function = {"prob_output": loss_function_1, "pos_output": loss_function_2}
-model.compile(optimizer=adam, loss=loss_function, metrics=None)
+# write the actual face recognition model to disk
+f = open("output/recognizer.pickle", "wb")
+f.write(pickle.dumps(recognizer))
+f.close()
 
-# Train
-epochs = 10
-batch_size = 256
-train_set_size = 25090
-valid_set_size = 1317
-training_steps_per_epoch = ceil(train_set_size / batch_size)
-validation_steps_per_epoch = ceil(valid_set_size / batch_size)
-
-train_gen = train_generator(batch_size=batch_size)
-val_gen = valid_generator(batch_size=batch_size)
-
-checkpoints = ModelCheckpoint('weights/weights_{epoch:03d}.h5', save_weights_only=True, save_freq=1)
-history = model.fit(train_gen, steps_per_epoch=training_steps_per_epoch, epochs=epochs, verbose=1,
-                    validation_data=val_gen, validation_steps=validation_steps_per_epoch,
-                    callbacks=[checkpoints], shuffle=True, max_queue_size=512)
-
-with open('weights/history.txt', 'a+') as f:
-    print(history.history, file=f)
-
-print('All Done!')
+# write the label encoder to disk
+f = open("output/le.pickle", "wb")
+f.write(pickle.dumps(le))
+f.close()
