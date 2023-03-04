@@ -26,6 +26,15 @@ import sys
 import dlib
 import cv2
 
+class Results():          # leave this empty
+    def __init__(self):   # constructor function using self
+        self.positionFaceX = None  # variable using self.
+        self.positionFaceY = None
+        self.hand=None
+        self.focus=None
+        self.name=None
+
+
 class detection():
 	def __init__(self,ap):
 		self.found=False
@@ -59,6 +68,8 @@ class detection():
 		args = vars(argsTemp)
 		self.topicFlag=('True'==args["topic"])
 		self.offline=('True'==args["offline"])
+
+		self.resultsArray = [] #empty array
 
 
         #./real-time2.py --detector face_detection_model --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer output2/recognizer.pickle --le output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5
@@ -126,7 +137,6 @@ class detection():
 		
 		self.cam = cv2.VideoCapture(0)
 
-		self.contactdetector = dlib.get_frontal_face_detector()
 		rospy.loginfo("---------------------------------------------args[topicFlag]|%s|-----------------", self.topicFlag)
 		rospy.loginfo("---------------------------------------------=args[offline] |%s|-----------------", self.offline)
 
@@ -186,14 +196,28 @@ class detection():
 
 				image = cv2.line(image, (x,y), (self.xx,self.yy), 
 				color=(240, 240, 240), thickness=2)				
-				
+
+				distance=1000000;
+				posMin=-1;
+				# print('111111111111111111111111111111111111111')
+				print(" en(det.resultsArray)    "+str(len(det.resultsArray)))
+				for x in range(len(det.resultsArray)):
+
+						distanceTemp=(det.resultsArray[x].positionFaceX-x)**2 +(det.resultsArray[x].positionFaceY-y)**2
+						print("     "+str(distanceTemp))
+						if distanceTemp<distance:
+							distance=distanceTemp
+							posMin=x
+							print("     "+str(x))
+						# print(distanceTemp)
+				# print('111111111111111111111111111111111111111')
+				if(posMin>-1):
+					det.resultsArray[posMin].hand=True;
 
 				for c, p in enumerate(prob):
 					if p > self.propability:
 						image = cv2.circle(image, (int(pos[index]), int(pos[index + 1])), radius=12,
 											color=color[c], thickness=-2)
-						print(pos[index])
-						print(pos[index+1])
 						posSend[counter]=pos[index]
 						posSend[counter+1]=pos[index+1]
 						counter=counter+2
@@ -208,7 +232,7 @@ class detection():
 					
 					self.found=True
 					index = index + 2
-				print (index)
+				# print (index)
 				data = [0.0, 1.0]
 
 				#self._pub.publish(Float32MultiArray(data=posSend))
@@ -223,7 +247,7 @@ class detection():
 			
 
 	def detectFingersNew(self):
-		print('Unified Gesture & Fingertips Detection')
+		# print('Unified Gesture & Fingertips Detection')
 		# ret, image = self.cam.read()
 		frameNew=self.img_frame
 
@@ -239,8 +263,23 @@ class detection():
 					cx, cy = int(lm.x * w), int(lm.y * h)
 					if id == 8 :
 						cv2.circle(frameNew, (cx, cy), 25, (255, 0, 255), cv2.FILLED)
-						image = cv2.line(frameNew, (cx,cy), (self.xx,self.yy), 
-				color=(240, 240, 240), thickness=2)		
+						image = cv2.line(frameNew, (cx,cy), (self.xx,self.yy), color=(240, 240, 240), thickness=2)	
+
+					distance=1000000;
+					posMin=-1;
+					# print('111111111111111111111111111111111111111')
+					# print(" en(det.resultsArray)    "+str(len(det.resultsArray)))
+					for x in range(len(det.resultsArray)):
+
+							distanceTemp=(det.resultsArray[x].positionFaceX-cx)**2 +(det.resultsArray[x].positionFaceY-cy)**2
+							if distanceTemp<distance:
+								distance=distanceTemp
+								posMin=x
+								# print(x)
+							# print(distanceTemp)
+					# print('111111111111111111111111111111111111111')
+					if(posMin>-1):
+						det.resultsArray[posMin].hand=True;
 				self.mpDraw.draw_landmarks(image, handLms, self.mpHands.HAND_CONNECTIONS)
 		cv2.imshow("Output", frameNew) 
 
@@ -323,7 +362,17 @@ class detection():
 					
 					self.xx=round((startX+endX)/2)
 					self.yy=round((startY+endY)/2)
-					
+
+
+					test1 = Results()
+
+					test1.positionFaceX=self.xx
+					test1.positionFaceY=self.yy
+					test1.focus=False
+					test1.hand=False
+					test1.name=name
+					self.resultsArray.append(test1)
+
 					image = cv2.circle(frame, (self.xx,self.yy), radius=12,
 						color=(15, 15, 240), thickness=-2)
 					
@@ -341,7 +390,7 @@ class detection():
 			# show the output frame
 			cv2.imshow("Frame", frame)
 			key = cv2.waitKey(1) & 0xFF
-			print('Return false')
+			# print('Return false')
 			return False
 
 	def contact(self):
@@ -351,9 +400,30 @@ class detection():
 		line_width = 3
 		
 		rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+		self.contactdetector = dlib.get_frontal_face_detector()
 		dets = self.contactdetector(rgb_image)
 		for det in dets:
 			cv2.rectangle(img,(det.left(), det.top()), (det.right(), det.bottom()), color_green, line_width)
+		
+			distance=1000000;
+			posMin=-1;
+			# print('111111111111111111111111111111111111111')
+			# print(" en(det.resultsArray)    "+str(len(det.resultsArray)))
+			for x in range(len(self.resultsArray)):
+
+					distanceTemp=(self.resultsArray[x].positionFaceX-det.left())**2 +(self.resultsArray[x].positionFaceY-det.right())**2
+					if distanceTemp<distance:
+						distance=distanceTemp
+						posMin=x
+						# print(x)
+					# print(distanceTemp)
+			# print('111111111111111111111111111111111111111')
+			if(posMin>-1):
+				self.resultsArray[posMin].focus=True;
+
+
+
+			
 		cv2.imshow('my webcam', img)
 
 
@@ -392,11 +462,18 @@ if __name__ == '__main__':
      
 	if det.topicFlag==True:
 		while True:
+			det.resultsArray = [] #empty array
 			det.grapImg()
 			det.detectFace()
 			det.detectFingersNew()			
 			det.contact()
-			# det.detectFingers()
+
+			print("!!!!!!!!!!!!!!!!!!!!!!!!!")
+			# print(len(det.resultsArray))
+			for x in range(len(det.resultsArray)):
+				print("         "+ str(det.resultsArray[x].name)+" "+ str(det.resultsArray[x].positionFaceX)+" "+str(det.resultsArray[x].positionFaceY)+" " +str(det.resultsArray[x].focus) +" " +str(det.resultsArray[x].hand))
+				
+			# 	# det.detectFingers()
 
 	else :
 		s = rospy.Service('face', face,det.faceSrv)
