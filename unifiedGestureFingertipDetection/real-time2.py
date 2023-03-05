@@ -17,6 +17,7 @@ import pickle
 import time
 import os
 from unifiedGestureFingertipDetection.srv import *
+from unifiedGestureFingertipDetection.msg import *
 from  threading import Thread
 import numpy as np
 import tensorflow as tf
@@ -25,6 +26,8 @@ import mediapipe as mp
 import sys
 import dlib
 import cv2
+import threading
+import time
 
 class Results():          # leave this empty
     def __init__(self):   # constructor function using self
@@ -70,6 +73,7 @@ class detection():
 		self.offline=('True'==args["offline"])
 
 		self.resultsArray = [] #empty array
+		self.resultsArrayPrevious=[]
 
 
         #./real-time2.py --detector face_detection_model --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer output2/recognizer.pickle --le output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5
@@ -115,6 +119,8 @@ class detection():
 		modelPath=path+'mp_hand_gesture'
 		print(modelPath)
 		self.handModel = load_model(modelPath)
+
+		self.contactdetector = dlib.get_frontal_face_detector()
 
 		# Load class names
 		namePath=path+'gesture.names'
@@ -400,7 +406,7 @@ class detection():
 		line_width = 3
 		
 		rgb_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-		self.contactdetector = dlib.get_frontal_face_detector()
+
 		dets = self.contactdetector(rgb_image)
 		for det in dets:
 			cv2.rectangle(img,(det.left(), det.top()), (det.right(), det.bottom()), color_green, line_width)
@@ -449,31 +455,74 @@ class detection():
 			return fingersResponse("Found")
 
 
+	def recognitionFnc(self,req):
+			recognitions=recognitionResponse()
+			# pub = rospy.Publisher('Recognition', RecognitionMsg, queue_size=50)
+
+			print ("---------------------------------------------------------"+ str(len(self.resultsArrayPrevious))+" "+str(len(self.resultsArray)))
+			for x in range(len(self.resultsArrayPrevious)):
+				print ("---------------------------------------------------------")
+
+				rec=RecognitionMsg()
+				rec.name=str(self.resultsArrayPrevious[x].name)
+				rec.isFocus=str(self.resultsArrayPrevious[x].focus)
+				rec.hasRaiseHand=str(self.resultsArrayPrevious[x].hand)
+
+				recognitions.recog.append(rec)
+				
+			return recognitions
+	
+	def rosservice(self):
+	
+		s = rospy.Service('recognitions', recognition,det.recognitionFnc)
+		print('Ready to receive!')
+
+		# rospy.spin()
 
 
 if __name__ == '__main__':
 	ap = argparse.ArgumentParser()
 	det=detection(ap,)
-	# det.found=False
-
 
 	rospy.loginfo("---------------------------------------------det.topicFlag|%s|-----------------", det.topicFlag)
 
-     
+	det.resultsArrayPrevious = []
+	
+	det.rosservice()
+	# x.start()
+	pub = rospy.Publisher('Recognition', RecognitionMsg, queue_size=50)
 	if det.topicFlag==True:
 		while True:
-			det.resultsArray = [] #empty array
+			det.resultsArray = [] 
 			det.grapImg()
-			det.detectFace()
-			det.detectFingersNew()			
-			det.contact()
 
-			print("!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+			x = threading.Thread(target=det.detectFace())
+			y = threading.Thread(target=det.detectFingersNew())
+			z = threading.Thread(target=det.contact())
+
+			x.start()
+			y.start()
+			z.start()
+
+			x.join()
+			y.join()
+			z.join()
+
 			# print(len(det.resultsArray))
+
+
 			for x in range(len(det.resultsArray)):
 				print("         "+ str(det.resultsArray[x].name)+" "+ str(det.resultsArray[x].positionFaceX)+" "+str(det.resultsArray[x].positionFaceY)+" " +str(det.resultsArray[x].focus) +" " +str(det.resultsArray[x].hand))
-				
-			# 	# det.detectFingers()
+				rec=RecognitionMsg()
+				rec.name=str(det.resultsArray[x].name)
+				rec.isFocus=str(det.resultsArray[x].focus)
+				rec.hasRaiseHand=str(det.resultsArray[x].hand)
+				pub.publish(rec)
+			# s = rospy.Service('recognition', face,det.recognition)
+			# print('Ready to receive!')
+			det.resultsArrayPrevious=det.resultsArray
+			
 
 	else :
 		s = rospy.Service('face', face,det.faceSrv)

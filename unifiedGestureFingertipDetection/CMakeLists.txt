@@ -3,8 +3,8 @@ project(unifiedGestureFingertipDetection)
 
 find_package(catkin REQUIRED COMPONENTS message_generation std_msgs )
 
-#add_message_files(DIRECTORY msg FILES Floats.msg HeaderString.msg)
-add_service_files(DIRECTORY srv FILES face.srv fingers.srv)
+add_message_files(DIRECTORY msg FILES RecognitionMsg.msg)
+add_service_files(DIRECTORY srv FILES face.srv fingers.srv recognition.srv)
 
 generate_messages(DEPENDENCIES std_msgs)
 
