@@ -43,6 +43,7 @@ class detection():
 		self.found=False
 		self.xx=10
 		self.yy=10
+		self.loop=True
 					
 		ap.add_argument("-d", "--detector", required=True,
 			help="path to OpenCV's deep learning face detector")
@@ -146,10 +147,6 @@ class detection():
 		rospy.loginfo("---------------------------------------------args[topicFlag]|%s|-----------------", self.topicFlag)
 		rospy.loginfo("---------------------------------------------=args[offline] |%s|-----------------", self.offline)
 
-	def talker1(self,msg):
-		print('Audio S2T:',msg,' ')
-		self._pub.publish(msg)
-		# self._rate.sleep()
 
 
 	def detectFingers(self):
@@ -292,9 +289,10 @@ class detection():
 
 
 
-	def destroy(self):	
+	def destroy(self,res):	
 		self.cam.release()
 		cv2.destroyAllWindows()
+		self.loop=False
 
 	def grapImg(self):
 			self.ret,self.img_frame = self.cam.read()
@@ -475,6 +473,8 @@ class detection():
 	def rosservice(self):
 	
 		s = rospy.Service('recognitions', recognition,det.recognitionFnc)
+
+		rospy.Service('shutdown', shutdownSrv,det.destroy)
 		print('Ready to receive!')
 
 		# rospy.spin()
@@ -491,48 +491,33 @@ if __name__ == '__main__':
 	det.rosservice()
 	# x.start()
 	pub = rospy.Publisher('Recognition', RecognitionMsg, queue_size=50)
-	if det.topicFlag==True:
-		while True:
-			det.resultsArray = [] 
-			det.grapImg()
+
+	while det.loop:
+		det.resultsArray = [] 
+		det.grapImg()
 
 
-			x = threading.Thread(target=det.detectFace())
-			y = threading.Thread(target=det.detectFingersNew())
-			z = threading.Thread(target=det.contact())
+		x = threading.Thread(target=det.detectFace())
+		y = threading.Thread(target=det.detectFingersNew())
+		z = threading.Thread(target=det.contact())
 
-			x.start()
-			y.start()
-			z.start()
+		x.start()
+		y.start()
+		z.start()
 
-			x.join()
-			y.join()
-			z.join()
+		x.join()
+		y.join()
+		z.join()
 
-			# print(len(det.resultsArray))
-
-
-			for x in range(len(det.resultsArray)):
-				print("         "+ str(det.resultsArray[x].name)+" "+ str(det.resultsArray[x].positionFaceX)+" "+str(det.resultsArray[x].positionFaceY)+" " +str(det.resultsArray[x].focus) +" " +str(det.resultsArray[x].hand))
-				rec=RecognitionMsg()
-				rec.name=str(det.resultsArray[x].name)
-				rec.isFocus=str(det.resultsArray[x].focus)
-				rec.hasRaiseHand=str(det.resultsArray[x].hand)
-				pub.publish(rec)
-			# s = rospy.Service('recognition', face,det.recognition)
-			# print('Ready to receive!')
+		for x in range(len(det.resultsArray)):
+			print("         "+ str(det.resultsArray[x].name)+" "+ str(det.resultsArray[x].positionFaceX)+" "+str(det.resultsArray[x].positionFaceY)+" " +str(det.resultsArray[x].focus) +" " +str(det.resultsArray[x].hand))
+			rec=RecognitionMsg()
+			rec.name=str(det.resultsArray[x].name)
+			rec.isFocus=str(det.resultsArray[x].focus)
+			rec.hasRaiseHand=str(det.resultsArray[x].hand)
+			pub.publish(rec)
 			det.resultsArrayPrevious=det.resultsArray
 			
 
-	else :
-		s = rospy.Service('face', face,det.faceSrv)
-		print('Ready to receive!')
-		
-		s = rospy.Service('fingers', fingers,det.fingers)
-		print('Ready to receive!')
-
-		rospy.spin()
 
 
-
-	det.destroy()

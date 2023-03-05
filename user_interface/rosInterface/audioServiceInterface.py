@@ -222,3 +222,24 @@ class Ros_Audio_Service(object):
         rospy.loginfo('Msg received: "%s" ', data.data[0])
         
 	    # Language in which you want to convert
+
+
+    def getRecognitionResult(self):
+
+        # if self.flag == 'test':
+        #     sleep(1)
+        #     return 'TEST'
+
+        rospy.wait_for_service('recognitions')
+
+        # create a handle to the add_two_ints service
+        getText_ROS = rospy.ServiceProxy('recognitions', recognition)
+
+        s1=recognitionRequest()
+        #s1.text='/home/stergios/Downloads/1.jpeg'
+
+        resp2 = getText_ROS.call(  s1 )
+
+        for x in range(len(resp2.recog)):
+            print("         "+ str(resp2.recog[x].name)+" " +str(resp2.recog[x].isFocus) +" " +str(resp2.recog[x].hasRaiseHand))
+        return resp2

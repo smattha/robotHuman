@@ -1,0 +1,3 @@
+string name
+string isFocus
+string hasRaiseHand
