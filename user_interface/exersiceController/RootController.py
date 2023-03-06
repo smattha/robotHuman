@@ -85,8 +85,10 @@ class RootController(QObject):
     def stopBeforeShowImageMain(self):
         
         
-        name=self._rosInterface.getName()
+        name=self._rosInterface.getNames()
         
+        self._rosInterface.talker("Καλημέρα "+name+" όταν είσαι ετοιμός να προχωρήσουμε σήλωσε το χέρι")
+
         self._rosInterface.talker("Καλημέρα "+name+" όταν είσαι ετοιμός να προχωρήσουμε σήλωσε το χέρι")
 
         self._rosInterface.getPalm()

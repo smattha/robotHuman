@@ -243,3 +243,21 @@ class Ros_Audio_Service(object):
         for x in range(len(resp2.recog)):
             print("         "+ str(resp2.recog[x].name)+" " +str(resp2.recog[x].isFocus) +" " +str(resp2.recog[x].hasRaiseHand))
         return resp2
+
+
+
+    def getNames(self):
+        resp2=self.getRecognitionResult()
+        name=""
+        for x in range(len(resp2.recog)):
+            name= name+" "+str(resp2.recog[x].name)
+        return resp2
+
+    def getHand(self,name):
+        while True:
+            resp2=self.getRecognitionResult()
+            name=""
+            for x in range(len(resp2.recog)):
+                if  str(resp2.recog[x].hasRaiseHand)=='True':
+                    return str(resp2.recog[x].name)
+        return resp2

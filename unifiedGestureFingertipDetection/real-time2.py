@@ -55,40 +55,22 @@ class detection():
 			help="path to label encoder")
 		ap.add_argument("-c", "--confidence", type=float, default=0.5,
 			help="minimum probability to filter weak detections")
-		ap.add_argument("-hm", "--hand_detection_method", required=True,
-			help="path to OpenCV's deep learning face detector")
-		ap.add_argument("-hp", "--hand_detection_method_weight", required=True,
-			help="path to OpenCV's deep learning face detector")
-		ap.add_argument("-f", "--fingertips", required=True,
-			help="path to OpenCV's deep learning face detector")
-		ap.add_argument("-o", "--offline", required=True,
-			help="offline")
 		ap.add_argument("-faceNew", "--faceNew", required=True,
 			help="faceNew")
-		ap.add_argument("-t", "--topic", required=True,
-			help="offline")
+
 
 		argsTemp, unknown = ap.parse_known_args()
 		args = vars(argsTemp)
-		self.topicFlag=('True'==args["topic"])
-		self.offline=('True'==args["offline"])
+
 
 		self.resultsArray = [] #empty array
 		self.resultsArrayPrevious=[]
 
 
-        #./real-time2.py --detector face_detection_model --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer output2/recognizer.pickle --le output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5
-		self.fingertips = Fingertips(weights=args["fingertips"])
-		self.hand_detection_method = args["hand_detection_method"]
-		self.hand_detection_method_weight = args["hand_detection_method_weight"]
-
-		if self.hand_detection_method == 'solo':
-			self.hand = SOLO(weights=self.hand_detection_method_weight, threshold=0.8)
-		elif self.hand_detection_method == 'yolo':
-			self.hand = YOLO(weights=self.hand_detection_method_weight, threshold=0.8)
-		else:
-			assert False, "'" + self.hand_detection_method + \
-					"' hand detection does not exist. use either 'solo' or 'yolo' as hand detection method"
+        # #./real-time2.py --detector face_detection_model --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 --recognizer output2/recognizer.pickle --le output2/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/stergios/git/src/weights/yolo.h5 --fingertips /home/stergios/git/src/weights/fingertip.h5
+		# self.fingertips = Fingertips(weights=args["fingertips"])
+		# self.hand_detection_method = args["hand_detection_method"]
+		# self.hand_detection_method_weight = args["hand_detection_method_weight"]
 
 		self.confidence=args["confidence"]
 		# load our serialized face detector from disk
@@ -129,125 +111,21 @@ class detection():
 		self.classNames = f.read().split('\n')
 		f.close()
 
-
-		if self.offline==False:
-			try:
-				rate=0.1
-				print('Initialize ROS service,Rate',rate)
-				self._pub = rospy.Publisher('fingers', Float32MultiArray, queue_size=10)
-				self._pub_name = rospy.Publisher('face',String, queue_size=10)
-				rospy.init_node('talker', anonymous=True)
-				self._rate = rospy.Rate(rate) # 10hz
-			except rospy.ROSInterruptException:
-				print('Exception Occured in ros audio service')
-				pass
+		rate=0.1
+		print('Initialize ROS service,Rate',rate)
+		# self._pub = rospy.Publisher('fingers', Float32MultiArray, queue_size=10)
+		# self._pub_name = rospy.Publisher('face',String, queue_size=10)
+		rospy.init_node('talker', anonymous=True)
+		self._rate = rospy.Rate(rate) # 10hz
 		
 		self.cam = cv2.VideoCapture(0)
 
-		rospy.loginfo("---------------------------------------------args[topicFlag]|%s|-----------------", self.topicFlag)
-		rospy.loginfo("---------------------------------------------=args[offline] |%s|-----------------", self.offline)
+		self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1980)
+		self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 200)
+		
 
 
 
-	def detectFingers(self):
-			print('Unified Gesture & Fingertips Detection')
-			# ret, image = self.cam.read()
-			image=self.img_frame
-
-			#if ret is False:
-			#	return
-			# hand detection
-			tl, br = self.hand.detect(image=image)
-
-			if tl and br is not None:
-				cropped_image = image[tl[1]:br[1], tl[0]: br[0]]
-				height, width, _ = cropped_image.shape
-
-				# gesture classification and fingertips regression
-				prob, pos = self.fingertips.classify(image=cropped_image)
-				pos = np.mean(pos, 0)
-
-				self.propability=0.8
-				# post-processing
-				prob = np.asarray([(p >= self.propability) * 1.0 for p in prob])
-				for i in range(0, len(pos), 2):
-					pos[i] = pos[i] * width + tl[0]
-					pos[i + 1] = pos[i + 1] * height + tl[1]
-
-				counter=0
-				self.fingersCounter=0
-				for c, p in enumerate(prob):
-					if p > self.propability:
-						counter=counter+2
-						self.fingersCounter=self.fingersCounter+1
-				posSend = np.empty(shape= counter)
-
-				if(counter<3):
-					return
-				# drawing
-				index = 0
-				counter=0
-				color = [(15, 15, 240), (15, 240, 155), (240, 155, 15), (240, 15, 155), (240, 15, 240)]
-				image = cv2.rectangle(image, (tl[0], tl[1]), (br[0], br[1]), (235, 26, 158), 2)
-				
-				x= round( (tl[0]+br[0])/2)
-				y= round ( (tl[1]+br[1])/2)
-				image = cv2.circle(image, (x, y), radius=12,
-											color=color[c], thickness=-2)
-				image = cv2.circle(image, (self.xx,self.yy), radius=12,
-						color=(15, 15, 240), thickness=-2)				
-
-				image = cv2.line(image, (x,y), (self.xx,self.yy), 
-				color=(240, 240, 240), thickness=2)				
-
-				distance=1000000;
-				posMin=-1;
-				# print('111111111111111111111111111111111111111')
-				print(" en(det.resultsArray)    "+str(len(det.resultsArray)))
-				for x in range(len(det.resultsArray)):
-
-						distanceTemp=(det.resultsArray[x].positionFaceX-x)**2 +(det.resultsArray[x].positionFaceY-y)**2
-						print("     "+str(distanceTemp))
-						if distanceTemp<distance:
-							distance=distanceTemp
-							posMin=x
-							print("     "+str(x))
-						# print(distanceTemp)
-				# print('111111111111111111111111111111111111111')
-				if(posMin>-1):
-					det.resultsArray[posMin].hand=True;
-
-				for c, p in enumerate(prob):
-					if p > self.propability:
-						image = cv2.circle(image, (int(pos[index]), int(pos[index + 1])), radius=12,
-											color=color[c], thickness=-2)
-						posSend[counter]=pos[index]
-						posSend[counter+1]=pos[index+1]
-						counter=counter+2
-						if self.offline==False:
-							if self.topicFlag==True:
-								if (self.fingersCounter>3):
-									self._pub.publish(Float32MultiArray(data=posSend))
-							else:
-								self.fingerPos=posSend
-								return True;
-
-					
-					self.found=True
-					index = index + 2
-				# print (index)
-				data = [0.0, 1.0]
-
-				#self._pub.publish(Float32MultiArray(data=posSend))
-			#return False
-			# cv2.waitKey(1)
-				#if cv2.waitKey(1) & 0xff == 27:
-				#break
-
-				# display image
-			cv2.imshow('Unified Gesture & Fingertips Detection', image)
-			return False
-			
 
 	def detectFingersNew(self):
 		# print('Unified Gesture & Fingertips Detection')
@@ -284,8 +162,6 @@ class detection():
 					if(posMin>-1):
 						det.resultsArray[posMin].hand=True;
 				self.mpDraw.draw_landmarks(image, handLms, self.mpHands.HAND_CONNECTIONS)
-		cv2.imshow("Output", frameNew) 
-
 
 
 
@@ -296,6 +172,7 @@ class detection():
 
 	def grapImg(self):
 			self.ret,self.img_frame = self.cam.read()
+
 
 	def detectFace(self):
 
@@ -309,13 +186,11 @@ class detection():
 			# resize the frame to have a width of 600 pixels (while
 			# maintaining the aspect ratio), and then grab the image
 			# dimensions
-			frame = imutils.resize(frame, width=600)
+			# frame = imutils.resize(frame, width=600)
 			(h, w) = frame.shape[:2]
 
 			# construct a blob from the image
-			imageBlob = cv2.dnn.blobFromImage(
-				cv2.resize(frame, (300, 300)), 1.0, (300, 300),
-				(104.0, 177.0, 123.0), swapRB=False, crop=False)
+			imageBlob = cv2.dnn.blobFromImage(frame, swapRB=False, crop=False)
 
 			# apply OpenCV's deep learning-based face detector to localize
 			# faces in the input image
@@ -382,18 +257,9 @@ class detection():
 					
 					cv2.putText(frame, text, (startX, startY),
 						cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
-					if self.offline==False:
-						if self.topicFlag==True:
-							self._pub_name.publish(text)
-						else:
-							self.faceTxt=text
-							print('Found!!!!!!!!!!!!!!!!!!!!!!!')
-							return True;
 
 
-			# show the output frame
-			cv2.imshow("Frame", frame)
-			key = cv2.waitKey(1) & 0xFF
+
 			# print('Return false')
 			return False
 
@@ -429,6 +295,7 @@ class detection():
 
 			
 		cv2.imshow('my webcam', img)
+		key = cv2.waitKey(1) & 0xFF
 
 
 
@@ -484,7 +351,7 @@ if __name__ == '__main__':
 	ap = argparse.ArgumentParser()
 	det=detection(ap,)
 
-	rospy.loginfo("---------------------------------------------det.topicFlag|%s|-----------------", det.topicFlag)
+
 
 	det.resultsArrayPrevious = []
 	
