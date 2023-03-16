@@ -82,16 +82,19 @@ class Ros_Audio_Service(object):
         return resp2
 
     def talker(self,msg):
+        print("b")
+        # if self.flag == 'test':
+        #     sleep(1)
+        #     return 'TEST'
 
-        if self.flag == 'test':
-            sleep(1)
-            return 'TEST'
-
+        print("b")
         rospy.wait_for_service('textToSpeechBlocking')
 
+        print("b")
         # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('textToSpeechBlocking', text2Speech)
 
+        print("b")
         s1=text2SpeechRequest()
         s1.text=msg
 
@@ -251,13 +254,17 @@ class Ros_Audio_Service(object):
         name=""
         for x in range(len(resp2.recog)):
             name= name+" "+str(resp2.recog[x].name)
-        return resp2
+        return name
 
-    def getHand(self,name):
+    def getHand(self):
         while True:
+            print("c")
             resp2=self.getRecognitionResult()
             name=""
+            print("c")
             for x in range(len(resp2.recog)):
+                print("c")
                 if  str(resp2.recog[x].hasRaiseHand)=='True':
+                    print("cc")
                     return str(resp2.recog[x].name)
         return resp2

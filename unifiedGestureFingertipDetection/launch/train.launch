@@ -1,8 +1,9 @@
 <launch>
 
-  <node pkg="unifiedGestureFingertipDetection" type="real-time2.py" name="detector"  
+  <node pkg="unifiedGestureFingertipDetection" type="0623takephotos.py" name="detector"  
   
-  args=" --dataset /home/stergios/test/Face-Recognition-OpenCV-Facenet  --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7  " />
+  args=" --embedding-model /home/stergios/git/src/face_rec/openface_nn4.small2.v1.t7 -d ./photos --outputpath output " />
+
 
 
   
