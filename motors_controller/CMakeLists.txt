@@ -7,7 +7,7 @@ find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 #add_service_files(DIRECTORY srv FILES GetAudio.srv)
 
 #generate_messages(DEPENDENCIES std_msgs)
-add_service_files(DIRECTORY srv FILES motors_controller.srv )
+add_service_files(DIRECTORY srv FILES motors_controller.srv shutdownSrv.srv )
 generate_messages(DEPENDENCIES std_msgs)
 
 

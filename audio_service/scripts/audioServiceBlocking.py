@@ -19,9 +19,9 @@ NAME = 'speechToTextBlocking'
 class ControllerExersice5(object):
 
 	def __init__(self):
-    	    rospy.init_node(NAME)
-    	    s = rospy.Service('textToSpeechBlocking', text2Speech, self.text2SpeechFnct)
-    	    print ("Service waiting ...")
+		rospy.init_node(NAME)
+		s = rospy.Service('textToSpeechBlocking', text2Speech, self.text2SpeechFnct)
+		print ("Service waiting ...")
 	def text2SpeechFnct(self,req):
 		rospy.loginfo('Msg received: "%s" ', req.text)
 		# Language in which you want to convert
@@ -46,14 +46,21 @@ class ControllerExersice5(object):
 		text='true'
 		return text2SpeechResponse(text)
 	
+def destroy(req):
+	print ("destroy")
+	rospy.signal_shutdown("test")
+	print ("Done")
+	return shutdownSrvResponse("")
 
- 
 if __name__ == '__main__':
  
     
     app= ControllerExersice5()
+    rospy.Service('shutdownT2S', shutdownSrv,destroy)
+
 
     rospy.spin()
+
 
 
 

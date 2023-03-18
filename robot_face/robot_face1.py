@@ -30,7 +30,14 @@ def add_two_ints_server():
     rospy.init_node('robot_face')
     s = rospy.Service('robot_face_srv', imageName, changeImg)
     rospy.spin()
-	
+
+
+def destroy(req):
+	print ("destroy")
+	rospy.signal_shutdown("test")
+	print ("Done")
+	return shutdownSrvResponse("")
+
 if __name__ == "__main__":
     global imagePath
     imagePath='/home/stergios/Downloads/1.jpeg'
@@ -39,6 +46,8 @@ if __name__ == "__main__":
       imagePath=imagePath+'/resources/faces/main.png'
     thread = Thread(target=displayImageFunction, args=(), daemon=True)
     thread.start()
+    
+    rospy.Service('shutdownRobotFace', shutdownSrv,destroy)
     print("Display image thread was started")
     add_two_ints_server()
         

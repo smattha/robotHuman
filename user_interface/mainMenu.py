@@ -43,7 +43,7 @@ class App(QApplication):
         self._rosInterface=Ros_Audio_Service()
         
 
-        self._rosInterface.getRecognitionResult()
+        # self._rosInterface.getRecognitionResult()
 
         #self._rosInterface.displayImg()
 

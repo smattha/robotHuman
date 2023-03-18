@@ -20,6 +20,7 @@ class Ros_Audio_Service(object):
             self._pub = rospy.Publisher('chatter', String, queue_size=10)
             rospy.init_node('talker', anonymous=True)
             self._rate = rospy.Rate(rate) # 10hz
+            rospy.Service('shutdownUI', shutdownSrv,self.destroy)
         except rospy.ROSInterruptException:
             print('Exception Occured in ros audio service')
             pass
@@ -248,7 +249,31 @@ class Ros_Audio_Service(object):
         return resp2
 
 
+    def destroy(self,req):
+        import signal
+        import os
+        import psutil
 
+        print ("destroy")
+
+
+        os.kill(os.getpid(), signal.SIGINT)
+        print ("destroy")
+
+
+        current_system_pid = os.getpid()
+
+        ThisSystem = psutil.Process(current_system_pid)
+        ThisSystem.terminate()
+        ThisSystem.kill()
+        print ("destroy")
+        return shutdownSrvResponse("")
+        print ("destroy")
+        print ("destroy")
+
+        print ("Done")
+
+        
     def getNames(self):
         resp2=self.getRecognitionResult()
         name=""

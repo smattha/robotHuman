@@ -30,6 +30,12 @@ class motor_ros:
         
         rospy.spin()
 
+def destroy(req):
+	print ("destroy")
+	rospy.signal_shutdown("test")
+	print ("Done")
+	return shutdownSrvResponse("")
+
 if __name__ == "__main__":
     motorsRosInterface=motor_ros()
 
@@ -43,5 +49,6 @@ if __name__ == "__main__":
             motorsSimulation=True
     
 
+    rospy.Service('shutdownMotor', shutdownSrv,destroy)
     rospy.logerr(motorsSimulation)  
     motorsRosInterface.add_two_ints_server(motorsSimulation) 

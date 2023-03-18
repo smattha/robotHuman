@@ -7,7 +7,7 @@ find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 #add_service_files(DIRECTORY srv FILES GetAudio.srv)
 
 #generate_messages(DEPENDENCIES std_msgs)
-add_service_files(DIRECTORY srv FILES imageName.srv )
+add_service_files(DIRECTORY srv FILES imageName.srv shutdownSrv.srv )
 generate_messages(DEPENDENCIES std_msgs)
 
 

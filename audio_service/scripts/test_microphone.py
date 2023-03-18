@@ -113,6 +113,12 @@ class ControllerExersice5(object):
         except ValueError:
             return text
 
+def destroy(req):
+	print ("destroy")
+	rospy.signal_shutdown("test")
+	print ("Done")
+	return shutdownSrvResponse("")
+
 if __name__ == '__main__':
     try:
 
@@ -123,6 +129,7 @@ if __name__ == '__main__':
         parser.add_argument('--no-zip', dest='no_zip', action='store_true')
         
         app = ControllerExersice5(parser)
+        rospy.Service('shutdownS2T', shutdownSrv,destroy)
         
         rospy.spin()
 
