@@ -40,7 +40,7 @@ def destroy(req):
 
 if __name__ == "__main__":
     global imagePath
-    imagePath='/home/stergios/Downloads/1.jpeg'
+    imagePath='/robotApp/faces/smile.jpg'
     if (len(sys.argv)>1):
       imagePath=sys.argv[1]
       imagePath=imagePath+'/resources/faces/main.png'
