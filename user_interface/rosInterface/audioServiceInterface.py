@@ -67,20 +67,38 @@ class Ros_Audio_Service(object):
 
             # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('add_two_ints', GetAudio)
-            
-            
-            # simplified style
-        resp1 = getText_ROS()
 
-            # formal style
-        resp2 = getText_ROS.call(GetAudioRequest())
+        req= GetAudioRequest();
+        req.parameter=['a','b','c']
             
-
+        resp2 = getText_ROS.call(req)
 
         print(" Replied {}",resp2.text)
 
 
         return resp2
+    
+
+    def moveRobotFromFile(self,name):
+
+        if self.flag == 'test':
+            sleep(10)
+            return 'TEST'
+
+        rospy.wait_for_service('motors_controller_ros_intf_srv_file')
+
+        rosProxy = rospy.ServiceProxy('motors_controller_ros_intf_srv_file', moveRobotFile)
+
+        req= moveRobotFileRequest();
+        req.name=name
+            
+        resp2 = rosProxy.call(req)
+
+        print(" Finished ")
+
+
+        return resp2
+
 
     def talker(self,msg):
         print("b")
@@ -140,7 +158,7 @@ class Ros_Audio_Service(object):
         getText_ROS = rospy.ServiceProxy('face', face)
 
         s1=faceRequest()
-        # s1.text='/home/stergios/Downloads/1.jpeg'
+        s1.text='/home/stergios/Downloads/1.jpeg'
 
         resp2 = getText_ROS.call(  s1 )
 

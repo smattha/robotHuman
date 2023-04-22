@@ -1,0 +1,9 @@
+<launch>
+
+  <node pkg="unifiedGestureFingertipDetection" type="real-time2.py" name="detector"  args=" --detector /home/g/smatt/src/robotHuman/unifiedGestureFingertipDetection/face_detection_model --embedding /home/g/smatt/src/face_rec/openface_nn4.small2.v1.t7 --recognizer output/recognizer.pickle --le output/le.pickle --hand_detection_method yolo --hand_detection_method_weight /home/g/smatt/src/weights/yolo.h5 --fingertips /home/g/smatt/src/weights/fingertip.h5     
+   --faceNew /home/g/smatt/git/src/faceNew/ "/>
+
+
+		
+  
+</launch>

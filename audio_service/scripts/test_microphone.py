@@ -8,7 +8,7 @@ import sounddevice as sd
 import vosk
 import sys
 import json 
-
+import time
 
 NAME = 'add_two_ints_server'
 
@@ -22,7 +22,7 @@ import rospy
 class ControllerExersice5(object):
 
     def __init__(self,parser):
-
+        print(sd.query_devices())
         parser = argparse.ArgumentParser(
             description=__doc__,
             formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -34,14 +34,14 @@ class ControllerExersice5(object):
             '-m', '--model', type=str, metavar='MODEL_PATH',
             help='Path to the model')
         parser.add_argument(
-            '-d', '--device', type=self.int_or_str,
+            '-d', '--device', type= int,
             help='input device (numeric ID or substring)')
         parser.add_argument(
             '-r', '--samplerate', type=int, help='sampling rate')
         args, remaining = parser.parse_known_args()
         
         self.args=args
-        print('------------------model===--------'+self.args.model)
+        # print('------------------device===--------'+self.args.device)
         print('Model ',self.args.model )
         if not os.path.exists(self.args.model):
             print ("Please download a model for your language from https://alphacephei.com/vosk/models")
@@ -68,12 +68,24 @@ class ControllerExersice5(object):
 
 
 
-
-    def getText(self): 
-
-
+    def getText(self,req):
+        len(req.parameter)
+        timeStart=time.time()
+        print(req.parameter)
+        print(len(req.parameter))
+        wordsStr='['
+        for i in req.parameter:
+            wordsStr=wordsStr+'"'+i+'",'
+        wordsStr=wordsStr[:-1]
+        wordsStr=wordsStr+"]"
+        print( "---------------------")
+        print(wordsStr)
+        print( "---------------------")
+    
         self.flag=True
-        self.rec = vosk.KaldiRecognizer(self.model, self.args.samplerate)
+        self.rec = vosk.KaldiRecognizer(self.model, self.args.samplerate,'["άλογο", "[unk]"]')
+        # ec = KaldiRecognizer(model, wf.getframerate(), '["oh one two three four five six seven eight nine zero", "[unk]"]')
+
         with sd.RawInputStream(samplerate=self.args.samplerate, blocksize = 8000, device=self.args.device, dtype='int16',
                             channels=1, callback=self.callback):
             while  self.flag:
@@ -87,17 +99,19 @@ class ControllerExersice5(object):
                         print('.......')
                     else:
                         self.flag=False
+                    if(time.time()-timeStart)>=5:
+                        self.flag=False
 
         print(self.rec.PartialResult())    
 
         return self.dataResults['partial']
 
     def add_two_ints(self,req):
-        print("...................../\/")
+        print(".....................")
         
         # initialize the recognizer
 
-        text=self.getText()
+        text=self.getText(req)
         return GetAudioResponse(text)
 
     def callback(self,indata, frames, time, status):
@@ -113,12 +127,6 @@ class ControllerExersice5(object):
         except ValueError:
             return text
 
-def destroy(req):
-	print ("destroy")
-	rospy.signal_shutdown("test")
-	print ("Done")
-	return shutdownSrvResponse("")
-
 if __name__ == '__main__':
     try:
 
@@ -129,7 +137,6 @@ if __name__ == '__main__':
         parser.add_argument('--no-zip', dest='no_zip', action='store_true')
         
         app = ControllerExersice5(parser)
-        rospy.Service('shutdownS2T', shutdownSrv,destroy)
         
         rospy.spin()
 

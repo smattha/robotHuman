@@ -4,8 +4,12 @@
 	
   <node pkg="audio_service" type="test_microphone.py" name="speech2Text" args=" -m=/robotApp/model " />
   
-  <node pkg="user_interface" type="mainMenu.py" name="ui1" args=" /home/stergios/git/src/robotHuman  1 1 p"  />
+  <node pkg="user_interface" type="mainMenu.py" name="ui1" args=" /robotApp  1 1 p"  />
   
+   <node pkg="robot_face" type="robot_face1.py" name="robot_face1"  />
   
+  <include file="$(find unifiedGestureFingertipDetection)/launch/demo.launch"/>
   
+   <include file="$(find motors_controller)/launch/demoMotorOnline.launch"/>
+
 </launch>
