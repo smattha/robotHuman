@@ -33,26 +33,46 @@ class RootController(QObject):
     def feedback(self, model, value):
         model.results.answerEx1 = value
         print('feedback 1')
+        if (value==1):
+            print("Value is 1")
+        elif value==2 :
+            print("Value is 2")
+        elif(value==3):    
+            print("Value is 3")
+        print('\t\tFeedback:', value)
         self.model.feedback()
 
     def continueDialog(self):
         print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε ')
+        if self.model.name!='':
+            print("test")
+            isFocus=self._rosInterface.focus(self.model.name)
+            if isFocus==False:
+                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσχετικό κατά την διαρκεία της ασκήσης. Προσπάθησε να προσέχεις περισσότερο.')
+                self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
+                self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
     def feedbackStore(self, model1, value):
-        self._answerEx1 = value
+        if (value==1):
+            print("Value is 1")
+        elif value==2 :
+            print("Value is 2")
+        elif(value==3):    
+            print("Value is 3")
         print('\t\tFeedback:', value)
         self.feedbackFN()
 
     def feedbackFN(self):
+        
         thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
         thread.start()
 
     def stopBeforeShowImageMainF(self):
+        # self._rosInterface.moveRobotFromFile('/robotApp/positions/voice.txt')
         self._rosInterface.talker(
             'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
         self.model.showButtonsFeedback()
-
 
     def printResult(self):
         print("Exersice1 :", self._answerEx1, self._feedback)
@@ -80,29 +100,25 @@ class RootController(QObject):
     def stopBeforeShowImageMainThread(self):
         thread = Thread(target=self.stopBeforeShowImageMain, args=(), daemon=True)
         thread.start()
-        print("Thread finished...exiting")
+
 
     def stopBeforeShowImageMain(self):
         
-        print("a")
-        name=self._rosInterface.getNames()
-        
-        print("a")
-        self._rosInterface.talker("Καλημέρα "+name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
-
-
+        if self.model.name=='':
+            self.model.name=self._rosInterface.getNames()
+        self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
-        print("a")
+        self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
-        print("a")
         self.model.showAnswerButtonsFunction()
 
 
     def playAudio(self,msg):
+        print("Text to speech: Thread Starting!!!")
         self.msg = msg
         thread = Thread(target=self.playAudioThread, args=(), daemon=True)
         thread.start()
-        print("Thread finished...exiting")
+        print("Text to speech: Thread finished!!!")
 
     def playAudioThread(self):
         print("\t\tthread running.......")

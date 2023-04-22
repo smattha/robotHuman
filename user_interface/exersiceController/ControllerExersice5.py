@@ -52,7 +52,12 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
        
     def continueDialog(self):
         print('continue Dialog 1')
-        self._rosInterface.talker('||||||||||||||||||||||||||||||||||||||||||||||||||Controller 5 Είσαι έτοιμος να προχωρήσουμε')
+        if self.model.name=='':
+            isFocus=self._rosInterface.focus(self.model.name)
+            if isFocus==False:
+                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσχετικό κατά την διαρκεία της ασκήσης. Προσπάθησε να προσέχεις περισσότερο.')
+        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
+        
 
 
     def feedbackStore(self,model,value):
@@ -98,6 +103,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
     def feedbackAnswer(self,value):
         print('Feedback {}',value)
         self._feedback=value
+        self.continueDialog()
     
     def getImagePath(self):
         return self._imagePath

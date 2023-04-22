@@ -234,6 +234,7 @@ class detection():
 
 					# draw the bounding box of the face along with the
 					# associated probability
+
 					text = "{}: {:.2f}%".format(name, proba * 100)
 					y = startY - 10 if startY - 10 > 10 else startY + 10
 					cv2.rectangle(frame, (startX, startY), (endX, endY),

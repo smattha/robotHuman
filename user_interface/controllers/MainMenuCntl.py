@@ -111,6 +111,13 @@ class MainMenuCntl(QObject):
 
     @pyqtSlot(str)
     def feedback(self,value):
+        if (value==1):
+            print("Value is 1")
+        elif value==2 :
+            print("Value is 2")
+        elif(value==3):    
+            print("Value is 3")
+        print('\t\tFeedback:', value)
         print('Feedback {}',value)
         self._model.showButtonFeedback='show'
         self._exercisesController[self._model.currentExerciseID-1].feedbackAnswer(value)

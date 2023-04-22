@@ -2,7 +2,7 @@
 
   <node pkg="unifiedGestureFingertipDetection" type="real-time2.py" name="detector"  
   
-  args=" --detector /robotApp/face_detection_model  --embedding /robotApp/face_rec/openface_nn4.small2.v1.t7   --recognizer /robotApp/output2/recognizer.pickle   --le /robotApp/output2/le.pickle --faceNew /robotApp/faceNew/" />
+  args=" --detector /robotApp/face_detection_model  --embedding /robotApp/face_rec/openface_nn4.small2.v1.t7   --recognizer /robotApp/output7/recognizer.pickle   --le /robotApp/output7/le.pickle --faceNew /robotApp/faceNew/" />
 
 
   

@@ -115,6 +115,10 @@ class Ui_Dialog(object):
         
 
         self.cap = cv2.VideoCapture(0)      
+        
+        self.currentframe = 0          
+        self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+       
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
  
@@ -190,10 +194,14 @@ class Ui_Dialog(object):
             cv2.moveWindow(window_name, 1400,50)
 
             print('take_photo')
-            self.currentframe = 0
             # while(cap.isOpened() and self.hasRun == False):
 
             ret, frame = self.cap.read()
+            ret, frame = self.cap.read()
+            ret, frame = self.cap.read()
+            ret, frame = self.cap.read()
+            ret, frame = self.cap.read()
+            
             name = './data2/0000' + str(self.currentframe) + '.jpg'
             
             scale_percent = 50 # percent of original size
@@ -371,7 +379,7 @@ def recognize(self):
 
         # load the face embeddings
         print("Loading face embeddings of the dataset")
-        data = pickle.loads(open("output/embeddings.pickle", "rb").read())
+        data = pickle.loads(open(outputpath+"/embeddings.pickle", "rb").read())
 
         # encode the labels
         print("Encoding image labels")
@@ -385,12 +393,12 @@ def recognize(self):
         recognizer.fit(data["embeddings"], labels)
 
         # write the actual face recognition model to disk
-        f = open("output/recognizer.pickle", "wb")
+        f = open(outputpath+"/recognizer.pickle", "wb")
         f.write(pickle.dumps(recognizer))
         f.close()
 
         # write the label encoder to disk
-        f = open("output/le.pickle", "wb")
+        f = open(outputpath+"/le.pickle", "wb")
         f.write(pickle.dumps(le))
         f.close()
     

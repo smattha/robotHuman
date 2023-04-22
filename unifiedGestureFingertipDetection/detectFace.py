@@ -151,7 +151,7 @@ class detectFace():
 					j = np.argmax(preds)
 					proba = preds[j]
 					name = self.le.classes_[j]
-
+					print(name+"----------------------------------------------------")
 					# draw the bounding box of the face along with the
 					# associated probability
 					text = "{}: {:.2f}%".format(name, proba * 100)

@@ -38,6 +38,8 @@ class Ros_Audio_Service(object):
 
         # block until the add_two_ints service is available
         # you can optionally specify a timeout
+        
+        self.moveRobotFromFile('/robotApp/positions/speech2Txt.txt')
         rospy.wait_for_service('add_two_ints')
         
         try:
@@ -58,7 +60,7 @@ class Ros_Audio_Service(object):
             print("Service call failed: %s"%e)
 
     def getText(self):
-
+        
         if self.flag == 'test':
             sleep(10)
             return 'TEST'
@@ -80,40 +82,41 @@ class Ros_Audio_Service(object):
     
 
     def moveRobotFromFile(self,name):
-
+        # sleep(1)
+        # return 'test'
         if self.flag == 'test':
             sleep(10)
             return 'TEST'
-
+        print("Waiting for the server!!!")
         rospy.wait_for_service('motors_controller_ros_intf_srv_file')
 
+        print("Found!!!")
         rosProxy = rospy.ServiceProxy('motors_controller_ros_intf_srv_file', moveRobotFile)
 
+        print("Send Request")
         req= moveRobotFileRequest();
         req.name=name
-            
+        print("Called with file name "+name+"")
         resp2 = rosProxy.call(req)
 
         print(" Finished ")
-
 
         return resp2
 
 
     def talker(self,msg):
-        print("b")
-        # if self.flag == 'test':
-        #     sleep(1)
-        #     return 'TEST'
 
-        print("b")
+        self.moveRobotFromFile('/robotApp/positions/voice.txt')
+        print("Call text to speech with msg :\t\t"+msg)
+        if self.flag == 'test':
+            sleep(1)
+            return 'TEST'
+
         rospy.wait_for_service('textToSpeechBlocking')
 
-        print("b")
         # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('textToSpeechBlocking', text2Speech)
 
-        print("b")
         s1=text2SpeechRequest()
         s1.text=msg
 
@@ -125,8 +128,8 @@ class Ros_Audio_Service(object):
 
 
 
-    def displayImg(self):
-
+    def displayImg(self,name):
+        
         # if self.flag == 'test':
         #     sleep(1)
         #     return 'TEST'
@@ -137,7 +140,7 @@ class Ros_Audio_Service(object):
         getText_ROS = rospy.ServiceProxy('robot_face_srv', imageName)
 
         s1=imageNameRequest()
-        s1.name='/home/stergios/Downloads/1.jpeg'
+        s1.name=name
 
         resp2 = getText_ROS.call(  s1 )
 
@@ -152,7 +155,7 @@ class Ros_Audio_Service(object):
         #     sleep(1)
         #     return 'TEST'
 
-        rospy.wait_for_service('facd')
+        rospy.wait_for_service('face')
 
         # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('face', face)
@@ -220,6 +223,11 @@ class Ros_Audio_Service(object):
 
         # Language in which you want to convert
     def getName(self):
+
+        if self.flag == 'test':
+            sleep(10)
+            return 'TEST'
+
         data=rospy.wait_for_message("face", String, timeout=None)
         d=data.data
         x=d.split(":")
@@ -227,6 +235,9 @@ class Ros_Audio_Service(object):
         return x[0]
 
     def getPalm(self):
+        if self.flag == 'test':
+            sleep(10)
+            return 'TEST'
         data=rospy.wait_for_message("fingers", Float32MultiArray, timeout=None)
         d=data.data
         rospy.loginfo('Msg received: "%s" ', data.data[0])
@@ -247,14 +258,13 @@ class Ros_Audio_Service(object):
 
 
     def getRecognitionResult(self):
-
+        print("Calling Recognition Service !!!")
         # if self.flag == 'test':
         #     sleep(1)
         #     return 'TEST'
 
         rospy.wait_for_service('recognitions')
 
-        # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('recognitions', recognition)
 
         s1=recognitionRequest()
@@ -293,21 +303,49 @@ class Ros_Audio_Service(object):
 
         
     def getNames(self):
+        print("Calling Recognition Service For Names of the children!!!")
+        # if self.flag == 'test':
+        #     sleep(1)
+        #     print("Calling Recognition service is completed !!!")
+        #     return 'TEST'
+
         resp2=self.getRecognitionResult()
         name=""
         for x in range(len(resp2.recog)):
             name= name+" "+str(resp2.recog[x].name)
+        print("Calling Recognition service is completed !!!")
         return name
 
     def getHand(self):
+        print("Calling Recognition Service For Hand of the children!!!")
+        if self.flag == 'test':
+            sleep(1)
+            print("Calling Recognition service is completed !!!")
+            return 'TEST'
+        
         while True:
-            print("c")
             resp2=self.getRecognitionResult()
             name=""
-            print("c")
             for x in range(len(resp2.recog)):
-                print("c")
                 if  str(resp2.recog[x].hasRaiseHand)=='True':
                     print("cc")
+                    print("Calling Recognition service is completed !!!")
                     return str(resp2.recog[x].name)
         return resp2
+    
+    def focus(self,name):
+        print("Calling Recognition Service For Hand of the children!!!")
+        if self.flag == 'test':
+            sleep(1)
+            print("Calling Recognition service is completed !!!")
+            return 'TEST'
+        
+        resp2=self.getRecognitionResult()
+        name=""
+        for x in range(len(resp2.recog)):
+            # if resp2.recog[x].hasRaiseHand==name:
+                if  str(resp2.recog[x].isFocus)=='True':
+                    return True
+                else :
+                    return False
+        return False

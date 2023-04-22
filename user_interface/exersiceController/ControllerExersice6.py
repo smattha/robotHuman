@@ -97,11 +97,31 @@ class ControllerExersice6(QObject):
         self.continueDialog()
 
     def readExersice(self):
-        print('Read Exercise')
+        # print('Read Exercise')
         self.model.nextImage='0'
-        self.nextPage3(0)
+        # self.nextPage3(0)
+        
+        self._imagesStoryCur=self._imagesStory[self._counter][0]
+        self.model.nextImage=self._imagesStory[self._counter][1]
+        
+        # self.model.nextImage=self._imagesStory[0][0]
         # self._rosInterface.talker(self._exerciseDscr)
-        self.playAudio(self._exerciseDscr)
+        thread = Thread(target=self.readExersiceThread, args=(), daemon=True)
+        thread.start()
+
+        # # self.playAudio(self._exerciseDscr)
+        # self.step1()
+
+    def readExersiceThread(self):
+        print('Read Exercise')
+        if self.model.name=='':
+            self.model.name=self._rosInterface.getNames()
+        self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
+        self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
+        self._rosInterface.getHand()
+        self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        self.nextPage3(0)
+        # self.playAudio(self._exerciseDscr)
         self.step1()
 
     def step1(self):
@@ -192,10 +212,9 @@ class ControllerExersice6(QObject):
     def nextPage3(self,value):
         print('Change Image step  {}',self._counter)
         # self.model.nextPageEx2('2')
-
         if (len(self._imagesStory)>self._counter):
             # self._rosInterface.talker()
-            self.playAudio(self._imagesStory[self._counter][0])
+            # self.playAudio(self._imagesStory[self._counter][0])
             self._imagesStoryCur=self._imagesStory[self._counter][0]
             self.model.nextImage=self._imagesStory[self._counter][1]
             self._counter=self._counter+1

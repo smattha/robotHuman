@@ -94,7 +94,12 @@ class ControllerType2(RootController,ControllerType2Data):
     def updateImages(self):
         counter=1
         self.model.nextImage = self._imagesStory[0][1]
-        self._rosInterface.talker(self._exerciseDscr)
+        if self.model.name=='':
+            self.model.name=self._rosInterface.getNames()
+        self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
+        self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
+        self._rosInterface.getHand()
+        self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         while (len(self._imagesStory)>self._counter):
             self.nextPage4()
             if (counter==1):

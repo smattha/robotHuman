@@ -28,7 +28,8 @@ class App(QApplication):
             self.flag=sys.argv[4]
             print("...................")
         else:
-            self.path = "/home/stergios/git/src/robotHuman"
+            print("testing!!!!")
+            self.path = "/robotApp"
             self.i=2
             self.displaymageRation=1
             self.flag="test"
@@ -38,9 +39,9 @@ class App(QApplication):
 
         self.model.i= self.i
         self.model.displayImageRatio =self.displaymageRation
-
-
-        # self._rosInterface=Ros_Audio_Service()
+        self._rosInterface=Ros_Audio_Service()
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
+        # self._rosInterface.moveRobot(0,0,0,0,0,0)
         # self._rosInterface.getText()
         # return
         

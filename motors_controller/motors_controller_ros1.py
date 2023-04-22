@@ -23,6 +23,7 @@ class motor_ros:
         return motors_controllerResponse(1)
 
     def moveRobotFile(self,req):
+        print ("!!!!!!!!!!!!!!!!!!!!!!!")
         print (req.name)   
         f = open(req.name, "r")
         for x in f:
@@ -43,10 +44,10 @@ class motor_ros:
                 self.motor.moveAbs(lineSplited[5],self.motor.head)
             else:
                 print("Error!!!!!")
-        
-
-
+   
         return moveRobotFileResponse(1)
+
+
 
     def add_two_ints_server(self,motorsSimulation):
         print('Initialize node of motor controller')
