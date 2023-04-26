@@ -20,11 +20,23 @@ class ControllerExersice6(QObject):
         self._imagesStoryCur=''
         self._answerEx1=''
         self.answerEx3=''
+        self.answerEx32=''
         self.path=self.model.path
     
     def feedbackAnswer(self,value):
-        print('Feedback {}',value)
+        print('Feedback Robot Controller', value)
+        if (value=='1'):
+            print("Value is 1")
+            self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
+        elif value=='2' :
+            print("Value is 2")
+            self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        elif(value=='3'):    
+            print("Value is 3")
+            self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
+        
         self._feedback=value
+        self.continueDialog()
 
     def setVariable6(self):
         
@@ -164,7 +176,14 @@ class ControllerExersice6(QObject):
 
 
     def continueDialog(self):
-        print('continue Dialog')
+        print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε ')
+        if self.model.name!='':
+            print("test")
+            isFocus=self._rosInterface.focus(self.model.name)
+            if isFocus==False:
+                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσχετικό κατά την διαρκεία της ασκήσης. Προσπάθησε να προσέχεις περισσότερο.')
+                self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
+                self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
     def readAnswers2(self):
@@ -172,7 +191,7 @@ class ControllerExersice6(QObject):
 
 
     def printResult(self):
-        print("Exersice 3:", self._answerEx1)
+        print("Exersice 3:", self._answerEx1," ",self.answerEx32," ",self._feedback)
 
 
     def clearResults(self):

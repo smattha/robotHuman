@@ -99,7 +99,7 @@ class ControllerExersice5(object):
                         print('.......')
                     else:
                         self.flag=False
-                    if(time.time()-timeStart)>=5:
+                    if(time.time()-timeStart)>=45:
                         self.flag=False
 
         print(self.rec.PartialResult())    

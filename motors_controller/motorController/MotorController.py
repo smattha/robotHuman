@@ -38,8 +38,6 @@ class MoveController():
                 #Ax12.DEVICENAME = '/dev/ttyACM1'
                 Ax12.DEVICENAME = '/dev/ttyACM0'
                 Ax12.BAUDRATE = 1_000_000
-
-                # sets baudrate and opens com port
                 Ax12.connect()
 
         def moveMotorsAbs(self,a,b,c,d,e,f):

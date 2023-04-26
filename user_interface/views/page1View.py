@@ -93,7 +93,7 @@ class page1View(QWidget):
 
     @pyqtSlot(str)
     def changeDscrChanged(self, value):
-        print('Set Text ',value)
+        # print('Set Text ',value)
         self._ui.descriptionTxt.setText(value)
 
 

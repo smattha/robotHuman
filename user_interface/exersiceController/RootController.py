@@ -23,7 +23,6 @@ class RootController(QObject):
         print('Read Exercise 1')
 
         self.stopBeforeShowImageMainThread()
-
     def readAnswers(self):
         print('Read Answers 1')
 
@@ -32,15 +31,7 @@ class RootController(QObject):
 
     def feedback(self, model, value):
         model.results.answerEx1 = value
-        print('feedback 1')
-        if (value==1):
-            print("Value is 1")
-        elif value==2 :
-            print("Value is 2")
-        elif(value==3):    
-            print("Value is 3")
-        print('\t\tFeedback:', value)
-        self.model.feedback()
+        self.model.feedback(value)
 
     def continueDialog(self):
         print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε ')
@@ -54,17 +45,10 @@ class RootController(QObject):
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
 
     def feedbackStore(self, model1, value):
-        if (value==1):
-            print("Value is 1")
-        elif value==2 :
-            print("Value is 2")
-        elif(value==3):    
-            print("Value is 3")
-        print('\t\tFeedback:', value)
+        self._answerEx1=value
         self.feedbackFN()
 
     def feedbackFN(self):
-        
         thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
         thread.start()
 
@@ -87,7 +71,17 @@ class RootController(QObject):
         self.model.trigger(101)
 
     def feedbackAnswer(self, value):
-        print('Feedback {}', value)
+        print('Feedback Robot Controller', value)
+        if (value=='1'):
+            print("Value is 1")
+            self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
+        elif value=='2' :
+            print("Value is 2")
+            self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        elif(value=='3'):    
+            print("Value is 3")
+            self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
+        self._feedback=value
 
         self.continueDialog()
 
@@ -104,7 +98,7 @@ class RootController(QObject):
 
     def stopBeforeShowImageMain(self):
         
-        if self.model.name=='':
+        while self.model.name=='':
             self.model.name=self._rosInterface.getNames()
         self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()

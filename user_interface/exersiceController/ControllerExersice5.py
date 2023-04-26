@@ -17,6 +17,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
         self._image2=0
         self._imageAnswerFlag=1
         self._answerEx1=''
+        self._answerEx2=''
         self.path=self.model.path
 
     
@@ -62,7 +63,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
-        print('\t\t\tfeedback ',value)
+        print('\t\t\tfeedback 5 ',value)
       
 
     def feedbackFN(self):
@@ -77,7 +78,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
 
 
     def printResult(self):
-        print("Exersice1 :", self._answerEx1, self._feedback)
+        print("Exersice1 :", self._answerEx1, str(self._answerEx2), self._feedback)
 
 
     def clearResults(self):
@@ -101,7 +102,16 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
             self._counter=0
 
     def feedbackAnswer(self,value):
-        print('Feedback {}',value)
+        print('Feedback Robot Controller', value)
+        if (value=='1'):
+            print("Value is 1")
+            self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
+        elif value=='2' :
+            print("Value is 2")
+            self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        elif(value=='3'):    
+            print("Value is 3")
+            self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
         self._feedback=value
         self.continueDialog()
     
@@ -113,7 +123,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
 
     @pyqtSlot(int)
     def storePose(self,value):
-        self._answerEx2=value
+        self._answerEx2=str(value)
         print('\t\t\tfeedback 2',value)
         self._counter == 1
 

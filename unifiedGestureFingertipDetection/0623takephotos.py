@@ -289,8 +289,8 @@ def savephoto(self):
 def recognize(self):
             # load the face detector from disk
         print("Loading Caffe based face detector to localize faces in an image")
-        protoPath = os.path.sep.join(["face_detection_model", "deploy.prototxt"])
-        modelPath = os.path.sep.join(["face_detection_model",
+        protoPath = os.path.sep.join(["/robotApp/face_detection_model", "deploy.prototxt"])
+        modelPath = os.path.sep.join(["/robotApp/face_detection_model",
             "res10_300x300_ssd_iter_140000.caffemodel"])
         detector = cv2.dnn.readNetFromCaffe(protoPath, modelPath)
 
@@ -300,7 +300,7 @@ def recognize(self):
 
         # grab the paths to the input images in our dataset
         print("Load image dataset..")
-        imagePaths = list(paths.list_images("./photos/"))
+        imagePaths = list(paths.list_images(dataset))
 
         # initialize our lists of extracted facial embeddings and
         # corresponding people names
@@ -475,7 +475,8 @@ if __name__ == "__main__":
     # ap.add_argument("-l", "--le", required=True,
     #   help="path to output label encoder")
 
-    args = vars(ap.parse_args())
+    argsTemp, unknown = ap.parse_known_args()
+    args = vars(argsTemp)
 
     pathEmb=args["embedding_model"]
     

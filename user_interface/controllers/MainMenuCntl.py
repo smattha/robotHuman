@@ -111,14 +111,8 @@ class MainMenuCntl(QObject):
 
     @pyqtSlot(str)
     def feedback(self,value):
-        if (value==1):
-            print("Value is 1")
-        elif value==2 :
-            print("Value is 2")
-        elif(value==3):    
-            print("Value is 3")
-        print('\t\tFeedback:', value)
-        print('Feedback {}',value)
+
+        print('\t\tFeedback Main:', value)
         self._model.showButtonFeedback='show'
         self._exercisesController[self._model.currentExerciseID-1].feedbackAnswer(value)
 
@@ -144,13 +138,17 @@ class MainMenuCntl(QObject):
         newResult.answerEx3=str(self._exercisesController[2]._answerEx1)
         newResult.answerEx4=str(self._exercisesController[3]._answerEx1)
         newResult.answerEx5A = str(self._exercisesController[4]._answerEx1)
+        newResult.answerEx5B = str(self._exercisesController[4]._answerEx2)
         newResult.answerEx6A = str(self._exercisesController[5]._answerEx1)
+        newResult.answerEx6B = str(self._exercisesController[5].answerEx32)
         newResult.answerEx7 = str(self._exercisesController[6]._answerEx1)
         newResult.answerEx8 = str(self._exercisesController[7]._answerEx1)
         newResult.answerEx9 = str(self._exercisesController[8]._answerEx1)
         newResult.answerEx10 = str(self._exercisesController[9]._answerEx1)
         newResult.answerEx11A = str(self._exercisesController[10]._answerEx1)
+        newResult.answerEx11B = str(self._exercisesController[10]._answerEx2)
         newResult.answerEx12A = str(self._exercisesController[11]._answerEx1)
+        newResult.answerEx12B = str(self._exercisesController[11].answerEx32)
 
         newResult.feedbackE1=str(self._exercisesController[0]._feedback)
         newResult.feedbackE2=str(self._exercisesController[1]._feedback)
@@ -169,5 +167,6 @@ class MainMenuCntl(QObject):
         self.printUserData()
         for i in self._exercisesController:
               i.printResult()
+              print(self._model.name)
               i.clearResults()
 
