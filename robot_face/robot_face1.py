@@ -32,7 +32,7 @@ def displayImageFunction():
             cv2.waitKey(100)
 
 
-def add_two_ints_server():
+def robot_face_srv():
     rospy.init_node('robot_face')
     s = rospy.Service('robot_face_srv', imageName, changeImg)
     rospy.spin()
@@ -57,5 +57,5 @@ if __name__ == "__main__":
     
     rospy.Service('shutdownRobotFace', shutdownSrv,destroy)
     print("Display image thread was started")
-    add_two_ints_server()
+    robot_face_srv()
         

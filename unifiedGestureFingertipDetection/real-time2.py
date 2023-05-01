@@ -120,7 +120,7 @@ class detection():
 		
 		self.cam = cv2.VideoCapture(0)
 
-		self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1980)
+		self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
 		self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 200)
 		
 

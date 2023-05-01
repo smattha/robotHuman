@@ -40,11 +40,11 @@ class Ros_Audio_Service(object):
         # you can optionally specify a timeout
         
         self.moveRobotFromFile('/robotApp/positions/speech2Txt.txt')
-        rospy.wait_for_service('add_two_ints')
+        rospy.wait_for_service('speech2TextSrv')
         
         try:
             # create a handle to the add_two_ints service
-            add_two_ints = rospy.ServiceProxy('add_two_ints', GetAudio)
+            add_two_ints = rospy.ServiceProxy('speech2TextSrv', GetAudio)
             
             
             
@@ -65,10 +65,10 @@ class Ros_Audio_Service(object):
             sleep(10)
             return 'TEST'
 
-        rospy.wait_for_service('add_two_ints')
+        rospy.wait_for_service('speech2TextSrv')
 
-            # create a handle to the add_two_ints service
-        getText_ROS = rospy.ServiceProxy('add_two_ints', GetAudio)
+            # create a handle to the speech2TextSrv service
+        getText_ROS = rospy.ServiceProxy('speech2TextSrv', GetAudio)
         req= GetAudioRequest();
         req.parameter=['a','b','c']
         resp2 = getText_ROS.call(req)
@@ -107,7 +107,6 @@ class Ros_Audio_Service(object):
             return 'TEST'
 
         rospy.wait_for_service('textToSpeechBlocking')
-        # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('textToSpeechBlocking', text2Speech)
         s1=text2SpeechRequest()
         s1.text=msg
@@ -123,8 +122,6 @@ class Ros_Audio_Service(object):
         #     return 'TEST'
 
         rospy.wait_for_service('robot_face_srv')
-
-        # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('robot_face_srv', imageName)
 
         s1=imageNameRequest()
@@ -141,8 +138,6 @@ class Ros_Audio_Service(object):
         #     return 'TEST'
 
         rospy.wait_for_service('face')
-
-        # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('face', face)
         s1=faceRequest()
         s1.text='/home/stergios/Downloads/1.jpeg'
@@ -158,7 +153,6 @@ class Ros_Audio_Service(object):
         #     sleep(1)
         #     return 'TEST'
         rospy.wait_for_service('fingers')
-        # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('fingers', fingers)
         s1=fingersRequest()
         #s1.text='/home/stergios/Downloads/1.jpeg'
@@ -175,7 +169,6 @@ class Ros_Audio_Service(object):
 
         rospy.wait_for_service('motors_controller_ros_intf_srv_abs')
 
-        # create a handle to the add_two_ints service
         getText_ROS = rospy.ServiceProxy('motors_controller_ros_intf_srv_abs', motors_controller)
 
         position=motors_controllerRequest()

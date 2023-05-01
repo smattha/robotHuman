@@ -93,6 +93,8 @@ class MenuView(QMainWindow):
 
         self._ui.pushButtonHome.clicked.connect( lambda: self.setPage(0) )
 
+        self.showMaximized()
+
 
     @pyqtSlot(str)
     def changeDscrChanged(self, value):

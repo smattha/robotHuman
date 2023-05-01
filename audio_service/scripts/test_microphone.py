@@ -10,7 +10,7 @@ import sys
 import json 
 import time
 
-NAME = 'add_two_ints_server'
+NAME = 'speech2Text'
 
 
 from audio_service.srv import *
@@ -62,7 +62,7 @@ class ControllerExersice5(object):
         self.q = queue.Queue()
 
         rospy.init_node(NAME)
-        s = rospy.Service('add_two_ints', GetAudio, self.add_two_ints)
+        s = rospy.Service('speech2TextSrv', GetAudio, self.add_two_ints)
 
 
 
