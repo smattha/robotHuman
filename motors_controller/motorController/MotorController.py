@@ -14,8 +14,8 @@ class MoveController():
             self.offline=offline
             self.counterForRandomPos=0;
 
-            self.leftHand=0
-            self.rightHand=1
+            self.leftHand=1
+            self.rightHand=2
             self.rightShoulder=3
             self.leftShoulder=5
             self.torso=4

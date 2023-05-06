@@ -36,12 +36,12 @@ class motor_ros:
             elif (len(lineSplited)==6):
                 print("Moving to position "+str(lineSplited[0])+" "+str(lineSplited[1])+" "+str(lineSplited[2])+" "+str(lineSplited[3])+" "+str(lineSplited[4])+" "+str(lineSplited[5]))
                 self.motor.getPosition(int(1))
-                self.motor.moveAbs(lineSplited[0],self.motor.leftHand)
-                self.motor.moveAbs(lineSplited[1],self.motor.rightHand)
-                self.motor.moveAbs(lineSplited[2],self.motor.rightShoulder)
-                self.motor.moveAbs(lineSplited[3],self.motor.leftShoulder)
-                self.motor.moveAbs(lineSplited[4],self.motor.torso)
-                self.motor.moveAbs(lineSplited[5],self.motor.head)
+                self.motor.moveAbs(int(lineSplited[0]),self.motor.leftHand)
+                self.motor.moveAbs(int(lineSplited[1]),self.motor.rightHand)
+                self.motor.moveAbs(int(lineSplited[2]),self.motor.rightShoulder)
+                self.motor.moveAbs(int(lineSplited[3]),self.motor.leftShoulder)
+                self.motor.moveAbs(int(lineSplited[4]),self.motor.torso)
+                self.motor.moveAbs(int(lineSplited[5]),self.motor.head)
             else:
                 print("Error!!!!!")
    

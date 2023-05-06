@@ -107,11 +107,14 @@ class Ros_Audio_Service(object):
             return 'TEST'
 
         rospy.wait_for_service('textToSpeechBlocking')
+        print ("Found")
         getText_ROS = rospy.ServiceProxy('textToSpeechBlocking', text2Speech)
+        print("About to send command")
         s1=text2SpeechRequest()
         s1.text=msg
+        print("called")
         resp2 = getText_ROS.call(  s1 )
-
+        print("replied")
         return resp2
 
 
