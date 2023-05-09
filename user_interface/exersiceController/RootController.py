@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
 
-from threading import Thread
+from threading import Thread , Event
 from PyQt5.QtCore import QObject, pyqtSlot
 
 
 class RootController(QObject):
     def __init__(self):
         super().__init__()
+
 
     def setupUi(self):
         print("main")
@@ -69,6 +70,8 @@ class RootController(QObject):
     def storeAnswer(self, value):
         self.feedbackStore(self.model.result, value)
         self.model.trigger(101)
+        if hasattr(self, "event"):
+            self.event.set()
 
     def feedbackAnswer(self, value):
         print('Feedback Robot Controller', value)
@@ -104,6 +107,7 @@ class RootController(QObject):
         self._rosInterface.getHand()
         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
+        self.thread=self.getTextMainThread()
         self.model.showAnswerButtonsFunction()
 
 
@@ -118,3 +122,19 @@ class RootController(QObject):
         print("\t\tthread running.......")
         self._rosInterface.talker(self.msg)
         # self._rosInterface.talker(self._answerDsr)
+    
+    def getText (self,event: Event) -> None:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Get Text!!!!")
+        self.text=self._rosInterface.getText()
+        self.storeAnswer(self.text)
+
+
+    def getTextMainThread(self):
+        self.event=Event()
+        thread = Thread(target = self.getText,args=(self.event,),daemon=True)
+        thread.start()
+
+        print("thread finished...exiting")
+        return thread
+    
+    

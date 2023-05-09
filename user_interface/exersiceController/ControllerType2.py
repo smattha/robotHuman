@@ -25,7 +25,7 @@ class ControllerType2(RootController,ControllerType2Data):
     def readExersice(self):
         print('Read Exercise')
         # self.nextPageLoop()
-        self.getTextMainThread()
+        self.readTextMainThread()
 
 
 
@@ -81,6 +81,7 @@ class ControllerType2(RootController,ControllerType2Data):
         
         if self.step==1: 
             self.readAnswers2()
+
             self.model.nextImage='0'
         if self.step==2: 
             self.readAnswers3()
@@ -106,8 +107,10 @@ class ControllerType2(RootController,ControllerType2Data):
                 counter=0
             print("\t\tthread running.......")
         self.nextPage4()
+        self.getTextMainThread()
+        
 
-    def getTextMainThread(self):
+    def readTextMainThread(self):
         thread = Thread(target = self.updateImages,args=(),daemon=True)
         thread.start()
         print("Thread finished...exiting")
