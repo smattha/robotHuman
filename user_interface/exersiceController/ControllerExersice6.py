@@ -7,7 +7,8 @@ from threading import Thread
 import time
 from PyQt5.QtCore import QObject
 import time
-class ControllerExersice6(QObject):
+from exersiceController.RootController import RootController
+class ControllerExersice6(RootController,QObject):
     def __init__(self,ros,model):
         super().__init__()
         print("Initialize the controller for Excersice 3 ")
@@ -23,20 +24,20 @@ class ControllerExersice6(QObject):
         self.answerEx32=''
         self.path=self.model.path
     
-    def feedbackAnswer(self,value):
-        print('Feedback Robot Controller', value)
-        if (value=='1'):
-            print("Value is 1")
-            self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
-        elif value=='2' :
-            print("Value is 2")
-            self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
-        elif(value=='3'):    
-            print("Value is 3")
-            self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
+    # def feedbackAnswer(self,value):
+    #     print('Feedback Robot Controller', value)
+    #     if (value=='1'):
+    #         print("Value is 1")
+    #         self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
+    #     elif value=='2' :
+    #         print("Value is 2")
+    #         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+    #     elif(value=='3'):    
+    #         print("Value is 3")
+    #         self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
         
-        self._feedback=value
-        self.continueDialog()
+        # self._feedback=value
+        # self.continueDialog()
 
     def setVariable6(self):
         
@@ -53,6 +54,7 @@ class ControllerExersice6(QObject):
         self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
         self.title= 'Τι δείχνουν οι εικόνες'
 
+        self.results=['άλογο','πορτοκάλι']
 
 
     def setVariable6B(self):
@@ -69,7 +71,7 @@ class ControllerExersice6(QObject):
         self._counter=0
         self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
         self.title= 'Τι δείχνουν οι εικόνες;'
-
+        self.results=['σκυλί','μήλο']
 
 
 
@@ -93,7 +95,7 @@ class ControllerExersice6(QObject):
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. Κάτω από τις εικόνες θα υπάρχουν 2 απαντήσεις. Διάλεξε αυτή που νομίζεις ότι είναι η σωστή'
         self.title= 'Τι δείχνουν οι εικόνες'
-
+        self.results=['σκυλί','μήλο']
 
 
 
@@ -160,10 +162,10 @@ class ControllerExersice6(QObject):
         thread.start()
         # thread.sleep(1)
 
-    def stopBeforeShowImageMainF(self):
-        self._rosInterface.talker(
-            'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
-        self.model.showButtonsFeedback()
+    # def stopBeforeShowImageMainF(self):
+    #     self._rosInterface.talker(
+    #         'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
+    #     self.model.showButtonsFeedback()
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
@@ -171,16 +173,16 @@ class ControllerExersice6(QObject):
         self.model.currentExerciseID=0
 
 
-    def continueDialog(self):
-        print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε ')
-        if self.model.name!='':
-            print("test")
-            isFocus=self._rosInterface.focus(self.model.name)
-            if isFocus==False:
-                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
-                self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
-                self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
-        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
+    # def continueDialog(self):
+    #     print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε ')
+    #     if self.model.name!='':
+    #         print("test")
+    #         isFocus=self._rosInterface.focus(self.model.name)
+    #         if isFocus==False:
+    #             self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
+    #             self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
+    #             self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
+    #     self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
 
     def readAnswers2(self):
         self._rosInterface.talker('Ο Γιωργάκης γυρνάει στο σπίτι για να φάει με λαχτάρα την σοκολάτα. Που θα ψάξει για την σοκολάτα του;')
@@ -208,10 +210,10 @@ class ControllerExersice6(QObject):
 
     def getText(self):
         if self.step==0:
-            self._answerEx1=self._rosInterface.getText()
+            self._answerEx1=self._rosInterface.getText(self.results)
             print('reply!!!!!!!!!!!!!!')
         else:
-            self.answerEx32=self._rosInterface.getText()
+            self.answerEx32=self._rosInterface.getText(self.results)
             print('reply!!!!!!!!!!!!!!')
         self.step=self.step+1
         self.nextPage3(0)

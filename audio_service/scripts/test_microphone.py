@@ -69,6 +69,7 @@ class ControllerExersice5(object):
 
 
     def getText(self,req):
+        self.flag=False
         len(req.parameter)
         timeStart=time.time()
         print(req.parameter)
@@ -81,7 +82,7 @@ class ControllerExersice5(object):
         print( "---------------------")
         print(wordsStr)
         print( "---------------------")
-    
+        time.sleep(1)
         self.flag=True
         self.rec = vosk.KaldiRecognizer(self.model, self.args.samplerate,'["άλογο", "[unk]"]')
         # ec = KaldiRecognizer(model, wf.getframerate(), '["oh one two three four five six seven eight nine zero", "[unk]"]')
@@ -98,13 +99,19 @@ class ControllerExersice5(object):
                     if self.dataResults['partial']=='':
                         print('.......')
                     else:
-                        self.flag=False
+                        # self.flag=False
+                        print(self.rec.PartialResult())    
+                        for i in req.parameter:
+                            if self.dataResults['partial'].casefold() == i.casefold():
+                                print ("=================="+i+"       "+self.dataResults['partial'])
+                                return self.dataResults['partial']
+                            else:
+                                print(i)
                     if(time.time()-timeStart)>=45:
+                        print("timeout!")
                         self.flag=False
 
-        print(self.rec.PartialResult())    
 
-        return self.dataResults['partial']
 
     def add_two_ints(self,req):
         print(".....................")
@@ -112,6 +119,7 @@ class ControllerExersice5(object):
         # initialize the recognizer
 
         text=self.getText(req)
+        print("About to return!")
         return GetAudioResponse(text)
 
     def callback(self,indata, frames, time, status):

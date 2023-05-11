@@ -40,6 +40,7 @@ class App(QApplication):
         self.model.i= self.i
         self.model.displayImageRatio =self.displaymageRation
         self._rosInterface=Ros_Audio_Service()
+        # self._rosInterface.getText()
         self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
         # self._rosInterface.moveRobot(0,0,0,0,0,0)
         # self._rosInterface.getText()
@@ -94,6 +95,7 @@ class App(QApplication):
 
         self.main_controller = MainMenuCntl(self.model,[self._controllerEx1,self._controllerEx2,self._controllerEx3,self._controllerEx4,self._controllerEx5,self._controllerEx6,
                                                    self._controllerEx7,self._controllerEx8,self._controllerEx9,self._controllerEx10,self._controllerEx11,self._controllerEx12])
+        self.model.setController(self.main_controller)
         self.menu_view =MenuView(self.model, self.main_controller)
         self.menu_view.show()
 

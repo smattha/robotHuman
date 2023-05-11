@@ -278,3 +278,6 @@ class MainWindowModel(QObject):
 
     def showButtonsFeedback(self):
         self.showButtons.emit("")
+
+    def setController(self,controller):
+        self.mainController=controller

@@ -51,13 +51,13 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
         model.results.answerEx1=value
         print('feedback 1')
        
-    def continueDialog(self):
-        print('continue Dialog 1')
-        if self.model.name=='':
-            isFocus=self._rosInterface.focus(self.model.name)
-            if isFocus==False:
-                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
-        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
+    # def continueDialog(self):
+    #     print('continue Dialog 1')
+    #     if self.model.name=='':
+    #         isFocus=self._rosInterface.focus(self.model.name)
+    #         if isFocus==False:
+    #             self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
+    #     self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
         
 
 
@@ -70,10 +70,10 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
             thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
             thread.start()
 
-    def stopBeforeShowImageMainF(self):
-            self._rosInterface.talker(
-                '... Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
-            self.model.showButtonsFeedback()
+    # def stopBeforeShowImageMainF(self):
+    #         self._rosInterface.talker(
+    #             '... Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
+    #         self.model.showButtonsFeedback()
 
 
 
@@ -101,19 +101,19 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
             self.playAudio(self._part2)
             self._counter=0
 
-    def feedbackAnswer(self,value):
-        print('Feedback Robot Controller', value)
-        if (value=='1'):
-            print("Value is 1")
-            self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
-        elif value=='2' :
-            print("Value is 2")
-            self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
-        elif(value=='3'):    
-            print("Value is 3")
-            self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
-        self._feedback=value
-        self.continueDialog()
+    # def feedbackAnswer(self,value):
+    #     print('Feedback Robot Controller', value)
+    #     if (value=='1'):
+    #         print("Value is 1")
+    #         self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
+    #     elif value=='2' :
+    #         print("Value is 2")
+    #         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+    #     elif(value=='3'):    
+    #         print("Value is 3")
+    #         self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
+    #     self._feedback=value
+    #     self.continueDialog()
     
     def getImagePath(self):
         return self._imagePath

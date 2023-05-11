@@ -44,6 +44,7 @@ class RootController(QObject):
                 self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
                 self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
+        self.getTextMainThreadContinue()
 
     def feedbackStore(self, model1, value):
         self._answerEx1=value
@@ -58,6 +59,7 @@ class RootController(QObject):
         self._rosInterface.talker(
             'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
         self.model.showButtonsFeedback()
+        self.getTextMainThreadFeedback()
 
     def printResult(self):
         print("Exersice1 :", self._answerEx1, self._feedback)
@@ -85,6 +87,8 @@ class RootController(QObject):
             print("Value is 3")
             self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
         self._feedback=value
+        if hasattr(self, "event"):
+            self.event.set()
 
         self.continueDialog()
 
@@ -125,7 +129,7 @@ class RootController(QObject):
     
     def getText (self,event: Event) -> None:
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Get Text!!!!")
-        self.text=self._rosInterface.getText()
+        self.text=self._rosInterface.getText(self.results)
         self.storeAnswer(self.text)
 
 
@@ -138,3 +142,46 @@ class RootController(QObject):
         return thread
     
     
+
+    def getTextFeedback (self,event: Event) -> None:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Get Text!!!!")
+        self.text=self._rosInterface.getText(['Εύκολος','Έτσι και έτσι','δύσκολος','Εύκολο','Έτσι','δύσκολο'])
+
+        if(self.text=='Εύκολο'):
+            self.feedbackAnswer('1')
+        elif(self.text=='Έτσι και έτσι'):
+            self.feedbackAnswer( '2')
+        else:
+            self.feedbackAnswer( '3')
+        
+        self.model.showButtonFeedback='show'
+
+    def getTextMainThreadFeedback(self):
+        self.event=Event()
+        thread = Thread(target = self.getTextFeedback,args=(self.event,),daemon=True)
+        thread.start()
+
+        print("thread finished...exiting")
+        return thread
+
+    def getTextContinue (self,event: Event) -> None:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Get Text!!!!")
+        self.text=self._rosInterface.getText(['Ναι','όχι','τερματισμός','συνέχεια','επόμενο'])
+        print("--------------------------------------"+self.text)
+        if(self.text=='όχι'or self.text=='τερματισμός'):
+            self.model.trigger(0)
+            self.model.name = ''
+            self.model.surname =''
+            self.model.age = ''
+        elif(self.text=='Ναι'or self.text=='Ναι' or self.text=='συνέχεια' or self.text=='επόμενο'):
+            self.model.mainController.move2NextPage()
+        
+
+        self.model.showButtonFeedback='show'
+
+    def getTextMainThreadContinue(self):
+        self.event=Event()
+        thread = Thread(target = self.getTextContinue,args=(self.event,),daemon=True)
+        thread.start()
+        print("thread finished...exiting")
+        return thread
