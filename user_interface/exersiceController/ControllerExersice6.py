@@ -68,7 +68,7 @@ class ControllerExersice6(QObject):
                     ]
         self._counter=0
         self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
-        self.title= 'Τι δείχνουν οι εικόνες'
+        self.title= 'Τι δείχνουν οι εικόνες;'
 
 
 
@@ -147,7 +147,6 @@ class ControllerExersice6(QObject):
     def readAnswers(self):
         print('Read Answers')
 
-        # self._rosInterface.talker('Α  1 ,Β  2, Γ  3, Δ  4, Ε  5')
 
     def reply(self):
         print('Get Reply')
@@ -155,8 +154,7 @@ class ControllerExersice6(QObject):
         print('feedback')
         self.feedbackFN()
         time.sleep(0.4)
-        # self._rosInterface.talker1('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
-
+        
     def feedbackFN(self):
         thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
         thread.start()
@@ -164,15 +162,13 @@ class ControllerExersice6(QObject):
 
     def stopBeforeShowImageMainF(self):
         self._rosInterface.talker(
-            'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+            'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
         self.model.showButtonsFeedback()
 
     def feedbackStore(self,model,value):
         self._answerEx1=value
         print('feedback')
         self.model.currentExerciseID=0
-        # self._rosInterface.talker('Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
-    
 
 
     def continueDialog(self):
@@ -181,10 +177,10 @@ class ControllerExersice6(QObject):
             print("test")
             isFocus=self._rosInterface.focus(self.model.name)
             if isFocus==False:
-                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσχετικό κατά την διαρκεία της ασκήσης. Προσπάθησε να προσέχεις περισσότερο.')
+                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
                 self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
                 self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
-        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
+        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
 
     def readAnswers2(self):
         self._rosInterface.talker('Ο Γιωργάκης γυρνάει στο σπίτι για να φάει με λαχτάρα την σοκολάτα. Που θα ψάξει για την σοκολάτα του;')
