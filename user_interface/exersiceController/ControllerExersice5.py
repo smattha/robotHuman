@@ -56,7 +56,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
         if self.model.name=='':
             isFocus=self._rosInterface.focus(self.model.name)
             if isFocus==False:
-                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσχετικό κατά την διαρκεία της ασκήσης. Προσπάθησε να προσέχεις περισσότερο.')
+                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
         
 
@@ -72,7 +72,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
 
     def stopBeforeShowImageMainF(self):
             self._rosInterface.talker(
-                'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+                '... Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
             self.model.showButtonsFeedback()
 
 

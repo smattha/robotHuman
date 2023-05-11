@@ -39,7 +39,9 @@ class ControllerExersice5Data():
         self._answerEx4Descr='\n4\n'
         self._answerEx5Descr='\n5\n'
 
-        self._exersiceTitleDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. \nΣτην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'
+        self._exersiceTitleDsr='''α! Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. \n
+        Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n
+        Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'''
 
     
     
@@ -75,7 +77,7 @@ class ControllerExersice5Data():
 
     def setVariableB5(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.'
-        self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._answerDscr='1, 2, 3, 4 ή 5;'
         self._title=""
         self._imagePath=self.path+"/resources/images/exB5/1.jpg"
         self._imagePath2=self.path+"/resources/images/exB5/1.jpg"

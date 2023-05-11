@@ -12,7 +12,7 @@ class ControllerType1Data():
         self._exersiceTitleDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια.'
         self._answerDsr='Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
 
-        self._answerDscr='Α  1 ,Β  2, Γ  3, Δ  4, Ε  5'
+        self._answerDscr='1, 2, 3, 4 ή 5;'
         self._title="Το λιοντάρι και τα παπάκια!"
         self._imagePath=self.path+"/resources/images/ex1/mainImage.png"
 
@@ -52,12 +52,11 @@ class ControllerType1Data():
 
 
     def setVariableB1(self):
-        self._exersiceDsr='Η μαμά καγκουρό ζυγίζει με το μωρό της 60 κιλά. Η μαμά ζυγίζει μόνη της 52 κιλά. Πόσα κιλά ζυγίζει το μωρό της'
-        # self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
+        self._exersiceDsr='Η μαμά καγκουρό ζυγίζει με το μωρό της 60 κιλά. Η μαμά ζυγίζει μόνη της 52 κιλά. Πόσα κιλά ζυγίζει το μωρό της;'
         self._exersiceTitleDsr='Η μαμά καγκουρό ζυγίζει με το μωρό της 60 κιλά. Η μαμά ζυγίζει μόνη της 52 κιλά. .'
         self._answerDsr=' Πόσα κιλά ζυγίζει το μωρό της;'
 
-        self._answerDscr='Α 4,  Β 8, Γ 30, Δ 56, Ε 112'
+        self._answerDscr='4, 8, 30, 56 ή 112'
         self._title="Άσκηση προσοχής"
         self._imagePath=self.path+"/resources/images/exB1/1.png"
         self._imageAnswerFlag=1

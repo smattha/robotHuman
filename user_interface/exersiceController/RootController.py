@@ -34,15 +34,15 @@ class RootController(QObject):
         self.model.feedback(value)
 
     def continueDialog(self):
-        print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε ')
+        print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε;')
         if self.model.name!='':
             print("test")
             isFocus=self._rosInterface.focus(self.model.name)
             if isFocus==False:
-                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσχετικό κατά την διαρκεία της ασκήσης. Προσπάθησε να προσέχεις περισσότερο.')
+                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
                 self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
                 self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
-        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε')
+        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
 
     def feedbackStore(self, model1, value):
         self._answerEx1=value
@@ -55,7 +55,7 @@ class RootController(QObject):
     def stopBeforeShowImageMainF(self):
         # self._rosInterface.moveRobotFromFile('/robotApp/positions/voice.txt')
         self._rosInterface.talker(
-            'Πόσο εύκολος σου φάνηκε ο γρίφος; Αν σου φάνηκε εύκολος διάλεξε 3 ανθρωπάκια. Αν σου φάνηκε έτσι και έτσι, διάλεξε 2 ανθρωπάκια. Αν σου φάνηκε δύσκολος διάλεξε 1 ανθρωπάκι')
+            'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
         self.model.showButtonsFeedback()
 
     def printResult(self):
