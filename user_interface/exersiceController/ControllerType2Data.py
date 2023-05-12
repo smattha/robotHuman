@@ -29,8 +29,11 @@ class ControllerType2Data():
         # self.title_= '3'
         self.title='Ο Γιωργάκης και η σοκολάτα!'
         self.answerEx3='Ο Γιωργάκης γυρνάει στο σπίτι για να φάει με λαχτάρα την σοκολάτα. Που θα ψάξει για την σοκολάτα του;'
-        self.results=['Ντουλάπι','Φίλη']
+        self.results=['Ντουλάπι','Ψυγείο']
 
+        #PATH# Exercise 3
+        self.moveRobot='/robotApp/positions/voice.txt'
+        
     def setVariables4(self):
         
         self._imagesStory=  [
@@ -52,6 +55,8 @@ class ControllerType2Data():
         self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
         self.results=['Mαρία','Μαμά','Φίλη']
 
+        #PATH# Exercise 4
+        self.moveRobot='/robotApp/positions/voice.txt'
 
     def setVariablesB3(self):
         
@@ -71,6 +76,10 @@ class ControllerType2Data():
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε την ιστορία ενός μικρού στρατιώτη. Αφού ακούσεις προσεκτικά την ιστορία θα χρειαστεί να απαντήσεις σωστά στην ερώτηση που θα σου κάνω.'
         self.title= 'Ο μικρός στρατιώτης!'
         self.results=['Βουνό','Θάλασσα']
+
+
+        #PATH# Exercise 8
+        self.moveRobot='/robotApp/positions/voice.txt'
 
     def setVariablesB4(self):
         
@@ -93,3 +102,7 @@ class ControllerType2Data():
         self.title= 'Η μικρή Σοφία!'
 
         self.results=['Σοφία','Φίλη']
+
+
+        #PATH# Exercise 9
+        self.moveRobot='/robotApp/positions/voice.txt'

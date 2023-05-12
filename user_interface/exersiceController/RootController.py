@@ -113,6 +113,8 @@ class RootController(QObject):
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
         self.thread=self.getTextMainThread()
         self.model.showAnswerButtonsFunction()
+        self._rosInterface.moveRobotFromFile(self.moveRobot)
+        
 
 
     def playAudio(self,msg):
@@ -173,7 +175,7 @@ class RootController(QObject):
             self.model.name = ''
             self.model.surname =''
             self.model.age = ''
-        elif(self.text=='Ναι'or self.text=='Ναι' or self.text=='συνέχεια' or self.text=='επόμενο'):
+        elif(self.text.casefold()=='Ναι'.casefold() or self.text.casefold()=='ναι'.casefold() or self.text.casefold()=='συνέχεια'.casefold() or self.text.casefold()=='επόμενο'.casefold()):
             self.model.mainController.move2NextPage()
         
 

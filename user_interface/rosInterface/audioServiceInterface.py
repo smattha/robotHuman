@@ -77,7 +77,11 @@ class Ros_Audio_Service(object):
         return resp2.text
     
 
+
     def moveRobotFromFile(self,name):
+        print ("Move robot!!!!!")
+
+
         # sleep(1)
         # return 'test'
         if self.flag == 'test':

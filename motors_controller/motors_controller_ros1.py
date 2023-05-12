@@ -27,8 +27,8 @@ class motor_ros:
         print (req.name)   
         f = open(req.name, "r")
         for x in f:
-            # print(x) 
-            # print(f.read()) 
+            print(x) 
+            print(f.read()) 
             lineSplited=x.split()
             if (len(lineSplited)==2 and lineSplited[0]=='sleep'):
                 print("Sleeping for ",lineSplited[1])

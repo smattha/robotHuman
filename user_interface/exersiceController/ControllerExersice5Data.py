@@ -74,6 +74,9 @@ class ControllerExersice5Data():
 
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
 
+        #PATH# Exercise 5
+        self.moveRobot='/robotApp/positions/voice.txt'
+
 
     def setVariableB5(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.'
@@ -99,3 +102,7 @@ class ControllerExersice5Data():
     
 
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
+
+
+        #PATH# Exercise 11
+        self.moveRobot='/robotApp/positions/voice.txt'

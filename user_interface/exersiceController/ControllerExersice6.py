@@ -57,6 +57,10 @@ class ControllerExersice6(RootController,QObject):
         self.results=['άλογο','πορτοκάλι']
 
 
+        #PATH# Exercise 6
+        self.moveRobot='/robotApp/positions/voice.txt'
+
+
     def setVariable6B(self):
         
         self._imagesStory=  [                 
@@ -74,6 +78,8 @@ class ControllerExersice6(RootController,QObject):
         self.results=['σκυλί','μήλο']
 
 
+        #PATH# Exercise 12
+        self.moveRobot='/robotApp/positions/voice.txt'
 
 
 
