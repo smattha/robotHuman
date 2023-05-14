@@ -4,6 +4,7 @@ from motors_controller.srv import *
 import rospy 
 import time
 from motorController.MotorController import MoveController
+from threading import Thread
 
 NAME = 'motors_controller_ros_intf'
 SRVNAME=NAME+'_srv_abs'
@@ -22,8 +23,8 @@ class motor_ros:
 
         return motors_controllerResponse(1)
 
-    def moveRobotFile(self,req):
-        print ("!!!!!!!!!!!!!!!!!!!!!!!")
+    def moveRobotFileThread(self,req):
+        print ("!!!!!!!!!!!!!!!!!!!!!!!1")
         print (req.name)   
         f = open(req.name, "r")
         for x in f:
@@ -44,10 +45,14 @@ class motor_ros:
                 self.motor.moveAbs(int(lineSplited[5]),self.motor.head)
             else:
                 print("Error!!!!!")
-   
+        print ("Done!!!")
+
+    def moveRobotFile(self,req):
+        thread = Thread(target=self.moveRobotFileThread, args=(req,), daemon=True)
+        thread.start()
+        print("Thread started")
+
         return moveRobotFileResponse(1)
-
-
 
     def add_two_ints_server(self,motorsSimulation):
         print('Initialize node of motor controller')

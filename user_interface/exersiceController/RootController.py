@@ -113,7 +113,7 @@ class RootController(QObject):
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
         self.thread=self.getTextMainThread()
         self.model.showAnswerButtonsFunction()
-        self._rosInterface.moveRobotFromFile(self.moveRobot)
+        # self._rosInterface.moveRobotFromFile(self.moveRobot)
         
 
 
