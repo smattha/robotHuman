@@ -53,7 +53,7 @@ class RootController(QObject):
         thread.start()
 
     def stopBeforeShowImageMainF(self):
-        # self._rosInterface.moveRobotFromFile('/robotApp/positions/voice.txt')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/voice.txt')
         self._rosInterface.talker(
             'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
         self.model.showButtonsFeedback()

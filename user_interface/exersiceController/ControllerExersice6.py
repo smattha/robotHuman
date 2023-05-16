@@ -129,6 +129,7 @@ class ControllerExersice6(QObject):
         if self.model.name=='':
             self.model.name=self._rosInterface.getNames()
         self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
         self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
@@ -146,7 +147,6 @@ class ControllerExersice6(QObject):
 
     def readAnswers(self):
         print('Read Answers')
-
 
     def reply(self):
         print('Get Reply')
