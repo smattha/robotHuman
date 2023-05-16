@@ -86,6 +86,9 @@ class MoveController():
                     my_dxl2.set_goal_position(my_dxl2.get_present_position()+input_pos)
                     my_dxl2.set_moving_speed(85)
                     time.sleep(0.08)
+                else:
+                    time.sleep(1)
+                    print("Completed!" )
                 self.lock.release()
                 
                     
@@ -96,6 +99,9 @@ class MoveController():
                     my_dxl2 = Ax12(motor_id)
                     my_dxl2.set_goal_position(input_pos)
                     my_dxl2.set_moving_speed(85)
+                else:
+                    time.sleep(1)
+                    print("Completed!" )
                 self.lock.release()
                 time.sleep(0.05)
 
