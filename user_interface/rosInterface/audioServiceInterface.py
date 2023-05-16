@@ -59,7 +59,7 @@ class Ros_Audio_Service(object):
         except rospy.ServiceException as e:
             print("Service call failed: %s"%e)
 
-    def getText(self):
+    def getText(self,params):
         
         if self.flag == 'test':
             sleep(10)
@@ -70,14 +70,18 @@ class Ros_Audio_Service(object):
             # create a handle to the speech2TextSrv service
         getText_ROS = rospy.ServiceProxy('speech2TextSrv', GetAudio)
         req= GetAudioRequest();
-        req.parameter=['a','b','c']
+        req.parameter=params
         resp2 = getText_ROS.call(req)
         print("Speech to text services replied ",resp2.text)
 
-        return resp2
+        return resp2.text
     
 
+
     def moveRobotFromFile(self,name):
+        print ("Move robot!!!!!")
+
+
         # sleep(1)
         # return 'test'
         if self.flag == 'test':

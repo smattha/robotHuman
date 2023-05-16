@@ -27,6 +27,10 @@ class ControllerType1Data():
         self._answerEx3Descr='\nΤρία παπάκια\n'
         self._answerEx4Descr='\nΤεσσερά Παπάκια\n'
         self._answerEx5Descr='\nΠέντε Παπάκια\n'
+        self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
+
+        #PATH# Exercise 1
+        self.moveRobot='/robotApp/positions/voice.txt'
 
     def setVariable2(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους.\n Με ποιο αντικείμενο μοιάζει η κεντρική εικόνα;'
@@ -49,7 +53,10 @@ class ControllerType1Data():
         self._answerEx4Descr='\nΔ\n'
         self._answerEx5Descr='\nΕ\n'
 
+        self.results=['α','β','γ','δ','ε']
 
+        #PATH# Exercise 2
+        self.moveRobot='/robotApp/positions/voice.txt'
 
     def setVariableB1(self):
         self._exersiceDsr='Η μαμά καγκουρό ζυγίζει με το μωρό της 60 κιλά. Η μαμά ζυγίζει μόνη της 52 κιλά. Πόσα κιλά ζυγίζει το μωρό της;'
@@ -69,7 +76,9 @@ class ControllerType1Data():
         self._answerEx5Descr='\n112\n'
         #self._rosInterface.talker('Ένα από τα αντικείμενα στο κάτω μέρος της οθόνης είναι το ίδιο με το αντικείμενο που φαίνεται στο πάνω μέρος της οθόνης. Ποιο;')
 
-
+        self.results=['4','8','30','56','112','τέσσερα','οχτώ','τριάντα','πενήντα έξι','εκατό δώδεκα','πενήντα','εκατό','εκατόν δώδεκα']
+        #PATH# Exercise 7
+        self.moveRobot='/robotApp/positions/voice.txt'
 
     def setVariableB2(self):
         self._exersiceDsr='Ο Μάξιμος έκοψε ένα φύλλο χαρτί σε 2 κομμάτια. Το ένα κομμάτι εμφανίζεται στο πάνω μέρος της οθόνης. Ποιο από τα κομμάτια στο κάτω μέρος της οθόνης είναι το άλλο;'
@@ -94,8 +103,9 @@ class ControllerType1Data():
         self._answerEx5Descr='\nΕ\n'
 
 
-
-
+        self.results=['α','β','γ','δ','ε']
+        #PATH# Exercise 8
+        self.moveRobot='/robotApp/positions/voice.txt'
 
 
 
