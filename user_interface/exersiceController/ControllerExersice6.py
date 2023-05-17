@@ -58,7 +58,7 @@ class ControllerExersice6(RootController,QObject):
 
 
         #PATH# Exercise 6
-        self.moveRobot='/robotApp/positions/voice.txt'
+        self.moveRobot='/robotApp/positions/speech2Text.txt'
 
 
     def setVariable6B(self):
@@ -137,8 +137,8 @@ class ControllerExersice6(RootController,QObject):
         if self.model.name=='':
             self.model.name=self._rosInterface.getNames()
         self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
         self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.txt')
         self._rosInterface.getHand()
         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         self.nextPage3(0)

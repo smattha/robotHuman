@@ -40,9 +40,10 @@ class RootController(QObject):
             print("test")
             isFocus=self._rosInterface.focus(self.model.name)
             if isFocus==False:
+                self._rosInterface.moveRobotFromFile('/robotApp/positions/feedback.txt')
                 self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
                 self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
-                self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
+
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
         self.getTextMainThreadContinue()
 
@@ -55,7 +56,7 @@ class RootController(QObject):
         thread.start()
 
     def stopBeforeShowImageMainF(self):
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/voice.txt')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/continue.txt')
         self._rosInterface.talker(
             'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
         self.model.showButtonsFeedback()
@@ -110,10 +111,11 @@ class RootController(QObject):
         self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/read.txt')
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
         self.thread=self.getTextMainThread()
         self.model.showAnswerButtonsFunction()
-        # self._rosInterface.moveRobotFromFile(self.moveRobot)
+
         
 
 

@@ -28,8 +28,8 @@ class motor_ros:
         print (req.name)   
         f = open(req.name, "r")
         for x in f:
+            print("     New line")
             print(x) 
-            print(f.read()) 
             lineSplited=x.split()
             if (len(lineSplited)==2 and lineSplited[0]=='sleep'):
                 print("Sleeping for ",lineSplited[1])
@@ -49,7 +49,9 @@ class motor_ros:
 
     def moveRobotFile(self,req):
         thread = Thread(target=self.moveRobotFileThread, args=(req,), daemon=True)
-        thread.start()
+        # if hasattr(self, "threadID"):
+        #     self
+        self.threadID=thread.start()
         print("Thread started")
 
         return moveRobotFileResponse(1)
@@ -74,7 +76,7 @@ if __name__ == "__main__":
     motorsRosInterface=motor_ros()
 
     if (len(sys.argv)>1):
-            rospy.logerr('2222222222222......................................................')
+            rospy.logerr('.....................................................')
             if (sys.argv[1]=='False'):
                 motorsSimulation=False
             else:
