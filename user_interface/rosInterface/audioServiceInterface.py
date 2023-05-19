@@ -114,11 +114,14 @@ class Ros_Audio_Service(object):
         print ("Found")
         getText_ROS = rospy.ServiceProxy('textToSpeechBlocking', text2Speech)
         print("About to send command")
+        self.displayImg('/robotApp/faces/smile.jpg')        
         s1=text2SpeechRequest()
+
         s1.text=msg
         print("called")
         resp2 = getText_ROS.call(  s1 )
         print("replied")
+        self.displayImg('/robotApp/faces/smile.jpg')
         return resp2
 
 

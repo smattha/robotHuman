@@ -42,7 +42,7 @@ class RootController(QObject):
             if isFocus==False:
                 self._rosInterface.moveRobotFromFile('/robotApp/positions/feedback.txt')
                 self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
-                self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
+                # self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
 
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
         self.getTextMainThreadContinue()
@@ -80,13 +80,13 @@ class RootController(QObject):
         print('Feedback Robot Controller', value)
         if (value=='1'):
             print("Value is 1")
-            self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
+            # self._rosInterface.displayImg('/robotApp/faces/smile1.jpg')
         elif value=='2' :
             print("Value is 2")
-            self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+            # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         elif(value=='3'):    
             print("Value is 3")
-            self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
+            # self._rosInterface.displayImg('/robotApp/faces/surprise.jpg')
         self._feedback=value
         if hasattr(self, "event"):
             self.event.set()
@@ -110,7 +110,7 @@ class RootController(QObject):
             self.model.name=self._rosInterface.getNames()
         self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
-        self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         self._rosInterface.moveRobotFromFile('/robotApp/positions/read.txt')
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
         self.thread=self.getTextMainThread()

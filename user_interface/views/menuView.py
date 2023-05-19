@@ -36,10 +36,10 @@ class MenuView(QMainWindow):
         self._ui.hard.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
         self._ui.hard.setScaledContents(True)
 
-        self._ui.mainImageHome.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
-        self._ui.mainImageHome.setScaledContents(True)
+        # self._ui.mainImageHome.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
+        # self._ui.mainImageHome.setScaledContents(True)
 
-        self._ui.mainImageHome.setPixmap(QtGui.QPixmap(self.path+"/resources/images/mainScreen.jpg"))
+        # self._ui.mainImageHome.setPixmap(QtGui.QPixmap(self.path+"/resources/images/mainScreen.jpg"))
 
         self._ui.stackedWidget.setCurrentIndex(0)
 
@@ -52,8 +52,8 @@ class MenuView(QMainWindow):
 
         ################################################################################################
         # # connect widgets to controller
-        self._ui.clearMenu.clicked.connect(lambda: self._main_controller.clearClicked())
-        self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.text(), self._ui.surname.text(), self._ui.ageTextBox.text()))
+        # self._ui.clearMenu.clicked.connect(lambda: self._main_controller.clearClicked())
+        # self._ui.saveMenu.clicked.connect(lambda:  self._main_controller.saveClicked(self._ui.name.text(), self._ui.surname.text(), self._ui.ageTextBox.text()))
         self._ui.selectExersiceButton.clicked.connect( lambda: self._main_controller.setPage(self._ui.selectExercise.currentIndex()) )        
 
         self._ui.pushButtonMainResults.clicked.connect( lambda: self.setPage(103) )
@@ -63,8 +63,93 @@ class MenuView(QMainWindow):
         self._ui.pushButtoResultPrevius.clicked.connect( lambda: self.loadResultsByIDCounter(-1) )
 
 
+        i=0
+        self._ui.ex1.clicked.connect( lambda: self._main_controller.setPage(0))        
+        self._ui.ex2.clicked.connect( lambda: self._main_controller.setPage(1))
+        self._ui.ex3.clicked.connect( lambda: self._main_controller.setPage(2))
+        self._ui.ex4.clicked.connect( lambda: self._main_controller.setPage(3))
+        self._ui.ex5.clicked.connect( lambda: self._main_controller.setPage(4))
+        self._ui.ex6.clicked.connect( lambda: self._main_controller.setPage(5))
+
+        self._ui.ex7.clicked.connect( lambda: self._main_controller.setPage(6))        
+        self._ui.ex8.clicked.connect( lambda: self._main_controller.setPage(7))
+        self._ui.ex9.clicked.connect( lambda: self._main_controller.setPage(8))
+        self._ui.ex10.clicked.connect( lambda: self._main_controller.setPage(9))
+        self._ui.ex11.clicked.connect( lambda: self._main_controller.setPage(10))
+        self._ui.ex12.clicked.connect( lambda: self._main_controller.setPage(11))
+
+        self._ui.l1.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/1"))
+        self._ui.l2.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/2"))
+        self._ui.l3.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/3"))
+        self._ui.l4.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/4"))
+        self._ui.l5.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/5"))
+        self._ui.l6.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/6"))
+        self._ui.l7.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/7"))
+        self._ui.l8.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/8"))
+        self._ui.l9.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/9"))
+        self._ui.l10.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/10"))
+        self._ui.l11.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/11"))
+        self._ui.l12.setPixmap(QtGui.QPixmap("/robotApp/resources/mainPage/12"))
 
 
+
+
+        self._ui.l1.setScaledContents(True)
+        self._ui.l2.setScaledContents(True)
+        self._ui.l3.setScaledContents(True)
+        self._ui.l4.setScaledContents(True)
+        self._ui.l5.setScaledContents(True)
+        self._ui.l6.setScaledContents(True)
+        self._ui.l7.setScaledContents(True)
+        self._ui.l8.setScaledContents(True)
+        self._ui.l9.setScaledContents(True)
+        self._ui.l10.setScaledContents(True)
+        self._ui.l11.setScaledContents(True)
+        self._ui.l12.setScaledContents(True)
+
+        self._ui.l1.setAlignment(QtCore.Qt.AlignHCenter)       
+        self._ui.l2.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l3.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l4.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l5.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l6.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l7.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l8.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l9.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l10.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l11.setAlignment(QtCore.Qt.AlignHCenter)
+        self._ui.l12.setAlignment(QtCore.Qt.AlignHCenter)
+
+
+        self._ui.l1.setAlignment(QtCore.Qt.AlignVCenter)       
+        self._ui.l2.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l3.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l4.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l5.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l6.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l7.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l8.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l9.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l10.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l11.setAlignment(QtCore.Qt.AlignVCenter)
+        self._ui.l12.setAlignment(QtCore.Qt.AlignVCenter)
+
+
+        i=self._model.i
+        k=250
+        l=220
+        # self._ui.l1.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l2.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l3.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l4.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l5.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l6.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l7.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l8.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l9.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l10.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l11.setMaximumSize(QtCore.QSize(k/i, l/i))
+        # self._ui.l12.setMaximumSize(QtCore.QSize(k/i, l/i))
         #Exersice 1
         self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         

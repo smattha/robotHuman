@@ -10,12 +10,15 @@ positionX=20
 positionY=20
 
 sleepTime=1
+global flag
 
 def changeImg(req):
     global imagePath
+    global flag
     print ('Services called. Image path is ' + req.name)
     imagePath=req.name
     time.sleep(sleepTime)
+    flag=not flag
     return imageNameResponse(1)
 
 def displayImageFunction():
@@ -30,6 +33,27 @@ def displayImageFunction():
             cv2.imshow("image", img)
             print('name '+imagePath)
             cv2.waitKey(100)
+
+
+
+def playVideo():
+        file="/home/stergios/Desktop/a.mp4"
+        print ("play Video")
+        video=cv2.VideoCapture(file)
+        while True:
+            ret, frame=video.read()
+            if not ret:
+                video=cv2.VideoCapture(file)
+                break
+            if cv2.waitKey(25) == ord("q"):
+                break
+            cv2.imshow("Video", frame)
+            while flag:
+                print("sleep")
+                cv2.waitKey(50)
+            
+        video.release()
+        cv2.destroyAllWindows()
 
 
 def robot_face_srv():
@@ -49,13 +73,18 @@ if __name__ == "__main__":
             positionX =int(sys.argv[1])
             positionY=int( sys.argv[2])
 
+    global flag
+    
+    flag=True
+
+    rospy.Service('shutdownRobotFace', shutdownSrv,destroy)
 
     global imagePath
     imagePath='/robotApp/faces/smile.jpg'
-    thread = Thread(target=displayImageFunction, args=(), daemon=True)
+    thread = Thread(target=playVideo, args=(), daemon=True)
     thread.start()
     
-    rospy.Service('shutdownRobotFace', shutdownSrv,destroy)
-    print("Display image thread was started")
     robot_face_srv()
+
+
         

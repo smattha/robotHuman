@@ -100,7 +100,7 @@ class ControllerType2(RootController,ControllerType2Data):
         self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
         self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
-        self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         while (len(self._imagesStory)>self._counter):
             self.nextPage4()
             if (counter==1):
