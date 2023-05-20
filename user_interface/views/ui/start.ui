@@ -24,150 +24,164 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="2" column="1">
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QPushButton" name="pushButton_7">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Vision</string>
-       </property>
-      </widget>
-     </item>
      <item row="6" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Text2Speech</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Training</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QPushButton" name="pushButton_6">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="visionStart">
-       <property name="text">
-        <string>Start</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Robot Face</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
         <string>Motor</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_2">
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_5">
        <property name="text">
         <string>UI</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label">
+     <item row="3" column="1">
+      <widget class="QPushButton" name="uiStart">
        <property name="text">
-        <string>Speech2Text</string>
+        <string>Start</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QPushButton" name="pushButton_8">
+     <item row="10" column="0">
+      <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>Stop</string>
+        <string>Training</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QPushButton" name="pushButton_9">
-       <property name="text">
-        <string>Stop</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QPushButton" name="pushButton_10">
-       <property name="text">
-        <string>Stop</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QPushButton" name="pushButton_11">
+     <item row="1" column="2">
+      <widget class="QPushButton" name="visionStop">
        <property name="text">
         <string>Stop</string>
        </property>
       </widget>
      </item>
      <item row="5" column="2">
-      <widget class="QPushButton" name="pushButton_12">
+      <widget class="QPushButton" name="s2tStop">
        <property name="text">
         <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="visionStart">
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2">
+      <widget class="QPushButton" name="t2sStop">
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QPushButton" name="trainingStart">
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Text2Speech</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="startAll">
+       <property name="text">
+        <string>Start All</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="robotFaceStart">
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="2">
+      <widget class="QPushButton" name="trainingStop">
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Robot Face</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QPushButton" name="motorStart">
+       <property name="text">
+        <string>Start</string>
        </property>
       </widget>
      </item>
      <item row="6" column="2">
-      <widget class="QPushButton" name="pushButton_13">
+      <widget class="QPushButton" name="motorStop">
        <property name="text">
         <string>Stop</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="2">
-      <widget class="QPushButton" name="pushButton_14">
+     <item row="0" column="2">
+      <widget class="QPushButton" name="stopAll">
+       <property name="text">
+        <string>Stop All</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="s2tStart">
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QPushButton" name="uiStop">
        <property name="text">
         <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QPushButton" name="t2sStart">
+       <property name="text">
+        <string>Start</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Vision</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QPushButton" name="robotFaceStop">
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Speech2Text</string>
        </property>
       </widget>
      </item>
@@ -183,8 +197,23 @@
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuMotor">
+    <property name="toolTip">
+     <string extracomment="Test"/>
+    </property>
+    <property name="title">
+     <string>Motor</string>
+    </property>
+    <addaction name="actionOffine"/>
+   </widget>
+   <addaction name="menuMotor"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOffine">
+   <property name="text">
+    <string>Offine</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
