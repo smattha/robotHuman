@@ -29,20 +29,24 @@ class motor_ros:
         f = open(req.name, "r")
         for x in f:
             print("     New line")
-            print(x) 
-            lineSplited=x.split()
-            if (len(lineSplited)==2 and lineSplited[0]=='sleep'):
+   
+            lineSplited=x.split(',')
+            print(''.join(lineSplited)+' '+str(len(lineSplited))) 
+            if (lineSplited[0]=='sleep'):
                 print("Sleeping for ",lineSplited[1])
                 time.sleep(int(lineSplited[1])/1000)
-            elif (len(lineSplited)==6):
-                print("Moving to position "+str(lineSplited[0])+" "+str(lineSplited[1])+" "+str(lineSplited[2])+" "+str(lineSplited[3])+" "+str(lineSplited[4])+" "+str(lineSplited[5]))
-                self.motor.getPosition(int(1))
-                self.motor.moveAbs(int(lineSplited[0]),self.motor.leftHand)
-                self.motor.moveAbs(int(lineSplited[1]),self.motor.rightHand)
-                self.motor.moveAbs(int(lineSplited[2]),self.motor.rightShoulder)
-                self.motor.moveAbs(int(lineSplited[3]),self.motor.leftShoulder)
-                self.motor.moveAbs(int(lineSplited[4]),self.motor.torso)
-                self.motor.moveAbs(int(lineSplited[5]),self.motor.head)
+                # motors1=lineSplited/2
+            elif (len(lineSplited)==16):
+                print("             Moving to position "+str(lineSplited[0])+" "+str(lineSplited[1])+" "+str(lineSplited[2])+" "+str(lineSplited[3])+" "+str(lineSplited[4])+" "+str(lineSplited[5]))
+                # self.motor.getPosition(1))
+                self.motor.moveAbsStr(lineSplited[0],self.motor.leftHand,lineSplited[8])
+                self.motor.moveAbsStr(lineSplited[1],self.motor.rightHand,lineSplited[9])
+                self.motor.moveAbsStr(lineSplited[2],self.motor.rightShoulder,lineSplited[10])
+                self.motor.moveAbsStr(lineSplited[3],self.motor.leftShoulder,lineSplited[11])
+                self.motor.moveAbsStr(lineSplited[4],self.motor.torso,lineSplited[12])
+                self.motor.moveAbsStr(lineSplited[5],self.motor.head,lineSplited[13])
+                self.motor.moveAbsStr(lineSplited[6],self.motor.torso,lineSplited[14])
+                self.motor.moveAbsStr(lineSplited[7],self.motor.head,lineSplited[15])
             else:
                 print("Error!!!!!")
         print ("Done!!!")

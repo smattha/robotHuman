@@ -37,8 +37,10 @@ def displayImageFunction():
 
 
 def playVideo():
-        file="/home/stergios/Desktop/a.mp4"
+        file="/robotApp/talkingfacesmall.mp4"
         print ("play Video")
+        cv2.namedWindow("Video",flags=cv2.WINDOW_GUI_NORMAL)
+        cv2.moveWindow("Video",positionX,positionY)
         video=cv2.VideoCapture(file)
         while True:
             ret, frame=video.read()

@@ -61,6 +61,10 @@ class App(QApplication):
         self.ui.stopAll.clicked.connect(self.stopAll)
 
         self.ui.actionOffine.triggered.connect(self.motorChangeFlaq)
+
+
+        self.ui.roscore.clicked.connect(self.roscore)
+
     
     def motorChangeFlaq(self):
         self.motorOnline=not self.motorOnline
@@ -69,7 +73,7 @@ class App(QApplication):
         self.startFace()
         self.s2tStart()
         self.startVision()
-        self.s2tStart()
+        self.t2SStart()
         self.uiStart()
         self.motorStart()
 
@@ -89,11 +93,19 @@ class App(QApplication):
         process.kill()
             
 
+    def roscore(self):
+        self.faceP=subprocess.Popen(["roscore",
+               "arguments"], shell=True, preexec_fn=os.setsid) 
+
     def startFace(self):
         self.faceP=subprocess.Popen(["rosrun robot_face robot_face1.py  1 1 p",
                "arguments"], shell=True, preexec_fn=os.setsid) 
 
     def stopVision(self):
+        result = subprocess.run(["rosservice call /shutdown \"input: ''\" "], shell=True, capture_output=True, text=True)
+        # self.kill(self.faceP.pid) 
+
+
         self.kill(self.visionP.pid) 
 
     def startVision(self):
@@ -102,10 +114,12 @@ class App(QApplication):
                "arguments"], shell=True, preexec_fn=os.setsid) 
 
     def stopFace(self):
+        result = subprocess.run(["rosnode kill /robot_face"], shell=True, capture_output=True, text=True)
         self.kill(self.faceP.pid) 
 
     def s2tStart(self):
-        print ("rosrun audio_service audioServiceBlocking.py")
+        print ("rosrun audio_service test_microphone.py -m=/robotApp/model ")
+
         self.startS2Tn=subprocess.Popen(["rosrun audio_service audioServiceBlocking.py",
                "arguments"], shell=True, preexec_fn=os.setsid) 
 
@@ -120,8 +134,8 @@ class App(QApplication):
                "arguments"], shell=True, preexec_fn=os.setsid) 
 
     def t2SStop(self):
-        self.kill(self.t2SStartP.pid) 
-
+        result = subprocess.run(["rosnode kill /speechToTextBlocking"], shell=True, capture_output=True, text=True)
+        self.kill(self.t2SStartP.pid)  
 
 
     def motorStart(self):
@@ -134,6 +148,7 @@ class App(QApplication):
                "arguments"], shell=True, preexec_fn=os.setsid) 
 
     def motorStop(self):
+        result = subprocess.run(["rosnode kill /motors_controller_ros_intf"], shell=True, capture_output=True, text=True)
         self.kill(self.motorStartP.pid)
 
 

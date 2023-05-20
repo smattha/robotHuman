@@ -92,6 +92,9 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.gridLayoutWidget)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 5, 0, 1, 1)
+        self.roscore = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.roscore.setObjectName("roscore")
+        self.gridLayout.addWidget(self.roscore, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 20))
@@ -137,6 +140,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Vision"))
         self.robotFaceStop.setText(_translate("MainWindow", "Stop"))
         self.label.setText(_translate("MainWindow", "Speech2Text"))
+        self.roscore.setText(_translate("MainWindow", "Roscore"))
         self.menuMotor.setTitle(_translate("MainWindow", "Motor"))
         self.actionOffine.setText(_translate("MainWindow", "Offine"))
 

@@ -20,6 +20,8 @@ class MoveController():
             self.leftShoulder=5
             self.torso=4
             self.head=6
+            self.motor1=7
+            self.motor2=8
 
             self.speed=85
 
@@ -31,6 +33,8 @@ class MoveController():
             self.neck_tilt = Ax12(self.head)
             self.left_shoulder = Ax12( self.leftShoulder)
             self.left_hand = Ax12(self.leftHand)
+            # self.motor_1 = Ax12(self.motor1)
+            # self.motor_2 = Ax12(self.motor2)
 
             if self.offline== False:
             
@@ -98,12 +102,36 @@ class MoveController():
                 if self.offline==False:
                     my_dxl2 = Ax12(motor_id)
                     my_dxl2.set_goal_position(input_pos)
-                    my_dxl2.set_moving_speed(85)
+                    # my_dxl2.set_moving_speed(100)
                 else:
                     time.sleep(1)
                     print("Completed!" )
                 self.lock.release()
-                time.sleep(0.05)
+                time.sleep(30)
+
+        def moveAbs(self,input_pos,motor_id,speed):
+                self.lock.acquire()
+                print("Move motor" , str(motor_id) , " to pos  " ,str(input_pos))
+                if self.offline==False:
+                    my_dxl2 = Ax12(motor_id)
+                    my_dxl2.set_goal_position(input_pos)
+                    time.sleep(0.01)
+                    if speed!=0:
+                        my_dxl2.set_moving_speed(speed)
+                else:
+                    # time.sleep(1)
+                    print("Completed!" )
+                self.lock.release()
+                # time.sleep(0.1)
+
+        def moveAbsStr(self,input_pos,motor_id,speed):
+            if input_pos=='':
+                return
+            if speed =='':
+                self.moveAbs(int(input_pos),motor_id,0)
+            else:
+                self.moveAbs(int(input_pos),motor_id,int(speed))
+
 
         def rotate(self):
             print('inside rotate1')
