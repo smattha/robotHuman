@@ -51,7 +51,7 @@ def playVideo():
                 break
             cv2.imshow("Video", frame)
             while flag:
-                print("sleep")
+                # print("sleep")
                 cv2.waitKey(50)
             
         video.release()

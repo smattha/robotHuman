@@ -152,7 +152,9 @@ class MenuView(QMainWindow):
         # self._ui.l12.setMaximumSize(QtCore.QSize(k/i, l/i))
         #Exersice 1
         self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
-        
+        self._ui.selectExercise.hide()
+        self._ui.selectExersiceButton.hide()
+        self._ui.pushButtonMainResults.hide()
 
         self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home1())
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())

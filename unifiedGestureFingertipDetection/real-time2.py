@@ -378,7 +378,7 @@ if __name__ == '__main__':
 		z.join()
 
 		for x in range(len(det.resultsArray)):
-			print("         "+ str(det.resultsArray[x].name)+" "+ str(det.resultsArray[x].positionFaceX)+" "+str(det.resultsArray[x].positionFaceY)+" " +str(det.resultsArray[x].focus) +" " +str(det.resultsArray[x].hand))
+			# print("         "+ str(det.resultsArray[x].name)+" "+ str(det.resultsArray[x].positionFaceX)+" "+str(det.resultsArray[x].positionFaceY)+" " +str(det.resultsArray[x].focus) +" " +str(det.resultsArray[x].hand))
 			rec=RecognitionMsg()
 			rec.name=str(det.resultsArray[x].name)
 			rec.isFocus=str(det.resultsArray[x].focus)
