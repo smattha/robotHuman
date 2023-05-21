@@ -70,6 +70,7 @@ class App(QApplication):
         self.motorOnline=not self.motorOnline
 
     def startAll(self):
+        self.roscore()
         self.startFace()
         self.s2tStart()
         self.startVision()
@@ -94,6 +95,8 @@ class App(QApplication):
             
 
     def roscore(self):
+        self.faceP=subprocess.Popen(["killall -9 rosmaster",
+               "arguments"], shell=True, preexec_fn=os.setsid) 
         self.faceP=subprocess.Popen(["roscore",
                "arguments"], shell=True, preexec_fn=os.setsid) 
 
