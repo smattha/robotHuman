@@ -8,6 +8,7 @@ from PyQt5.QtCore import QObject, pyqtSlot
 class RootController(QObject):
     def __init__(self):
         super().__init__()
+        self.correct=True;
 
 
     def setupUi(self):
@@ -47,7 +48,10 @@ class RootController(QObject):
         #         self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
         #         # self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
 
-        self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
+        if (self.correct==True):
+            self._rosInterface.talker('Μπράβο το πέτυχες!!! Είσαι έτοιμος να προχωρήσουμε;')
+        else:
+            self._rosInterface.talker('Καλή προσπάθεια! Aλλά δεν το πέτυχες! Είσαι έτοιμος να προχωρήσουμε;')
         self.getTextMainThreadContinue()
 
     def feedbackStore(self, model1, value):
@@ -83,9 +87,9 @@ class RootController(QObject):
         for x in self.correctAnswer:
             if (x.casefold()==str(value).casefold()):  
                 self.model.changeFeedbackLabelCorrect()
-                self._rosInterface.talker("Μπράβο το πέτυχες!!!")
+                self.correct=True
             else:
-                self._rosInterface.talker("Καλή προσπάθεια! Aλλά δεν το πέτυχες!")
+                self.correct=False;
         self.model.trigger(101)
         if hasattr(self, "event"):
             self.event.set()
