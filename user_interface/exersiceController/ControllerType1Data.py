@@ -13,7 +13,7 @@ class ControllerType1Data():
         self._answerDsr='Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
 
         self._answerDscr='1, 2, 3, 4 ή 5;'
-        self._title="Το λιοντάρι και τα παπάκια!"
+        self._title="1.Το λιοντάρι και τα παπάκια!\n\n"
         self._imagePath=self.path+"/resources/images/ex1/mainImage.png"
 
         self._imageAnswer1=self.path+'/resources/images/ex1/answer1.png'
@@ -41,7 +41,7 @@ class ControllerType1Data():
         self._answerDsr=' Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο;'
 
         self._answerDscr='Α   ,Β  , Γ  , Δ  , Ε  '
-        self._title="Άσκηση προσοχής"
+        self._title="2.Άσκηση προσοχής\n\n"
         self._imagePath=self.path+"/resources/images/ex2/mainImage.png"
         self._imageAnswer1=self.path+'/resources/images/ex2/answer1.png'
         self._imageAnswer2=self.path+'/resources/images/ex2/answer2.png'
@@ -66,7 +66,7 @@ class ControllerType1Data():
         self._answerDsr=' Πόσα κιλά ζυγίζει το μωρό της;'
 
         self._answerDscr='4, 8, 30, 56 ή 112'
-        self._title="Άσκηση προσοχής"
+        self._title="7.Άσκηση προσοχής\n\n"
         self._imagePath=self.path+"/resources/images/exB1/1.png"
         self._imageAnswerFlag=1
 
@@ -86,7 +86,7 @@ class ControllerType1Data():
     def setVariableB2(self):
         self._exersiceDsr='Ο Μάξιμος έκοψε ένα φύλλο χαρτί σε 2 κομμάτια. Το ένα κομμάτι εμφανίζεται στο πάνω μέρος της οθόνης. Ποιο από τα κομμάτια στο κάτω μέρος της οθόνης είναι το άλλο;'
         self._answerDscr='Α ,  Β , Γ , Δ , Ε '
-        self._title="Άσκηση προσοχής"
+        self._title="8.Άσκηση προσοχής\n\n"
         self._imagePath=self.path+"/resources/images/exB2/mainImage.png"
 
         self._exersiceTitleDsr='Ο Μάξιμος έκοψε ένα φύλλο χαρτί σε 2 κομμάτια.Το ένα κομμάτι εμφανίζεται στο πάνω μέρος της οθόνης.'

@@ -15,7 +15,7 @@ class ControllerExersice5Data():
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.\n Διάλεξε την απάντηση που σου φαίνεται σωστή και προχώρα στον επόμενο γρίφο'
         self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο'
         self._answerDsr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο'
-        self._title=""
+        self._title="5.Παιχνίδι με γρίφους.\n\n"
         path=self.model.path
         self._imagePath=path+"/resources/images/ex5/image.png"
         self._exersiceDsr2 = "Κοίτα προσεκτικά την εικόνα και δείξε μου που είναι το λαγουδάκι."
@@ -39,9 +39,7 @@ class ControllerExersice5Data():
         self._answerEx4Descr='\n4\n'
         self._answerEx5Descr='\n5\n'
 
-        self._exersiceTitleDsr='''α! Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. \n
-        Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n
-        Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'''
+        self._exersiceTitleDsr=' Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. \n       Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n  Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'''
 
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
     
@@ -83,7 +81,7 @@ class ControllerExersice5Data():
     def setVariableB5(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.'
         self._answerDscr='1, 2, 3, 4 ή 5;'
-        self._title=""
+        self._title='11.Παιχνίδι με γρίφους.'
         self._imagePath=self.path+"/resources/images/exB5/1.jpg"
         self._imagePath2=self.path+"/resources/images/exB5/1.jpg"
 
