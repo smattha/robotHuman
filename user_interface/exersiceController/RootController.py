@@ -48,7 +48,7 @@ class RootController(QObject):
         #         self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
         #         # self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
 
-        if (self.model.correct==True):
+        if (self.model.correct):
             self._rosInterface.talker('Μπράβο το πέτυχες!!! Είσαι έτοιμος να προχωρήσουμε;')
         else:
             self._rosInterface.talker('Καλή προσπάθεια! Aλλά δεν το πέτυχες! Είσαι έτοιμος να προχωρήσουμε;')
@@ -83,14 +83,17 @@ class RootController(QObject):
     def storeAnswer(self, value):
         self.feedbackStore(self.model.result, value)
         self.model.changeFeedbackLabelWrong()
+        self.model.correct=False;
         print("value :"+str(value))
         for x in self.correctAnswer:
             if (x.casefold()==str(value).casefold()):  
                 self.model.changeFeedbackLabelCorrect()
+                print('                                                                                 Correct!!!!!!!!!!!!!!!!!!!!!!!!!!!')
                 self.model.correct=True
-            else:
-                self.model.correct=False;
+
+                
         self.model.trigger(101)
+        print("Done")
         if hasattr(self, "event"):
             self.event.set()
 

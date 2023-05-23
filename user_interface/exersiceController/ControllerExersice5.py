@@ -96,9 +96,11 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
             self.readAnswers()
             self.model.changeFeedbackLabelWrong()
             print("value :"+str(value))
+            self.model.correct=False
             for x in self.correctAnswer:
                 if (x.casefold()==str(value).casefold()):  
                     self.model.changeFeedbackLabelCorrect()
+                    self.model.correct=True
         elif  self._counter==1:
             print('--------------------------------------------------------------------------------------------------------------')
             self.model.trigger(self._image2)

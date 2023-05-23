@@ -55,7 +55,7 @@ class ControllerType2Data():
         self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
         self.title= '4.Η Μαρία και η μαμά της'
         self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
-        self.results=['Φίλη','φιλή','Τρία','τρια']
+        self.results=['Φίλη','φιλή','Τρία','τρια','3']
 
         #PATH# Exercise 4
         self.moveRobot='/robotApp/positions/voice.txt'
@@ -79,7 +79,7 @@ class ControllerType2Data():
         self.title= '9.Ο μικρός στρατιώτης!'
         self.results=['Βουνό','Θάλασσα']
 
-        self.results=['Θάλασσα','Θαλασσα','Δύο']
+        self.results=['Θάλασσα','Θαλασσα','Δύο','2']
 
 
         #PATH# Exercise 8
@@ -111,4 +111,4 @@ class ControllerType2Data():
         #PATH# Exercise 9
         self.moveRobot='/robotApp/positions/voice.txt'
 
-        self.results=['Φίλη','Φιλη','Φιλή','Δύο']
+        self.results=['Φίλη','Φιλη','Φιλή','Δύο','2']

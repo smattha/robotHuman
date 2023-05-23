@@ -256,6 +256,7 @@ class ControllerExersice6(RootController,QObject):
 
             self.feedback()
             self.model.trigger(101)
+            self.model.correct=True
             self.model.changeFeedbackLabelCorrect()
             # self._rosInterface.talker("Μπράβο το πέτυχες!!!")
 
