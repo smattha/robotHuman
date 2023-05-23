@@ -160,7 +160,7 @@ class MenuView(QMainWindow):
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
 
 
-        self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home(  self._ui.name.text(),self._ui.surname.text(),self._ui.ageTextBox.text() ) )
+        self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home1(   ) )
         # self._ui.feedbackEasyButton.clicked.connect(lambda: self._main_controller.feedback('1'))
         # self._ui.feedbackNormalButton.clicked.connect(lambda: self._main_controller.feedback('2'))
         # self._ui.feedbackHardButton.clicked.connect(lambda: self._main_controller.feedback('3'))
