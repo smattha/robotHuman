@@ -14,16 +14,16 @@ class MoveController():
             self.offline=offline
             self.counterForRandomPos=0;
 
-            self.leftHand=1
-            self.rightHand=2
-            self.rightShoulder=3
-            self.leftShoulder=5
+            self.leftHand=0
+            self.rightHand=1
+            self.rightShoulder=2
+            self.leftShoulder=3
             self.torso=4
-            self.head=6
-            self.motor1=7
-            self.motor2=8
+            self.head=5
+            self.motor1=6
+            self.motor2=7
 
-            self.speed=85
+            self.speed=20
 
             self.lock = threading.Lock()
 

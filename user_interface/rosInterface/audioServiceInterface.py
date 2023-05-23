@@ -39,7 +39,7 @@ class Ros_Audio_Service(object):
         # block until the add_two_ints service is available
         # you can optionally specify a timeout
         
-        self.moveRobotFromFile('/robotApp/positions/speech2Txt.txt')
+        self.moveRobotFromFile('/robotApp/positions/speech2Text.csv')
         rospy.wait_for_service('speech2TextSrv')
         
         try:

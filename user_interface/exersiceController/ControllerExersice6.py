@@ -142,7 +142,7 @@ class ControllerExersice6(RootController,QObject):
             self.model.name=self._rosInterface.getNames()
         self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
         self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.txt')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.csv')
         self._rosInterface.getHand()
         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         self.nextPage3(0)

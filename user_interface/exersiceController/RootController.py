@@ -58,10 +58,10 @@ class RootController(QObject):
         thread = Thread(target=self.stopBeforeShowImageMainF, args=(), daemon=True)
         thread.start()
 
-#prin to feedback
+    #prin to feedback
     def stopBeforeShowImageMainF(self):
         #2
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/userFeedback')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/userFeedback.csv')
         # self._rosInterface.talker(
         #     'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
         # # self.model.showButtonsFeedback()
@@ -119,11 +119,11 @@ class RootController(QObject):
         
         while self.model.name=='':
             self.model.name=self._rosInterface.getNames()
-        self._rosInterface.talker("Oταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
-        self._rosInterface.getHand()
-        # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         #3
         self._rosInterface.moveRobotFromFile('/robotApp/positions/handRaise.csv')
+        self._rosInterface.talker("Παιδάκι όταν είσαι ετοιμό να προχωρήσουμε σήκωσε το χέρι")
+        self._rosInterface.getHand()
+        # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         #self._rosInterface.moveRobotFromFile('/robotApp/positions/read.txt')
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
         self.thread=self.getTextMainThread()
