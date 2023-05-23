@@ -142,6 +142,10 @@ class detection():
 				# Set variable to keep landmarks positions (x and y)
 				handLandmarks = []
 				fingerCount=0
+				# handLabel = results.classification[0].label
+
+				handIndex = results.multi_hand_landmarks.index(handLms)
+				handLabel = results.multi_handedness[handIndex].classification[0].label
 				# Fill list with x and y positions of each landmark
 				for landmarks in handLms.landmark:
 					handLandmarks.append([landmarks.x, landmarks.y])
@@ -150,10 +154,10 @@ class detection():
 				#   considered raised.
 				# Thumb: TIP x position must be greater or lower than IP x position, 
 				#   deppeding on hand label.
-				# if handLabel == "Left" and handLandmarks[4][0] > handLandmarks[3][0]:
-				# 	fingerCount = fingerCount+1
-				# elif handLabel == "Right" and handLandmarks[4][0] < handLandmarks[3][0]:
-				# 	fingerCount = fingerCount+1
+				if handLabel == "Left" and handLandmarks[4][0] > handLandmarks[3][0]:
+					fingerCount = fingerCount+1
+				elif handLabel == "Right" and handLandmarks[4][0] < handLandmarks[3][0]:
+					fingerCount = fingerCount+1
 
 				# Other fingers: TIP y position must be lower than PIP y position, 
 				#   as image origin is in the upper left corner.
@@ -181,18 +185,20 @@ class detection():
 					posMin=-1;
 					# print('111111111111111111111111111111111111111')
 					# print(" en(det.resultsArray)    "+str(len(det.resultsArray)))
-					for x in range(len(det.resultsArray)):
+					if (fingerCount==5):
+						for x in range(len(det.resultsArray)):
 
-							distanceTemp=(det.resultsArray[x].positionFaceX-cx)**2 +(det.resultsArray[x].positionFaceY-cy)**2
-							if distanceTemp<distance:
-								distance=distanceTemp
-								posMin=x
-								# print(x)
-							# print(distanceTemp)
-					# print('111111111111111111111111111111111111111')
-					if(posMin>-1):
-						det.resultsArray[posMin].hand=True;
-				self.mpDraw.draw_landmarks(image, handLms, self.mpHands.HAND_CONNECTIONS)
+								distanceTemp=(det.resultsArray[x].positionFaceX-cx)**2 +(det.resultsArray[x].positionFaceY-cy)**2
+								if distanceTemp<distance:
+									distance=distanceTemp
+									posMin=x
+									# print(x)
+								# print(distanceTemp)
+						# print('111111111111111111111111111111111111111')
+						if(posMin>-1):
+							det.resultsArray[posMin].hand=True;
+				if (fingerCount==5):
+					self.mpDraw.draw_landmarks(image, handLms, self.mpHands.HAND_CONNECTIONS)
 
 
 
