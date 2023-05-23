@@ -134,7 +134,6 @@ class page1View(QWidget):
 
     @pyqtSlot(str)
     def nextPageSignalEx6(self, value):
-        print("Image 6")
         self.test6.openImage(value)
         self.test6.resize()     
 
@@ -142,7 +141,6 @@ class page1View(QWidget):
 
     @pyqtSlot(str)
     def showButtons(self, value):
-        print("Image 6")
         self._ui.answer1.setDisabled(False)
         self._ui.answer2.setDisabled(False)
         self._ui.answer3.setDisabled(False)

@@ -94,6 +94,11 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
             # self._rosInterface.talker1(self._exersiceDsr2)
             self.playAudio(self._exersiceDsr2)
             self.readAnswers()
+            self.model.changeFeedbackLabelWrong()
+            print("value :"+str(value))
+            for x in self.correctAnswer:
+                if (x.casefold()==str(value).casefold()):  
+                    self.model.changeFeedbackLabelCorrect()
         elif  self._counter==1:
             print('--------------------------------------------------------------------------------------------------------------')
             self.model.trigger(self._image2)

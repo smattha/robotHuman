@@ -57,6 +57,8 @@ class ControllerExersice6(RootController,QObject):
         self.results=['άλογο','πορτοκάλι']
 
 
+        self.correctAnswer=['άλογο','πορτοκάλι','αλογο','πορτοκαλι']
+
         #PATH# Exercise 6
         self.moveRobot='/robotApp/positions/speech2Text.txt'
 
@@ -81,6 +83,8 @@ class ControllerExersice6(RootController,QObject):
         #PATH# Exercise 12
         self.moveRobot='/robotApp/positions/voice.txt'
 
+
+        self.correctAnswer=['σκυλί','μήλο','σκυλί','μήλο']
 
 
     def setVariables4(self):
@@ -177,6 +181,11 @@ class ControllerExersice6(RootController,QObject):
         self._answerEx1=value
         print('feedback')
         self.model.currentExerciseID=0
+        self.model.changeFeedbackLabelWrong()
+        print("value :"+str(value))
+        for x in self.correctAnswer:
+            if (x.casefold()==str(value).casefold()):  
+                self.model.changeFeedbackLabelCorrect()
 
 
     # def continueDialog(self):

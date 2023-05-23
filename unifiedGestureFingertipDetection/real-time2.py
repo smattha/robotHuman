@@ -92,7 +92,7 @@ class detection():
 		# initialize mediapipe
 		self.mpHands = mp.solutions.hands
 		#hands = mpHands.Hands(max_num_hands=1, min_detection_confidence=0.7)
-		self.hands = self.mpHands.Hands(max_num_hands=1, min_detection_confidence=0.3)
+		self.hands = self.mpHands.Hands(max_num_hands=1, min_detection_confidence=0.7)
 
 		self.mpDraw = mp.solutions.drawing_utils
 
@@ -139,7 +139,38 @@ class detection():
 
 		if results.multi_hand_landmarks:
 			for handLms in results.multi_hand_landmarks: # working with each hand
+				# Set variable to keep landmarks positions (x and y)
+				handLandmarks = []
+				fingerCount=0
+				# Fill list with x and y positions of each landmark
+				for landmarks in handLms.landmark:
+					handLandmarks.append([landmarks.x, landmarks.y])
+
+				# Test conditions for each finger: Count is increased if finger is 
+				#   considered raised.
+				# Thumb: TIP x position must be greater or lower than IP x position, 
+				#   deppeding on hand label.
+				# if handLabel == "Left" and handLandmarks[4][0] > handLandmarks[3][0]:
+				# 	fingerCount = fingerCount+1
+				# elif handLabel == "Right" and handLandmarks[4][0] < handLandmarks[3][0]:
+				# 	fingerCount = fingerCount+1
+
+				# Other fingers: TIP y position must be lower than PIP y position, 
+				#   as image origin is in the upper left corner.
+				if handLandmarks[8][1] < handLandmarks[6][1]:       #Index finger
+					fingerCount = fingerCount+1
+				if handLandmarks[12][1] < handLandmarks[10][1]:     #Middle finger
+					fingerCount = fingerCount+1
+				if handLandmarks[16][1] < handLandmarks[14][1]:     #Ring finger
+					fingerCount = fingerCount+1
+				if handLandmarks[20][1] < handLandmarks[18][1]:     #Pinky
+					fingerCount = fingerCount+1
+
+				print("finger +"+ str(fingerCount))
 				for id, lm in enumerate(handLms.landmark):
+					
+					
+					
 					h, w, c = self.img_frame.shape
 					cx, cy = int(lm.x * w), int(lm.y * h)
 					if id == 8 :

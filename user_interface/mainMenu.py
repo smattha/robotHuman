@@ -40,6 +40,8 @@ class App(QApplication):
         self.model.i= self.i
         self.model.displayImageRatio =self.displaymageRation
         self._rosInterface=Ros_Audio_Service()
+        self._rosInterface.flag=self.flag
+
         # self._rosInterface.getText()
         self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
         # self._rosInterface.moveRobot(0,0,0,0,0,0)
@@ -51,7 +53,6 @@ class App(QApplication):
 
         #self._rosInterface.displayImg()
 
-        self._rosInterface.flag=self.flag
 
 
         self._controllerEx1= ControllerType1(self._rosInterface,self.model)

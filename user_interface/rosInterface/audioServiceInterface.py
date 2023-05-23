@@ -62,8 +62,8 @@ class Ros_Audio_Service(object):
     def getText(self,params):
         
         if self.flag == 'test':
-            sleep(10)
-            return 'TEST'
+            sleep(5)
+            return 'timeout'
 
         rospy.wait_for_service('speech2TextSrv')
 
@@ -79,13 +79,14 @@ class Ros_Audio_Service(object):
 
 
     def moveRobotFromFile(self,name):
-        print ("Move robot!!!!!")
+        print ("Robot is about to move in "+self.flag+" mode")
 
 
         # sleep(1)
         # return 'test'
         if self.flag == 'test':
-            sleep(10)
+            sleep(1)
+            print("Robot motion is completed!")
             return 'TEST'
         rospy.wait_for_service('motors_controller_ros_intf_srv_file')
 
@@ -103,7 +104,6 @@ class Ros_Audio_Service(object):
 
 
     def talker(self,msg):
-
         
         print("Call text to speech with msg :\t\t"+msg)
         if self.flag == 'test':
@@ -152,7 +152,6 @@ class Ros_Audio_Service(object):
         s1=faceRequest()
         s1.text='/home/stergios/Downloads/1.jpeg'
         resp2 = getText_ROS.call(  s1 )
-
 
         return resp2
 
@@ -281,10 +280,10 @@ class Ros_Audio_Service(object):
         
     def getNames(self):
         print("Calling Recognition Service For Names of the children!!!")
-        # if self.flag == 'test':
-        #     sleep(1)
-        #     print("Calling Recognition service is completed !!!")
-        #     return 'TEST'
+        if self.flag == 'test':
+            sleep(1)
+            print("Calling Recognition service is completed !!!")
+            return 'TEST'
 
         resp2=self.getRecognitionResult()
         name=""

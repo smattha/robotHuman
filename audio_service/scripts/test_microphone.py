@@ -110,7 +110,7 @@ class ControllerExersice5(object):
                     if(time.time()-timeStart)>=45:
                         print("timeout!")
                         self.flag=False
-
+        return 'timeout'
 
 
     def add_two_ints(self,req):
