@@ -83,6 +83,9 @@ class RootController(QObject):
         for x in self.correctAnswer:
             if (x.casefold()==str(value).casefold()):  
                 self.model.changeFeedbackLabelCorrect()
+                self._rosInterface.talker("Μπράβο το πέτυχες!!!")
+            else:
+                self._rosInterface.talker("Καλή προσπάθεια! Aλλά δεν το πέτυχες!")
         self.model.trigger(101)
         if hasattr(self, "event"):
             self.event.set()

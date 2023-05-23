@@ -52,7 +52,7 @@ class ControllerExersice6(RootController,QObject):
                     ]
         self._counter=0
         self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
-        self.title= 'Τι δείχνουν οι εικόνες'
+        self.title= '6.Τι δείχνουν οι εικόνες.\n\n'
 
         self.results=['άλογο','πορτοκάλι']
 
@@ -76,7 +76,7 @@ class ControllerExersice6(RootController,QObject):
                     ]
         self._counter=0
         self._exerciseDscr='Σε αυτό το παιχνίδι θα χρειαστώ τη βοήθειά σου. Θέλω να δεις τις εικόνες και να μου πεις τι δείχνουν.'
-        self.title= 'Τι δείχνουν οι εικόνες;'
+        self.title= '12.Τι δείχνουν οι εικόνες;\n\n'
         self.results=['σκυλί','μήλο']
 
 
@@ -256,6 +256,8 @@ class ControllerExersice6(RootController,QObject):
 
             self.feedback()
             self.model.trigger(101)
+            self.model.changeFeedbackLabelCorrect()
+            self._rosInterface.talker("Μπράβο το πέτυχες!!!")
 
 
     def playAudio(self,msg):
