@@ -134,7 +134,8 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
 
     def trigger(self):
         self.model.trigger(101)
-        self._rosInterface.talker("Μπράβο το πέτυχες!!!")
+        # self._rosInterface.talker("Μπράβο το πέτυχες!!!")
+
         self.model.changeFeedbackLabelCorrect()
         self.feedbackFN()
 

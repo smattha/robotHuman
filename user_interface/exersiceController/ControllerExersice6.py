@@ -257,7 +257,7 @@ class ControllerExersice6(RootController,QObject):
             self.feedback()
             self.model.trigger(101)
             self.model.changeFeedbackLabelCorrect()
-            self._rosInterface.talker("Μπράβο το πέτυχες!!!")
+            # self._rosInterface.talker("Μπράβο το πέτυχες!!!")
 
 
     def playAudio(self,msg):
