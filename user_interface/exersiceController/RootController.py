@@ -37,15 +37,15 @@ class RootController(QObject):
 #meta to feedback
     def continueDialog(self):
         print('--------------------------------------MainController: Eίσαι έτοιμος να προχωρήσουμε;')
-        if self.model.name!='':
-            print("test")
-            isFocus=self._rosInterface.focus(self.model.name)
-            if isFocus==False:
+        # if self.model.name!='':
+        #     print("test")
+        #     isFocus=self._rosInterface.focus(self.model.name)
+        #     if isFocus==False:
                 #1
-                self._rosInterface.moveRobotFromFile('/robotApp/positions/focus.csv')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/focus.csv')
                 #self._rosInterface.moveRobotFromFile('/robotApp/positions/feedback.txt')
-                self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
-                # self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
+        #         self._rosInterface.talker( self.model.name +'παρατήρησα ότι δεν ήσουν προσεκτικός κατά την διάρκεια της άσκησης. Προσπάθησε να προσέχεις περισσότερο.')
+        #         # self._rosInterface.displayImg('/robotApp/faces/anger.jpg')
 
         self._rosInterface.talker('Είσαι έτοιμος να προχωρήσουμε;')
         self.getTextMainThreadContinue()
@@ -62,10 +62,11 @@ class RootController(QObject):
     def stopBeforeShowImageMainF(self):
         #2
         self._rosInterface.moveRobotFromFile('/robotApp/positions/userFeedback')
-        self._rosInterface.talker(
-            'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
-        self.model.showButtonsFeedback()
-        self.getTextMainThreadFeedback()
+        # self._rosInterface.talker(
+        #     'Πόσο εύκολος σου φάνηκε ο γρίφος; Εύκολος,έτσι και έτσι ή δύσκολος;')
+        # # self.model.showButtonsFeedback()
+        # self.getTextMainThreadFeedback()
+        self.continueDialog()
 
     def printResult(self):
         print("Exersice1 :", self._answerEx1, self._feedback)
@@ -77,6 +78,11 @@ class RootController(QObject):
     @pyqtSlot(int)
     def storeAnswer(self, value):
         self.feedbackStore(self.model.result, value)
+        self.model.changeFeedbackLabelWrong()
+        print("value :"+str(value))
+        for x in self.correctAnswer:
+            if (x.casefold()==str(value).casefold()):  
+                self.model.changeFeedbackLabelCorrect()
         self.model.trigger(101)
         if hasattr(self, "event"):
             self.event.set()
@@ -113,7 +119,7 @@ class RootController(QObject):
         
         while self.model.name=='':
             self.model.name=self._rosInterface.getNames()
-        self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
+        self._rosInterface.talker("Oταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
         # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         #3
@@ -139,8 +145,10 @@ class RootController(QObject):
         # self._rosInterface.talker(self._answerDsr)
     
     def getText (self,event: Event) -> None:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Get Text!!!!")
+        print("Call speech to text!")
         self.text=self._rosInterface.getText(self.results)
+        if self.text=='timeout':
+            return
         self.storeAnswer(self.text)
 
 
@@ -155,8 +163,9 @@ class RootController(QObject):
     
 
     def getTextFeedback (self,event: Event) -> None:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Get Text!!!!")
-        self.text=self._rosInterface.getText(['Εύκολος','Έτσι και έτσι','δύσκολος','Εύκολο','Έτσι','δύσκολο'])
+
+        # print("!Get Text!")
+        # self.text=self._rosInterface.getText(['Εύκολος','Έτσι και έτσι','δύσκολος','Εύκολο','Έτσι','δύσκολο'])
 
         if(self.text=='Εύκολο'):
             self.feedbackAnswer('1')
@@ -176,7 +185,7 @@ class RootController(QObject):
         return thread
 
     def getTextContinue (self,event: Event) -> None:
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Get Text!!!!")
+        print("Check ")
         self.text=self._rosInterface.getText(['Ναι','όχι','τερματισμός','συνέχεια','επόμενο'])
         print("--------------------------------------"+self.text)
         if(self.text=='όχι'or self.text=='τερματισμός'):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'views/ui/menu.ui'
+# Form implementation generated from reading ui file 'views/ui/men2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -321,11 +321,9 @@ class Ui_menuWindow(object):
         self.gridLayout_10.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
         self.gridLayout_10.setVerticalSpacing(30)
         self.gridLayout_10.setObjectName("gridLayout_10")
-        self.normal = QtWidgets.QLabel(self.feeback)
-        self.normal.setMaximumSize(QtCore.QSize(900, 600))
-        self.normal.setScaledContents(True)
-        self.normal.setObjectName("normal")
-        self.gridLayout_10.addWidget(self.normal, 1, 1, 1, 1, QtCore.Qt.AlignHCenter)
+        self.nextExersice = QtWidgets.QPushButton(self.feeback)
+        self.nextExersice.setObjectName("nextExersice")
+        self.gridLayout_10.addWidget(self.nextExersice, 1, 1, 1, 1)
         self.label_6 = QtWidgets.QLabel(self.feeback)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -337,32 +335,10 @@ class Ui_menuWindow(object):
         font.setPointSize(24)
         self.label_6.setFont(font)
         self.label_6.setObjectName("label_6")
-        self.gridLayout_10.addWidget(self.label_6, 0, 0, 1, 3, QtCore.Qt.AlignHCenter)
-        self.easy = QtWidgets.QLabel(self.feeback)
-        self.easy.setMaximumSize(QtCore.QSize(900, 600))
-        self.easy.setScaledContents(True)
-        self.easy.setObjectName("easy")
-        self.gridLayout_10.addWidget(self.easy, 1, 0, 1, 1, QtCore.Qt.AlignHCenter)
+        self.gridLayout_10.addWidget(self.label_6, 0, 0, 1, 2, QtCore.Qt.AlignHCenter)
         self.terminateButton = QtWidgets.QPushButton(self.feeback)
         self.terminateButton.setObjectName("terminateButton")
-        self.gridLayout_10.addWidget(self.terminateButton, 3, 0, 1, 1)
-        self.feedbackHardButton = QtWidgets.QPushButton(self.feeback)
-        self.feedbackHardButton.setObjectName("feedbackHardButton")
-        self.gridLayout_10.addWidget(self.feedbackHardButton, 2, 2, 1, 1)
-        self.nextExersice = QtWidgets.QPushButton(self.feeback)
-        self.nextExersice.setObjectName("nextExersice")
-        self.gridLayout_10.addWidget(self.nextExersice, 3, 2, 1, 1)
-        self.hard = QtWidgets.QLabel(self.feeback)
-        self.hard.setMaximumSize(QtCore.QSize(900, 600))
-        self.hard.setScaledContents(True)
-        self.hard.setObjectName("hard")
-        self.gridLayout_10.addWidget(self.hard, 1, 2, 1, 1, QtCore.Qt.AlignHCenter)
-        self.feedbackEasyButton = QtWidgets.QPushButton(self.feeback)
-        self.feedbackEasyButton.setObjectName("feedbackEasyButton")
-        self.gridLayout_10.addWidget(self.feedbackEasyButton, 2, 0, 1, 1)
-        self.feedbackNormalButton = QtWidgets.QPushButton(self.feeback)
-        self.feedbackNormalButton.setObjectName("feedbackNormalButton")
-        self.gridLayout_10.addWidget(self.feedbackNormalButton, 2, 1, 1, 1)
+        self.gridLayout_10.addWidget(self.terminateButton, 1, 0, 1, 1)
         self.gridLayout_11.addLayout(self.gridLayout_10, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.feeback)
         self.ex5Step2 = QtWidgets.QWidget()
@@ -383,7 +359,7 @@ class Ui_menuWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 735, 891))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 946, 888))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_7.setObjectName("gridLayout_7")
@@ -1206,12 +1182,12 @@ class Ui_menuWindow(object):
         self.action_4.setObjectName("action_4")
 
         self.retranslateUi(menuWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(menuWindow)
 
     def retranslateUi(self, menuWindow):
         _translate = QtCore.QCoreApplication.translate
-        menuWindow.setWindowTitle(_translate("menuWindow", "Αρχική οθόνη "))
+        menuWindow.setWindowTitle(_translate("menuWindow", "LINA the robot"))
         self.textEdit.setHtml(_translate("menuWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -1219,48 +1195,36 @@ class Ui_menuWindow(object):
 "<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'arial,sans-serif\'; font-size:24pt; color:#8ab4f8;\">LINA the robot Εκπαιδευτικές δραστηριότητες.</span></p></body></html>"))
         self.l12.setText(_translate("menuWindow", "TextLabel"))
         self.l10.setText(_translate("menuWindow", "TextLabel"))
-        self.ex4.setText(_translate("menuWindow", "Η Μαρία και η μαμά της"))
-        self.ex2.setText(_translate("menuWindow", "Άσκηση προσοχής"))
-        self.ex11.setText(_translate("menuWindow", "Ένα παιγνίδι με γρίφους"))
+        self.ex4.setText(_translate("menuWindow", "4. Η Μαρία και η μαμά της"))
+        self.ex2.setText(_translate("menuWindow", "2. Άσκηση προσοχής"))
+        self.ex11.setText(_translate("menuWindow", "11.Ένα παιγνίδι με γρίφους"))
         self.l5.setText(_translate("menuWindow", "TextLabel"))
-        self.ex3.setText(_translate("menuWindow", "Ο Γιωργάκης και η σοκολάτα!"))
+        self.ex3.setText(_translate("menuWindow", "3. Ο Γιωργάκης και η σοκολάτα!"))
         self.l4.setText(_translate("menuWindow", "TextLabel"))
-        self.ex1.setText(_translate("menuWindow", "ο λιοντάρι και τα παπάκια"))
-        self.ex10.setText(_translate("menuWindow", "Η μικρή Σοφία!"))
+        self.ex1.setText(_translate("menuWindow", "1.Tο λιοντάρι και τα παπάκια"))
+        self.ex10.setText(_translate("menuWindow", "10. Η μικρή Σοφία!"))
         self.selectExersiceButton.setText(_translate("menuWindow", "Έναρξη"))
         self.l9.setText(_translate("menuWindow", "TextLabel"))
         self.l7.setText(_translate("menuWindow", "TextLabel"))
         self.pushButtonMainResults.setText(_translate("menuWindow", "Αποτελέσματα"))
         self.l1.setText(_translate("menuWindow", "TextLabel"))
         self.l3.setText(_translate("menuWindow", "TextLabel"))
-        self.ex7.setText(_translate("menuWindow", "Η μαμά καγκούρο"))
-        self.ex9.setText(_translate("menuWindow", "Ο μικρός στρατιώτης!"))
-        self.ex5.setText(_translate("menuWindow", "Ένα παιγνίδι με γρίφους"))
+        self.ex7.setText(_translate("menuWindow", "7. Η μαμά καγκούρο"))
+        self.ex9.setText(_translate("menuWindow", "9. Ο μικρός στρατιώτης!"))
+        self.ex5.setText(_translate("menuWindow", "5. Ένα παιγνίδι με γρίφους"))
         self.l2.setText(_translate("menuWindow", "TextLabel"))
-        self.ex8.setText(_translate("menuWindow", "Ο Μάξιμος"))
+        self.ex8.setText(_translate("menuWindow", "8. Ο Μάξιμος"))
         self.l8.setText(_translate("menuWindow", "TextLabel"))
         self.l11.setText(_translate("menuWindow", "TextLabel"))
-        self.ex12.setText(_translate("menuWindow", "Τι δείχνουν οι εικόνες-2-"))
-        self.ex6.setText(_translate("menuWindow", "Τι δείχνουν οι εικόνες"))
+        self.ex12.setText(_translate("menuWindow", "12. Τι δείχνουν οι εικόνες"))
+        self.ex6.setText(_translate("menuWindow", "6. Τι δείχνουν οι εικόνες"))
         self.l6.setText(_translate("menuWindow", "TextLabel"))
-        self.normal.setText(_translate("menuWindow", "Normal"))
-        self.label_6.setText(_translate("menuWindow", "Πόσο εύκολος σου φάνηκε ο γρίφος"))
-        self.easy.setText(_translate("menuWindow", "Easy"))
-        self.terminateButton.setText(_translate("menuWindow", "\n"
-"Τερματισμός\n"
-""))
-        self.feedbackHardButton.setText(_translate("menuWindow", "\n"
-"Δύσκολος\n"
-""))
         self.nextExersice.setText(_translate("menuWindow", "\n"
 "Επόμενη δραστηριότητα\n"
 ""))
-        self.hard.setText(_translate("menuWindow", "Hard"))
-        self.feedbackEasyButton.setText(_translate("menuWindow", "\n"
-"Εύκολος\n"
-""))
-        self.feedbackNormalButton.setText(_translate("menuWindow", "\n"
-"Έτσι και έτσι\n"
+        self.label_6.setText(_translate("menuWindow", "Πόσο εύκολος σου φάνηκε ο γρίφος"))
+        self.terminateButton.setText(_translate("menuWindow", "\n"
+"Τερματισμός\n"
 ""))
         self.label_11.setText(_translate("menuWindow", "Τέλος"))
         self.go2Home.setText(_translate("menuWindow", "Αρχικό Μενού"))

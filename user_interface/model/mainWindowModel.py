@@ -76,6 +76,8 @@ class MainWindowModel(QObject):
 
     showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
 
+    changeFeedbackLabel= pyqtSignal(str, name='changeFeedbackLabel')
+
     @property
     def currentExerciseID(self):
         return self._currentExerciseID    
@@ -197,7 +199,7 @@ class MainWindowModel(QObject):
 
     def nextPageEx6(self,value):
         if self.stepImage6==0:
-            print(' next page image 6', value)
+            print('Next Image', value)
             self.nextPageSignalEx6.emit(self.path+"/resources/images/ex6/2.png")
             self.stepImage6=self.stepImage6+1       
         else :
@@ -233,6 +235,7 @@ class MainWindowModel(QObject):
 
         
     showAnswerButtons = pyqtSignal(str, name='showAnswerButtons')
+
 
     def createNewResultObject(self):
         return Results()
@@ -275,6 +278,13 @@ class MainWindowModel(QObject):
 
     def showAnswerButtonsFunction(self):
         self.showAnswerButtons.emit("")
+
+    def changeFeedbackLabelCorrect(self):
+        print ("changeFeedbackLabelCorrect")
+        self.changeFeedbackLabel.emit("Μπράβο το πέτυχες!!!")
+
+    def changeFeedbackLabelWrong(self):
+        self.changeFeedbackLabel.emit("Καλή προσπάθεια! Aλλά δεν το πέτυχες!")
 
     def showButtonsFeedback(self):
         self.showButtons.emit("")

@@ -127,7 +127,6 @@ class page2View(QWidget):
 
     @pyqtSlot(str)
     def nextPageSignalEx6(self, value):
-        print("Image 6")
         self.test6.openImage(value)
         self.test6.resize()     
 

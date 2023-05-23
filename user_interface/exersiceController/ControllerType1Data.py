@@ -32,6 +32,8 @@ class ControllerType1Data():
         #PATH# Exercise 1
         self.moveRobot='/robotApp/positions/voice.txt'
 
+        self.correctAnswer=['4','Τέσσερα']
+
     def setVariable2(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους.\n Με ποιο αντικείμενο μοιάζει η κεντρική εικόνα;'
 
@@ -54,7 +56,7 @@ class ControllerType1Data():
         self._answerEx5Descr='\nΕ\n'
 
         self.results=['α','β','γ','δ','ε']
-
+        self.correctAnswer=['A','Α','Άλφα','άλφα']
         #PATH# Exercise 2
         self.moveRobot='/robotApp/positions/voice.txt'
 
@@ -79,6 +81,7 @@ class ControllerType1Data():
         self.results=['4','8','30','56','112','τέσσερα','οχτώ','τριάντα','πενήντα έξι','εκατό δώδεκα','πενήντα','εκατό','εκατόν δώδεκα']
         #PATH# Exercise 7
         self.moveRobot='/robotApp/positions/voice.txt'
+        self.correctAnswer=['112','εκατό','Έκατο','Εκατό δώδεκα']
 
     def setVariableB2(self):
         self._exersiceDsr='Ο Μάξιμος έκοψε ένα φύλλο χαρτί σε 2 κομμάτια. Το ένα κομμάτι εμφανίζεται στο πάνω μέρος της οθόνης. Ποιο από τα κομμάτια στο κάτω μέρος της οθόνης είναι το άλλο;'
@@ -106,6 +109,7 @@ class ControllerType1Data():
         self.results=['α','β','γ','δ','ε']
         #PATH# Exercise 8
         self.moveRobot='/robotApp/positions/voice.txt'
+        self.correctAnswer=['Ε','Έψιλον','εψιλόν','πέντε']
 
 
 

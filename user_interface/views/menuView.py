@@ -23,18 +23,18 @@ class MenuView(QMainWindow):
         self.resize(model.sizeY, model.sizeY)
         self._ui.selectExercise.addItems(self._model.listAvailableExersice)
         # self._ui.comboBox.addItems(self._model.result.listWithNames)
-        self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
-        self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
-        self._ui.hard.setPixmap(QtGui.QPixmap(self._model.difficultFeedback))
+        #self._ui.easy.setPixmap(QtGui.QPixmap(self._model.easyFeedbackImg ))
+        #self._ui.normal.setPixmap(QtGui.QPixmap(self._model.normalFeedback))
+        #self._ui.hard.setPixmap(QtGui.QPixmap(self._model.difficultFeedback))
 
-        self._ui.easy.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
-        self._ui.easy.setScaledContents(True)
+        # self._ui.easy.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
+        # self._ui.easy.setScaledContents(True)
 
-        self._ui.normal.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
-        self._ui.normal.setScaledContents(True)
+        # self._ui.normal.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
+        # self._ui.normal.setScaledContents(True)
 
-        self._ui.hard.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
-        self._ui.hard.setScaledContents(True)
+        # self._ui.hard.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
+        # self._ui.hard.setScaledContents(True)
 
         # self._ui.mainImageHome.setMaximumSize(QtCore.QSize(480/model.i, 480/model.i))
         # self._ui.mainImageHome.setScaledContents(True)
@@ -161,10 +161,9 @@ class MenuView(QMainWindow):
 
 
         self._ui.terminateButton.clicked.connect(lambda: self._main_controller.go2Home(  self._ui.name.text(),self._ui.surname.text(),self._ui.ageTextBox.text() ) )
-        self._ui.feedbackEasyButton.clicked.connect(lambda: self._main_controller.feedback('1'))
-        self._ui.feedbackNormalButton.clicked.connect(lambda: self._main_controller.feedback('2'))
-        self._ui.feedbackHardButton.clicked.connect(lambda: self._main_controller.feedback('3'))
-
+        # self._ui.feedbackEasyButton.clicked.connect(lambda: self._main_controller.feedback('1'))
+        # self._ui.feedbackNormalButton.clicked.connect(lambda: self._main_controller.feedback('2'))
+        # self._ui.feedbackHardButton.clicked.connect(lambda: self._main_controller.feedback('3'))
 
 
         #################################################################################################xml
@@ -172,7 +171,7 @@ class MenuView(QMainWindow):
         self._model.changeDscrSingal.connect(self.changeDscrChanged)
         self._model.resetFieldSingal.connect(self.resetField)
         self._model.setPageSignal.connect(self.setPage)
-
+        self._model.changeFeedbackLabel.connect(self.changeFeedbackLabel)
         self._model.showButtons.connect(self.showButtons)
 
         #Feedback
@@ -320,21 +319,23 @@ class MenuView(QMainWindow):
             self._ui.feedbackEasyButton.setDisabled(False)
             self._ui.feedbackNormalButton.setDisabled(False)
             self._ui.feedbackHardButton.setDisabled(False)
-
+    
+    @pyqtSlot(str)
+    def changeFeedbackLabel(self,value):   
+        print("!!!!! changeFeedbackLabel")
+        self._ui.label_6.setText(value)
+        
     @pyqtSlot(str)
     def nextPageSignalEx6(self, value):
-        print("Image 6")
         self.test6.openImage(value)
         self.test6.resize()     
 
-
-
     def hideButtons(self):
-        self._ui.feedbackEasyButton.setDisabled(True)
-        self._ui.feedbackNormalButton.setDisabled(True)
-        self._ui.feedbackHardButton.setDisabled(True)
-        self._ui.terminateButton.setDisabled(True)
-        self._ui.nextExersice.setDisabled(True)
+        # self._ui.feedbackEasyButton.setDisabled(True)
+        # self._ui.feedbackNormalButton.setDisabled(True)
+        # self._ui.feedbackHardButton.setDisabled(True)
+        self._ui.terminateButton.setDisabled(False)
+        self._ui.nextExersice.setDisabled(False)
      
 
     def showButtons(self,str):
