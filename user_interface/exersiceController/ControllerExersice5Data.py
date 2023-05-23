@@ -44,6 +44,7 @@ class ControllerExersice5Data():
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
     
         self.correctAnswer=['Ε','πέντε','πεντε']
+        
 
     
     def setVariable2(self):

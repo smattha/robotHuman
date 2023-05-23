@@ -95,10 +95,10 @@ class ControllerType2(RootController,ControllerType2Data):
     def updateImages(self):
         counter=1
         self.model.nextImage = self._imagesStory[0][1]
-        if self.model.name=='':
-            self.model.name=self._rosInterface.getNames()
+        # if self.model.name=='':
+        #     self.model.name=self._rosInterface.getNames()
         self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
-        self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
+        self._rosInterface.talker(" Παιδάκι όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
         # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         while (len(self._imagesStory)>self._counter):

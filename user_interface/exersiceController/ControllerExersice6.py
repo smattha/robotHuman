@@ -138,10 +138,10 @@ class ControllerExersice6(RootController,QObject):
 
     def readExersiceThread(self):
         print('Read Exercise')
-        if self.model.name=='':
-            self.model.name=self._rosInterface.getNames()
-        self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
-        self._rosInterface.talker(self.model.name+" όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
+        # if self.model.name=='':
+        #     self.model.name=self._rosInterface.getNames()
+        self._rosInterface.talker(" "+self._exerciseDscr)
+        self._rosInterface.talker("Παιδάκι όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.csv')
         self._rosInterface.getHand()
         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')

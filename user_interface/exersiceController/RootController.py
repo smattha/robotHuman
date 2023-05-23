@@ -127,8 +127,8 @@ class RootController(QObject):
 
     def stopBeforeShowImageMain(self):
         
-        while self.model.name=='':
-            self.model.name=self._rosInterface.getNames()
+        # while self.model.name=='':
+        #     self.model.name=self._rosInterface.getNames()
         #3
         self._rosInterface.moveRobotFromFile('/robotApp/positions/handRaise.csv')
         self._rosInterface.talker("Παιδάκι όταν είσαι ετοιμό να προχωρήσουμε σήκωσε το χέρι")

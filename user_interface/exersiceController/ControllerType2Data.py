@@ -35,11 +35,14 @@ class ControllerType2Data():
         self.moveRobot='/robotApp/positions/voice.txt'
 
         self.correctAnswer=['112','εκατό','Έκατο','Εκατό δώδεκα']
+        self._imagesStoryCur='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές.\n Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. '
+
+
         
     def setVariables4(self):
         
         self._imagesStory=  [
-                    ["Η Μαρία είναι ένα μικρό κοριτσάκι 3 ετών'", self.path+"/resources/images/ex4/1.png",'1'],
+                    ["Η Μαρία είναι ένα μικρό κοριτσάκι τριών ετών'", self.path+"/resources/images/ex4/1.png",'1'],
                     ["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα'", self.path+"/resources/images/ex4/2.png",'2'],
                     ["Μια φίλη της μαμάς της Μαρίας ήρθε επίσκεψη", self.path+"/resources/images/ex4/3.png",'3'],
                     ["Η μαμά της Μαρίας λέει: «Καλημέρα!", self.path+"/resources/images/ex4/4.png",'3'],
@@ -53,12 +56,14 @@ class ControllerType2Data():
                     ]
         self._counter=0
         self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
-        self.title= '4.Η Μαρία και η μαμά της'
+        self.title= '4.Η Μαρία και η μαμά της\n\n'
         self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
         self.results=['Φίλη','φιλή','Τρία','τρια','3']
 
         #PATH# Exercise 4
         self.moveRobot='/robotApp/positions/voice.txt'
+        self._imagesStoryCur=' Τώρα θα σου πω κάποιες ιστορίες.\n Άκουσε προσεκτικά τις ιστορίες. \nΓιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
+
 
     def setVariablesB3(self):
         
@@ -84,6 +89,7 @@ class ControllerType2Data():
 
         #PATH# Exercise 8
         self.moveRobot='/robotApp/positions/voice.txt'
+        self._imagesStoryCur='Στις παρακάτω εικόνες θα δούμε την ιστορία ενός μικρού στρατιώτη.\nΑφού ακούσεις προσεκτικά την ιστορία θα χρειαστεί να απαντήσεις σωστά στην ερώτηση που θα σου κάνω.'
 
     def setVariablesB4(self):
         
@@ -112,3 +118,4 @@ class ControllerType2Data():
         self.moveRobot='/robotApp/positions/voice.txt'
 
         self.results=['Φίλη','Φιλη','Φιλή','Δύο','2']
+        self._imagesStoryCur='Τώρα θα σου πω κάποιες ιστορίες.\n Άκουσε προσεκτικά τις ιστορίες.\n Γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα'
