@@ -17,6 +17,8 @@ from model.Results import Results
 class MainWindowModel(QObject):
 
 
+
+    correct=True
     listAvailableExersice= ["Το λιοντάρι και τα παπάκια", "Ασκηση προσοχής", "Ο Γιωργάκης και η σοκολάτα",
                             "Η Μαρία και η μαμά της", "Ένα παιγνίδι με γρίφους", "Τι δείχνουν οι εικόνες",
                             "Η μαμά καγκούρο", "Ο Μάξιμος", "Ο κοκκινός στρατός",
