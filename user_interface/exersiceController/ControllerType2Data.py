@@ -41,11 +41,12 @@ class ControllerType2Data():
         
     def setVariables4(self):
         
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/askisi_4.csv.csv')
         self._imagesStory=  [
-                    ["Η Μαρία είναι ένα μικρό κοριτσάκι τριών ετών'", self.path+"/resources/images/ex4/1.png",'1'],
-                    ["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα'", self.path+"/resources/images/ex4/2.png",'2'],
-                    ["Μια φίλη της μαμάς της Μαρίας ήρθε επίσκεψη", self.path+"/resources/images/ex4/3.png",'3'],
-                    ["Η μαμά της Μαρίας λέει: «Καλημέρα!", self.path+"/resources/images/ex4/4.png",'3'],
+                    ["Η Μαρία είναι ένα μικρό κοριτσάκι τριών ετών", self.path+"/resources/images/ex4/1.png",'1'],
+                    #["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα", self.path+"/resources/images/ex4/2.png",'2'],
+                    #["Μια φίλη της μαμάς της Μαρίας ήρθε επίσκεψη", self.path+"/resources/images/ex4/3.png",'3'],
+                    #["Η μαμά της Μαρίας λέει: «Καλημέρα!", self.path+"/resources/images/ex4/4.png",'3'],
                     ["νομίζω ότι δεν έχω γνωρίσει το γιο σου. Πως τον λένε;'", self.path+"/resources/images/ex4/5.png",'4']
         ]
 
@@ -55,14 +56,14 @@ class ControllerType2Data():
                     ["\nΦίλη\n", self.path+"/resources/images/ex4/8.png",'3']
                     ]
         self._counter=0
-        self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
+        self._exerciseDscr=' Τώρα θα σου πω κάποιες ιστορίες. Άκουσε προσεκτικά τις ιστορίες γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί, να στεναχωρήσει ή να θυμώσει τον ήρωα.'
         self.title= '4.Η Μαρία και η μαμά της\n\n'
-        self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;"
-        self.results=['Φίλη','φιλή','Τρία','τρια','3']
+        self.answerEx3="Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει, ή να θυμώσει, κάποιον από τους ήρωες της ιστορίας? Ποιός ήταν?"
+        self.results=['Μαρία','Μαμά','μαρια','Μαρία''Φίλη','φίλη','φιλη','Τρία','τρια','3']
 
         #PATH# Exercise 4
-        self.moveRobot='/robotApp/positions/voice.txt'
-        self._imagesStoryCur=' Τώρα θα σου πω κάποιες ιστορίες.\n Άκουσε προσεκτικά τις ιστορίες. \nΓιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/start.csv')
+        self._imagesStoryCur=' Τώρα θα σου πω κάποιες ιστορίες.\n Άκουσε προσεκτικά τις ιστορίες. \nΓιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί, να στεναχωρήσει ή να θυμώσει τον ήρωα.'
 
 
     def setVariablesB3(self):
@@ -84,7 +85,7 @@ class ControllerType2Data():
         self.title= '9.Ο μικρός στρατιώτης!'
         self.results=['Βουνό','Θάλασσα']
 
-        self.results=['Θάλασσα','Θαλασσα','Δύο','2']
+        #self.results=['Θάλασσα','Θαλασσα','Δύο','2']
 
 
         #PATH# Exercise 8

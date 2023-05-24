@@ -101,6 +101,7 @@ class ControllerType2(RootController,ControllerType2Data):
         self._rosInterface.talker(" Παιδάκι όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
         # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/handRaise.csv')
         while (len(self._imagesStory)>self._counter):
             self.nextPage4()
             if (counter==1):
