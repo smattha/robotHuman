@@ -88,13 +88,14 @@ class ControllerExersice6(RootController,QObject):
 
 
     def setVariables4(self):
-        
+
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/start.csv')
         self._imagesStory=  [
                     ["Η Μαρία είναι ένα μικρό κοριτσάκι 3 ετών'", self.path+"/resources/images/ex4/1.png",'1'],
                     ["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα'", self.path+"/resources/images/ex4/2.png",'2'],
                     ["Η μαμά της Μαρίας λέει: «Καλημέρα!", self.path+"/resources/images/ex4/3.png",'3'],
                     ["Ω νομίζω ότι δεν έχω γνωρίσει το γιο σου. Πως τον λένε;'", self.path+"/resources/images/ex4/4.png",'4'],
-                    ["Άκουσες κάποιον να λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;", self.path+"/resources/images/ex4/5.png",'5']
+                    ["Άκουσες κάποιον να λέει κάτι που μπορεί, να στεναχωρήσει ή να θυμώσει κάποιον από τους ήρωες της ιστορίας;", self.path+"/resources/images/ex4/5.png",'5']
         ]
 
         self._imagesAnswer=  [

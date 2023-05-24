@@ -134,7 +134,7 @@ class RootController(QObject):
         self._rosInterface.talker("Παιδάκι όταν είσαι ετοιμό να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
         # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
-        #self._rosInterface.moveRobotFromFile('/robotApp/positions/read.txt')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.csv')
         self._rosInterface.talker(self._exersiceDsr + self._answerDscr)
         self.thread=self.getTextMainThread()
         self.model.showAnswerButtonsFunction()
