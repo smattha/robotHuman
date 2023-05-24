@@ -106,9 +106,9 @@ class Ros_Audio_Service(object):
     def talker(self,msg):
         
         print("Call text to speech with msg :\t\t"+msg)
-        if self.flag == 'test':
-            sleep(2)
-            return 'TEST'
+        # if self.flag == 'test':
+        #     sleep(2)
+        #     return 'TEST'
 
         rospy.wait_for_service('textToSpeechBlocking')
         print ("Found")
@@ -127,9 +127,9 @@ class Ros_Audio_Service(object):
 
     def displayImg(self,name):
         
-        # if self.flag == 'test':
-        #     sleep(1)
-        #     return 'TEST'
+        if self.flag == 'test':
+            sleep(1)
+            return 'TEST'
 
         rospy.wait_for_service('robot_face_srv')
         getText_ROS = rospy.ServiceProxy('robot_face_srv', imageName)

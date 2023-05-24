@@ -46,6 +46,9 @@ class ControllerExersice5Data():
         # self.correctAnswer=['Ε','πέντε','πεντε']
         self.correctAnswer=['2','δυο','Δύο']
 
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+        self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο Ένας δύο τρεις τέσσερις ή πέντε'
+
     
     def setVariable2(self):
         self._exersiceDsr='Άσκηση προσοχής'
@@ -74,11 +77,12 @@ class ControllerExersice5Data():
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
 
         #PATH# Exercise 5
-        self.moveRobot='/robotApp/positions/voice.txt'
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
 
-        # self.correctAnswer=['Ε','πέντε','πεντε']
 
         self.correctAnswer=['3','τρία','τρια','Τρεια']
+
+        self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσα είναι τα (γκρι) περιστέρια Ένας δύο τρεις τέσσερις ή πέντε'
 
 
     def setVariableB5(self):
@@ -108,6 +112,4 @@ class ControllerExersice5Data():
 
 
         #PATH# Exercise 11
-        self.moveRobot='/robotApp/positions/voice.txt'
-
-
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'

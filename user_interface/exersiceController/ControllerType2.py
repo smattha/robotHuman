@@ -107,11 +107,18 @@ class ControllerType2(RootController,ControllerType2Data):
         self.model.nextImage = self._imagesStory[0][1]
         # if self.model.name=='':
         #     self.model.name=self._rosInterface.getNames()
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/handRaise.csv')
         self._rosInterface.talker(self.model.name +" "+self._exerciseDscr)
         self._rosInterface.talker(" Παιδάκι όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
         # self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/handRaise.csv')
+
+        if hasattr(self, 'moveRobot'):
+            print ('Move robot!!!'+self.moveRobot)
+            self._rosInterface.moveRobotFromFile(self.moveRobot)
+        else:
+            self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.csv')
+
         while (len(self._imagesStory)>self._counter):
             self.nextPage4()
             if (counter==1):

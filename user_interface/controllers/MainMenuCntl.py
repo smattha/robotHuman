@@ -99,7 +99,8 @@ class MainMenuCntl(QObject):
     def move2NextPage(self):
         value=self._model.currentExerciseID
         print('Move to next page ',self._model.currentExerciseID)
-        # if (value==0):value
+        if (value==12):
+            self.model.trigger(0)
         self._model.currentExerciseID=value
         self._model.trigger(int(value)+1)
         self._exercisesController[value].readExersice()

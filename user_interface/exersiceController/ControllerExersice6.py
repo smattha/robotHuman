@@ -60,7 +60,7 @@ class ControllerExersice6(RootController,QObject):
         self.correctAnswer=['άλογο','πορτοκάλι','αλογο','πορτοκαλι']
 
         #PATH# Exercise 6
-        self.moveRobot='/robotApp/positions/speech2Text.txt'
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
 
 
     def setVariable6B(self):
@@ -81,7 +81,7 @@ class ControllerExersice6(RootController,QObject):
 
 
         #PATH# Exercise 12
-        self.moveRobot='/robotApp/positions/voice.txt'
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
 
 
         self.correctAnswer=['σκυλί','μήλο','σκυλί','μήλο']
@@ -142,9 +142,16 @@ class ControllerExersice6(RootController,QObject):
         # if self.model.name=='':
         #     self.model.name=self._rosInterface.getNames()
         self._rosInterface.talker(" "+self._exerciseDscr)
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/handRaise.csv')
         self._rosInterface.talker("Παιδάκι όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.csv')
         self._rosInterface.getHand()
+        
+        if hasattr(self, 'moveRobot'):
+            print ('Move robot!!!'+self.moveRobot)
+            self._rosInterface.moveRobotFromFile(self.moveRobot)
+        else:
+            self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.csv')
+
         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
         self._rosInterface.talker("Τι δείχνει η εικόνα;")
         self.nextPage3(0)

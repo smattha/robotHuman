@@ -7,7 +7,7 @@ class ControllerType1Data():
 
 
     def setVariable1(self):
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/askisi_1.csv')
+        # self._rosInterface.moveRobotFromFile('/robotApp/positions/askisi_1.csv')
         self._exersiceDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια. Πόσα παπάκια ζυγίζουν το ίδιο με το λιοντάρι;'
 
         self._exersiceTitleDsr='Ένα λιοντάρι ζυγίζει το ίδιο με 2 σκυλάκια. Ένα σκυλάκι ζυγίζει το ίδιο με 2 παπάκια.'
@@ -31,7 +31,7 @@ class ControllerType1Data():
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
 
         #PATH# Exercise 1
-        self.moveRobot='/robotApp/positions/voice.txt'
+        self.moveRobot='/robotApp/positions/askisi_1.csv'
 
         self.correctAnswer=['4','Τέσσερα']
 
@@ -59,7 +59,7 @@ class ControllerType1Data():
         self.results=['α','β','γ','δ','ε']
         self.correctAnswer=['A','1','\nA\n','Α','Άλφα','άλφα']
         #PATH# Exercise 2
-        self.moveRobot='/robotApp/positions/voice.txt'
+        self.moveRobot='/robotApp/positions/askisi_1.csv'
 
     def setVariableB1(self):
         self._exersiceDsr='Η μαμά καγκουρό ζυγίζει με το μωρό της 60 κιλά. Η μαμά ζυγίζει μόνη της 52 κιλά. Πόσα κιλά ζυγίζει το μωρό της;'
@@ -81,7 +81,7 @@ class ControllerType1Data():
 
         self.results=['4','8','30','56','112','τέσσερα','οχτώ','τριάντα','πενήντα έξι','εκατό δώδεκα','πενήντα','εκατό','εκατόν δώδεκα']
         #PATH# Exercise 7
-        self.moveRobot='/robotApp/positions/voice.txt'
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
         self.correctAnswer=['οχτώ','Οχτω','2']
 
     def setVariableB2(self):
@@ -109,7 +109,7 @@ class ControllerType1Data():
 
         self.results=['α','β','γ','δ','ε']
         #PATH# Exercise 8
-        self.moveRobot='/robotApp/positions/voice.txt'
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
         self.correctAnswer=['Ε','Έψιλον','εψιλόν','πέντε','5']
 
 

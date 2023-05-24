@@ -32,7 +32,7 @@ class ControllerType2Data():
         self.results=['Ψυγείο','ψυγειο','Δύο','2','Δεύτερο']
 
         #PATH# Exercise 3
-        self.moveRobot='/robotApp/positions/voice.txt'
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
 
         self.correctAnswer=['Ντουλάπι','nΝτουλαπι','1','Ένα']
         self._imagesStoryCur='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές.\n Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. '
@@ -41,13 +41,12 @@ class ControllerType2Data():
 
         
     def setVariables4(self):
-        
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/askisi_4.csv.csv')
+
         self._imagesStory=  [
                     ["Η Μαρία είναι ένα μικρό κοριτσάκι τριών ετών", self.path+"/resources/images/ex4/1.png",'1'],
-                    #["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα", self.path+"/resources/images/ex4/2.png",'2'],
-                    #["Μια φίλη της μαμάς της Μαρίας ήρθε επίσκεψη", self.path+"/resources/images/ex4/3.png",'3'],
-                    #["Η μαμά της Μαρίας λέει: «Καλημέρα!", self.path+"/resources/images/ex4/4.png",'3'],
+                    ["Το κουδούνι χτυπά και η μαμά της Μαρίας ανοίγει την πόρτα", self.path+"/resources/images/ex4/2.png",'2'],
+                    ["Μια φίλη της μαμάς της Μαρίας ήρθε επίσκεψη", self.path+"/resources/images/ex4/3.png",'3'],
+                    ["Η μαμά της Μαρίας λέει: «Καλημέρα!", self.path+"/resources/images/ex4/4.png",'3'],
                     ["νομίζω ότι δεν έχω γνωρίσει το γιο σου. Πως τον λένε;'", self.path+"/resources/images/ex4/5.png",'4']
         ]
 
@@ -63,12 +62,14 @@ class ControllerType2Data():
         self.results=['Μαρία','Μαμά','μαρια','Μαρία''Φίλη','φίλη','φιλη','Τρία','τρια','3']
 
         #PATH# Exercise 4
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/start.csv')
+        # self._rosInterface.moveRobotFromFile('/robotApp/positions/start.csv')
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+
         self._imagesStoryCur=' Τώρα θα σου πω κάποιες ιστορίες.\n Άκουσε προσεκτικά τις ιστορίες. \nΓιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί, να στεναχωρήσει ή να θυμώσει τον ήρωα.'
         self.correctAnswer=['Φίλη','φιλή','Τρία','τρια','3']
 
     def setVariablesB3(self):
-        
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
         self._imagesStory=  [
                    ["Κατά τη διάρκεια του πολέμου, ο κόκκινος στρατός έπιασε έναν στρατιώτη μέλος του μπλε στρατού", self.path+"/resources/images/exB3/1.png",'1'],
                    ["Ήθελαν να τους πει πού βρίσκονται τα τανκς του στρατού του.\n Τα τανκς μπορεί να είναι είτε στη θάλασσα, είτε στο βουνό.\n ", self.path+"/resources/images/exB3/2.png",'2'],
@@ -88,8 +89,8 @@ class ControllerType2Data():
 
         self.correctAnswer=['Θάλασσα','Θαλασσα','Δύο','2']
 
-        #PATH# Exercise 8
-        self.moveRobot='/robotApp/positions/voice.txt'
+        #PATH# Exercise 9
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
         self._imagesStoryCur='Στις παρακάτω εικόνες θα δούμε την ιστορία ενός μικρού στρατιώτη.\nΑφού ακούσεις προσεκτικά την ιστορία θα χρειαστεί να απαντήσεις σωστά στην ερώτηση που θα σου κάνω.'
 
     def setVariablesB4(self):
@@ -115,8 +116,8 @@ class ControllerType2Data():
         self.results=['Σοφία','Φίλη']
 
         self.correctAnswer=['Φίλη','φιλη','Δύο','2']
-        #PATH# Exercise 9
-        self.moveRobot='/robotApp/positions/voice.txt'
+        #PATH# Exercise 10
+        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
 
         self.results=['Φίλη','Φιλη','Φιλή','Δύο','2']
         self._imagesStoryCur='Τώρα θα σου πω κάποιες ιστορίες.\n Άκουσε προσεκτικά τις ιστορίες.\n Γιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα'
