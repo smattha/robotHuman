@@ -21,8 +21,8 @@ class ControllerType2Data():
         ]
 
         self._imagesAnswer=  [
-                    ["\nΝτουλάπι\n", self.path+"/resources/images/ex3/3.png",'1'],
-                    ["\nΨυγείο\n", self.path+"/resources/images/ex3/4.png",'2']
+                    ["Ντουλάπι", self.path+"/resources/images/ex3/3.png",'1'],
+                    ["Ψυγείο", self.path+"/resources/images/ex3/4.png",'2']
                     ]
         self._counter=0
         self._exerciseDscr='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές. Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. '
@@ -34,9 +34,10 @@ class ControllerType2Data():
         #PATH# Exercise 3
         self.moveRobot='/robotApp/positions/voice.txt'
 
-        self.correctAnswer=['112','εκατό','Έκατο','Εκατό δώδεκα']
+        self.correctAnswer=['Ντουλάπι','nΝτουλαπι','1','Ένα']
         self._imagesStoryCur='Στις παρακάτω εικόνες θα δούμε το μικρό Γιωργάκη να κάνει κάποιες σκανταλιές.\n Αφού ακούσεις προσεκτικά την ιστορία θα μαντέψεις τι θα κάνει ο Γιωργάκης. '
 
+        
 
         
     def setVariables4(self):
@@ -63,7 +64,7 @@ class ControllerType2Data():
         #PATH# Exercise 4
         self.moveRobot='/robotApp/positions/voice.txt'
         self._imagesStoryCur=' Τώρα θα σου πω κάποιες ιστορίες.\n Άκουσε προσεκτικά τις ιστορίες. \nΓιατί σε κάποιες από αυτές κάποιος λέει κάτι που μπορεί να στεναχωρήσει ή να θυμώσει τον ήρωα.'
-
+        self.correctAnswer=['Φίλη','φιλή','Τρία','τρια','3']
 
     def setVariablesB3(self):
         
@@ -84,8 +85,7 @@ class ControllerType2Data():
         self.title= '9.Ο μικρός στρατιώτης!'
         self.results=['Βουνό','Θάλασσα']
 
-        self.results=['Θάλασσα','Θαλασσα','Δύο','2']
-
+        self.correctAnswer=['Θάλασσα','Θαλασσα','Δύο','2']
 
         #PATH# Exercise 8
         self.moveRobot='/robotApp/positions/voice.txt'
@@ -113,7 +113,7 @@ class ControllerType2Data():
 
         self.results=['Σοφία','Φίλη']
 
-
+        self.correctAnswer=['Φίλη','φιλη','Δύο','2']
         #PATH# Exercise 9
         self.moveRobot='/robotApp/positions/voice.txt'
 

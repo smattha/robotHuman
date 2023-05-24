@@ -28,7 +28,7 @@ class App(QApplication):
             self.flag=sys.argv[4]
             print("...................")
         else:
-            self.i=1.2
+            self.i=2
             self.displaymageRation=2
             print("testing!!!!")
             self.path = "/robotApp"

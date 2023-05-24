@@ -81,7 +81,7 @@ class ControllerType1Data():
         self.results=['4','8','30','56','112','τέσσερα','οχτώ','τριάντα','πενήντα έξι','εκατό δώδεκα','πενήντα','εκατό','εκατόν δώδεκα']
         #PATH# Exercise 7
         self.moveRobot='/robotApp/positions/voice.txt'
-        self.correctAnswer=['112','5','εκατό','Έκατο','Εκατό δώδεκα']
+        self.correctAnswer=['οχτώ','Οχτω','2']
 
     def setVariableB2(self):
         self._exersiceDsr='Ο Μάξιμος έκοψε ένα φύλλο χαρτί σε 2 κομμάτια. Το ένα κομμάτι εμφανίζεται στο πάνω μέρος της οθόνης. Ποιο από τα κομμάτια στο κάτω μέρος της οθόνης είναι το άλλο;'

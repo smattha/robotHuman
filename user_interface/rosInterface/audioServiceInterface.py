@@ -107,7 +107,7 @@ class Ros_Audio_Service(object):
         
         print("Call text to speech with msg :\t\t"+msg)
         if self.flag == 'test':
-            sleep(1)
+            sleep(2)
             return 'TEST'
 
         rospy.wait_for_service('textToSpeechBlocking')

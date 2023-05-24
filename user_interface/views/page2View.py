@@ -51,6 +51,7 @@ class page2View(QWidget):
 
         # self._ui.label_7.setText(self._main_controller.answerEx3)
         self.i=self._model.i
+        i=0
         for row in self._main_controller._imagesAnswer:
             
 
@@ -63,14 +64,26 @@ class page2View(QWidget):
             self.label_4.setScaledContents(True)
             self._ui.horizontalLayout.addWidget(self.label_4)
 
+            if (i==0):
+                answer5_2 = QtWidgets.QPushButton()
+                answer5_2.setObjectName(row[0])
+                answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer('1'))
+                answer5_2.setText(row[0])
+                self._ui.horizontalLayout_2.addWidget(answer5_2)
 
-            answer5_2 = QtWidgets.QPushButton()
-            answer5_2.setObjectName(row[0])
-            answer5_2.clicked.connect(lambda: self._main_controller.storeAnswer(row[0]))
-            answer5_2.setText(row[0])
-
-            self._ui.horizontalLayout_2.addWidget(answer5_2)
-
+            if (i==1):
+                answer5_3 = QtWidgets.QPushButton()
+                answer5_3.setObjectName(row[0])
+                answer5_3.clicked.connect(lambda: self._main_controller.storeAnswer('2'))
+                answer5_3.setText(row[0])
+                self._ui.horizontalLayout_2.addWidget(answer5_3)
+            if (i==2):
+                answer5_4 = QtWidgets.QPushButton()
+                answer5_4.setObjectName(row[0])
+                answer5_4.clicked.connect(lambda: self._main_controller.storeAnswer('3'))
+                answer5_4.setText(row[0])
+                self._ui.horizontalLayout_2.addWidget(answer5_4)
+            i=i+1
         self._ui.answer5.hide()
         self._ui.label_7.setText(self._main_controller.answerEx3)
 

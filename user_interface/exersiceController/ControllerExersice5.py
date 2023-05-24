@@ -64,6 +64,13 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
     def feedbackStore(self,model,value):
         self._answerEx1=value
         print('\t\t\tfeedback 5 ',value)
+        self.model.changeFeedbackLabelWrong()
+        print("value 5:"+str(value))
+        self.model.correct=False
+        for x in self.correctAnswer:
+            if (x.casefold()==str(value).casefold()):  
+                self.model.changeFeedbackLabelCorrect()
+                self.model.correct=True
       
 
     def feedbackFN(self):
@@ -94,13 +101,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
             # self._rosInterface.talker1(self._exersiceDsr2)
             self.playAudio(self._exersiceDsr2)
             self.readAnswers()
-            self.model.changeFeedbackLabelWrong()
-            print("value :"+str(value))
-            self.model.correct=False
-            for x in self.correctAnswer:
-                if (x.casefold()==str(value).casefold()):  
-                    self.model.changeFeedbackLabelCorrect()
-                    self.model.correct=True
+
         elif  self._counter==1:
             print('--------------------------------------------------------------------------------------------------------------')
             self.model.trigger(self._image2)
@@ -130,7 +131,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
 
     @pyqtSlot(int)
     def storePose(self,value):
-        self._answerEx2=str(value)
+        # self._answerEx2=str(value)
         print('\t\t\tfeedback 2',value)
         self._counter == 1
 
@@ -138,7 +139,7 @@ class ControllerExersice5(RootController,ControllerExersice5Data):
         self.model.trigger(101)
         # self._rosInterface.talker("Μπράβο το πέτυχες!!!")
 
-        self.model.changeFeedbackLabelCorrect()
+        # self.model.changeFeedbackLabelCorrect()
         self.feedbackFN()
 
 

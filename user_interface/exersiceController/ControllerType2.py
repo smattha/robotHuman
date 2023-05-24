@@ -57,6 +57,16 @@ class ControllerType2(RootController,ControllerType2Data):
     def storeAnswer(self,value):
 
         if self.noStep==1:
+            self.model.correct=False;
+            self.model.changeFeedbackLabelWrong()
+            print("value2 :"+str(value))
+            for x in self.correctAnswer:
+                if (x.casefold()==str(value).casefold()):  
+                    self.model.changeFeedbackLabelCorrect()
+                    print('                                                                                 Correct!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+                    self.model.correct=True
+
+
             self.feedbackStore(self.model.result,value)
             self._counter=0
             self.model.trigger(101)

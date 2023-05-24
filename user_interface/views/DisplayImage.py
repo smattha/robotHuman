@@ -153,7 +153,7 @@ class DisplayImageWidget(QWidget):
         rad = self.myPenWidth / 2 + 2
         self.update()
         self.lastPoint = QPoint(endPoint)    
-        self.controller.storeAnswer(1)
+        # self.controller.storeAnswer(1)
         self.controller.storePose(endPoint)
         
         if self.counter==1:

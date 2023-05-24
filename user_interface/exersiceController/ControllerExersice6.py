@@ -127,7 +127,7 @@ class ControllerExersice6(RootController,QObject):
         
         self._imagesStoryCur=self._imagesStory[self._counter][0]
         self.model.nextImage=self._imagesStory[self._counter][1]
-        
+        self.model.nextImage="/robotApp/home.png"
         # self.model.nextImage=self._imagesStory[0][0]
         # self._rosInterface.talker(self._exerciseDscr)
         thread = Thread(target=self.readExersiceThread, args=(), daemon=True)
@@ -145,6 +145,7 @@ class ControllerExersice6(RootController,QObject):
         self._rosInterface.moveRobotFromFile('/robotApp/positions/speech2Text.csv')
         self._rosInterface.getHand()
         self._rosInterface.displayImg('/robotApp/faces/smile.jpg')
+        self._rosInterface.talker("Τι δείχνει η εικόνα;")
         self.nextPage3(0)
         # self.playAudio(self._exerciseDscr)
         self.step1()
@@ -226,6 +227,7 @@ class ControllerExersice6(RootController,QObject):
     def getText(self):
         if self.step==0:
             self._answerEx1=self._rosInterface.getText(self.results)
+            self._rosInterface.talker('Μπράβο το πέτυχες!!!')
             print('reply!!!!!!!!!!!!!!')
         else:
             self.answerEx32=self._rosInterface.getText(self.results)

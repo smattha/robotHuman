@@ -234,6 +234,7 @@ class MenuView(QMainWindow):
             self.test=(DisplayImageWidget(self._main_controller._exercisesController[4]._imagePath,self._model.displayImageRatio))
             self.test.setController(self._main_controller._exercisesController[4])
             self._ui.stackedWidget.addWidget(self.test)
+            self._ui.stackedWidget.ali
 
         elif value==6:
             j=self._ui.stackedWidget.count()
@@ -248,6 +249,7 @@ class MenuView(QMainWindow):
 
         elif value==7:
             j=self._ui.stackedWidget.count()
+
             self.page7=page1View(self._model,self._main_controller._exercisesController[6])
             self._ui.stackedWidget.addWidget(self.page7)
             self._ui.stackedWidget.setCurrentIndex(j)

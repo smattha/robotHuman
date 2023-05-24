@@ -43,8 +43,8 @@ class ControllerExersice5Data():
 
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
     
-        self.correctAnswer=['Ε','πέντε','πεντε']
-        
+        # self.correctAnswer=['Ε','πέντε','πεντε']
+        self.correctAnswer=['2','δυο','Δύο']
 
     
     def setVariable2(self):
@@ -76,7 +76,9 @@ class ControllerExersice5Data():
         #PATH# Exercise 5
         self.moveRobot='/robotApp/positions/voice.txt'
 
-        self.correctAnswer=['Ε','πέντε','πεντε']
+        # self.correctAnswer=['Ε','πέντε','πεντε']
+
+        self.correctAnswer=['3','τρία','τρια','Τρεια']
 
 
     def setVariableB5(self):
@@ -107,3 +109,5 @@ class ControllerExersice5Data():
 
         #PATH# Exercise 11
         self.moveRobot='/robotApp/positions/voice.txt'
+
+
