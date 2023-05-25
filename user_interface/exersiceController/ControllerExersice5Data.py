@@ -46,7 +46,8 @@ class ControllerExersice5Data():
         # self.correctAnswer=['Ε','πέντε','πεντε']
         self.correctAnswer=['2','δυο','Δύο']
 
-        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+        #PATH# Exercise 5
+        self.moveRobot='/robotApp/positions/askisi_1.csv'
         self._answerDscr='Κοίτα προσεκτικά την εικόνα και βρες πόσοι άνθρωποι φοράνε καπέλο Ένας δύο τρεις τέσσερις ή πέντε'
 
     
@@ -76,8 +77,8 @@ class ControllerExersice5Data():
 
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
 
-        #PATH# Exercise 5
-        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+        #PATH# Exercise 11
+        self.moveRobot='/robotApp/positions/askisi_1.csv'
 
 
         self.correctAnswer=['3','τρία','τρια','Τρεια']
@@ -87,7 +88,7 @@ class ControllerExersice5Data():
 
     def setVariableB5(self):
         self._exersiceDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων.'
-        self._answerDscr='1, 2, 3, 4 ή 5;'
+        self._answerDscr='1, 2, 3, 4 ή 5Σ;'
         self._title='11.Παιχνίδι με γρίφους.'
         self._imagePath=self.path+"/resources/images/exB5/1.jpg"
         self._imagePath2=self.path+"/resources/images/exB5/1.jpg"
@@ -106,10 +107,11 @@ class ControllerExersice5Data():
 
         self._exersiceTitleDsr='Τώρα θα παίξουμε ένα παιχνίδι με γρίφους. Στην οθόνη που είναι δίπλα μου θα εμφανίζονται οι εικόνες των γρίφων. \n Κάτω από την εικόνα θα εμφανίζονται 5 πιθανές απαντήσεις.'
 
+
     
 
         self.results=['Ένα','δύο','τρία','τέσσερα','πέντε']
 
 
-        #PATH# Exercise 11
-        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+      
+        self.moveRobot='/robotApp/positions/askisi_1.csv'

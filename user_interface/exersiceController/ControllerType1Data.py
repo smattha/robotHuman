@@ -81,7 +81,7 @@ class ControllerType1Data():
 
         self.results=['4','8','30','56','112','τέσσερα','οχτώ','τριάντα','πενήντα έξι','εκατό δώδεκα','πενήντα','εκατό','εκατόν δώδεκα']
         #PATH# Exercise 7
-        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+        self.moveRobot='/robotApp/positions/askisi_1.csv'
         self.correctAnswer=['οχτώ','Οχτω','2']
 
     def setVariableB2(self):
@@ -109,7 +109,7 @@ class ControllerType1Data():
 
         self.results=['α','β','γ','δ','ε']
         #PATH# Exercise 8
-        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+        self.moveRobot='/robotApp/positions/askisi_1.csv'
         self.correctAnswer=['Ε','Έψιλον','εψιλόν','πέντε','5']
 
 

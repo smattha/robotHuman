@@ -31,7 +31,7 @@ class page2View(QWidget):
 
         self.answer51 = QtWidgets.QPushButton()
         self.answer51.setObjectName(self._main_controller.title)
-        self.answer51.clicked.connect(lambda: self._main_controller.nextPage3(self._main_controller))
+        self.answer51.clicked.connect(lambda: self._main_controller.nextPage3(-1))
 
         self._ui.optionA.clicked.connect(lambda: self._main_controller.step2Store('A'))
         self._ui.optionB.clicked.connect(lambda: self._main_controller.step2Store('B'))
@@ -108,6 +108,9 @@ class page2View(QWidget):
             self._ui.label.setPixmap(QtGui.QPixmap(value))
             self._ui.label.setMaximumSize(QtCore.QSize(900/self.i, 480/self.i))
             # self._ui.label.setScaledContents(True)
+            self.answer51.show()
+            if value=="/robotApp/home.png":
+                    self.answer51.hide()
             self._ui.descriptionBox.setText(self._main_controller._imagesStoryCur)
 
     @pyqtSlot(int)

@@ -24,6 +24,7 @@ class Ros_Audio_Service(object):
         except rospy.ROSInterruptException:
             print('Exception Occured in ros audio service')
             pass
+        self.exer6b=False;
 
     def talker1(self,msg):
         print('Audio S2T:',msg,' ')

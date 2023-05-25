@@ -60,7 +60,7 @@ class ControllerExersice6(RootController,QObject):
         self.correctAnswer=['άλογο','πορτοκάλι','αλογο','πορτοκαλι']
 
         #PATH# Exercise 6
-        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+        self.moveRobot='/robotApp/positions/askisi_1.csv'
 
 
     def setVariable6B(self):
@@ -81,7 +81,7 @@ class ControllerExersice6(RootController,QObject):
 
 
         #PATH# Exercise 12
-        self.moveRobot='/robotApp/positions/askisi_4.csv.csv'
+        self.moveRobot='/robotApp/positions/askisi_1.csv'
 
 
         self.correctAnswer=['σκυλί','μήλο','σκυλί','μήλο']
@@ -125,23 +125,21 @@ class ControllerExersice6(RootController,QObject):
         # print('Read Exercise')
         self.model.nextImage='0'
         # self.nextPage3(0)
-        
+        self._counter=0
         self._imagesStoryCur=self._imagesStory[self._counter][0]
         self.model.nextImage=self._imagesStory[self._counter][1]
         self.model.nextImage="/robotApp/home.png"
-        # self.model.nextImage=self._imagesStory[0][0]
-        # self._rosInterface.talker(self._exerciseDscr)
         thread = Thread(target=self.readExersiceThread, args=(), daemon=True)
         thread.start()
 
-        # # self.playAudio(self._exerciseDscr)
-        # self.step1()
+
 
     def readExersiceThread(self):
         print('Read Exercise')
         # if self.model.name=='':
-        #     self.model.name=self._rosInterface.getNames()
+        # self.model.name=self._rosInterface.getNames()
         self._rosInterface.talker(" "+self._exerciseDscr)
+        self.model.exer6b=True
         self._rosInterface.moveRobotFromFile('/robotApp/positions/handRaise.csv')
         self._rosInterface.talker("Παιδάκι όταν είσαι ετοιμός να προχωρήσουμε σήκωσε το χέρι")
         self._rosInterface.getHand()
@@ -157,13 +155,20 @@ class ControllerExersice6(RootController,QObject):
         self.nextPage3(0)
         # self.playAudio(self._exerciseDscr)
         self.step1()
+    def stepb(self):
+        self.audioThreadFn("Τι δείχνει η εικόνα;")
+        # self.playAudio(self._imagesStory[self._counter][0])
+        self._imagesStoryCur=self._imagesStory[1][0]
+        self.model.nextImage=self._imagesStory[1][1]
+        self._counter=self._counter+1
+        self.thread=self.getTextMainThread()
 
     def step1(self):
         print("Step first")
-        # self._rosInterface.talker('Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω')
+        # self.audioThreadFn('Ο Γιωργάκης κρύβει την σοκολάτα του στο ντουλάπι της κουζίνας πριν πάει να παίξει έξω')
     
     def step2(self):
-        self._rosInterface.talker('Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο')
+        self.audioThreadFn('Όταν ο Γιωργάκης βγαίνει στην αυλή, η γιαγιά του βρίσκει την σοκολάτα και την βάζει στο ψυγείο')
     
 
     def readAnswers(self):
@@ -235,13 +240,22 @@ class ControllerExersice6(RootController,QObject):
     def getText(self):
         if self.step==0:
             self._answerEx1=self._rosInterface.getText(self.results)
-            self._rosInterface.talker('Μπράβο το πέτυχες!!!')
+            if( self._answerEx1=='timeout'):
+                return
+            self.model.correct=True
+            self.audioThreadFn('Μπράβο το πέτυχες!!!')
             print('reply!!!!!!!!!!!!!!')
         else:
             self.answerEx32=self._rosInterface.getText(self.results)
+            if( self.answerEx32=='timeout'):
+                return
+            self.model.correct=True
+            self.audioThreadFn('Μπράβο το πέτυχες!!!')
             print('reply!!!!!!!!!!!!!!')
         self.step=self.step+1
-        self.nextPage3(0)
+
+        self.model.trigger(101)
+        self.nextPage3()
 
 
     def getTextMainThread(self):
@@ -252,10 +266,16 @@ class ControllerExersice6(RootController,QObject):
        
     
     def nextPage3(self,value):
+        if (value==-1):
+            self.model.correct=True
+            self.model.correct=True
+            self.audioThreadFn(('Μπράβο το πέτυχες!!!'))
+            self.model.trigger(101)
+            
         print('Change Image step  {}',self._counter)
         # self.model.nextPageEx2('2')
         if (len(self._imagesStory)>self._counter):
-            # self._rosInterface.talker()
+            # self.audioThreadFn()
             # self.playAudio(self._imagesStory[self._counter][0])
             self._imagesStoryCur=self._imagesStory[self._counter][0]
             self.model.nextImage=self._imagesStory[self._counter][1]
@@ -268,7 +288,7 @@ class ControllerExersice6(RootController,QObject):
             self.model.trigger(101)
             self.model.correct=True
             self.model.changeFeedbackLabelCorrect()
-            # self._rosInterface.talker("Μπράβο το πέτυχες!!!")
+            # self.audioThreadFn("Μπράβο το πέτυχες!!!")
 
 
     def playAudio(self,msg):
@@ -279,5 +299,13 @@ class ControllerExersice6(RootController,QObject):
 
     def playAudioThread(self):
         print("\t\tthread running.......")
-        self._rosInterface.talker(self.msg)
+        self.audioThreadFn(self.msg)
         # self._rosInterface.talker(self._answerDsr)
+
+    def audioThreadFn(self,msg):
+            self.msg=msg
+            thread = Thread(target=self.audioThread, args=(), daemon=True)
+            thread.start()
+
+    def audioThread(self):
+            self._rosInterface.talker(self.msg)
