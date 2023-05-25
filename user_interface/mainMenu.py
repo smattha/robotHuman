@@ -28,8 +28,8 @@ class App(QApplication):
             self.flag=sys.argv[4]
             print("...................")
         else:
-            self.i=2
-            self.displaymageRation=2
+            self.i=1.5
+            self.displaymageRation=0.6
             print("testing!!!!")
             self.path = "/robotApp"
             self.flag="test"
@@ -43,7 +43,7 @@ class App(QApplication):
         self._rosInterface.flag=self.flag
 
         # self._rosInterface.getText()
-        self._rosInterface.moveRobotFromFile('/robotApp/positions/displayImg.txt')
+        self._rosInterface.moveRobotFromFile('/robotApp/positions/start.csv')
         # self._rosInterface.moveRobot(0,0,0,0,0,0)
         # self._rosInterface.getText()
         # return
