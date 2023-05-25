@@ -21,7 +21,7 @@ class App(QApplication):
 
         self.path="/home/stergios/git/src/robotHuman"
         self.displaymageRation=0.6
-        self.i=1.2
+        self.i=1.
 
         if (len(sys.argv)>=2):
             self.path =  sys.argv[1]
