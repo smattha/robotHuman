@@ -20,6 +20,8 @@ class App(QApplication):
         super(App, self).__init__(sys_argv)
 
         self.path="/home/stergios/git/src/robotHuman"
+        self.displaymageRation=0.6
+        self.i=1.2
 
         if (len(sys.argv)>=2):
             self.path =  sys.argv[1]
