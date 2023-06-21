@@ -5,18 +5,55 @@ from PyQt5.QtWidgets import ( QMainWindow)
 from views.DisplayImage import DisplayImageWidget
 from views.page1View import page1View
 from views.page2View import page2View
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
+import tty
+import sys
+import termios
+from threading import Thread
+from time import sleep
+import random
+path_of_image = '/home/stergios/Desktop/a.png'
+import time
 
 
 class MenuView(QMainWindow):
+    
+    def keyPressEvent(self, event):
+        if(self.lock==True):
+            return
+        print('...........')
+        self.tock=time.time()
+
+        print("You pressed"+ event.text()+ " mode "+ self.mode+ " time " +str(self.tock-self.tick))
+
+        
+        if (self.mode=='fish'):
+            print ("Mode Fish")
+            self.correctFish=self.correctFish+1
+            self.totalTime=self.totalTime+ self.tock-self.tick
+        elif (self.mode=='sharck') :
+            print('Else')
+            self.errorFish=self.errorFish+1
+            self.totalTime=self.totalTime+ self.tock-self.tick
+       
+
     def __init__(self, model, main_controller):
         super().__init__()
+
+
+
 
         self._model = model
         self._main_controller = main_controller
         self._ui = Ui_menuWindow()
         self._ui.setupUi(self)
         self.counter=0
+        self.tick=0
+        self.tock=0
+        self.mode="idle"
         self.path=self._model.path
+        self.lock=True
 
         #self._dialog.hide()
         self.move(model.poseX,model.poseY)
@@ -135,28 +172,28 @@ class MenuView(QMainWindow):
         self._ui.l12.setAlignment(QtCore.Qt.AlignVCenter)
 
 
-        i=self._model.i
+        i=1.1
         k=250
         l=220
-        # self._ui.l1.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l2.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l3.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l4.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l5.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l6.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l7.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l8.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l9.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l10.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l11.setMaximumSize(QtCore.QSize(k/i, l/i))
-        # self._ui.l12.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l1.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l2.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l3.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l4.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l5.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l6.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l7.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l8.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l9.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l10.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l11.setMaximumSize(QtCore.QSize(k/i, l/i))
+        self._ui.l12.setMaximumSize(QtCore.QSize(k/i, l/i))
         #Exersice 1
         self._ui.selectExercise.currentIndexChanged.connect(lambda:  self._main_controller.selectButtonClicked(self._ui.selectExercise.currentIndex()) )        
         self._ui.selectExercise.hide()
         self._ui.selectExersiceButton.hide()
         self._ui.pushButtonMainResults.hide()
 
-        self._ui.go2Home.clicked.connect(lambda: self._main_controller.go2Home1())
+        self._ui.go2Home_2.clicked.connect(lambda: self.go2Home1())
         self._ui.nextExersice.clicked.connect(lambda: self._main_controller.move2NextPage())
 
 
@@ -178,8 +215,17 @@ class MenuView(QMainWindow):
         self._model.feedbackShowButton.connect(self.feedbackShowButton)
 
         self._ui.pushButtonHome.clicked.connect( lambda: self.setPage(0) )
+        
+        self._ui.fishButton.clicked.connect( lambda: self.setPage(105) )
+        
+        self._ui.startFish.clicked.connect(lambda: self.startFish())
+        self._ui.stopFish.clicked.connect(lambda: self.stopFish())
 
         self.showMaximized()
+        msg="Τώρα θα παίξουμε τους ψαράδες!<br />Στην οθόνη θα εμφανίζονται διάφορα ψαράκια.<br />Άλλα είναι κόκκινα, άλλα πρόσινα και άλλα μπλέ.<br />Κάθε φορά που θα βγαίνει ένα ψαράκι, θα πρέπει να πατάς όσο πιο γρήγορα μπορείς το μεγάλο κουμπί (δείχνεις το πλήκτρο space) για να το ψαρεύεις.<br />Πρόσεχε, όμως! Πού και πού θα εμφανίζεται και ένας πεινασμένος καρχαρίας σαν και αυτόν. Όταν βλέπεις τον καρχαρία δεν πρέπει να πατάς το κουμπί γιατί ο καρχαρίας θα φάει όλα τα ψαράκια που έχεις ψαρέψει!!!<br /><br />Πάμε να κάνουμε μια δοκιμή για να δούμε αν το κατάλαβες; <br />Βάλε το δαχτυλάκι πάνω στο κουμπί να είσαι έτοιμος/η<br />(τοποθετείς το χεράκι του στο space). <br />Μόλις εμφανιστεί κάποιο ψαράκι πρέπει να πατήσεις όσο πιο γρήγορα μπορείς! <br />Πρόσεχε τους καρχαρίες!!!!<br />(Πάτα ένα πλήκτρο)"
+        self._ui.fish.setText(msg)
+        
+
 
 
     @pyqtSlot(str)
@@ -195,9 +241,84 @@ class MenuView(QMainWindow):
         self._ui.ageTextBox.setText('')
         self._ui.surname.setText('')
 
+    def go2Home1( self ):
+        self._main_controller.go2Home1()
+        self.tick=0
+        self.timer.stop()
+
+    def startFish(self):
+        print('Timer!!')
+
+        self.showedFish=0;
+        self.showedSharck=0;
+        self.correctFish=0;
+        self.errorFish=0;
+        self.totalTime=0;
+        msg="Τώρα θα παίξουμε τους ψαράδες!<br />Στην οθόνη θα εμφανίζονται διάφορα ψαράκια.<br />Άλλα είναι κόκκινα, άλλα πρόσινα και άλλα μπλέ.<br />Κάθε φορά που θα βγαίνει ένα ψαράκι, θα πρέπει να πατάς όσο πιο γρήγορα μπορείς το μεγάλο κουμπί (δείχνεις το πλήκτρο space) για να το ψαρεύεις.<br />Πρόσεχε, όμως! Πού και πού θα εμφανίζεται και ένας πεινασμένος καρχαρίας σαν και αυτόν. Όταν βλέπεις τον καρχαρία δεν πρέπει να πατάς το κουμπί γιατί ο καρχαρίας θα φάει όλα τα ψαράκια που έχεις ψαρέψει!!!<br /><br />Πάμε να κάνουμε μια δοκιμή για να δούμε αν το κατάλαβες; <br />Βάλε το δαχτυλάκι πάνω στο κουμπί να είσαι έτοιμος/η<br />(τοποθετείς το χεράκι του στο space). <br />Μόλις εμφανιστεί κάποιο ψαράκι πρέπει να πατήσεις όσο πιο γρήγορα μπορείς! <br />Πρόσεχε τους καρχαρίες!!!!<br />(Πάτα ένα πλήκτρο)"
+        self._ui.fish.setText(msg)
+        self.counterdown=5
+        
+        self.timerCountdown = QtCore.QTimer(self)
+        self.timerCountdown.stop()
+        self.timerCountdown.start(1000)
+        self.timerCountdown.timeout.connect(self.countdown)
+ 
+
+
+    def countdown(self):
+        print('Counter')
+        if self.counterdown==0:
+            self.counterdown=10
+            self.timerCountdown.stop()
+
+            self.timer = QtCore.QTimer(self)
+            self.timer.timeout.connect(self.update_image)
+            self.timer.stop()
+            self.timer.start(1000)
+            self.update_image()
+            self._ui.stopFish.show()
+            self._ui.startFish.hide()
+
+        else:
+
+            self._ui.fish.setText(str(self.counterdown))
+            self.counterdown=self.counterdown-1
+        
+
+    def stopFish(self):
+        # print('Timer!!')
+        self._ui.fish.setPixmap(QtGui.QPixmap())
+        self._ui.fish.setText("......")
+        self._ui.startFish.show()
+        self._ui.stopFish.hide()
+        self.mode='idle'
+        self.tick=0
+        self.timer.stop()
+
+        accurancy=(self.correctFish+0.01)/(self.errorFish+self.showedFish)
+        time=(self.totalTime/(self.correctFish+self.errorFish))
+
+        accurancy=round(accurancy,2)
+        time=round(time,2)
+
+        if(accurancy>1):
+            accurancy=1
+        self._ui.fish.setText("Αποτελέσματα!\n\n Ακρίβεια "+ str(accurancy)+'\n Μέσος χρόνος:'+str(time))
+
+        print (str(self.showedFish)+' '+str(self.showedSharck)+' accurancy '+str(accurancy)+' time '+str(time))
+
+
+
     @pyqtSlot(int)
     def setPage(self, value):
         print('\t\t\t\tActivate Widget',value)
+
+        if value==105:
+            msg="Τώρα θα παίξουμε τους ψαράδες!<br />Στην οθόνη θα εμφανίζονται διάφορα ψαράκια.<br />Άλλα είναι κόκκινα, άλλα πρόσινα και άλλα μπλέ.<br />Κάθε φορά που θα βγαίνει ένα ψαράκι, θα πρέπει να πατάς όσο πιο γρήγορα μπορείς το μεγάλο κουμπί (δείχνεις το πλήκτρο space) για να το ψαρεύεις.<br />Πρόσεχε, όμως! Πού και πού θα εμφανίζεται και ένας πεινασμένος καρχαρίας σαν και αυτόν. Όταν βλέπεις τον καρχαρία δεν πρέπει να πατάς το κουμπί γιατί ο καρχαρίας θα φάει όλα τα ψαράκια που έχεις ψαρέψει!!!<br /><br />Πάμε να κάνουμε μια δοκιμή για να δούμε αν το κατάλαβες; <br />Βάλε το δαχτυλάκι πάνω στο κουμπί να είσαι έτοιμος/η<br />(τοποθετείς το χεράκι του στο space). <br />Μόλις εμφανιστεί κάποιο ψαράκι πρέπει να πατήσεις όσο πιο γρήγορα μπορείς! <br />Πρόσεχε τους καρχαρίες!!!!<br />(Πάτα ένα πλήκτρο)"
+        #     self.stopFish()
+            self._ui.fish.setText(msg)
+            
+
         if value==1:
             j=self._ui.stackedWidget.count()
             self.page1=page1View(self._model,self._main_controller._exercisesController[0])
@@ -509,3 +630,27 @@ class MenuView(QMainWindow):
         else:
             self._ui.pushButtoResultPrevius.show()
 
+
+    def update_image(self):
+        self.tick=time.time()
+        self.lock=False
+        # print('Update !!!!'+str(self.tick))
+        if(self.showedFish>100):
+            self.stopFish()
+            return
+        if(random.randint(0,99)>80):
+            self.path_of_image='/robotApp/fish/sharck.png'
+            self.mode='sharck'
+            self.showedSharck=self.showedSharck+1
+        else:
+            self.mode='fish'
+            self.showedFish=self.showedFish+1
+            if self.counter==0:
+                self.path_of_image='/robotApp/fish/fish.png'
+                self.counter=self.counter+1
+            else:
+                self.counter=0
+                self.path_of_image= '/robotApp/fish/fish-yellow.png'   
+        self._ui.fish.setPixmap(QtGui.QPixmap(self.path_of_image))
+
+    
