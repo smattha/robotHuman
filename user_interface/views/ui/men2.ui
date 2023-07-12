@@ -542,7 +542,7 @@ p, li { white-space: pre-wrap; }
          </font>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>6</number>
         </property>
         <widget class="QWidget" name="menuPage">
          <layout class="QGridLayout" name="gridLayout_4">
@@ -566,130 +566,7 @@ p, li { white-space: pre-wrap; }
             <property name="spacing">
              <number>10</number>
             </property>
-            <item row="7" column="3">
-             <widget class="QPushButton" name="ex11">
-              <property name="text">
-               <string>11.Ένα παιγνίδι με γρίφους</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
-             <widget class="QPushButton" name="ex2">
-              <property name="text">
-               <string>2. Άσκηση προσοχής</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="3">
-             <widget class="QPushButton" name="ex7">
-              <property name="text">
-               <string>7. Η μαμά καγκούρο</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="2">
-             <widget class="QPushButton" name="ex6">
-              <property name="text">
-               <string>6. Τι δείχνουν οι εικόνες</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="3">
-             <widget class="QLabel" name="l3">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="4">
-             <widget class="QLabel" name="l8">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="2">
-             <widget class="QLabel" name="l10">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="4">
-             <widget class="QPushButton" name="pushButtonMainResults">
-              <property name="text">
-               <string>Αποτελέσματα</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="4">
-             <widget class="QLabel" name="l4">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="2">
-             <widget class="QPushButton" name="ex10">
-              <property name="text">
-               <string>10. Η μικρή Σοφία!</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1" colspan="4">
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>500</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="4" column="3">
+            <item row="5" column="4">
              <widget class="QLabel" name="l7">
               <property name="font">
                <font>
@@ -706,135 +583,7 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QPushButton" name="ex5">
-              <property name="text">
-               <string>5. Ένα παιγνίδι με γρίφους</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QPushButton" name="selectExersiceButton">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="text">
-               <string>Έναρξη</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="4">
-             <widget class="QPushButton" name="ex4">
-              <property name="text">
-               <string>4. Η Μαρία και η μαμά της</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
-             <widget class="QPushButton" name="ex1">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>20</pointsize>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>1.Tο λιοντάρι και τα παπάκια</string>
-              </property>
-              <property name="default">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="4">
-             <widget class="QPushButton" name="ex12">
-              <property name="text">
-               <string>12. Τι δείχνουν οι εικόνες</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QComboBox" name="selectExercise"/>
-            </item>
-            <item row="4" column="1">
-             <widget class="QLabel" name="l5">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <spacer name="verticalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>1</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="2" column="0">
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>1</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="4" column="2">
-             <widget class="QLabel" name="l6">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLabel" name="l1">
-              <property name="font">
-               <font>
-                <family>DejaVu Sans</family>
-                <pointsize>12</pointsize>
-                <italic>false</italic>
-               </font>
-              </property>
-              <property name="text">
-               <string>TextLabel</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="4">
+            <item row="7" column="5">
              <widget class="QLabel" name="l12">
               <property name="font">
                <font>
@@ -851,8 +600,8 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <spacer name="verticalSpacer_2">
+            <item row="7" column="0">
+             <spacer name="verticalSpacer_3">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
               </property>
@@ -864,14 +613,24 @@ p, li { white-space: pre-wrap; }
               </property>
              </spacer>
             </item>
-            <item row="7" column="1">
-             <widget class="QPushButton" name="ex9">
+            <item row="4" column="1">
+             <widget class="QPushButton" name="ex1">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>20</pointsize>
+                <italic>false</italic>
+               </font>
+              </property>
               <property name="text">
-               <string>9. Ο μικρός στρατιώτης!</string>
+               <string>1.Tο λιοντάρι και τα παπάκια</string>
+              </property>
+              <property name="default">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="2" column="2">
+            <item row="3" column="3">
              <widget class="QLabel" name="l2">
               <property name="font">
                <font>
@@ -888,28 +647,100 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="3" column="3">
-             <widget class="QPushButton" name="ex3">
+            <item row="3" column="1">
+             <widget class="QLabel" name="l1">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>12</pointsize>
+                <italic>false</italic>
+               </font>
+              </property>
               <property name="text">
-               <string>3. Ο Γιωργάκης και η σοκολάτα!</string>
+               <string>TextLabel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
-            <item row="5" column="4">
+            <item row="8" column="5">
+             <widget class="QPushButton" name="ex12">
+              <property name="text">
+               <string>12. Τι δείχνουν οι εικόνες</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="3">
+             <widget class="QPushButton" name="ex6">
+              <property name="text">
+               <string>6. Τι δείχνουν οι εικόνες</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QLabel" name="l4">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>12</pointsize>
+                <italic>false</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3">
+             <widget class="QPushButton" name="ex2">
+              <property name="text">
+               <string>2. Άσκηση προσοχής</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="5">
              <widget class="QPushButton" name="ex8">
               <property name="text">
                <string>8. Ο Μάξιμος</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
-             <widget class="QPushButton" name="fishButton">
+            <item row="4" column="4">
+             <widget class="QPushButton" name="ex3">
               <property name="text">
-               <string>Ψαράκια</string>
+               <string>3. Ο Γιωργάκης και η σοκολάτα!</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="5">
+            <item row="6" column="1">
+             <widget class="QPushButton" name="ex5">
+              <property name="text">
+               <string>5. Ένα παιγνίδι με γρίφους</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="l5">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>12</pointsize>
+                <italic>false</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="6">
              <spacer name="verticalSpacer_4">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -922,7 +753,7 @@ p, li { white-space: pre-wrap; }
               </property>
              </spacer>
             </item>
-            <item row="6" column="3">
+            <item row="7" column="4">
              <widget class="QLabel" name="l11">
               <property name="font">
                <font>
@@ -939,7 +770,94 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
-            <item row="6" column="1">
+            <item row="3" column="0">
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>1</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="8" column="1">
+             <widget class="QPushButton" name="ex9">
+              <property name="text">
+               <string>9. Ο μικρός στρατιώτης!</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="selectExercise"/>
+            </item>
+            <item row="0" column="1" colspan="5">
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>500</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="4" column="5">
+             <widget class="QPushButton" name="ex4">
+              <property name="text">
+               <string>4. Η Μαρία και η μαμά της</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="4">
+             <widget class="QPushButton" name="ex11">
+              <property name="text">
+               <string>11.Ένα παιγνίδι με γρίφους</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="3">
+             <widget class="QPushButton" name="ex10">
+              <property name="text">
+               <string>10. Η μικρή Σοφία!</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>1</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="5" column="5">
+             <widget class="QLabel" name="l8">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>12</pointsize>
+                <italic>false</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
              <widget class="QLabel" name="l9">
               <property name="font">
                <font>
@@ -953,6 +871,95 @@ p, li { white-space: pre-wrap; }
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="4">
+             <widget class="QPushButton" name="ex7">
+              <property name="text">
+               <string>7. Η μαμά καγκούρο</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4">
+             <widget class="QLabel" name="l3">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>12</pointsize>
+                <italic>false</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="3">
+             <widget class="QLabel" name="l10">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>12</pointsize>
+                <italic>false</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="3">
+             <widget class="QLabel" name="l6">
+              <property name="font">
+               <font>
+                <family>DejaVu Sans</family>
+                <pointsize>12</pointsize>
+                <italic>false</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QPushButton" name="pushButtonMainResults">
+              <property name="text">
+               <string>Αποτελέσματα</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QPushButton" name="selectExersiceButton">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="text">
+               <string>Έναρξη</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="5">
+             <widget class="QPushButton" name="fishButton">
+              <property name="text">
+               <string>Ψαράκια</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4">
+             <widget class="QPushButton" name="versionb1">
+              <property name="text">
+               <string>1</string>
               </property>
              </widget>
             </item>
@@ -1055,7 +1062,7 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>946</width>
+               <width>773</width>
                <height>906</height>
               </rect>
              </property>
@@ -2582,6 +2589,24 @@ p, li { white-space: pre-wrap; }
              </item>
             </layout>
            </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_4">
+         <layout class="QGridLayout" name="gridLayout_13">
+          <item row="0" column="0">
+           <layout class="QVBoxLayout" name="aa">
+            <item>
+             <widget class="QLabel" name="corbiLabel">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="gridLayout_12"/>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>

@@ -15,8 +15,8 @@ from time import sleep
 import random
 path_of_image = '/home/stergios/Desktop/a.png'
 import time
-
-
+import random
+from   views.partb.a  import a
 class MenuView(QMainWindow):
     
     def keyPressEvent(self, event):
@@ -217,9 +217,13 @@ class MenuView(QMainWindow):
         self._ui.pushButtonHome.clicked.connect( lambda: self.setPage(0) )
         
         self._ui.fishButton.clicked.connect( lambda: self.setPage(105) )
+
+        self._ui.versionb1.clicked.connect( lambda: self.setPage(106) )
         
         self._ui.startFish.clicked.connect(lambda: self.startFish())
         self._ui.stopFish.clicked.connect(lambda: self.stopFish())
+
+
 
         self.showMaximized()
         msg="Τώρα θα παίξουμε τους ψαράδες!<br />Στην οθόνη θα εμφανίζονται διάφορα ψαράκια.<br />Άλλα είναι κόκκινα, άλλα πρόσινα και άλλα μπλέ.<br />Κάθε φορά που θα βγαίνει ένα ψαράκι, θα πρέπει να πατάς όσο πιο γρήγορα μπορείς το μεγάλο κουμπί (δείχνεις το πλήκτρο space) για να το ψαρεύεις.<br />Πρόσεχε, όμως! Πού και πού θα εμφανίζεται και ένας πεινασμένος καρχαρίας σαν και αυτόν. Όταν βλέπεις τον καρχαρία δεν πρέπει να πατάς το κουμπί γιατί ο καρχαρίας θα φάει όλα τα ψαράκια που έχεις ψαρέψει!!!<br /><br />Πάμε να κάνουμε μια δοκιμή για να δούμε αν το κατάλαβες; <br />Βάλε το δαχτυλάκι πάνω στο κουμπί να είσαι έτοιμος/η<br />(τοποθετείς το χεράκι του στο space). <br />Μόλις εμφανιστεί κάποιο ψαράκι πρέπει να πατήσεις όσο πιο γρήγορα μπορείς! <br />Πρόσεχε τους καρχαρίες!!!!<br />(Πάτα ένα πλήκτρο)"
@@ -273,9 +277,10 @@ class MenuView(QMainWindow):
 
             self.timer = QtCore.QTimer(self)
             self.timer.timeout.connect(self.update_image)
+            self.blankImg=False
             self.timer.stop()
-            self.timer.start(1000)
-            self.update_image()
+            self.timer.start(750)
+
             self._ui.stopFish.show()
             self._ui.startFish.hide()
 
@@ -419,12 +424,37 @@ class MenuView(QMainWindow):
         else:
             if value>100:
                 value=value-100
+                
+
+                if(value==6):
+                    self.exAController= a(self._ui,self)
+                    self.exAController.startZero()
+                    
             self._ui.stackedWidget.setCurrentIndex(value)
             if value==3:
                 self._ui.pushButtoResultPrevius.hide()
                 self.loadResultsByID(0)
             if value==1:
                 self.hideButtons()
+
+    # def exALoop(self):
+    #     i=round(random.randint(0,150)/10)
+    #     self.buttonArray = [] 
+    #     for x in range(0,4):
+    #         for y in range(0,4):
+    #             self._ui.pushButton_4 = QtWidgets.QPushButton(self._ui.page_4)
+    #             self._ui.pushButton_4.setObjectName("pushButton"+str(x*10+y))
+    #             self._ui.pushButton_4.setText("\n\n\n\n\n\n")
+    #             self._ui.gridLayout_12.addWidget(self._ui.pushButton_4, x, y, 1, 1)
+    #             self.buttonArray.append(self._ui.pushButton_4)
+
+
+    #     if(self.exA.counter==self.exA.maxCounter):
+    #         self.exA.stop()
+    #     else:
+    #         self.buttonArray[i].setStyleSheet("background-color : yellow")
+    #     self.exA.counter=self.exA.counter+1
+
 
 
     @pyqtSlot(str)
@@ -632,6 +662,11 @@ class MenuView(QMainWindow):
 
 
     def update_image(self):
+        self.blankImg= not self.blankImg
+        if(self.blankImg==True):
+            self._ui.fish.setPixmap(QtGui.QPixmap())
+            return
+        
         self.tick=time.time()
         self.lock=False
         # print('Update !!!!'+str(self.tick))
