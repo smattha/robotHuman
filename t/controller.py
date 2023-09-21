@@ -10,7 +10,7 @@ import sys
 from threading import Thread
 from time import sleep
 import random
-path_of_image = '/home/stergios/Desktop/a.png'
+
 import time
 import random
 from stats import stats
@@ -19,7 +19,6 @@ from msgList import msg
 
 
 class controller():
-
 
     def keyPressEvent(self, event):
          if (event.text()=='s' or event.text()==' '):

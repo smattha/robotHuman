@@ -23,7 +23,7 @@ class controller2():
 
     def keyPressEvent(self, event):
          if (event.text()=='s' or event.text()==' '):
-              self.startZero()
+              self.sleep=0
 
     def __init__(self, ui,timerUI):
         self._ui=ui
@@ -54,7 +54,6 @@ class controller2():
     def drawUI(self):
 
         self.clearUI()
-        
         self.counter1=0
         self.buttonArray = [] 
         self.buttonsExist=True
@@ -63,7 +62,7 @@ class controller2():
         
         for i in [1,2,3]:
                 for j in [0,1,2,3]:
-                    x=(500+i*100)/ratio
+                    x=(560+i*100)/ratio
                     y=(int(j)*100+150)/ratio
                     button1= QtWidgets.QPushButton(self._ui.widget)
                     button1.setText(str(3*j+i))
@@ -77,19 +76,19 @@ class controller2():
                     self.counter1=self.counter1+1
 
 
-        x=(500+1*100)/ratio
+        x=(560+1*100)/ratio
         y=(int(5)*100+150)/ratio
         
-        self.buttonArray[3].setText('Clear')
+        self.buttonArray[3].setText(msg.CLEAR)
         self.buttonArray[3].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
         
         
         self.buttonArray[7].setText('0')
 
-        x=(500+3*100)/ratio
+        x=(560+3*100)/ratio
         y=(int(5)*100+150)/ratio
         self.buttonArray[11].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
-        self.buttonArray[11].setText('Continuou')
+        self.buttonArray[11].setText(msg.CONTINUE)
 
 
         self.buttonArray[0].clicked.connect( lambda: self.exAClick(1))
@@ -117,7 +116,7 @@ class controller2():
         ratio=1600/self.width
         
 
-        x=(500+2*100)/ratio
+        x=(560+2*100)/ratio
         y=(int(1.5*100+150))/ratio
         button1= QtWidgets.QPushButton(self._ui.widget)
         button1.setText(number)
@@ -144,6 +143,9 @@ class controller2():
 
     def exALoop(self):
 
+        if (self.sleep==-10):
+            print('waitForButton')
+
         if (self.sleep>0):
             self.sleep=self.sleep-1
             return
@@ -154,6 +156,7 @@ class controller2():
         
         if (curState.UI=='drawUI'):
             self.drawUI()
+            print('--')
         if (curState.UI=='draw1'):
             self.draw1(curState.number)
 
@@ -167,23 +170,34 @@ class controller2():
 
 
     def exAClick(self,i):
+        self.currentNumber=self._ui.corbiLabel.text()+str(i)
         self._ui.corbiLabel.setText(self._ui.corbiLabel.text()+str(i)) 
+        curState=self.state.getCurrentRecord()
+        curState.label=self.currentNumber
 
         return
        
 
 
     def exAClickContinuou(self,i):
-
-        if(self.stats.number==self._ui.corbiLabel.text()):
+        wrong=False
+        if(self.stats.number==self.currentNumber):
             print ('Correct')
+            self.stats.wrong=0
         else :
-            print (self.stats.number+' !== '+self._ui.corbiLabel.text())
+            wrong=True
+            self.stats.wrong=self.stats.wrong+1
+            if self.stats.wrong == 3:
+                self.clearUI()    
+                self.currentNumber=''
+                return
+            print (self.stats.number+' !== '+self.currentNumber)
         print(i)
         
-        self.state.addChangeState()
+        self.state.addChangeState(wrong,self.stats.wrong)
         self.sleep=0
         print(i)
+        self.currentNumber=''
         return
        
     def storedata(self):

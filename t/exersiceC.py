@@ -35,9 +35,9 @@ class ExersiceC(QMainWindow):
         self._ui.setupUi(self)
 
         if(exercise=='1'):  
-         self.c=controller(self._ui,self)
+          self.c=controller(self._ui,self)
         else:
-            self.c=controller2(self._ui,self)
+          self.c=controller2(self._ui,self)
         
 
     

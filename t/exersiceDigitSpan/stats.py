@@ -4,7 +4,8 @@ class stats():
         self.level=2
         self.time=300
         self.number=''
-
+        self.wrong=0
+        self.currentNumber=''
 
     def startTimer(self):
         self.tick=time.time()

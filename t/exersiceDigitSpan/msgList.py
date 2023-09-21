@@ -12,6 +12,10 @@ class msg:
     FINISHED="Τέλος"
 
     TIMEOUT="Ο χρόνος έληξε!"
+
+    CLEAR="Καθαρισμός"
+
+    CONTINUE="Συνέχεια"
     
     def countDown(self,level,countdown):
        if (int(countdown)<1):
