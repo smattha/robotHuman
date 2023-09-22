@@ -44,6 +44,7 @@ class controller2():
         self.exA.start(100)
         self.sleep=00;
         self.state=state()
+        self.currentNumber=''
     
     def clearUI(self):
         if (self.buttonsExist==True):

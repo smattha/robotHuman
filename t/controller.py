@@ -21,10 +21,12 @@ from msgList import msg
 class controller():
 
     def keyPressEvent(self, event):
-         if (event.text()=='s' or event.text()==' '):
-              self.startZero()
+         if (event.text()=='s' or event.text()==' ') and self.step=='A':
+              self.initialize()
+              self.step='B'
 
     def __init__(self, ui,timerUI):
+        print(timerUI)
         self._ui=ui
         self.timerUI=timerUI
         self.counter=0
@@ -41,6 +43,9 @@ class controller():
         self._ui.corbiLabel.setText(  self.msg.INSTRUNCTIONS)    
         self.currentRows=[]
         self.stepA=True
+
+        self.step='A'
+        self.counterPause=3
     
     def clearUI(self):
         if (self.first==False):
@@ -101,6 +106,10 @@ class controller():
     def exALoop(self):
         self.buttonArray = [] 
         self.drawUI()
+        print('---')
+        if (self.state=='yellow' and self.counterPause>0):
+             self.counterPause=self.counterPause-1
+             return
         if(self.counter==self.currentRow.currentCorsi):
             self.exA.stop()
             self.state='Answer'
@@ -120,6 +129,8 @@ class controller():
             self.exC.start(1000)
             
         else:
+            self.state='yellow'
+            self.counterPause=3
             if (self.stepA):
                 self.stepA=False
                 i=round(random.randint(0,8))
@@ -136,14 +147,14 @@ class controller():
                         ii.setStyleSheet("background-color : pink;" )
 
 
-    def startZero(self):
+    def initialize(self):
         a=row()
         self.start(a)
         self.errorCurrent=0;
         self.totalError=0
 
     def start(self,r_o_w: row):
-        self.countdown=5
+        self.countdown=2
         self.counter=0
         self.state='Read'
 
@@ -170,7 +181,7 @@ class controller():
 
         self.exA.timeout.connect(self.exALoop)
         self.exB.timeout.connect(self.countdownA)
-        self.exC.timeout.connect( self.timeout)
+        # self.exC.timeout.connect( self.timeout)
 
     def timeout(self):
         if (self.counterTimeout>0):
@@ -194,6 +205,7 @@ class controller():
         self.countdown=self.countdown-1
 
     def exAClick(self,i):
+        self.buttonArray[i].setStyleSheet("background-color : blue;")
         if self.state=='Answer':
             self.currentRow.idsAnswer.append(i)
             x=len(self.currentRow.idsAnswer)
