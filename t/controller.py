@@ -106,7 +106,6 @@ class controller():
     def exALoop(self):
         self.buttonArray = [] 
         self.drawUI()
-        print('---')
         if (self.state=='yellow' and self.counterPause>0):
              self.counterPause=self.counterPause-1
              return
@@ -212,6 +211,7 @@ class controller():
             if (self.currentRow.ids[x-1]!=i):
                 self.exC.stop()
                
+                self.counterPause=5
                 self._ui.corbiLabel.setText(self.msg.WRONG)
                 if (i==-1):
                      self._ui.corbiLabel.setText(self.msg.TIMEOUT)
@@ -229,14 +229,30 @@ class controller():
                 self.totalError=self.totalError+1;
                 if self.errorCurrent==2 or self.totalError==3:
                     s=0
-                    counter=1
+                    counter=0
+                    maxCorsi=0
+
                     for i in self.currentRows:
-                        i.print()
+                        counter=counter+1
+                        i.print(counter)
                         s=s+i.time2Answer
+                        len1=i.getLenght()
+                        if (len1>maxCorsi):
+                             maxCorsi=len1
                     s=round(s/len(self.currentRows),2)
                     print('Mean time = '+str(s))
+                    self.step='A'
 
-                    self._ui.corbiLabel.setText(self.msg.finishedMsg(s,self.currentRow.currentCorsi))
+                    self.timer=300
+                    self.corbi=3
+                    self.countdown=3
+                    self.first=True
+                    self.msg=msg()
+                    self.currentRows=[]
+                    self.stepA=True
+
+
+                    self._ui.corbiLabel.setText(self.msg.finishedMsg(s,maxCorsi))
                     return
                 self.start(a)   
                 return

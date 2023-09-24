@@ -1,14 +1,9 @@
 class row():
 
     def __init__(self):
-        self.currentCorsi=3;
-        self.ids=[]
-        self.idsAnswer=[]
-        self.timer=300
-        
-        self.timer1sec=1000
-        self.first=True
-        self.time2Answer=0
+        self.number=''
+        self.numberAnswers=''
+        self.time=0
     
     def print(self):
         x=0

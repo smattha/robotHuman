@@ -36,25 +36,32 @@ class controller2():
 
         self.buttonsExist=False
  
-        self.currentRows=[]
+        self.rows=[]
         self.stepA=True
         # self.drawUI()
         self.exA = QtCore.QTimer()
         self.exA.timeout.connect(self.exALoop)
-        self.exA.start(100)
+        self.exA.start(100/2)
         self.sleep=00;
         self.state=state()
         self.currentNumber=''
+        self.draw1Done=False
+
     
     def clearUI(self):
+        self.draw1Done=False
         if (self.buttonsExist==True):
             for i in range(0,self.counter1):
                 self.buttonArray[i].deleteLater()
         self.buttonsExist=True
 
     def drawUI(self):
+        if self.draw1Done==True:
+            return
+       
 
         self.clearUI()
+        self.draw1Done=True
         self.counter1=0
         self.buttonArray = [] 
         self.buttonsExist=True
@@ -71,7 +78,7 @@ class controller2():
                     self.buttonArray[self.counter1].setObjectName("pushButton"+str(self.counter1))
                     self.buttonArray[self.counter1].clicked.connect( lambda: self.exAClick)
                     self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
-                    self.buttonArray[self.counter1].setStyleSheet("background-color : pink;" )
+                    self.buttonArray[self.counter1].setStyleSheet("background-color : pink; font-size: 18pt; " )
                     
                     self.buttonArray[self.counter1].show()
                     self.counter1=self.counter1+1
@@ -81,33 +88,39 @@ class controller2():
         y=(int(5)*100+150)/ratio
         
         self.buttonArray[3].setText(msg.CLEAR)
-        self.buttonArray[3].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
+        self.buttonArray[3].setGeometry(QtCore.QRect(x,y, 80/ratio+40, 80/ratio))
         
         
         self.buttonArray[7].setText('0')
 
         x=(560+3*100)/ratio
         y=(int(5)*100+150)/ratio
-        self.buttonArray[11].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
+        self.buttonArray[11].setGeometry(QtCore.QRect(x-40,y, 80/ratio+40, 80/ratio))
         self.buttonArray[11].setText(msg.CONTINUE)
 
 
-        self.buttonArray[0].clicked.connect( lambda: self.exAClick(1))
-        self.buttonArray[1].clicked.connect( lambda: self.exAClick(4))
-        self.buttonArray[2].clicked.connect( lambda: self.exAClick(7))
+        self.buttonArray[0].clicked.connect( lambda: self.exAClick(1,self.buttonArray[0]))
+        self.buttonArray[1].clicked.connect( lambda: self.exAClick(4,self.buttonArray[1]))
+        self.buttonArray[2].clicked.connect( lambda: self.exAClick(7,self.buttonArray[2]))
         self.buttonArray[3].clicked.connect( lambda: self.clear('clear'))
-        self.buttonArray[4].clicked.connect( lambda: self.exAClick(2))
-        self.buttonArray[5].clicked.connect( lambda: self.exAClick(5))
-        self.buttonArray[6].clicked.connect( lambda: self.exAClick(8))
-        self.buttonArray[7].clicked.connect( lambda: self.exAClick(0))
-        self.buttonArray[8].clicked.connect( lambda: self.exAClick(3))
-        self.buttonArray[9].clicked.connect( lambda: self.exAClick(6))
-        self.buttonArray[10].clicked.connect( lambda: self.exAClick(9))
+        self.buttonArray[4].clicked.connect( lambda: self.exAClick(2,self.buttonArray[4]))
+        self.buttonArray[5].clicked.connect( lambda: self.exAClick(5,self.buttonArray[5]))
+        self.buttonArray[6].clicked.connect( lambda: self.exAClick(8,self.buttonArray[6]))
+        self.buttonArray[7].clicked.connect( lambda: self.exAClick(0,self.buttonArray[7]))
+        self.buttonArray[8].clicked.connect( lambda: self.exAClick(3,self.buttonArray[8]))
+        self.buttonArray[9].clicked.connect( lambda: self.exAClick(6,self.buttonArray[9]))
+        self.buttonArray[10].clicked.connect( lambda: self.exAClick(9,self.buttonArray[10]))
         self.buttonArray[11].clicked.connect( lambda: self.exAClickContinuou('Continue'))
 
-        
+        self.buttonArray[11].setEnabled(False)
+        self.buttonArray[3].setEnabled(False)
+        # self.buttonArray[3].setStyleSheet("background-color : pink; font-size: 14pt; " )
+        # self.buttonArray[11].setStyleSheet("background-color : pink; font-size: 14pt; " )
+        self.stats.startTimer()
 
     def draw1(self, number):
+
+           
         self.stats.number=self.stats.number+str(number)
         self.clearUI()
         self.counter1=0
@@ -125,7 +138,7 @@ class controller2():
         self.buttonArray[self.counter1].setObjectName("pushButton"+str(self.counter1))
         self.buttonArray[self.counter1].clicked.connect( lambda: self.exAClick)
         self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
-        self.buttonArray[self.counter1].setStyleSheet("background-color : pink;" )
+        self.buttonArray[self.counter1].setStyleSheet("background-color : pink;font-size: 22pt; " )
         
         self.buttonArray[self.counter1].show()
 
@@ -145,7 +158,8 @@ class controller2():
     def exALoop(self):
 
         if (self.sleep==-10):
-            print('waitForButton')
+            print(".", end="")
+            return
 
         if (self.sleep>0):
             self.sleep=self.sleep-1
@@ -157,7 +171,6 @@ class controller2():
         
         if (curState.UI=='drawUI'):
             self.drawUI()
-            print('--')
         if (curState.UI=='draw1'):
             self.draw1(curState.number)
 
@@ -165,12 +178,15 @@ class controller2():
         self._ui.corbiLabel.setText(curState.label)   
 
         self.sleep=curState.pause
-        self.state.changeState()
+        self.state.changeState(self.stats.number)
 
 
 
 
-    def exAClick(self,i):
+    def exAClick(self,i,button):
+        self.buttonArray[11].setEnabled(True)
+        self.buttonArray[3].setEnabled(True)
+        button.setEnabled(False)
         self.currentNumber=self._ui.corbiLabel.text()+str(i)
         self._ui.corbiLabel.setText(self._ui.corbiLabel.text()+str(i)) 
         curState=self.state.getCurrentRecord()
@@ -178,34 +194,111 @@ class controller2():
 
         return
        
+    
+
+    def hide(self):
+        self.buttonArray[0].hide()
+        self.buttonArray[1].hide()
+        self.buttonArray[2].hide()
+        self.buttonArray[3].hide()
+        self.buttonArray[4].hide()
+        self.buttonArray[5].hide()
+        self.buttonArray[6].hide()
+        self.buttonArray[7].hide()
+        self.buttonArray[8].hide()
+        self.buttonArray[9].hide()
+        self.buttonArray[10].hide()
+        self.buttonArray[11].hide()
 
 
     def exAClickContinuou(self,i):
+        self.stats.stopTimer()
+        newRow=row(self.stats.number,self.currentNumber,self.stats.number==self.currentNumber,self.stats.timePrint())
+        self.rows.append(newRow)
+        self.draw1Done=False
+        self.hide()
         wrong=False
         if(self.stats.number==self.currentNumber):
-            print ('Correct')
             self.stats.wrong=0
+            print (self.stats.number+' === '+self.currentNumber)
         else :
             wrong=True
             self.stats.wrong=self.stats.wrong+1
             if self.stats.wrong == 3:
-                self.clearUI()    
+                # self.clearUI()    
+                self.hide()
+                self.state.current=self.state.current+1
+                self.state.firstStep()
                 self.currentNumber=''
+
+
+                rowLen=len(self.rows)
+                if(rowLen==0):
+                    self._ui.corbiLabel.setText('Tέλος\n\n Digital span 0')
+                else:
+                    span=(rowLen-3)//2
+                    self._ui.corbiLabel.setText('Tέλος\n\n Digital span '+str(span+1))
+                counter=0
+                spans=[]
+                for i in self.rows:
+                    if(i.correrctFlag):
+                        span=len(i.number)
+                        spans.append(span)    
+                    i.print(counter=counter+1)
                 return
-            print (self.stats.number+' !== '+self.currentNumber)
-        print(i)
+            
+
+
+            print (str(self.stats.wrong)+' '+self.stats.number+' !== '+self.currentNumber)
+
+
         
-        self.state.addChangeState(wrong,self.stats.wrong)
+        self.stats.number=''
+        self.state.addChangeState(wrong,self.stats.wrong,self.stats.number)
         self.sleep=0
-        print(i)
+        
         self.currentNumber=''
         return
        
     def storedata(self):
         print('Store data!!')
+
+
     def clear(self,i):
-        Str=self._ui.corbiLabel.text()
+        Str=self.currentNumber
+        i=Str[len(Str)-1]
+        if (i=='0'):
+            button=self.buttonArray[7]
+        elif(i=='1'):
+            button=self.buttonArray[0]
+        elif(i=='2'):
+            button=self.buttonArray[4]
+        elif(i=='3'):
+            button=self.buttonArray[8]
+        elif(i=='4'):
+            button=self.buttonArray[1]
+        elif(i=='5'):
+            button=self.buttonArray[5]       
+        elif(i=='6'):
+            button=self.buttonArray[9]        
+        elif(i=='7'):
+            button=self.buttonArray[2]      
+        elif(i=='8'):
+            button=self.buttonArray[6]
+        elif(i=='9'):
+            button=self.buttonArray[10]
+        
+        button.setEnabled(True)
+
+
         Str = Str[:len(Str)-1]
+        self.currentNumber=Str
         self._ui.corbiLabel.setText(Str)
+        self.state.getCurrentRecord().label=Str   
+        
+        if (len(Str)==0):
+            self.buttonArray[11].setEnabled(False)
+            self.buttonArray[3].setEnabled(False)
+
         return
     
