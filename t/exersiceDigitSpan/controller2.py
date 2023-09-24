@@ -23,7 +23,8 @@ class controller2():
 
     def keyPressEvent(self, event):
          if (event.text()=='s' or event.text()==' '):
-              self.sleep=0
+            if (self.sleep==-10):
+                self.sleep=0
 
     def __init__(self, ui,timerUI):
         self._ui=ui
@@ -37,11 +38,12 @@ class controller2():
         self.buttonsExist=False
  
         self.rows=[]
+        self.rowsTotal=[]
         self.stepA=True
         # self.drawUI()
         self.exA = QtCore.QTimer()
         self.exA.timeout.connect(self.exALoop)
-        self.exA.start(100/2)
+        self.exA.start(100/3)
         self.sleep=00;
         self.state=state()
         self.currentNumber=''
@@ -156,7 +158,7 @@ class controller2():
 
 
     def exALoop(self):
-
+        # print(self.state.current)
         if (self.sleep==-10):
             print(".", end="")
             return
@@ -165,7 +167,8 @@ class controller2():
             self.sleep=self.sleep-1
             return
         
-
+        if (self.state.records==0):
+            return;
         curState=self.state.getCurrentRecord()
         
         
@@ -197,6 +200,20 @@ class controller2():
     
 
     def hide(self):
+
+        self.buttonArray[0].setDisabled(True)
+        self.buttonArray[1].setDisabled(True)
+        self.buttonArray[2].setDisabled(True)
+        self.buttonArray[3].setDisabled(True)
+        self.buttonArray[4].setDisabled(True)
+        self.buttonArray[5].setDisabled(True)
+        self.buttonArray[6].setDisabled(True)
+        self.buttonArray[7].setDisabled(True)
+        self.buttonArray[8].setDisabled(True)
+        self.buttonArray[9].setDisabled(True)
+        self.buttonArray[10].setDisabled(True)
+        self.buttonArray[11].setDisabled(True)
+    
         self.buttonArray[0].hide()
         self.buttonArray[1].hide()
         self.buttonArray[2].hide()
@@ -224,29 +241,37 @@ class controller2():
         else :
             wrong=True
             self.stats.wrong=self.stats.wrong+1
-            if self.stats.wrong == 3:
+            if self.stats.wrong == 2:
+                self.stats.wrong=0
                 # self.clearUI()    
                 self.hide()
-                self.state.current=self.state.current+1
-                self.state.firstStep()
+
+                self.state.restart()               
+
+                # self.state.current=self.state.current+1
                 self.currentNumber=''
+                self.stats.number=''
 
-
-                rowLen=len(self.rows)
-                if(rowLen==0):
-                    self._ui.corbiLabel.setText('Tέλος\n\n Digital span 0')
-                else:
-                    span=(rowLen-3)//2
-                    self._ui.corbiLabel.setText('Tέλος\n\n Digital span '+str(span+1))
-                counter=0
                 spans=[]
+                counter=0
                 for i in self.rows:
                     if(i.correrctFlag):
                         span=len(i.number)
                         spans.append(span)    
                     i.print(counter=counter+1)
+                    self.rowsTotal.append(i)
+                
+                if(len(spans)<2):
+                    self._ui.corbiLabel.setText('Tέλος\n\n Digital span 0')
+                else:
+                    span=len(spans)//2
+                    self._ui.corbiLabel.setText('Tέλος\n\n Digital span '+str(span+1))
+
+               
+                self.rows=[]
                 return
-            
+
+                
 
 
             print (str(self.stats.wrong)+' '+self.stats.number+' !== '+self.currentNumber)

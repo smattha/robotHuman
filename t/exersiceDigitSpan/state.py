@@ -15,6 +15,34 @@ class state():
 
         self.firstStep()
 
+    def restart(self):
+
+        self.firstStep()        
+        # self.newLoop=True;
+        # self.current=0;
+        # self.changeRecord=False
+        # self.records=[]
+        
+        # recordslen=len( self.records)
+        # drawUI=stateRecord(100,'','drawUI')
+        # label2=stateRecord(-10,'Ξεκινάμε από την αρχή\n\nΠάτα το s ή το space όταν είσαι έτοιμος.?','',str(randint(1, 9)))
+        # draw1=stateRecord(8,'','draw1',str(randint(1, 9)))
+        
+        # label1=stateRecord(-10,'Digit span - verbal working memory\n\n\n'+\
+        #     'Θα παρουσιαστεί μια ακολουθία ψηφίων.\n\
+        #         Μετά θα πρέπει να επαναλάβεις την ακολουθία. Αφού επαναλάβεις την ακολουθία θα παρουσιάστει μια μεγαλύτερη ακολουθία.\n'+
+        #         ' Αυτό συνεχίζεται μέχρι το άτομο να μην μπορεί πλέον να επαναλάβει την ακολουθία. \n\nΠάτα το s ή το space για να ξεκινήσουμε.','',str(randint(1, 9)))
+
+        # # self.records.append(label1)
+        # self.records.append(label2)
+        
+        # self.records.append(draw1)
+
+        # self.records.append(drawUI)
+        # self.number=1
+        # self.numberCounter=0;
+        # self.current=recordslen
+        
     def firstStep(self):
 
         self.newLoop=True;
@@ -26,8 +54,8 @@ class state():
         draw1=stateRecord(8,'','draw1',str(randint(1, 9)))
         
         label1=stateRecord(-10,'Digit span - verbal working memory\n\n\n'+\
-            'Θα παρουσιάστει μια ακολουθία ψηφίων.\n\
-                Μετά θα πρέπει να επαναλάβες την ακολουθία. Αν επαναλάβεις την ακολουθία θα παρουσιάστει μια μεγαλύτερη ακολουθία.\n'+
+            'Θα παρουσιαστεί μια ακολουθία ψηφίων.\n\
+                Μετά θα πρέπει να επαναλάβεις την ακολουθία. Αφού επαναλάβεις την ακολουθία θα παρουσιάστει μια μεγαλύτερη ακολουθία.\n'+
                 ' Αυτό συνεχίζεται μέχρι το άτομο να μην μπορεί πλέον να επαναλάβει την ακολουθία. \n\nΠάτα το s ή το space για να ξεκινήσουμε.','',str(randint(1, 9)))
 
         self.records.append(label1)
@@ -66,10 +94,10 @@ class state():
             nextNumber=str(randint(1, 9))
         
         label2=stateRecord(60,'Σωστά','',str(randint(1, 9)))
-        label3=stateRecord(30,'Ξεκινάμε','',str(randint(1, 9)))
+        # label3=stateRecord(30,'Ξεκινάμε','',str(randint(1, 9)))
     
         if (wrong):
-            label2=stateRecord(20,'Λάθος','',str(randint(1, 9)))
+            label2=stateRecord(60,'Λάθος','',str(randint(1, 9)))
         elif(self.changeRecord):
             self.number=self.number+1
         self.changeRecord=not self.changeRecord
@@ -80,7 +108,7 @@ class state():
         t1=stateRecord(100,'','drawUI')
         # self.records.append(t0)
         self.records.append(label2)
-        self.records.append(label3)
+        # self.records.append(label3)
         self.records.append(t2)
         self.records.append(t1)
         self.current=self.current+1
