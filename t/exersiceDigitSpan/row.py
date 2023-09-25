@@ -1,16 +1,15 @@
 class row():
 
-    def __init__(self):
+
+    def __init__(self,number,currentNumber,correct,timer):
         self.number=''
         self.numberAnswers=''
         self.time=0
+        self.number=number
+        self.currentNumber= currentNumber
+        self.correct=correct
+        self.timePrint=timer
     
     def print(self):
-        x=0
-        y=0
-        for i in self.ids:
-            x=x*10+i+1
-        
-        for j in self.idsAnswer:
-            y=y*10+j+1
-        print('Row: Timer '+str(self.time2Answer)+' lenth '+str(len(self.ids))+ ' ids '+str(x)+' idsAnswered '+str(y))
+
+        print('Row: Timer '+str(self.timer)+' lenth '+str(self.number)+ ' ids '+str(self.currentNumber))

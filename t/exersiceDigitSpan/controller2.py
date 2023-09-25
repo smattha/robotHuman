@@ -14,7 +14,7 @@ path_of_image = '/home/stergios/Desktop/a.png'
 import time
 import random
 from exersiceDigitSpan.stats import stats
-from row import row
+from exersiceDigitSpan.row import row
 from exersiceDigitSpan.msgList import msg
 from exersiceDigitSpan.state import state
 
