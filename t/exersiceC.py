@@ -15,6 +15,10 @@ path_of_image = '/home/stergios/Desktop/a.png'
 import time
 import random
 from   exersiceDigitSpan.controller2 import controller2
+from stroop.controller4 import controller4
+from sart.controller5 import controller5
+
+from goNoGo.controller3 import controller3
 from controller import controller
 class ExersiceC(QMainWindow):
     
@@ -36,8 +40,14 @@ class ExersiceC(QMainWindow):
 
         if(exercise=='1'):  
           self.c=controller(self._ui,self)
-        else:
+        elif (exercise=='2'):
           self.c=controller2(self._ui,self)
+        elif (exercise=='3'):
+          self.c=controller3(self._ui,self)
+        elif (exercise=='4'):
+          self.c=controller4(self._ui,self)
+        elif (exercise=='5'):
+          self.c=controller5(self._ui,self)
         
 
     
