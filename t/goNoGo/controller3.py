@@ -27,17 +27,20 @@ class controller3():
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
         elif self.step=='wait' and self.row.greenGo=='green':
+            print('Correct')
             self.row.correct=True
             self.row.timeout=False
             self.row.stopTimer()
             self.step='replied'
             self.button1.hide()
-        elif self.step=='wait' and not self.row.greenGo=='red':
+            self.sleep=0
+        elif self.step=='wait' and self.row.greenGo=='red':
             self.row.correct=False
             self.row.timeout=False
             self.row.stopTimer()
             self.step='replied'
             self.button1.hide()
+            self.sleep=0
 
 
 
@@ -62,8 +65,8 @@ class controller3():
         # self.completeTask = QtCore.QTimer()
         # self.completeTask.timeout.connect(self.completeTaskF)
         self.counterTotal=0
-
-        self.exA.start(100)
+        self.sleepFactor=100/2
+        self.exA.start(100/self.sleepFactor)
         self.sleep=00;
         self.state=state()
         self.currentNumber=''
@@ -90,6 +93,8 @@ class controller3():
 
         self.tick=time.time()
 
+
+
     def draw1(self):
         self._ui.corbiLabel.setText('') 
         self.row=row()
@@ -104,12 +109,7 @@ class controller3():
         self.counter1=0
         self.buttonArray = [] 
         self.buttonsExist=True
-        
-
-
-     
-
-        
+               
         if color=='green':
             self.button1.setStyleSheet("background-color : green ;font-size: 22pt; " )
         else :
@@ -136,13 +136,14 @@ class controller3():
         if (self.step!='instruction'):
             self.counterTotal=self.counterTotal+1 
             self.tock=time.time()
-            print( str(self.counterTotal) +' ' +str(round(self.tock-self.tick,2)))
+            # print( str(self.counterTotal) +' ' +str(round(self.tock-self.tick,2)))
         
 
-        if (self.counterTotal==200):
+        if (self.counterTotal==200*self.sleepFactor):
             for i in self.rows:
                 i.print()
             self.exA.stop()
+            self.button1.hide()
 
         if(self.sleep>0):
             self.sleep=self.sleep-1
@@ -152,16 +153,21 @@ class controller3():
             self.button1.hide()
             self.row.timeout=True
             self.row.stopTimer()
-            self.rows.append(self.row)
-            self._ui.corbiLabel.setText('Λάθος') 
+            if(self.row.greenGo=='red'):
+                self.row.correct=True
+            else:
+                self.row.correct=False
+                self._ui.corbiLabel.setText('Λάθος') 
+                self.sleep=5*self.sleepFactor
+
             self.step='color'
-            self.sleep=2
+            self.rows.append(self.row)
 
             return
 
         if (self.step=='interval'):
             print('!!interval')
-            self.sleep=2
+            self.sleep=2*self.sleepFactor
             self.step='color'
             self.button1.hide()
             return
@@ -171,25 +177,20 @@ class controller3():
         elif (self.step=='color'):
             print('!COLOR!')
             self.draw1()
-            self.sleep=20
+            self.sleep=20*self.sleepFactor
             self.step='wait'
             return
         elif (self.step=='replied'):
-
             self.rows.append(self.row)
             if self.row.correct:
-                self._ui.corbiLabel.setText('Correct') 
-                self.step='interval'
+                # self._ui.corbiLabel.setText('Correct') 
+                self.step='color'
+                self.sleep=3*self.sleepFactor
             else :
                 self._ui.corbiLabel.setText('Wrong') 
-            self.sleep=10
-        elif(self.step=='hide'):
-            if(self.sleep>0):
-                self.sleep=self.sleep-1
-                return
-            else :
-                self.button1.hide()
                 self.step='color'
+                self.sleep=10*self.sleepFactor
+
 
 
 
