@@ -92,7 +92,8 @@ class controller3():
         self.rows=[]
 
         self.tick=time.time()
-
+        
+        self._ui.corbiLabel.setText('Go/No-go task\n\n Πάτα το space όταν εμφανίζετε το πράσινο τετραγωνάκι.\n Μη κάνεις τίποτα όταν το τετραγωνάκι είναι κόκκινο.') 
 
 
     def draw1(self):
@@ -187,7 +188,7 @@ class controller3():
                 self.step='color'
                 self.sleep=3*self.sleepFactor
             else :
-                self._ui.corbiLabel.setText('Wrong') 
+                self._ui.corbiLabel.setText('Λάθος') 
                 self.step='color'
                 self.sleep=10*self.sleepFactor
 

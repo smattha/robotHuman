@@ -9,7 +9,8 @@ class row():
         self.currentNumber= currentNumber
         self.correct=correct
         self.timePrint=timer
+        self.correctFlag=correct
     
-    def print(self):
+    def print(self,counter):
 
-        print('Row: Timer '+str(self.timer)+' lenth '+str(self.number)+ ' ids '+str(self.currentNumber))
+        print(str(counter)+' Row: Timer '+str(self.timePrint)+' lenth '+str(self.number)+ ' ids '+str(self.currentNumber))

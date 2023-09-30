@@ -255,7 +255,7 @@ class controller2():
                 spans=[]
                 counter=0
                 for i in self.rows:
-                    if(i.correrctFlag):
+                    if(i.correctFlag):
                         span=len(i.number)
                         spans.append(span)    
                     i.print(counter=counter+1)

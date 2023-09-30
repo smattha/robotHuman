@@ -1,15 +1,17 @@
+from goNoGo.stats import stats
 class row():
 
+    def __init__(self,text,color):
+        self.text=text
+        self.color=color       
+        self.stats=stats()
+        self.stats.startTimer()
+        self.pressed=False;
 
-    def __init__(self,number,currentNumber,correct,timer):
-        self.number=''
-        self.numberAnswers=''
-        self.time=0
-        self.number=number
-        self.currentNumber= currentNumber
-        self.correct=correct
-        self.timePrint=timer
-    
+    def stopTimer(self):
+        self.stats.stopTimer()
+        self.time=self.stats.timePrint()
+
     def print(self):
 
-        print('Row: Timer '+str(self.timer)+' lenth '+str(self.number)+ ' ids '+str(self.currentNumber))
+        print('Row: Timer '+str(self.time)+' text '+str(self.text)+ ' color background '+str(self.color))
