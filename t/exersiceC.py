@@ -38,6 +38,9 @@ class ExersiceC(QMainWindow):
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
 
+
+
+
         if(exercise=='1'):  
           self.c=controller(self._ui,self)
         elif (exercise=='2'):
@@ -49,7 +52,8 @@ class ExersiceC(QMainWindow):
         elif (exercise=='5'):
           self.c=controller5(self._ui,self)
         
-
+        self.c.height=1900
+        self.c.width=1200
     
         
 

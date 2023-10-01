@@ -12,6 +12,11 @@ class row():
         self.stats.stopTimer()
         self.time=self.stats.timePrint()
 
+    def correctAnswer(self):
+        if (self.color==self.text and self.pressed)or (self.color!=self.text and not self.pressed):
+            return True;
+        else :
+            return False;
     def print(self):
 
-        print('Row: Timer '+str(self.time)+' text '+str(self.text)+ ' color background '+str(self.color))
+        print('Row: Timer '+str(self.time)+' text '+str(self.text)+ ' color background '+str(self.color) + ' correct '+str(self.correctAnswer()) )

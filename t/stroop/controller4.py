@@ -15,10 +15,11 @@ import time
 import random
 from stroop.stats import stats
 from stroop.row import row
-from stroop.msgList import msg
+# from stroop.msgList import msg
 from stroop.state import state
 import random
 import time
+
 
 class controller4():
 
@@ -37,12 +38,14 @@ class controller4():
             
             
     def __init__(self, ui,timerUI):
+
+
         self._ui=ui
         self.timerUI=timerUI
 
         self.stats=stats()
         self.height=1200
-        self.width=1600
+        self.width=1900
         self.counterTotal=0
 
         self.buttonsExist=False
@@ -72,10 +75,15 @@ class controller4():
         
         self._ui.corbiLabel.setText('Stroop\n\n Πάτα το space όταν το χρώμα της λέξης και το νόημα είναι το ίδιο.') 
 
+        # self.timerUI.setCentralWidget(label)
+        # self.timerUI.resize(pixmap.width(), pixmap.height())
+
+    def calculatePerc(self):
+        return 50
     def draw1(self):
         self._ui.corbiLabel.setText('') 
         i=round(random.randint(0,11))
-        j=round(random.randint(0,11))
+        self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
 
         self.color='yellow'
         self.text='yellow'
@@ -86,14 +94,23 @@ class controller4():
             self.color='green'
         elif i<9:
             self.color='blue'
-
-        if j<3: 
-            self.text='red'
-        elif j<6:
-            self.text='green'
-        elif j<9:
-            self.text='blue'
-    
+        
+        p=random.randint(0,100)
+        if(p>self.calculatePerc()):       
+            self.text=self.color
+            while (self.text==self.color):
+                j=round(random.randint(0,11))
+                if j<3: 
+                    self.text='red'
+                elif j<6:
+                    self.text='green'
+                elif j<9:
+                    self.text='blue'
+                elif j<12:
+                    self.text='yellow'
+        else:
+            self.text= self.color
+        
         if(self.color==self.text):
             self.counterA=self.counterA+1
         else:
@@ -106,18 +123,26 @@ class controller4():
         self.buttonArray = [] 
         self.buttonsExist=True
         
-        ratio=1600/self.width
+        print(str()+' '+str())
         
 
-        x=(500+2*100)/ratio
-        y=(int(1.5*100+100))/ratio
+        x=self.timerUI.width()*0.6
+        y=(self.timerUI.height()-100)*0.6
+        x1=(self.timerUI.width()-x)/2
+        y1=(self.timerUI.height()-y)/2
+
         self.button1= QtWidgets.QPushButton(self._ui.widget)
 
         # self.button1.setText(self.text)
         self.button1.setObjectName("pushButton"+str(self.counter1))
-        self.button1.setGeometry(QtCore.QRect(x,y, 250/ratio, 160/ratio))
-        
+        # self.button1.setGeometry(QtCore.QRect(x,y, 250/ratio, 160/ratio))
+        # print (str((x1-300)/2)+' '+str(y1-200))
 
+        
+        self.button1.setGeometry(QtCore.QRect(x1,y1, x,y))
+        # print(str(x)+''+str(y))
+        
+        
         self.textGR=''
         if (self.text=='green'):
             self.textGR='Πράσινο'
@@ -129,10 +154,11 @@ class controller4():
             self.textGR='Κίτρινο'   
 
         self.button1.setText(self.textGR)     
-        self.button1.setStyleSheet('QPushButton {background-color : black ; color: '+self.color+'; font-size: 22pt; }' )
+        self.button1.setStyleSheet('QPushButton {background-color : black ; color: '+self.color+'; font-size: 32pt; }' )
         self.button1.show()
 
         self.counter1=self.counter1+1
+        
         
     
         
@@ -143,13 +169,13 @@ class controller4():
 
 
     def exALoop(self):
-
+        print(str(self.timerUI.width())+' '+str(self.timerUI.height()))
         if (self.step!='instruction'):
             self.counterTotal=self.counterTotal+1 
             self.tock=time.time()
             # print( str(self.counterTotal) +' ' +str(round(self.tock-self.tick,2)))
 
-        if (self.counterTotal>100):
+        if (self.counterTotal>300):
             for i in self.rows:
                 i.print()
                 self.exA.stop()
@@ -171,7 +197,7 @@ class controller4():
                 self.step='hide'
                 self.sleep=3
                 self.row.stopTimer()
-                self.row.pressed=True
+                self.row.pressed=False
                 self.rows.append(self.row)
         elif(self.step=='hide'):
             if(self.sleep>0):
@@ -181,24 +207,5 @@ class controller4():
                 self.button1.hide()
                 self.step='color'
 
-
-
-
-    def exAClick(self,i,button):
-        self.buttonArray[11].setEnabled(True)
-        self.buttonArray[3].setEnabled(True)
-        button.setEnabled(False)
-        self.currentNumber=self._ui.corbiLabel.text()+str(i)
-        self._ui.corbiLabel.setText(self._ui.corbiLabel.text()+str(i)) 
-        curState=self.state.getCurrentRecord()
-        curState.label=self.currentNumber
-
-        return
-       
-
       
-    def storedata(self):
-        print('Store data!!')
 
-
-    

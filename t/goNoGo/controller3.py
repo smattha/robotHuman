@@ -19,6 +19,9 @@ from goNoGo.msgList import msg
 from goNoGo.state import state
 import random
 import time
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel
+
 class controller3():
 
 
@@ -94,7 +97,13 @@ class controller3():
         self.tick=time.time()
         
         self._ui.corbiLabel.setText('Go/No-go task\n\n Πάτα το space όταν εμφανίζετε το πράσινο τετραγωνάκι.\n Μη κάνεις τίποτα όταν το τετραγωνάκι είναι κόκκινο.') 
-
+        
+    def displayImg(self):
+        label = QLabel(self._ui.widget)
+        pixmap = QPixmap("C:/Users/smatthai/Desktop/1.png")
+        label.setPixmap(pixmap)
+        label.setGeometry(300,300,300,300)
+        label.setScaledContents( True );
 
     def draw1(self):
         self._ui.corbiLabel.setText('') 
