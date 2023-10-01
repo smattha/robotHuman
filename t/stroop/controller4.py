@@ -30,9 +30,13 @@ class controller4():
 
          if (event.text()=='s' or event.text()==' ') and (self.step=='sleep'):
             self.step='hide'
-            self.sleep=0
-            self.row.stopTimer()
-            self.row.pressed=True
+            self.sleep=2
+            self.row.stopTimer(True)
+            if(self.row.correctAnswer()):
+                    self.correctCounter=self.correctCounter+1
+            else:
+                    self.falseCounter=self.falseCounter+1
+            # self.row.pressed=
             self.rows.append(self.row)
 
             
@@ -72,18 +76,32 @@ class controller4():
         self.rows=[]
         self.row=row('--','--')
         self.correctCounter=0
+        self.falseCounter=0
         
+        self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
         self._ui.corbiLabel.setText('Stroop\n\n Πάτα το space όταν το χρώμα της λέξης και το νόημα είναι το ίδιο.') 
-
+        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 200))
         # self.timerUI.setCentralWidget(label)
         # self.timerUI.resize(pixmap.width(), pixmap.height())
 
     def calculatePerc(self):
+        str(self.correctCounter)+'/'+str(self.falseCounter)
+        if (self.falseCounter>0):
+            perc=((self.correctCounter+0.001)/(self.falseCounter+self.correctCounter))*100
+            # print(perc)
+            if (perc<30):
+                return 100
+            elif (perc<50):
+                return 80
+            elif (perc<75):
+                return 65  
         return 50
+    
     def draw1(self):
         self._ui.corbiLabel.setText('') 
         i=round(random.randint(0,11))
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 200))
 
         self.color='yellow'
         self.text='yellow'
@@ -96,6 +114,7 @@ class controller4():
             self.color='blue'
         
         p=random.randint(0,100)
+        print(self.calculatePerc())
         if(p>self.calculatePerc()):       
             self.text=self.color
             while (self.text==self.color):
@@ -116,14 +135,13 @@ class controller4():
         else:
             self.counterB=self.counterB+1
         self.row=row(self.text,self.color)
-        
-        print('self.counterA +'+str(self.counterA)+" self.counterB "+str(self.counterB))
+         
+        print('Print correct color:'+str(self.counterA)+"/"+str(self.counterB+self.counterB)+ 'answer '+str(self.correctCounter)+'/'+str(self.falseCounter))
 
         self.counter1=0
         self.buttonArray = [] 
         self.buttonsExist=True
-        
-        print(str()+' '+str())
+
         
 
         x=self.timerUI.width()*0.6
@@ -154,7 +172,7 @@ class controller4():
             self.textGR='Κίτρινο'   
 
         self.button1.setText(self.textGR)     
-        self.button1.setStyleSheet('QPushButton {background-color : black ; color: '+self.color+'; font-size: 32pt; }' )
+        self.button1.setStyleSheet('QPushButton {background-color : grey ; color: '+self.color+'; font-size: 52pt; }' )
         self.button1.show()
 
         self.counter1=self.counter1+1
@@ -169,7 +187,7 @@ class controller4():
 
 
     def exALoop(self):
-        print(str(self.timerUI.width())+' '+str(self.timerUI.height()))
+        # print(str(self.timerUI.width())+' '+str(self.timerUI.height()))
         if (self.step!='instruction'):
             self.counterTotal=self.counterTotal+1 
             self.tock=time.time()
@@ -196,8 +214,12 @@ class controller4():
             else :
                 self.step='hide'
                 self.sleep=3
-                self.row.stopTimer()
-                self.row.pressed=False
+                self.row.stopTimer(False)
+                if(self.row.correctAnswer()):
+                    self.correctCounter=self.correctCounter+1
+                else:
+                    self.falseCounter=self.falseCounter+1
+                # self.row.pressed=False
                 self.rows.append(self.row)
         elif(self.step=='hide'):
             if(self.sleep>0):

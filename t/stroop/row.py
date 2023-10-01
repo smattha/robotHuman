@@ -1,6 +1,7 @@
 from goNoGo.stats import stats
 class row():
 
+
     def __init__(self,text,color):
         self.text=text
         self.color=color       
@@ -8,9 +9,12 @@ class row():
         self.stats.startTimer()
         self.pressed=False;
 
-    def stopTimer(self):
+    def stopTimer(self,pressed):
+        self.pressed=pressed
         self.stats.stopTimer()
         self.time=self.stats.timePrint()
+
+
 
     def correctAnswer(self):
         if (self.color==self.text and self.pressed)or (self.color!=self.text and not self.pressed):
