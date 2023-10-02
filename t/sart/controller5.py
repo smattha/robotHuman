@@ -15,7 +15,7 @@ import time
 import random
 from goNoGo.stats import stats
 from goNoGo.row import row
-from goNoGo.msgList import msg
+# from goNoGo.msgList import msg
 from goNoGo.state import state
 import random
 

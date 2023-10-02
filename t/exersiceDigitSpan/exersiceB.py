@@ -14,7 +14,8 @@ import random
 path_of_image = '/home/stergios/Desktop/a.png'
 import time
 import random
-from   controller import controller
+from   corsi.corsiController import corsi
+
 class ExersiceB(QMainWindow):
     
     def keyPressEvent(self, event):
@@ -32,7 +33,7 @@ class ExersiceB(QMainWindow):
         super().__init__()
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
-        self.c=controller(self._ui,self)
+        self.c=corsi(self._ui,self)
     
         
 

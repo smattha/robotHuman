@@ -1,25 +1,17 @@
 from PyQt5.QtCore import pyqtSlot
 from partb import Ui_MainWindow
-from PyQt5 import QtGui,QtCore
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import ( QMainWindow)
 
-import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-# import tty
-import sys
-# import termios
-from threading import Thread
+from PyQt5 import QtCore, QtWidgets
 from time import sleep
-import random
-path_of_image = '/home/stergios/Desktop/a.png'
 import time
-import random
 from   exersiceDigitSpan.controller2 import controller2
-from stroop.controller4 import controller4
+from stroop.stroopController import stroopController
 from sart.controller5 import controller5
+from corsi.corsiController import corsi
+from goNoGo.goNoGoController import goNoGoController
 
-from goNoGo.controller3 import controller3
-from controller import controller
 class ExersiceC(QMainWindow):
     
     def keyPressEvent(self, event):
@@ -42,13 +34,13 @@ class ExersiceC(QMainWindow):
 
 
         if(exercise=='1'):  
-          self.c=controller(self._ui,self)
+          self.c=corsi(self._ui,self)
         elif (exercise=='2'):
           self.c=controller2(self._ui,self)
         elif (exercise=='3'):
-          self.c=controller3(self._ui,self)
+          self.c=goNoGoController(self._ui,self)
         elif (exercise=='4'):
-          self.c=controller4(self._ui,self)
+          self.c=stroopController(self._ui,self)
         elif (exercise=='5'):
           self.c=controller5(self._ui,self)
         
