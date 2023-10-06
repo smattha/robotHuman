@@ -17,3 +17,4 @@ class row():
     def print(self):
 
         print('Row: Timer '+str(self.time)+' greenGo '+str(self.greenGo)+ ' correct '+str(self.correct)+' timeout '+ str(self.timeout))
+

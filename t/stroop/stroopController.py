@@ -25,10 +25,14 @@ class stroopController():
 
 
     def keyPressEvent(self, event):
-         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
+         
+        if(event.text()==chr(27)):
+            self.finishEx()
+
+        if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
 
-         if (event.text()=='s' or event.text()==' ') and (self.step=='sleep'):
+        if (event.text()=='s' or event.text()==' ') and (self.step=='sleep'):
             self.step='hide'
             self.sleep=2
             self.row.stopTimer(True)
@@ -174,7 +178,12 @@ class stroopController():
         sending_button = self.sender()
         self.status_label.setText('%s Clicked!' % str(sending_button.objectName()))
 
-
+    def finish(self):
+        for i in self.rows:
+            i.print()
+            self.exA.stop()
+            self.button1.hide()
+            self._ui.corbiLabel.setText('Τέλος')
 
     def exALoop(self):
         # print(str(self.timerUI.width())+' '+str(self.timerUI.height()))
@@ -182,13 +191,8 @@ class stroopController():
             self.counterTotal=self.counterTotal+1 
             self.tock=time.time()
             # print( str(self.counterTotal) +' ' +str(round(self.tock-self.tick,2)))
-
         if (self.counterTotal>300):
-            for i in self.rows:
-                i.print()
-                self.exA.stop()
-                self.button1.hide()
-                self._ui.corbiLabel.setText('Τέλος')
+            self.finish()
             return
         if (self.step=='instruction'):
             return

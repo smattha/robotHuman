@@ -13,9 +13,12 @@ from corsi.msgList import msg
 class corsi():
 
     def keyPressEvent(self, event):
-         if (event.text()=='s' or event.text()==' ') and self.step=='A':
+        if(event.text()==chr(27)):
+            self.finishEx()
+        if (event.text()=='s' or event.text()==' ') and self.step=='A':
               self.initialize()
               self.step='B'
+
 
     def __init__(self, ui,timerUI):
         print(timerUI)
@@ -39,7 +42,7 @@ class corsi():
         self.step='A'
         self.counterPause=3
 
-        self._ui.corbiLabel.setStyleSheet("font-size: 24pt; " )
+
     
     def clearUI(self):
         if (self.first==False):
@@ -218,37 +221,12 @@ class corsi():
                 self.errorCurrent=self.errorCurrent+1;
                 self.totalError=self.totalError+1;
                 if self.errorCurrent==2 or self.totalError==3:
-                    s=0
-                    counter=0
-                    maxCorsi=0
-
-                    for i in self.currentRows:
-                        counter=counter+1
-                        i.print(counter)
-                        s=s+i.time2Answer
-                        len1=i.getLenght()
-                        if (len1>maxCorsi):
-                             maxCorsi=len1
-                    s=round(s/len(self.currentRows),2)
-                    print('Mean time = '+str(s))
-                    self.step='A'
-
-                    self.timer=300
-                    self.corbi=3
-                    self.countdown=3
-                    self.first=True
-                    self.msg=msg()
-                    self.currentRows=[]
-                    self.stepA=True
-
-
-                    self._ui.corbiLabel.setText(self.msg.finishedMsg(s,maxCorsi))
+                    self.finishEx()
                     return
                 self.start(a)   
                 return
 
 
-            
 
             if(x==len(self.currentRow.ids)):
                     self.exC.stop()
@@ -266,4 +244,36 @@ class corsi():
                     self._ui.corbiLabel.setText(  self.msg.CORRECT)     
 
                     self.start(a)   
-        
+
+    def finishEx(self):
+                s=0
+                counter=0
+                maxCorsi=0
+
+                for i in self.currentRows:
+                    counter=counter+1
+                    i.print(counter)
+                    s=s+i.time2Answer
+                    len1=i.getLenght()
+                    if (len1>maxCorsi):
+                            maxCorsi=len1
+            
+                if (self.currentRows==0):
+                    s=round(s/len(self.currentRows),2)
+                else:
+                    s=0
+                    
+                print('Mean time = '+str(s))
+                self.step='A'
+
+                self.timer=300
+                self.corbi=3
+                self.countdown=3
+                self.first=True
+                self.msg=msg()
+                self.currentRows=[]
+                self.stepA=True
+
+
+                self._ui.corbiLabel.setText(self.msg.finishedMsg(s,maxCorsi))
+                

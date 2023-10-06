@@ -22,7 +22,9 @@ class controller2():
 
 
     def keyPressEvent(self, event):
-         if (event.text()=='s' or event.text()==' '):
+        if(event.text()==chr(27)):
+            self.finishEx()
+        if (event.text()=='s' or event.text()==' '):
             if (self.sleep==-10):
                 self.sleep=0
 
@@ -242,34 +244,7 @@ class controller2():
             wrong=True
             self.stats.wrong=self.stats.wrong+1
             if self.stats.wrong == 2:
-                self.stats.wrong=0
-                # self.clearUI()    
-                self.hide()
-
-                self.state.restart()               
-
-                # self.state.current=self.state.current+1
-                self.currentNumber=''
-                self.stats.number=''
-
-                spans=[]
-                counter=0
-                for i in self.rows:
-                    if(i.correctFlag):
-                        span=len(i.number)
-                        spans.append(span)    
-                    i.print(counter=counter+1)
-                    self.rowsTotal.append(i)
-                
-                if(len(spans)<2):
-                    self._ui.corbiLabel.setText('Tέλος\n\n Digital span 0')
-                else:
-                    span=len(spans)//2
-                    self._ui.corbiLabel.setText('Tέλος\n\n Digital span '+str(span+1))
-
-               
-                self.rows=[]
-                return
+                self.finishEx()
 
                 
 
@@ -284,7 +259,35 @@ class controller2():
         
         self.currentNumber=''
         return
-       
+    def finishEx(self):
+        self.stats.wrong=0
+        # self.clearUI()    
+        self.hide()
+
+        self.state.restart()               
+
+        # self.state.current=self.state.current+1
+        self.currentNumber=''
+        self.stats.number=''
+
+        spans=[]
+        counter=0
+        for i in self.rows:
+            if(i.correctFlag):
+                span=len(i.number)
+                spans.append(span)    
+            i.print(counter=counter+1)
+            self.rowsTotal.append(i)
+        
+        if(len(spans)<2):
+            self._ui.corbiLabel.setText('Tέλος\n\n Digital span 0')
+        else:
+            span=len(spans)//2
+            self._ui.corbiLabel.setText('Tέλος\n\n Digital span '+str(span+1))
+
+        
+        self.rows=[]
+        return
     def storedata(self):
         print('Store data!!')
 

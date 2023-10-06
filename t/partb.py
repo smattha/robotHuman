@@ -11,6 +11,13 @@
 from PyQt5 import QtCore,Qt, QtGui, QtWidgets
 from PyQt5.QtGui import * 
 
+from PyQt5.QtWidgets import (
+    QApplication,
+    QGridLayout,
+    QPushButton,
+    QWidget,
+)
+
 class Ui_MainWindow(object):
 
     def paintEvent(self, event):
@@ -31,7 +38,7 @@ class Ui_MainWindow(object):
         self.corbiLabel.setGeometry(QtCore.QRect( 0, 10, 1600, 400))
         self.corbiLabel.setAlignment(QtCore.Qt.AlignHCenter)
         self.corbiLabel.setObjectName("corbiLabel")
-        self.statusBar().showMessage("Ready")
+ 
 
         MainWindow.setCentralWidget(self.centralwidget)
         fontId = QFontDatabase.addApplicationFont("fonts/Mansalva.ttf")
@@ -42,18 +49,9 @@ class Ui_MainWindow(object):
             font = QtGui.QFont(families[0])
             self.widget.setFont(font)
             self.corbiLabel.setFont(font)
-        # self.menubar = QtWidgets.QMenuBar(MainWindow)
-        # self.menubar.setGeometry(QtCore.QRect(0, 0, 1600, 20))
-        # self.menubar.setObjectName("menubar")
-        # MainWindow.setMenuBar(self.menubar)
-        # self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        # self.statusbar.setObjectName("statusbar")
-        # MainWindow.setStatusBar(self.statusbar)
-
-       
-        # self.centralwidget.setStyleSheet("  { background-image: url(start.png); background-attachment: fixed }")
-
-        
+            self.corbiLabel.setStyleSheet("font-size: 24pt; " )
+          
+      
         self.centralwidget.setStyleSheet("#centralwidget{border-image: url(back.png) 0 0 0 0 stretch stretch;} font-family: times; ");
 
         self.retranslateUi(MainWindow)
@@ -65,12 +63,3 @@ class Ui_MainWindow(object):
         self.corbiLabel.setText(_translate("MainWindow", "corbiLabel"))
         # self.pushButton.setText(_translate("MainWindow", "PushButton"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

@@ -23,7 +23,21 @@ data = [('John', datetime.datetime(2019, 5, 5, 0, 54), datetime.datetime(2019, 5
     ('Watson', datetime.datetime(2019, 6, 15, 10, 22, 48), datetime.datetime(2019, 7, 8, 13, 33, 36)),
     ('Manila', datetime.datetime(2019, 7, 8, 13, 33, 36), datetime.datetime(2019, 7, 29, 6, 18)),
     ('Pete', datetime.datetime(2019, 7, 29, 6, 18), datetime.datetime(2019, 8, 6, 18, 50, 24)),
-    ('Mathew', datetime.datetime(2019, 8, 6, 18, 50, 24), datetime.datetime(2019, 8, 31, 3, 14, 24))]
+    ('Mathew', datetime.datetime(2019, 8, 6, 18, 50, 24), datetime.datetime(2019, 8, 31, 3, 14, 24)),
+        ('Rex', datetime.datetime(2019, 5, 26, 22, 51, 36), datetime.datetime(2019, 6, 15, 10, 22, 48)),
+    ('Watson', datetime.datetime(2019, 6, 15, 10, 22, 48), datetime.datetime(2019, 7, 8, 13, 33, 36)),
+    ('Manila', datetime.datetime(2019, 7, 8, 13, 33, 36), datetime.datetime(2019, 7, 29, 6, 18)),
+    ('Pete', datetime.datetime(2019, 7, 29, 6, 18), datetime.datetime(2019, 8, 6, 18, 50, 24)),
+    ('Mathew', datetime.datetime(2019, 8, 6, 18, 50, 24), datetime.datetime(2019, 8, 31, 3, 14, 24)),
+        ('Rex', datetime.datetime(2019, 5, 26, 22, 51, 36), datetime.datetime(2019, 6, 15, 10, 22, 48)),
+    ('Watson', datetime.datetime(2019, 6, 15, 10, 22, 48), datetime.datetime(2019, 7, 8, 13, 33, 36)),
+    ('Manila', datetime.datetime(2019, 7, 8, 13, 33, 36), datetime.datetime(2019, 7, 29, 6, 18)),
+    ('Pete', datetime.datetime(2019, 7, 29, 6, 18), datetime.datetime(2019, 8, 6, 18, 50, 24)),
+    ('Mathew', datetime.datetime(2019, 8, 6, 18, 50, 24), datetime.datetime(2019, 8, 31, 3, 14, 24))
+    
+    
+    
+    ]
 
  
 
@@ -58,7 +72,6 @@ class goNoGoController():
     def __init__(self, ui,timerUI):
                 
         self._ui=ui
-        self._ui.corbiLabel.setStyleSheet("font: 28pt;   font-family: Arial;");
         self.timerUI=timerUI
 
         self.stats=stats()
@@ -201,7 +214,7 @@ class goNoGoController():
 
 
     def showTable(self):
-        table = TableView(self._ui.widget,data, 4, 3)
+        table = TableView(self._ui.widget,data,["Name", "Hex Code", "Color"])
         # table.show()
         
     def exALoop(self):
