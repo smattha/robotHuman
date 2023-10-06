@@ -15,6 +15,7 @@ from goNoGo.goNoGoController import goNoGoController
 class ExersiceC(QMainWindow):
     
     def keyPressEvent(self, event):
+        
         self.c.keyPressEvent(event)
     
     def resizeEvent(self, event):

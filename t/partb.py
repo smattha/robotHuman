@@ -12,6 +12,13 @@ from PyQt5 import QtCore,Qt, QtGui, QtWidgets
 from PyQt5.QtGui import * 
 
 class Ui_MainWindow(object):
+
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        painter.drawPixmap(self.rect(), QPixmap("start.png"))
+        MainWindow.paintEvent(self, event)
+
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1900, 1200)
@@ -24,9 +31,17 @@ class Ui_MainWindow(object):
         self.corbiLabel.setGeometry(QtCore.QRect( 0, 10, 1600, 400))
         self.corbiLabel.setAlignment(QtCore.Qt.AlignHCenter)
         self.corbiLabel.setObjectName("corbiLabel")
-        self.corbiLabel.setFont(QFont('Arial', 16))
+        self.statusBar().showMessage("Ready")
 
         MainWindow.setCentralWidget(self.centralwidget)
+        fontId = QFontDatabase.addApplicationFont("fonts/Mansalva.ttf")
+        if fontId < 0:
+            print('font not loaded')
+        else :
+            families = QtGui.QFontDatabase.applicationFontFamilies(fontId)
+            font = QtGui.QFont(families[0])
+            self.widget.setFont(font)
+            self.corbiLabel.setFont(font)
         # self.menubar = QtWidgets.QMenuBar(MainWindow)
         # self.menubar.setGeometry(QtCore.QRect(0, 0, 1600, 20))
         # self.menubar.setObjectName("menubar")
@@ -34,6 +49,12 @@ class Ui_MainWindow(object):
         # self.statusbar = QtWidgets.QStatusBar(MainWindow)
         # self.statusbar.setObjectName("statusbar")
         # MainWindow.setStatusBar(self.statusbar)
+
+       
+        # self.centralwidget.setStyleSheet("  { background-image: url(start.png); background-attachment: fixed }")
+
+        
+        self.centralwidget.setStyleSheet("#centralwidget{border-image: url(back.png) 0 0 0 0 stretch stretch;} font-family: times; ");
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

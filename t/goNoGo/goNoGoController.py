@@ -2,8 +2,12 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel 
 
+     
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget,QTableWidgetItem,QVBoxLayout
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import pyqtSlot
 
 from time import sleep
 import random
@@ -12,11 +16,23 @@ import time
 from goNoGo.stats import stats
 from goNoGo.row import row
 from goNoGo.state import state
+import datetime
+from TableView import TableView
+data = [('John', datetime.datetime(2019, 5, 5, 0, 54), datetime.datetime(2019, 5, 26, 22, 51, 36)),
+    ('Rex', datetime.datetime(2019, 5, 26, 22, 51, 36), datetime.datetime(2019, 6, 15, 10, 22, 48)),
+    ('Watson', datetime.datetime(2019, 6, 15, 10, 22, 48), datetime.datetime(2019, 7, 8, 13, 33, 36)),
+    ('Manila', datetime.datetime(2019, 7, 8, 13, 33, 36), datetime.datetime(2019, 7, 29, 6, 18)),
+    ('Pete', datetime.datetime(2019, 7, 29, 6, 18), datetime.datetime(2019, 8, 6, 18, 50, 24)),
+    ('Mathew', datetime.datetime(2019, 8, 6, 18, 50, 24), datetime.datetime(2019, 8, 31, 3, 14, 24))]
 
+ 
 
 class goNoGoController():
 
     def keyPressEvent(self, event):
+        if(event.text()==chr(27)):
+            self.counterTotal=self.maxCounter
+
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
         elif self.step=='wait' and self.row.greenGo=='green':
@@ -42,7 +58,7 @@ class goNoGoController():
     def __init__(self, ui,timerUI):
                 
         self._ui=ui
-        self._ui.corbiLabel.setStyleSheet("font-size: 28pt; " )
+        self._ui.corbiLabel.setStyleSheet("font: 28pt;   font-family: Arial;");
         self.timerUI=timerUI
 
         self.stats=stats()
@@ -99,6 +115,11 @@ class goNoGoController():
         self.falseCounter=0
         self.displayImg1()
         self.displayImgInstr(x1,y1,x/2,y/2)
+
+        self.maxCounter=200*self.sleepFactor
+        
+        # table=TableView()
+        self.showTable()
 
     def displayImgInstr(self,x,y,w,h):
         self.labelInstStart = QLabel(self._ui.widget)
@@ -178,10 +199,14 @@ class goNoGoController():
     def completeTaskF(self):
         self.exA.stop()
 
+
+    def showTable(self):
+        table = TableView(self._ui.widget,data, 4, 3)
+        # table.show()
         
     def exALoop(self):
 
-        if (self.counterTotal==200*self.sleepFactor):
+        if (self.counterTotal>=self.maxCounter):
             for i in self.rows:
                 i.print()
             self.exA.stop()
