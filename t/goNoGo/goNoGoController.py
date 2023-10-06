@@ -18,35 +18,21 @@ from goNoGo.row import row
 from goNoGo.state import state
 import datetime
 from TableView import TableView
-data = [('John', datetime.datetime(2019, 5, 5, 0, 54), datetime.datetime(2019, 5, 26, 22, 51, 36)),
-    ('Rex', datetime.datetime(2019, 5, 26, 22, 51, 36), datetime.datetime(2019, 6, 15, 10, 22, 48)),
-    ('Watson', datetime.datetime(2019, 6, 15, 10, 22, 48), datetime.datetime(2019, 7, 8, 13, 33, 36)),
-    ('Manila', datetime.datetime(2019, 7, 8, 13, 33, 36), datetime.datetime(2019, 7, 29, 6, 18)),
-    ('Pete', datetime.datetime(2019, 7, 29, 6, 18), datetime.datetime(2019, 8, 6, 18, 50, 24)),
-    ('Mathew', datetime.datetime(2019, 8, 6, 18, 50, 24), datetime.datetime(2019, 8, 31, 3, 14, 24)),
-        ('Rex', datetime.datetime(2019, 5, 26, 22, 51, 36), datetime.datetime(2019, 6, 15, 10, 22, 48)),
-    ('Watson', datetime.datetime(2019, 6, 15, 10, 22, 48), datetime.datetime(2019, 7, 8, 13, 33, 36)),
-    ('Manila', datetime.datetime(2019, 7, 8, 13, 33, 36), datetime.datetime(2019, 7, 29, 6, 18)),
-    ('Pete', datetime.datetime(2019, 7, 29, 6, 18), datetime.datetime(2019, 8, 6, 18, 50, 24)),
-    ('Mathew', datetime.datetime(2019, 8, 6, 18, 50, 24), datetime.datetime(2019, 8, 31, 3, 14, 24)),
-        ('Rex', datetime.datetime(2019, 5, 26, 22, 51, 36), datetime.datetime(2019, 6, 15, 10, 22, 48)),
-    ('Watson', datetime.datetime(2019, 6, 15, 10, 22, 48), datetime.datetime(2019, 7, 8, 13, 33, 36)),
-    ('Manila', datetime.datetime(2019, 7, 8, 13, 33, 36), datetime.datetime(2019, 7, 29, 6, 18)),
-    ('Pete', datetime.datetime(2019, 7, 29, 6, 18), datetime.datetime(2019, 8, 6, 18, 50, 24)),
-    ('Mathew', datetime.datetime(2019, 8, 6, 18, 50, 24), datetime.datetime(2019, 8, 31, 3, 14, 24))
-    
-    
-    
-    ]
-
- 
 
 class goNoGoController():
 
     def keyPressEvent(self, event):
         if(event.text()==chr(27)):
             self.counterTotal=self.maxCounter
-
+        if (self.stateVariable=='end' and  event.text()==' '):
+            print('---')
+            self.stateVariable='start'
+            self.init()
+            self.table.table1.hide()
+            self.step='instruction'           
+            self.labelInstStart.show()
+            self.labelInstStop.show()
+            return
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
         elif self.step=='wait' and self.row.greenGo=='green':
@@ -70,10 +56,12 @@ class goNoGoController():
             self.sleep=0
 
     def __init__(self, ui,timerUI):
-                
+        self.stateVariable ='start'     
         self._ui=ui
         self.timerUI=timerUI
+        self.init()
 
+    def init(self):
         self.stats=stats()
         self.height=1200
         self.width=1600
@@ -217,19 +205,20 @@ class goNoGoController():
 
 
     def showTable(self):
+        self.stateVariable='end'
         if (len(self.rows)>0):
             data=[]
             headers=[]
             for row in self.rows:
                 data.append(row.getData())
                 headers=row.getHeader()
-        table = TableView(self._ui.widget,data,headers)
+            self.table = TableView(self._ui.widget,data,headers)
         # table.show()
         
     def exALoop(self):
 
         if (self.counterTotal>=self.maxCounter):
-            self.showTable()
+            self.table1=self.showTable()
 
             for i in self.rows:
                 i.print()
@@ -280,6 +269,7 @@ class goNoGoController():
             return
         
         if (self.step=='instruction'):
+
             return
         elif (self.step=='color'):
             self.draw1()

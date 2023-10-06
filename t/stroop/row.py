@@ -27,8 +27,32 @@ class row():
 
 
     def getData(self):
-        data=[str(self.time),str(len(self.text)),str(self.color),str(self.correctAnswer())]  
+        self.textGR=''
+        if (self.text=='green'):
+            self.textGR='Πράσινο'
+        elif (self.text=='blue'):
+            self.textGR='Μπλε'
+        elif (self.text=='red'):
+            self.textGR='Κόκκινο'
+        elif (self.text=='yellow'):
+            self.textGR='Κίτρινο'   
+
+        self.colorGR=''
+        if (self.color=='green'):
+            self.colorGR='Πράσινο'
+        elif (self.color=='blue'):
+            self.colorGR='Μπλε'
+        elif (self.color=='red'):
+            self.colorGR='Κόκκινο'
+        elif (self.color=='yellow'):
+            self.colorGR='Κίτρινο'           
+
+        answerGR='Σωστά'
+        if(not self.correctAnswer()):
+            answerGR='Λάθος'
+
+        data=[str(self.time),str(len(self.textGR)),str(self.colorGR), str(answerGR)]  
         return data
     
     def getHeader(self):
-        return [' Χρόνος απάντησεις ','text ','color',' correctAnswer ']
+        return [' Χρόνος','Λέξη ','Χρώμα','Απάντησε']

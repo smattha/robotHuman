@@ -25,11 +25,20 @@ class controller2():
     def keyPressEvent(self, event):
         if(event.text()==chr(27)):
             self.finishEx()
+        if (self.stateVariable=='end' and  event.text()==' '):
+            self.stateVariable='start'
+            self.init(self._ui,self.timerUI)
+            self.table.table1.hide()
+
         if (event.text()=='s' or event.text()==' '):
             if (self.sleep==-10):
                 self.sleep=0
 
     def __init__(self, ui,timerUI):
+        self.init(ui,timerUI)
+        self.stateVariable='start'
+
+    def init(self,ui,timerUI):
         self._ui=ui
         self.timerUI=timerUI
 
@@ -154,7 +163,6 @@ class controller2():
 
 
         self.counter1=self.counter1+1
-        self.state
 
         
     
@@ -231,10 +239,6 @@ class controller2():
             self.stats.wrong=self.stats.wrong+1
             if self.stats.wrong == 2:
                 self.finishEx()
-
-                
-
-
             print (str(self.stats.wrong)+' '+self.stats.number+' !== '+self.currentNumber)
 
 
@@ -246,6 +250,7 @@ class controller2():
         self.currentNumber=''
         return
     def finishEx(self):
+        self.stateVariable='end'
         self.showTable()
         self.stats.wrong=0
         # self.clearUI()    
@@ -325,4 +330,5 @@ class controller2():
             for row in self.rows:
                 data.append(row.getData())
                 headers=row.getHeader()
-        table = TableView(self._ui.widget,data,headers)
+        if (len(self.rows)):
+            self.table = TableView(self._ui.widget,data,headers)

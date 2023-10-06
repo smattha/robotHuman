@@ -29,6 +29,9 @@ class stroopController():
          
         if(event.text()==chr(27)):
             self.finish()
+        if ( event.text()==' '  and self.stepStart=='finish'):   
+            self.table.table1.hide()
+            self.init()
 
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
@@ -44,14 +47,18 @@ class stroopController():
             # self.row.pressed=
             self.rows.append(self.row)
 
-            self.finish()
+            # self.finish()
             
     def __init__(self, ui,timerUI):
 
 
         self._ui=ui
         self.timerUI=timerUI
+        self.init()
 
+
+    def init(self):
+        self.stepStart='start'
         self.stats=stats()
         self.height=1200
         self.width=1900
@@ -62,7 +69,6 @@ class stroopController():
         self.rows=[]
         self.rowsTotal=[]
         self.stepA=True
-        # self.drawUI()
         self.exA = QtCore.QTimer()
         self.exA.timeout.connect(self.exALoop)
         self.exA.start(100)
@@ -183,12 +189,13 @@ class stroopController():
         self.status_label.setText('%s Clicked!' % str(sending_button.objectName()))
 
     def finish(self):
+        self.stepStart='finish'
         for i in self.rows:
             i.print()
             self.exA.stop()
             self.button1.hide()
             self._ui.corbiLabel.setText('Τέλος')
-            self.showTable()
+        self.showTable()
 
     def exALoop(self):
         # print(str(self.timerUI.width())+' '+str(self.timerUI.height()))
@@ -235,4 +242,4 @@ class stroopController():
             for row in self.rows:
                 data.append(row.getData())
                 headers=row.getHeader()
-        table = TableView(self._ui.widget,data,headers)
+            self.table = TableView(self._ui.widget,data,headers)

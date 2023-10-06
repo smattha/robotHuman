@@ -23,7 +23,7 @@ class row():
         
         for j in self.idsAnswer:
             y=y*10+j+1
-        print(str(counter)+': Χρόνος απάντησεις '+str(self.time2Answer)+' μήκος αλυσίδας '+str(len(self.ids))+ ' σωστή ακολουθεία '+str(x)+' απαντήσεις '+str(y))
+        print(str(counter)+': Χρόνος απάντησεις '+str(self.time2Answer)+' μήκος '+str(len(self.ids))+ ' σωστό νούμερο '+str(x)+' απαντήση '+str(y))
 
 
     def getData(self):

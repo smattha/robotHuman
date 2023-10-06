@@ -17,8 +17,8 @@ class row():
 
 
     def getData(self):
-        data=[str(self.timePrint),str(len(self.number)),str(self.currentNumber)]  
+        data=[str(self.timePrint),str(self.number),str(self.currentNumber)]  
         return data
     
     def getHeader(self):
-        return [' Χρόνος απάντησεις ','number ',' Απάντησε σωστά']
+        return [' Χρόνος ','Αριθμός ',' Απάντηση']

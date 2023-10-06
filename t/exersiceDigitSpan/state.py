@@ -18,30 +18,7 @@ class state():
     def restart(self):
 
         self.firstStep()        
-        # self.newLoop=True;
-        # self.current=0;
-        # self.changeRecord=False
-        # self.records=[]
-        
-        # recordslen=len( self.records)
-        # drawUI=stateRecord(100,'','drawUI')
-        # label2=stateRecord(-10,'Ξεκινάμε από την αρχή\n\nΠάτα το s ή το space όταν είσαι έτοιμος.?','',str(randint(1, 9)))
-        # draw1=stateRecord(8,'','draw1',str(randint(1, 9)))
-        
-        # label1=stateRecord(-10,'Digit span - verbal working memory\n\n\n'+\
-        #     'Θα παρουσιαστεί μια ακολουθία ψηφίων.\n\
-        #         Μετά θα πρέπει να επαναλάβεις την ακολουθία. Αφού επαναλάβεις την ακολουθία θα παρουσιάστει μια μεγαλύτερη ακολουθία.\n'+
-        #         ' Αυτό συνεχίζεται μέχρι το άτομο να μην μπορεί πλέον να επαναλάβει την ακολουθία. \n\nΠάτα το s ή το space για να ξεκινήσουμε.','',str(randint(1, 9)))
 
-        # # self.records.append(label1)
-        # self.records.append(label2)
-        
-        # self.records.append(draw1)
-
-        # self.records.append(drawUI)
-        # self.number=1
-        # self.numberCounter=0;
-        # self.current=recordslen
         
     def firstStep(self):
 

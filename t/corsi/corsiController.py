@@ -42,6 +42,10 @@ class corsi():
         self.step='A'
         self.counterPause=3
 
+        self.countdownWrong=0
+
+        self.tableShow=False
+
 
     
     def clearUI(self):
@@ -69,11 +73,11 @@ class corsi():
         
         for i in self.positions:
                 x=(400+i%6*100)/ratio
-                y=(int(i/5)*100+100)/ratio
+                y=(int(i/5)*90+150)/ratio
                 self.buttonArray.append( QtWidgets.QPushButton(self._ui.widget) )
                 self.buttonArray[counter1].setObjectName("pushButton"+str(counter1))
                 self.buttonArray[counter1].clicked.connect( lambda: self.exAClick)
-                self.buttonArray[counter1].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
+                self.buttonArray[counter1].setGeometry(QtCore.QRect(x,y, 75/ratio, 80/ratio))
                 self.buttonArray[counter1].setStyleSheet("background-color : pink;" )
                 
                 self.buttonArray[counter1].show()
@@ -141,13 +145,17 @@ class corsi():
 
 
     def initialize(self):
+        if(self.tableShow):
+             self.tableShow=False
+             self.table.table1.hide()
         a=row()
         self.start(a)
         self.errorCurrent=0;
         self.totalError=0
 
     def start(self,r_o_w: row):
-        self.countdown=2
+        self.countdown=2+self.countdownWrong
+        self.countdownWrong=0
         self.counter=0
         self.state='Read'
 
@@ -185,6 +193,7 @@ class corsi():
 
     def countdownA(self):
         if (self.countdown>3):
+            print('----')
             self.countdown=self.countdown-1
             return
 
@@ -204,7 +213,8 @@ class corsi():
             if (self.currentRow.ids[x-1]!=i):
                 self.exC.stop()
                
-                self.counterPause=5
+                self.counterPause=10
+                self.countdownWrong=5
                 self._ui.corbiLabel.setText(self.msg.WRONG)
                 if (i==-1):
                      self._ui.corbiLabel.setText(self.msg.TIMEOUT)
@@ -246,6 +256,7 @@ class corsi():
                     self.start(a)   
 
     def finishEx(self):
+        self.tableShow=True
         self.showTable()
         self.exA.stop()
 
@@ -293,4 +304,4 @@ class corsi():
             for row in self.currentRows:
                 data.append(row.getData())
                 headers=row.getHeader()
-        table = TableView(self._ui.widget,data,headers)
+            self.table = TableView(self._ui.widget,data,headers)

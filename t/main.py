@@ -4,7 +4,7 @@ from pyexpat import model
 import sys
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication
-from exersiceDigitSpan.exersiceB import ExersiceB
+# from exersiceDigitSpan.exersiceB import ExersiceB
 from exersiceC import ExersiceC
 
 from sys import exit

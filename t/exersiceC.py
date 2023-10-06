@@ -11,11 +11,15 @@ from stroop.stroopController import stroopController
 from sart.controller5 import controller5
 from corsi.corsiController import corsi
 from goNoGo.goNoGoController import goNoGoController
+from PyQt5.QtWidgets import QApplication
 
 class ExersiceC(QMainWindow):
     
     def keyPressEvent(self, event):
-        
+        # print('---')
+        if(event.text()=='s'):
+          QApplication.exit(0)
+          
         self.c.keyPressEvent(event)
     
     def resizeEvent(self, event):
@@ -27,23 +31,30 @@ class ExersiceC(QMainWindow):
 
 
     def __init__(self,exercise):
+        self.exercise=exercise
         super().__init__()
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
+      
+        self.init(self._ui)
+        
+    def init(self,ui):
 
+
+        exercise=self.exercise
 
 
 
         if(exercise=='1'):  
-          self.c=corsi(self._ui,self)
+          self.c=corsi(ui,self)
         elif (exercise=='2'):
-          self.c=controller2(self._ui,self)
+          self.c=controller2(ui,self)
         elif (exercise=='3'):
-          self.c=goNoGoController(self._ui,self)
+          self.c=goNoGoController(ui,self)
         elif (exercise=='4'):
-          self.c=stroopController(self._ui,self)
+          self.c=stroopController(ui,self)
         elif (exercise=='5'):
-          self.c=controller5(self._ui,self)
+          self.c=controller5(ui,self)
         
         self.c.height=1900
         self.c.width=1200
