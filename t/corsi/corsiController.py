@@ -8,7 +8,7 @@ import random
 from corsi.stats import stats
 from corsi.row import row
 from corsi.msgList import msg
-
+from TableView import TableView
 
 class corsi():
 
@@ -246,34 +246,51 @@ class corsi():
                     self.start(a)   
 
     def finishEx(self):
-                s=0
-                counter=0
-                maxCorsi=0
+        self.showTable()
+        self.exA.stop()
 
-                for i in self.currentRows:
-                    counter=counter+1
-                    i.print(counter)
-                    s=s+i.time2Answer
-                    len1=i.getLenght()
-                    if (len1>maxCorsi):
-                            maxCorsi=len1
+        self.exB.stop()
+
+        self.exC.stop()
+        s=0
+        counter=0
+        maxCorsi=0
+
+        for i in self.currentRows:
+            counter=counter+1
+            i.print(counter)
+            s=s+i.time2Answer
+            len1=i.getLenght()
+            if (len1>maxCorsi):
+                    maxCorsi=len1
+    
+        if (self.currentRows==0):
+            s=round(s/len(self.currentRows),2)
+        else:
+            s=0
             
-                if (self.currentRows==0):
-                    s=round(s/len(self.currentRows),2)
-                else:
-                    s=0
-                    
-                print('Mean time = '+str(s))
-                self.step='A'
+        print('Mean time = '+str(s))
+        self.step='A'
 
-                self.timer=300
-                self.corbi=3
-                self.countdown=3
-                self.first=True
-                self.msg=msg()
-                self.currentRows=[]
-                self.stepA=True
+        self.timer=300
+        self.corbi=3
+        self.countdown=3
+        self.first=True
+        self.msg=msg()
+        self.currentRows=[]
+        self.stepA=True
 
 
-                self._ui.corbiLabel.setText(self.msg.finishedMsg(s,maxCorsi))
-                
+
+        self._ui.corbiLabel.setText(self.msg.finishedMsg(s,maxCorsi))
+
+        self.clearUI()
+
+    def showTable(self):
+        if (len(self.currentRows)>0):
+            data=[]
+            headers=[]
+            for row in self.currentRows:
+                data.append(row.getData())
+                headers=row.getHeader()
+        table = TableView(self._ui.widget,data,headers)

@@ -24,3 +24,18 @@ class row():
         for j in self.idsAnswer:
             y=y*10+j+1
         print(str(counter)+': Χρόνος απάντησεις '+str(self.time2Answer)+' μήκος αλυσίδας '+str(len(self.ids))+ ' σωστή ακολουθεία '+str(x)+' απαντήσεις '+str(y))
+
+
+    def getData(self):
+        x=0
+        y=0
+        for i in self.ids:
+            x=x*10+i+1
+        
+        for j in self.idsAnswer:
+            y=y*10+j+1
+        data=[str(self.time2Answer),str(len(self.ids)),str(x),str(y)]  
+        return data
+    
+    def getHeader(self):
+        return [' Χρόνος απάντησεις ',' μήκος αλυσίδας ',' σωστή ακολουθεία ',' απαντήσεις ',]

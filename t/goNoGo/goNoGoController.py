@@ -104,7 +104,7 @@ class goNoGoController():
         x=self.timerUI.width()*0.5
         y=(self.timerUI.height()*0.5)
         x1=(self.timerUI.width()-x)/2
-        y1=(self.timerUI.height()-y)/2
+        y1=(self.timerUI.height()-y)/2+100
 
         self.button1= QtWidgets.QPushButton(self._ui.widget)
         self.button1.setObjectName("pushButton"+str(1))
@@ -117,9 +117,12 @@ class goNoGoController():
 
         self.tick=time.time()
         
-        self._ui.corbiLabel.setText('<b>Go/No-go task</b><br> <br> Σε αυτό το παιχνίδι εμφανίζονται διαδοχικά δυο εικόνες.<br> \
+        self._ui.corbiLabel.setText('<b>Go/No-go task</b><br> <br>\
+                                     Σε αυτό το παιχνίδι εμφανίζονται διαδοχικά δυο εικόνες.<br> \
  Πάτα το space όταν εμφανίζετε η εικόνα αριστερά.<br> \
- Μη κάνεις τίποτα όταν το εμφανίζετε η εικόνα δεξιά.') 
+ Μη κάνεις τίποτα όταν το εμφανίζετε η εικόνα δεξιά.\
+                                        Πάτα το space  για να ξεκινήσουμε!<br>\
+    Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC') 
         
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
         self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 200))
@@ -132,7 +135,7 @@ class goNoGoController():
         self.maxCounter=200*self.sleepFactor
         
         # table=TableView()
-        self.showTable()
+        # self.showTable()
 
     def displayImgInstr(self,x,y,w,h):
         self.labelInstStart = QLabel(self._ui.widget)
@@ -214,12 +217,20 @@ class goNoGoController():
 
 
     def showTable(self):
-        table = TableView(self._ui.widget,data,["Name", "Hex Code", "Color"])
+        if (len(self.rows)>0):
+            data=[]
+            headers=[]
+            for row in self.rows:
+                data.append(row.getData())
+                headers=row.getHeader()
+        table = TableView(self._ui.widget,data,headers)
         # table.show()
         
     def exALoop(self):
 
         if (self.counterTotal>=self.maxCounter):
+            self.showTable()
+
             for i in self.rows:
                 i.print()
             self.exA.stop()
@@ -303,3 +314,5 @@ class goNoGoController():
             elif (perc<75):
                 return 65  
         return 50
+    
+    

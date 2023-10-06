@@ -19,6 +19,7 @@ from stroop.row import row
 from stroop.state import state
 import random
 import time
+from TableView import TableView
 
 
 class stroopController():
@@ -27,7 +28,7 @@ class stroopController():
     def keyPressEvent(self, event):
          
         if(event.text()==chr(27)):
-            self.finishEx()
+            self.finish()
 
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
@@ -43,7 +44,7 @@ class stroopController():
             # self.row.pressed=
             self.rows.append(self.row)
 
-            
+            self.finish()
             
     def __init__(self, ui,timerUI):
 
@@ -83,7 +84,11 @@ class stroopController():
         self.falseCounter=0
         
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
-        self._ui.corbiLabel.setText('<b>Stroop</b> <br> <br> Πάτα το space όταν το χρώμα της λέξης και το νόημα είναι το ίδιο.') 
+        self._ui.corbiLabel.setText('<b>Stroop</b> <br> <br> <br>\
+                                    Στην οθόνη θα εμφανίζονται λέξεις. <br>\
+                                     Πάτα το space όταν το χρώμα της λέξης και το νόημα είναι το ίδιο.<br>\
+                                    Πάτα το space  για να ξεκινήσουμε!<br>\
+                                    Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC') 
         self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 200))
         
         self._ui.corbiLabel.setStyleSheet("font-size: 28pt; " )
@@ -146,7 +151,6 @@ class stroopController():
         self.buttonsExist=True
 
         
-
         x=self.timerUI.width()*0.6
         y=(self.timerUI.height()-100)*0.6
         x1=(self.timerUI.width()-x)/2
@@ -184,6 +188,7 @@ class stroopController():
             self.exA.stop()
             self.button1.hide()
             self._ui.corbiLabel.setText('Τέλος')
+            self.showTable()
 
     def exALoop(self):
         # print(str(self.timerUI.width())+' '+str(self.timerUI.height()))
@@ -223,5 +228,11 @@ class stroopController():
                 self.button1.hide()
                 self.step='color'
 
-      
-
+    def showTable(self):
+        if (len(self.rows)>0):
+            data=[]
+            headers=[]
+            for row in self.rows:
+                data.append(row.getData())
+                headers=row.getHeader()
+        table = TableView(self._ui.widget,data,headers)

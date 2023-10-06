@@ -14,3 +14,11 @@ class row():
     def print(self,counter):
 
         print(str(counter)+' Row: Timer '+str(self.timePrint)+' lenth '+str(self.number)+ ' ids '+str(self.currentNumber))
+
+
+    def getData(self):
+        data=[str(self.timePrint),str(len(self.number)),str(self.currentNumber)]  
+        return data
+    
+    def getHeader(self):
+        return [' Χρόνος απάντησεις ','number ',' Απάντησε σωστά']

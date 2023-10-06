@@ -17,6 +17,7 @@ from exersiceDigitSpan.stats import stats
 from exersiceDigitSpan.row import row
 from exersiceDigitSpan.msgList import msg
 from exersiceDigitSpan.state import state
+from TableView import TableView
 
 class controller2():
 
@@ -51,6 +52,10 @@ class controller2():
         self.currentNumber=''
         self.draw1Done=False
 
+        self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, 10, self.width, 600))
+
+        self.buttonArray=[]
+
     
     def clearUI(self):
         self.draw1Done=False
@@ -62,6 +67,7 @@ class controller2():
     def drawUI(self):
         if self.draw1Done==True:
             return
+       
        
 
         self.clearUI()
@@ -202,32 +208,12 @@ class controller2():
     
 
     def hide(self):
-
-        self.buttonArray[0].setDisabled(True)
-        self.buttonArray[1].setDisabled(True)
-        self.buttonArray[2].setDisabled(True)
-        self.buttonArray[3].setDisabled(True)
-        self.buttonArray[4].setDisabled(True)
-        self.buttonArray[5].setDisabled(True)
-        self.buttonArray[6].setDisabled(True)
-        self.buttonArray[7].setDisabled(True)
-        self.buttonArray[8].setDisabled(True)
-        self.buttonArray[9].setDisabled(True)
-        self.buttonArray[10].setDisabled(True)
-        self.buttonArray[11].setDisabled(True)
-    
-        self.buttonArray[0].hide()
-        self.buttonArray[1].hide()
-        self.buttonArray[2].hide()
-        self.buttonArray[3].hide()
-        self.buttonArray[4].hide()
-        self.buttonArray[5].hide()
-        self.buttonArray[6].hide()
-        self.buttonArray[7].hide()
-        self.buttonArray[8].hide()
-        self.buttonArray[9].hide()
-        self.buttonArray[10].hide()
-        self.buttonArray[11].hide()
+        if (len(self.buttonArray)==0):
+            return
+        
+        for b in self.buttonArray:
+            b.setDisabled(True)
+            b.hide()
 
 
     def exAClickContinuou(self,i):
@@ -260,11 +246,13 @@ class controller2():
         self.currentNumber=''
         return
     def finishEx(self):
+        self.showTable()
         self.stats.wrong=0
         # self.clearUI()    
         self.hide()
 
-        self.state.restart()               
+        self.state.restart()    
+        self.exA.stop()           
 
         # self.state.current=self.state.current+1
         self.currentNumber=''
@@ -330,3 +318,11 @@ class controller2():
 
         return
     
+    def showTable(self):
+        if (len(self.rows)>0):
+            data=[]
+            headers=[]
+            for row in self.rows:
+                data.append(row.getData())
+                headers=row.getHeader()
+        table = TableView(self._ui.widget,data,headers)

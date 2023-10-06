@@ -24,3 +24,11 @@ class row():
     def print(self):
 
         print('Row: Timer '+str(self.time)+' text '+str(self.text)+ ' color background '+str(self.color) + ' correct '+str(self.correctAnswer()) )
+
+
+    def getData(self):
+        data=[str(self.time),str(len(self.text)),str(self.color),str(self.correctAnswer())]  
+        return data
+    
+    def getHeader(self):
+        return [' Χρόνος απάντησεις ','text ','color',' correctAnswer ']

@@ -18,3 +18,9 @@ class row():
 
         print('Row: Timer '+str(self.time)+' greenGo '+str(self.greenGo)+ ' correct '+str(self.correct)+' timeout '+ str(self.timeout))
 
+    def getData(self):
+        data=[str(self.time),str(len(self.greenGo)),str(self.correct),str(self.timeout)]  
+        return data
+    
+    def getHeader(self):
+        return [' Χρόνος απάντησεις ','Χρώμα ',' Απάντησε σωστά',' timeout ',]

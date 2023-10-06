@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
         self.widget.setGeometry(QtCore.QRect(0, 0, 1900, 1200))
         self.widget.setObjectName("widget")
         self.corbiLabel = QtWidgets.QLabel(self.widget)
-        self.corbiLabel.setGeometry(QtCore.QRect( 0, 10, 1600, 400))
+        self.corbiLabel.setGeometry(QtCore.QRect( 0, 10, 1600, 700))
         self.corbiLabel.setAlignment(QtCore.Qt.AlignHCenter)
         self.corbiLabel.setObjectName("corbiLabel")
  
@@ -59,7 +59,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.corbiLabel.setText(_translate("MainWindow", "corbiLabel"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Εκπεδευτικές εφαρμογές"))
+        self.corbiLabel.setText(_translate("MainWindow", ""))
         # self.pushButton.setText(_translate("MainWindow", "PushButton"))
 
