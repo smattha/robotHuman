@@ -15,6 +15,10 @@ class corsi():
     def keyPressEvent(self, event):
         if(event.text()==chr(27)):
             self.finishEx()
+            try:
+                self.clearUI()
+            except:
+                print("An exception occurred")
         if (event.text()=='s' or event.text()==' ') and self.step=='A':
               self.initialize()
               self.step='B'

@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import ( QMainWindow)
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 # import tty
+from PyQt5.QtGui import * 
 import sys
 # import termios
 from threading import Thread
@@ -43,9 +44,13 @@ class controller2():
         self.timerUI=timerUI
 
         self.stats=stats()
-        self.height=1200
-        self.width=1600
+        self.height=self.timerUI.height()
+        self.width=self.timerUI.width()
 
+        # x=*0.5
+        # y=(self.timerUI.height()*0.5)
+        # x1=(self.timerUI.width()-x)/2
+        # y1=(-y)/2+100
 
         self.buttonsExist=False
  
@@ -98,6 +103,15 @@ class controller2():
                     self.buttonArray[self.counter1].clicked.connect( lambda: self.exAClick)
                     self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
                     self.buttonArray[self.counter1].setStyleSheet("background-color : pink; font-size: 18pt; " )
+
+                    fontId = QFontDatabase.addApplicationFont("fonts/Mansalva.ttf")
+                    if fontId < 0:
+                        print('font not loaded')
+                    else :
+                        families = QtGui.QFontDatabase.applicationFontFamilies(fontId)
+                        font = QtGui.QFont(families[0])
+                        self.buttonArray[self.counter1].setFont(font)
+          
                     
                     self.buttonArray[self.counter1].show()
                     self.counter1=self.counter1+1

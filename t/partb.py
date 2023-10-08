@@ -52,7 +52,7 @@ class Ui_MainWindow(object):
             self.corbiLabel.setStyleSheet("font-size: 24pt; " )
           
       
-        self.centralwidget.setStyleSheet("#centralwidget{border-image: url(back.png) 0 0 0 0 stretch stretch;} font-family: times; ");
+        self.centralwidget.setStyleSheet("#centralwidget{border-image: url(back.png) 0 0 0 0 stretch stretch;}");
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
