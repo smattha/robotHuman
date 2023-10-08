@@ -177,7 +177,7 @@ class stroopController():
             self.textGR='Κίτρινο'   
 
         self.button1.setText(self.textGR)     
-        self.button1.setStyleSheet('QPushButton {background-color : grey ; color: '+self.color+'; font-size: 52pt; }' )
+        self.button1.setStyleSheet('QPushButton {background-color : rgb(204,229,255) ; color: '+self.color+'; font-size: 52pt; }' )
         self.button1.show()
 
         self.counter1=self.counter1+1
