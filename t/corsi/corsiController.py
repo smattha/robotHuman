@@ -1,7 +1,9 @@
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtCore, QtCore, QtWidgets
-
+from PyQt5.QtGui import * 
 from time import sleep
+from PyQt5.QtWidgets import QLabel 
+
 import random
 
 import random
@@ -20,6 +22,7 @@ class corsi():
             except:
                 print("An exception occurred")
         if (event.text()=='s' or event.text()==' ') and self.step=='A':
+              self._ui.label.show()
               self.initialize()
               self.step='B'
 
@@ -49,6 +52,9 @@ class corsi():
         self.countdownWrong=0
 
         self.tableShow=False
+
+        self.factor=6
+
 
 
     
@@ -106,11 +112,16 @@ class corsi():
 
 
     def exALoop(self):
+        if (self.factor>0):
+             self.factor=self.factor-1
+            #  print(self.factor)
+             return
+        self.factor=6
         self.buttonArray = [] 
         self.drawUI()
-        if (self.state=='yellow' and self.counterPause>0):
-             self.counterPause=self.counterPause-1
-             return
+        # if (self.state=='yellow' and self.counterPause>0):
+        #      self.counterPause=self.counterPause-1
+        #      return
         if(self.counter==self.currentRow.currentCorsi):
             self.exA.stop()
             self.state='Answer'
@@ -125,27 +136,47 @@ class corsi():
             self.buttonArray[7].clicked.connect( lambda: self.exAClick(7))
             self.buttonArray[8].clicked.connect( lambda: self.exAClick(8))
             self._ui.corbiLabel.setText(self.msg.INSTRUNCTIONS2)
+            self.label1.hide()
             self.stats.startTimer()
             self.counterTimeout=6
             self.exC.start(1000)
             
         else:
             self.state='yellow'
-            self.counterPause=3
+
             if (self.stepA):
+                print(self.currentRow.timer)
+                self.factor=self.currentRow.timer
                 self.stepA=False
                 i=round(random.randint(0,8))
                 while  i  in self.currentRow.ids:
                     i=round(random.randint(0,8))
                 self.currentRow.ids.append(i)
                 for ii in self.buttonArray:
-                        ii.setStyleSheet("background-color : pink;" )
-                self.buttonArray[i].setStyleSheet("background-color : yellow;")
+                        ii.setStyleSheet("background-color : pink; " )
+                self.buttonArray[i].setStyleSheet(" background-image : url(img/monkey.png) 0 0 0 0 stretch stretch;;")
+                
+                self.buttonArray[i].setFlat(True)
+                self.buttonArray[i].setAutoFillBackground(True)
+                # self.buttonArray[i].setScaledContents(True)
+
+                pixmap = QPixmap("img/monkey3.png")
+                self.label1 = QLabel( self._ui.widget) 
+                self.label1.setPixmap(pixmap)
+                self.label1.setGeometry(self.buttonArray[i].geometry())
+                self.label1.setScaledContents( True );
+                # self.label1.setText('---ffffffffffffffffffffffffff-')
+                self.label1.show()
+                # self.label.ba
+               
+                
                 self.counter=self.counter+1
             else:
+                self.factor=20
                 self.stepA=True
                 for ii in self.buttonArray:
                         ii.setStyleSheet("background-color : pink;" )
+                        self.label1.hide()
 
 
     def initialize(self):
@@ -203,7 +234,7 @@ class corsi():
 
         if (self.countdown==-1):
             self.exB.stop()
-            self.exA.start(self.currentRow.timer)
+            self.exA.start(50)
             return
                   
         self._ui.corbiLabel.setText(self.msg.countDown(str(self.currentRow.currentCorsi),str(self.countdown)))
@@ -229,8 +260,7 @@ class corsi():
                 self.currentRows.append(self.currentRow)
                 
                 a=row()
-                a.timer=self.timer*2
-                self.timer=a.timer
+                a.timer=self.currentRow.timer*2
                 a.currentCorsi=self.corbi
                 self.errorCurrent=self.errorCurrent+1;
                 self.totalError=self.totalError+1;
@@ -260,7 +290,13 @@ class corsi():
                     self.start(a)   
 
     def finishEx(self):
-        self.tableShow=True
+
+        try:
+            self.clearUI()
+        except:
+            print("An exception occurred")
+
+
         self.showTable()
         self.exA.stop()
 
@@ -303,6 +339,7 @@ class corsi():
 
     def showTable(self):
         if (len(self.currentRows)>0):
+            self.tableShow=True
             data=[]
             headers=[]
             for row in self.currentRows:

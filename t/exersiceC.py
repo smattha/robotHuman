@@ -27,7 +27,7 @@ class ExersiceC(QMainWindow):
         width = event.size().width()
         self.c.height=height
         self.c.width=width
-        self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, 10, width, 600))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, 10, width, height))
 
 
     def __init__(self,exercise):

@@ -4,11 +4,12 @@ class row():
         self.currentCorsi=3;
         self.ids=[]
         self.idsAnswer=[]
-        self.timer=300
+        self.timer=6
         
         self.timer1sec=1000
         self.first=True
         self.time2Answer=0
+        self.counterPause=3
     
     def getLenght(self):
         if (self.ids==self.idsAnswer):
@@ -38,4 +39,4 @@ class row():
         return data
     
     def getHeader(self):
-        return [' Χρόνος απάντησεις ',' μήκος αλυσίδας ',' σωστή ακολουθεία ',' απαντήσεις ',]
+        return [' Χρόνος',' Μήκος αλυσίδας ',' Σωστή ακολουθία ',' Απαντήση χρήστη ',]

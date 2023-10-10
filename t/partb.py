@@ -18,11 +18,13 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
+from PyQt5.QtWidgets import QLabel 
+
 class Ui_MainWindow(object):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        painter.drawPixmap(self.rect(), QPixmap("start.png"))
+        painter.drawPixmap(self.rect(), QPixmap("img/back2.png"))
         MainWindow.paintEvent(self, event)
 
 
@@ -31,11 +33,16 @@ class Ui_MainWindow(object):
         MainWindow.resize(1900, 1200)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
+        pixmap = QPixmap("img/back.png")
         self.widget = QtWidgets.QWidget(self.centralwidget)
         self.widget.setGeometry(QtCore.QRect(0, 0, 1900, 1200))
         self.widget.setObjectName("widget")
+
+        self.label = QLabel(self.widget)
+        
         self.corbiLabel = QtWidgets.QLabel(self.widget)
-        self.corbiLabel.setGeometry(QtCore.QRect( 0, 10, 1600, 700))
+        self.corbiLabel.setGeometry(QtCore.QRect( 0, 10, 1600, 1200))
         self.corbiLabel.setAlignment(QtCore.Qt.AlignHCenter)
         self.corbiLabel.setObjectName("corbiLabel")
  
@@ -52,14 +59,22 @@ class Ui_MainWindow(object):
             self.corbiLabel.setStyleSheet("font-size: 24pt; " )
           
       
-        self.centralwidget.setStyleSheet("#centralwidget{border-image: url(back.png) 0 0 0 0 stretch stretch;}");
+        self.centralwidget.setStyleSheet("#centralwidget{border-image: url(img/back2.png) 0 0 0 0 stretch stretch;}");
+        
+
+
+        self.label.setPixmap(pixmap)
+        self.label.setGeometry(0,0,1900,1800)
+        self.label.setScaledContents( True );
+        # self.label.ba
+        self.label.hide()
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Εκπεδευτικές εφαρμογές"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "LINA: Εκπαιδευτικές δραστηριότητες"))
         self.corbiLabel.setText(_translate("MainWindow", ""))
         # self.pushButton.setText(_translate("MainWindow", "PushButton"))
 
