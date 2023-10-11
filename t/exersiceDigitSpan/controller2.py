@@ -82,8 +82,6 @@ class controller2():
     def drawUI(self):
         if self.draw1Done==True:
             return
-       
-       
 
         self.clearUI()
         self.draw1Done=True
@@ -95,15 +93,15 @@ class controller2():
         
         for i in [1,2,3]:
                 for j in [0,1,2,3]:
-                    x=(560+i*100)/ratio
-                    y=(int(j)*100+150)/ratio
+                    x=(250+i*220)/ratio
+                    y=(int(j)*120+150)/ratio
                     button1= QtWidgets.QPushButton(self._ui.widget)
                     button1.setText(str(3*j+i))
                     self.buttonArray.append( button1)
                     self.buttonArray[self.counter1].setObjectName("pushButton"+str(self.counter1))
                     self.buttonArray[self.counter1].clicked.connect( lambda: self.exAClick)
-                    self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
-                    self.buttonArray[self.counter1].setStyleSheet("background-color : pink; font-size: 18pt; " )
+                    self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x,y, 200/ratio, 100/ratio))
+                    self.buttonArray[self.counter1].setStyleSheet("background-color : pink; font-size: 34pt; " )
 
                     fontId = QFontDatabase.addApplicationFont("fonts/Mansalva.ttf")
                     if fontId < 0:
@@ -118,20 +116,20 @@ class controller2():
                     self.counter1=self.counter1+1
 
 
-        x=(560+1*100)/ratio
+        x=(250+1*220)/ratio
         y=(int(5)*100+150)/ratio
         
         self.buttonArray[3].setText(msg.CLEAR)
-        self.buttonArray[3].setGeometry(QtCore.QRect(x,y, 80/ratio+40, 80/ratio))
-        
+        self.buttonArray[3].setGeometry(QtCore.QRect(x,y, 200/ratio+80, 120/ratio))
+        self.buttonArray[3].setStyleSheet("background-color : pink; font-size: 22pt; " )
         
         self.buttonArray[7].setText('0')
 
-        x=(560+3*100)/ratio
+        x=(250+3*220)/ratio
         y=(int(5)*100+150)/ratio
-        self.buttonArray[11].setGeometry(QtCore.QRect(x-40,y, 80/ratio+40, 80/ratio))
+        self.buttonArray[11].setGeometry(QtCore.QRect(x-80,y, 200/ratio+80, 120/ratio))
         self.buttonArray[11].setText(msg.CONTINUE)
-
+        self.buttonArray[11].setStyleSheet("background-color : pink; font-size: 22pt; " )
 
         self.buttonArray[0].clicked.connect( lambda: self.exAClick(1,self.buttonArray[0]))
         self.buttonArray[1].clicked.connect( lambda: self.exAClick(4,self.buttonArray[1]))
@@ -171,8 +169,8 @@ class controller2():
         self.buttonArray.append( button1)
         self.buttonArray[self.counter1].setObjectName("pushButton"+str(self.counter1))
         self.buttonArray[self.counter1].clicked.connect( lambda: self.exAClick)
-        self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x,y, 80/ratio, 80/ratio))
-        self.buttonArray[self.counter1].setStyleSheet("background-color : pink;font-size: 22pt; " )
+        self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x-40,y-40, 160/ratio, 160/ratio))
+        self.buttonArray[self.counter1].setStyleSheet("background-color : pink;font-size: 34pt; " )
         
         self.buttonArray[self.counter1].show()
 

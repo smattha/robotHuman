@@ -42,7 +42,9 @@ class TableView():
                         self.table1.setItem(row, column, QTableWidgetItem((self.data[row][column])))
         self.table1.show()
         self.table1.setGeometry(QtCore.QRect(400,300, 1000,600))
-        self.table1.setEnabled(False)
+        self.table1.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.table1.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
+        # self.table1.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         fontId = QFontDatabase.addApplicationFont("fonts/Mansalva.ttf")
         if fontId < 0:
             print('font not loaded')
@@ -52,11 +54,10 @@ class TableView():
             self.table1.setFont(font)
             self.table1.setStyleSheet(" font-size: 22pt; " )
 
-            # self.table1.setStyleSheet( "font-size: 22pt;  0 0 0 0 stretch stretch;}")
-
             stylesheet = "::section{Background-color:rgb(255,204,229)}"
             self.table1.horizontalHeader().setStyleSheet(stylesheet)
             self.table1.verticalHeader().setStyleSheet(stylesheet)
+            # self.table1.setScr
             
             header = self.table1.horizontalHeader()
             # header.setResizeMode(QHeaderView.Re)

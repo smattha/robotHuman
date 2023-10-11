@@ -32,11 +32,13 @@ class state():
         draw1=stateRecord(8,'','draw1',str(randint(1, 9)))
 
         back=stateRecord(0,'img/sky2.jpg','back',str(randint(1, 9)))
+
+        back1=stateRecord(0,'img/back.png','back',str(randint(1, 9)))
         
         backhide=stateRecord(0,'','backhide',str(randint(1, 9)))
         
         label1=stateRecord(-10,'<h1>Digit span - verbal working memory</h1><br><br>'+\
-            'Θqqα παρουσιαστεί μια ακολουθία ψηφίων.<br><br>\
+            'Θα παρουσιαστεί μια ακολουθία ψηφίων.<br><br>\
                 Μετά θα πρέπει να επαναλάβεις την ακολουθία.<br><br> Αφού επαναλάβεις την ακολουθία θα παρουσιάστει μια μεγαλύτερη ακολουθία.<br>'+
                 '<br>Αυτό συνεχίζεται μέχρι  να κάνεις δυο διαδοχικά λάθη. <br><br><br>\
                 Πάτα το space για να ξεκινήσουμε.<br> \
@@ -45,11 +47,13 @@ class state():
                     
         self.records.append(backhide)
         self.records.append(label1)
-        self.records.append(back)
+  
+        self.records.append(back1)
         self.records.append(label2)
         
         self.records.append(draw1)
-
+        
+        self.records.append(back)
         self.records.append(drawUI)
         self.number=1
         self.numberCounter=0;

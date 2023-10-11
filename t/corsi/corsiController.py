@@ -347,6 +347,7 @@ class corsi():
 
 
         self._ui.corbiLabel.setText(self.msg.finishedMsg(s,maxCorsi))
+        
 
         self.clearUI()
 

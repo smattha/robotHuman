@@ -20,6 +20,7 @@ from stroop.state import state
 import random
 import time
 from TableView import TableView
+from PyQt5.QtGui import QPixmap
 
 
 class stroopController():
@@ -35,7 +36,8 @@ class stroopController():
 
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
-
+            self._ui.label.hide()
+            
         if (event.text()=='s' or event.text()==' ') and (self.step=='sleep'):
             self.step='hide'
             self.sleep=2
@@ -90,14 +92,14 @@ class stroopController():
         self.falseCounter=0
         
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
-        self._ui.corbiLabel.setText('<b>Stroop</b> <br> <br> <br>\
-                                    Στην οθόνη θα εμφανίζονται λέξεις. <br>\
-                                     Πάτα το space όταν το χρώμα της λέξης και το νόημα είναι το ίδιο.<br>\
+        self._ui.corbiLabel.setText('<h1>Stroop</h1> <br> <br>\
+                                    Στην οθόνη θα εμφανίζονται λέξεις. <br><br>\
+                                     Πάτα το space όταν το χρώμα της λέξης και το νόημα της είναι το ίδιο.<br><br><br>\
                                     Πάτα το space  για να ξεκινήσουμε!<br>\
                                     Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC') 
-        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 200))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 1200))
         
-        self._ui.corbiLabel.setStyleSheet("font-size: 28pt; " )
+
 
     def calculatePerc(self):
         str(self.correctCounter)+'/'+str(self.falseCounter)
@@ -116,7 +118,7 @@ class stroopController():
         self._ui.corbiLabel.setText('') 
         i=round(random.randint(0,11))
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
-        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 200))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 1200))
 
         self.color='yellow'
         self.text='yellow'
@@ -157,8 +159,8 @@ class stroopController():
         self.buttonsExist=True
 
         
-        x=self.timerUI.width()*0.6
-        y=(self.timerUI.height()-100)*0.6
+        x=self.timerUI.width()*0.8
+        y=(self.timerUI.height()-100)*0.8
         x1=(self.timerUI.width()-x)/2
         y1=(self.timerUI.height()-y)/2
 
@@ -177,9 +179,9 @@ class stroopController():
             self.textGR='Κίτρινο'   
 
         self.button1.setText(self.textGR)     
-        self.button1.setStyleSheet('QPushButton {background-color : rgb(204,229,255) ; color: '+self.color+'; font-size: 52pt; }' )
+        self.button1.setStyleSheet('QPushButton {background-color : rgb(204,229,255) ; color: '+self.color+'; font-size: 100pt; }' )
         self.button1.show()
-
+        self.button1.setDisabled(True)
         self.counter1=self.counter1+1
         
     
@@ -194,7 +196,13 @@ class stroopController():
             i.print()
             self.exA.stop()
             self.button1.hide()
-            self._ui.corbiLabel.setText('Τέλος')
+            
+            pixmap = QPixmap('img/happy.png')
+            self._ui.label.setPixmap(pixmap)
+            self._ui.label.setScaledContents( True );
+            self._ui.label.show()
+            self._ui.corbiLabel.setText('<h1>Τέλος</h1>\
+                                        Πάτα το space  για να ξεκινήσουμε από την αρχή!<br>')
         self.showTable()
 
     def exALoop(self):

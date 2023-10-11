@@ -10,7 +10,7 @@ class msg:
     
 
     INSTRUNCTIONS2="<b><h1>Corsi memory tasks</h1></b>\
-        Άγγιξε τα μπλοκ που με την ίδια σειρά που εμφανίστηκε το πιθικάκι σε αυτά."
+        Άγγιξε τα τετραγωνάκια με την ίδια σειρά που εμφανίστηκε το πιθικάκι σε αυτά."
 
 
     WRONG="<b><h1>Corsi memory tasks</h1></b><br><br>\
@@ -32,9 +32,9 @@ class msg:
        return '<b><h1>Corsi memory tasks</h1></b><br><br>Είσαι στο επίπεδο '+str(level)+'.<br><br><br> Ξεκινάμε σε  '+str(countdown)
     
     def finishedMsg(self,time,maxC):
-        return '<h1>Αποτελέσματα<h1><br>\
+        return '<h1>Αποτελέσματα</h1><br>\
         Μέσος χρόνος ανά αλυσίδα: '+ str(time)+ \
         ' Μήκος μέγιστης αλυσίδα '+ str(maxC)+\
-        '<br><br>Πάτα το space  για να ξεκινήσουμε το παιχνίδι από την αρχή!'
+        '<br>Πάτα το space  για να ξεκινήσουμε το παιχνίδι από την αρχή!'
     
     

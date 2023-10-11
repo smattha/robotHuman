@@ -51,7 +51,7 @@ class row():
         if(not self.correctAnswer()):
             answerGR='Λάθος'
 
-        data=[str(self.time),str(len(self.textGR)),str(self.colorGR), str(answerGR)]  
+        data=[str(self.time),str((self.textGR)),str(self.colorGR), str(answerGR)]  
         return data
     
     def getHeader(self):

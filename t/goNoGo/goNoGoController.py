@@ -32,9 +32,14 @@ class goNoGoController():
             self.step='instruction'           
             self.labelInstStart.show()
             self.labelInstStop.show()
+            self._ui.label.hide()
             return
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
+            pixmap = QPixmap('img/back.png')
+            self._ui.label.setPixmap(pixmap)
+            self._ui.label.setScaledContents( True );
+            self._ui.label.show()
         elif self.step=='wait' and self.row.greenGo=='green':
             print('Correct')
             self.row.correct=True
@@ -89,10 +94,10 @@ class goNoGoController():
         ratio=1600/self.width
         
 
-        x=self.timerUI.width()*0.5
+        x=self.timerUI.width()*0.6
         y=(self.timerUI.height()*0.5)
-        x1=(self.timerUI.width()-x)/2
-        y1=(self.timerUI.height()-y)/2+100
+        x1=(self.timerUI.width()-x+100)/2
+        y1=(self.timerUI.height()-y)/2+200
 
         self.button1= QtWidgets.QPushButton(self._ui.widget)
         self.button1.setObjectName("pushButton"+str(1))
@@ -105,7 +110,7 @@ class goNoGoController():
 
         self.tick=time.time()
         
-        self._ui.corbiLabel.setText('<b>Go/No-go task</b><br> <br>\
+        self._ui.corbiLabel.setText('<h1>Go/No-go task</h1> <br>\
                                      Σε αυτό το παιχνίδι εμφανίζονται διαδοχικά δυο εικόνες.<br> \
  Πάτα το space όταν εμφανίζετε η εικόνα αριστερά.<br> \
  Μη κάνεις τίποτα όταν το εμφανίζετε η εικόνα δεξιά.\
@@ -113,7 +118,7 @@ class goNoGoController():
     Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC') 
         
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
-        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 200))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 1200))
 
         self.correctCounter=0
         self.falseCounter=0
@@ -153,7 +158,7 @@ class goNoGoController():
         i=round(random.randint(0,99))
 
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
-        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 200))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 1200))
 
         color='green'
         if i<self.calculatePerc(): 
@@ -227,7 +232,13 @@ class goNoGoController():
             self.label.hide()
 
             str(self.correctCounter)+'/'+str(self.falseCounter)
-            self._ui.corbiLabel.setText('<b> Τέλος </b> <br><br><br> Απάντησες σωστά σε '+str(self.correctCounter)+' σε συνολικά '+str(self.correctCounter+self.falseCounter)) 
+            self._ui.corbiLabel.setText('<h1> Τέλος </h1>\
+                                         Απάντησες σωστά σε '+str(self.correctCounter)+' σε συνολικά '+str(self.correctCounter+self.falseCounter)\
+                                                                                                           +".<br>Πάτα το space  για να ξεκινήσουμε από την αρχή!") 
+            
+            pixmap = QPixmap('img/happy.png')
+            self._ui.label.setPixmap(pixmap)
+            self._ui.label.setScaledContents( True );
             return
 
         if (self.step!='instruction'):
@@ -252,7 +263,7 @@ class goNoGoController():
 
             else:
                 self.row.correct=False
-                self._ui.corbiLabel.setText('<b>Λάθος</b>') 
+                self._ui.corbiLabel.setText('<h1>Λάθος απάντηση</h1>') 
                 self.sleep=10*self.sleepFactor
                 self.falseCounter=self.falseCounter+1
 
@@ -287,7 +298,7 @@ class goNoGoController():
                 self.sleep=3*self.sleepFactor
                 self.correctCounter=self.correctCounter+1
             else :
-                self._ui.corbiLabel.setText('<b>Λάθος</b>') 
+                self._ui.corbiLabel.setText('<h1>Λάθος απάντηση</h1>') 
                 self.step='color'
                 self.sleep=10*self.sleepFactor
                 self.falseCounter=self.falseCounter+1
