@@ -61,7 +61,7 @@ class stroopController():
         self.stepStart='start'
         self.stats=stats()
         self.height=1200
-        self.width=1900
+        self.width=1920
         self.counterTotal=0
 
         self.buttonsExist=False

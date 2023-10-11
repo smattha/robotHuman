@@ -28,6 +28,8 @@ class corsi():
                 pixmap = QPixmap("img/back.png")
                 self._ui.label.setPixmap(pixmap)
                 self._ui.label.setScaledContents( True );
+                # self._ui.corbiLabel.setText('')
+                self._ui.wrongIMG.hide()
 
 
     def __init__(self, ui,timerUI):
@@ -42,7 +44,7 @@ class corsi():
 
         self.timer=300
         self.corbi=3
-        self.countdown=3
+        self.countdown=2
         self.first=True
         self.msg=msg()
         self._ui.corbiLabel.setText(  self.msg.INSTRUNCTIONS)    
@@ -51,14 +53,9 @@ class corsi():
 
         self.step='A'
         self.counterPause=3
-
         self.countdownWrong=0
-
         self.tableShow=False
-
         self.factor=6
-
-
 
     
     def clearUI(self):
@@ -75,6 +72,12 @@ class corsi():
         self.first=True
 
     def drawUI(self):
+
+        pixmap=QPixmap("img/back.png")
+        self._ui.label.setPixmap(pixmap)
+        self._ui.label.setGeometry(0,0,2000,1800)
+        self._ui.label.setScaledContents( True );
+
 
         counter1=0
         self.buttonArray = [] 
@@ -95,8 +98,6 @@ class corsi():
                 
                 self.buttonArray[counter1].show()
                 counter1=counter1+1
-
-
 
         self._ui.button1=self.buttonArray[0]
         self._ui.button2=self.buttonArray[1]
@@ -138,6 +139,10 @@ class corsi():
             self.buttonArray[6].clicked.connect( lambda: self.exAClick(6))
             self.buttonArray[7].clicked.connect( lambda: self.exAClick(7))
             self.buttonArray[8].clicked.connect( lambda: self.exAClick(8))
+            pixmap = QPixmap("img/gradient-pink-green-background.png")
+            self._ui.label.setPixmap(pixmap)
+            self._ui.label.setScaledContents( True );
+            
             self._ui.corbiLabel.setText(self.msg.INSTRUNCTIONS2)
             self.label1.hide()
             self.stats.startTimer()
@@ -168,12 +173,9 @@ class corsi():
                 self.label1.setPixmap(pixmap)
                 self.label1.setGeometry(self.buttonArray[i].geometry())
                 self.label1.setScaledContents( True );
-                # self.label1.setText('---ffffffffffffffffffffffffff-')
-                self.label1.show()
-                # self.label.ba
-               
-                
+                self.label1.show()             
                 self.counter=self.counter+1
+            
             else:
                 self.factor=20
                 self.stepA=True
@@ -193,7 +195,7 @@ class corsi():
 
     def start(self,r_o_w: row):
         self.countdown=2+self.countdownWrong
-        self.countdownWrong=0
+        
         self.counter=0
         self.state='Read'
 
@@ -203,7 +205,10 @@ class corsi():
 
         self.exB = QtCore.QTimer(self.timerUI)
         self.exB.stop()
-
+        if(self.countdownWrong==0):
+            self._ui.corbiLabel.setText(self.msg.countDown(str(self.currentRow.currentCorsi),str(self.countdown+1)))
+        else :
+             self.countdownWrong=0
         self.exB.start(self.currentRow.timer1sec)
         self.positions=[]
 
@@ -230,7 +235,9 @@ class corsi():
         self.exC.stop()
 
     def countdownA(self):
+        
         if (self.countdown>3):
+
             print('----')
             self.countdown=self.countdown-1
             return
@@ -239,7 +246,7 @@ class corsi():
             self.exB.stop()
             self.exA.start(50)
             return
-                  
+        self._ui.wrongIMG.hide()
         self._ui.corbiLabel.setText(self.msg.countDown(str(self.currentRow.currentCorsi),str(self.countdown)))
         self.countdown=self.countdown-1
 
@@ -254,6 +261,9 @@ class corsi():
                 self.counterPause=10
                 self.countdownWrong=5
                 self._ui.corbiLabel.setText(self.msg.WRONG)
+                
+                self._ui.wrongIMG.show()
+                
                 if (i==-1):
                      self._ui.corbiLabel.setText(self.msg.TIMEOUT)
                 timer=self.stats.stopTimer()
@@ -328,7 +338,7 @@ class corsi():
 
         self.timer=300
         self.corbi=3
-        self.countdown=3
+        self.countdown=2
         self.first=True
         self.msg=msg()
         self.currentRows=[]

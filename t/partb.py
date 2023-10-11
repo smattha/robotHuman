@@ -22,27 +22,22 @@ from PyQt5.QtWidgets import QLabel
 
 class Ui_MainWindow(object):
 
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.drawPixmap(self.rect(), QPixmap("img/back2.png"))
-        MainWindow.paintEvent(self, event)
-
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1900, 1200)
+        MainWindow.resize(1920, 1200)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         pixmap = QPixmap("img/back.png")
         self.widget = QtWidgets.QWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(0, 0, 1900, 1200))
+        self.widget.setGeometry(QtCore.QRect(0, 0, 1920, 1200))
         self.widget.setObjectName("widget")
 
         self.label = QLabel(self.widget)
         
         self.corbiLabel = QtWidgets.QLabel(self.widget)
-        self.corbiLabel.setGeometry(QtCore.QRect( 0, 10, 1600, 1200))
+        self.corbiLabel.setGeometry(QtCore.QRect( 0, 0, 1600, 1200))
         self.corbiLabel.setAlignment(QtCore.Qt.AlignHCenter)
         self.corbiLabel.setObjectName("corbiLabel")
  
@@ -56,7 +51,7 @@ class Ui_MainWindow(object):
             font = QtGui.QFont(families[0])
             self.widget.setFont(font)
             self.corbiLabel.setFont(font)
-            self.corbiLabel.setStyleSheet("font-size: 24pt; " )
+            self.corbiLabel.setStyleSheet("font-size: 24pt; color : blue; " )
           
       
         self.centralwidget.setStyleSheet("#centralwidget{border-image: url(img/back2.png) 0 0 0 0 stretch stretch;}");
@@ -64,10 +59,17 @@ class Ui_MainWindow(object):
 
 
         self.label.setPixmap(pixmap)
-        self.label.setGeometry(0,0,1900,1800)
+        self.label.setGeometry(0,0,2000,1800)
         self.label.setScaledContents( True );
         # self.label.ba
         self.label.hide()
+
+        self.wrongIMG = QLabel(self.widget)
+        pixmap = QPixmap("img/wrong.png")
+        self.wrongIMG.setPixmap(pixmap)
+        self.wrongIMG.setScaledContents( True );
+        self.wrongIMG.setGeometry(QtCore.QRect(1900/2-200, 1200/2-200, 400, 400))
+        self.wrongIMG.hide()
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

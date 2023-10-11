@@ -17,7 +17,7 @@ class ExersiceC(QMainWindow):
     
     def keyPressEvent(self, event):
         # print('---')
-        if(event.text()=='s'):
+        if event.text()=='t' or event.text()=='T' or event.text()=='τ' or event.text()=='Τ':
           QApplication.exit(0)
           
         self.c.keyPressEvent(event)
@@ -27,6 +27,7 @@ class ExersiceC(QMainWindow):
         width = event.size().width()
         self.c.height=height
         self.c.width=width
+        # print (str(height)+' '+str(width))
         self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, 10, width, height))
 
 
@@ -40,10 +41,7 @@ class ExersiceC(QMainWindow):
         
     def init(self,ui):
 
-
         exercise=self.exercise
-
-
 
         if(exercise=='1'):  
           self.c=corsi(ui,self)
@@ -56,7 +54,7 @@ class ExersiceC(QMainWindow):
         elif (exercise=='5'):
           self.c=controller5(ui,self)
         
-        self.c.height=1900
+        self.c.height=1920
         self.c.width=1200
     
         
