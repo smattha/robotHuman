@@ -52,7 +52,7 @@ class TableView():
             self.table1.setFont(font)
             self.table1.setStyleSheet(" font-size: 22pt; " )
 
-            self.table1.setStyleSheet( "font-size: 22pt; border-image: url(back2.png) 0 0 0 0 stretch stretch;}")
+            # self.table1.setStyleSheet( "font-size: 22pt;  0 0 0 0 stretch stretch;}")
 
             stylesheet = "::section{Background-color:rgb(255,204,229)}"
             self.table1.horizontalHeader().setStyleSheet(stylesheet)

@@ -22,9 +22,12 @@ class corsi():
             except:
                 print("An exception occurred")
         if (event.text()=='s' or event.text()==' ') and self.step=='A':
-              self._ui.label.show()
-              self.initialize()
-              self.step='B'
+                self._ui.label.show()
+                self.initialize()
+                self.step='B'
+                pixmap = QPixmap("img/back.png")
+                self._ui.label.setPixmap(pixmap)
+                self._ui.label.setScaledContents( True );
 
 
     def __init__(self, ui,timerUI):
@@ -338,6 +341,9 @@ class corsi():
         self.clearUI()
 
     def showTable(self):
+        pixmap = QPixmap("img/happy.png")
+        self._ui.label.setPixmap(pixmap)
+        self._ui.label.setScaledContents( True );
         if (len(self.currentRows)>0):
             self.tableShow=True
             data=[]
