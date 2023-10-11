@@ -1,12 +1,13 @@
 import time
 from random import *
 class stateRecord:
-    def __init__(self, pauseCicles, label, ui,number='0'):
+    def __init__(self, pauseCicles, label, ui,number='0',color='blue'):
         self.pause=4
         self.pause=pauseCicles
         self.label=label
         self.UI=ui
         self.number=number
+        self.color=color
 
     
 
@@ -27,18 +28,24 @@ class state():
         self.changeRecord=False
         self.records=[]
         drawUI=stateRecord(100,'','drawUI')
-        label2=stateRecord(20,'Ξεκινάμε','',str(randint(1, 9)))
+        label2=stateRecord(20,'Ξεκινάμε','',str(randint(1, 9)),'red')
         draw1=stateRecord(8,'','draw1',str(randint(1, 9)))
-        
-        label1=stateRecord(-10,'<b>Digit span - verbal working memory<b><br><br>'+\
-            'Θα παρουσιαστεί μια ακολουθία ψηφίων.<br>\
-                Μετά θα πρέπει να επαναλάβεις την ακολουθία.<br> Αφού επαναλάβεις την ακολουθία θα παρουσιάστει μια μεγαλύτερη ακολουθία.\n'+
-                '<br>Αυτό συνεχίζεται μέχρι να μην μπορεί πλέον να επαναλάβει την ακολουθία και να κάνεις δυο διαδοχικά λάθη. <br>\
-                Πάτα το space για να ξεκινήσουμε.<br> \
-                    Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC','',str(randint(1, 9)))
-                    
 
+        back=stateRecord(0,'img/sky2.jpg','back',str(randint(1, 9)))
+        
+        backhide=stateRecord(0,'','backhide',str(randint(1, 9)))
+        
+        label1=stateRecord(-10,'<h1>Digit span - verbal working memory</h1><br><br>'+\
+            'Θqqα παρουσιαστεί μια ακολουθία ψηφίων.<br><br>\
+                Μετά θα πρέπει να επαναλάβεις την ακολουθία.<br><br> Αφού επαναλάβεις την ακολουθία θα παρουσιάστει μια μεγαλύτερη ακολουθία.<br>'+
+                '<br>Αυτό συνεχίζεται μέχρι  να κάνεις δυο διαδοχικά λάθη. <br><br><br>\
+                Πάτα το space για να ξεκινήσουμε.<br> \
+                    Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC.<br>\
+                        Αν θέλεις να τερματίσεις την εφαρμογή πάτα το τ. ','',0)
+                    
+        self.records.append(backhide)
         self.records.append(label1)
+        self.records.append(back)
         self.records.append(label2)
         
         self.records.append(draw1)
@@ -73,11 +80,13 @@ class state():
         while( nextNumber in numbers):
             nextNumber=str(randint(1, 9))
         
-        label2=stateRecord(60,'Σωστά','',str(randint(1, 9)))
+        label2=stateRecord(60,'Σωστά','',1,'red')
         # label3=stateRecord(30,'Ξεκινάμε','',str(randint(1, 9)))
     
         if (wrong):
-            label2=stateRecord(60,'Λάθος','',str(randint(1, 9)))
+            label2=stateRecord(60,'Λάθος','',1,'red')
+            back=stateRecord(0,'img/rain.jpg','back',str(randint(1, 9)))
+            self.records.append(back)
         elif(self.changeRecord):
             self.number=self.number+1
         self.changeRecord=not self.changeRecord
@@ -88,6 +97,9 @@ class state():
         t1=stateRecord(100,'','drawUI')
         # self.records.append(t0)
         self.records.append(label2)
+        if (wrong):
+            back=stateRecord(0,'img/sky2.jpg','back',str(randint(1, 9)))
+            self.records.append(back)
         # self.records.append(label3)
         self.records.append(t2)
         self.records.append(t1)

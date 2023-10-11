@@ -46,6 +46,7 @@ class controller2():
         self.stats=stats()
         self.height=self.timerUI.height()
         self.width=self.timerUI.width()
+        self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : blue; " )
 
         # x=*0.5
         # y=(self.timerUI.height()*0.5)
@@ -66,7 +67,7 @@ class controller2():
         self.currentNumber=''
         self.draw1Done=False
 
-        self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, 10, self.width, 600))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, 10, self.width, 900))
 
         self.buttonArray=[]
 
@@ -152,7 +153,7 @@ class controller2():
         self.stats.startTimer()
 
     def draw1(self, number):
-
+        
            
         self.stats.number=self.stats.number+str(number)
         self.clearUI()
@@ -206,9 +207,17 @@ class controller2():
             self.drawUI()
         if (curState.UI=='draw1'):
             self.draw1(curState.number)
+        if (curState.UI=='back'):
+            pixmap = QPixmap(curState.label)
+            self._ui.label.setPixmap(pixmap)
+            self._ui.label.setScaledContents( True );
+            self._ui.label.show()
+        if (curState.UI=='backhide'):
+            self._ui.label.hide()
 
         self.msg=msg()
         self._ui.corbiLabel.setText(curState.label)   
+        self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : "+curState.color )
 
         self.sleep=curState.pause
         self.state.changeState(self.stats.number)
@@ -222,8 +231,10 @@ class controller2():
         button.setEnabled(False)
         self.currentNumber=self._ui.corbiLabel.text()+str(i)
         self._ui.corbiLabel.setText(self._ui.corbiLabel.text()+str(i)) 
+        self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : red; " )
         curState=self.state.getCurrentRecord()
         curState.label=self.currentNumber
+        curState.color='red'
 
         return
        
