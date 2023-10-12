@@ -19,6 +19,7 @@ from exersiceDigitSpan.row import row
 from exersiceDigitSpan.msgList import msg
 from exersiceDigitSpan.state import state
 from TableView import TableView
+from exersiceDigitSpan.msgList import msg
 
 class controller2():
 
@@ -29,8 +30,11 @@ class controller2():
         if (self.stateVariable=='end' and  event.text()==' '):
             self.stateVariable='start'
             self.init(self._ui,self.timerUI)
-            self.table.table1.hide()
-
+            try:
+                self.table.table1.hide()
+            except:
+                print("An exception occurred")
+    
         if (event.text()=='s' or event.text()==' '):
             if (self.sleep==-10):
                 self.sleep=0
@@ -38,6 +42,7 @@ class controller2():
     def __init__(self, ui,timerUI):
         self.init(ui,timerUI)
         self.stateVariable='start'
+        self.MSG=msg()
 
     def init(self,ui,timerUI):
         self._ui=ui
@@ -48,10 +53,7 @@ class controller2():
         self.width=self.timerUI.width()
         self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : blue; " )
 
-        # x=*0.5
-        # y=(self.timerUI.height()*0.5)
-        # x1=(self.timerUI.width()-x)/2
-        # y1=(-y)/2+100
+
 
         self.buttonsExist=False
  
@@ -146,8 +148,7 @@ class controller2():
 
         self.buttonArray[11].setEnabled(False)
         self.buttonArray[3].setEnabled(False)
-        # self.buttonArray[3].setStyleSheet("background-color : pink; font-size: 14pt; " )
-        # self.buttonArray[11].setStyleSheet("background-color : pink; font-size: 14pt; " )
+       
         self.stats.startTimer()
 
     def draw1(self, number):
@@ -296,10 +297,10 @@ class controller2():
             self.rowsTotal.append(i)
         
         if(len(spans)<2):
-            self._ui.corbiLabel.setText('Tέλος\n\n Digital span 0')
+            self._ui.corbiLabel.setText(self.MSG.ZERO_CORRECT_DATA)
         else:
             span=len(spans)//2
-            self._ui.corbiLabel.setText('Tέλος\n\n Digital span '+str(span+1))
+            self._ui.corbiLabel.setText( )
 
         
         self.rows=[]

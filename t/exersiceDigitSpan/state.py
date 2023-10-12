@@ -1,5 +1,5 @@
-import time
-from random import *
+from random import randint
+from exersiceDigitSpan.msgList import msg
 class stateRecord:
     def __init__(self, pauseCicles, label, ui,number='0',color='blue'):
         self.pause=4
@@ -14,12 +14,13 @@ class stateRecord:
 class state():
     def __init__(self):
 
+        self.MSG= msg()
         self.firstStep()
+
 
     def restart(self):
 
-        self.firstStep()        
-
+        self.firstStep()   
         
     def firstStep(self):
 
@@ -28,7 +29,7 @@ class state():
         self.changeRecord=False
         self.records=[]
         drawUI=stateRecord(100,'','drawUI')
-        label2=stateRecord(20,'Ξεκινάμε','',str(randint(1, 9)),'red')
+        label2=stateRecord(20,self.MSG.START_MSG,'',str(randint(1, 9)),'red')
         draw1=stateRecord(8,'','draw1',str(randint(1, 9)))
 
         back=stateRecord(0,'img/sky2.jpg','back',str(randint(1, 9)))
@@ -37,13 +38,7 @@ class state():
         
         backhide=stateRecord(0,'','backhide',str(randint(1, 9)))
         
-        label1=stateRecord(-10,'<h1>Digit span - verbal working memory</h1><br><br>'+\
-            'Θα παρουσιαστεί μια ακολουθία ψηφίων.<br><br>\
-                Μετά θα πρέπει να επαναλάβεις την ακολουθία.<br><br> Αφού επαναλάβεις την ακολουθία θα παρουσιάστει μια μεγαλύτερη ακολουθία.<br>'+
-                '<br>Αυτό συνεχίζεται μέχρι  να κάνεις δυο διαδοχικά λάθη. <br><br><br>\
-                Πάτα το space για να ξεκινήσουμε.<br> \
-                    Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC.<br>\
-                        Αν θέλεις να τερματίσεις την εφαρμογή πάτα το τ. ','',0)
+        label1=stateRecord(-10,self.MSG.INSTRUNCTIONS,'',0)
                     
         self.records.append(backhide)
         self.records.append(label1)
@@ -84,11 +79,10 @@ class state():
         while( nextNumber in numbers):
             nextNumber=str(randint(1, 9))
         
-        label2=stateRecord(60,'Σωστά','',1,'red')
-        # label3=stateRecord(30,'Ξεκινάμε','',str(randint(1, 9)))
+        label2=stateRecord(60,self.MSG.CORRECT,'',1,'red')
     
         if (wrong):
-            label2=stateRecord(60,'Λάθος','',1,'red')
+            label2=stateRecord(60,self.MSG.WRONG,'',1,'red')
             back=stateRecord(0,'img/rain.jpg','back',str(randint(1, 9)))
             self.records.append(back)
         elif(self.changeRecord):
@@ -99,12 +93,11 @@ class state():
     
         t2=stateRecord(8+2*wrongCount,'','draw1',nextNumber)
         t1=stateRecord(100,'','drawUI')
-        # self.records.append(t0)
+
         self.records.append(label2)
         if (wrong):
             back=stateRecord(0,'img/sky2.jpg','back',str(randint(1, 9)))
             self.records.append(back)
-        # self.records.append(label3)
         self.records.append(t2)
         self.records.append(t1)
         self.current=self.current+1
