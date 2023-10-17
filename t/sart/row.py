@@ -1,15 +1,37 @@
+from goNoGo.stats import stats
 class row():
 
 
-    def __init__(self,number,currentNumber,correct,timer):
-        self.number=''
-        self.numberAnswers=''
+    def __init__(self):
+        self.greenGo='green';
         self.time=0
-        self.number=number
-        self.currentNumber= currentNumber
-        self.correct=correct
-        self.timePrint=timer
+        self.correct=False;
+        self.timeout=False;
+        self.stats=stats()
+        self.stats.startTimer()
+        self.pressed=False
+
+    def stopTimer(self):
+        self.stats.stopTimer()
+        self.time=self.stats.timePrint()
+        if self.greenGo=='green' and self.pressed:
+            self.correct=True
+        else:
+            self.correct=False
     
     def print(self):
 
-        print('Row: Timer '+str(self.timer)+' lenth '+str(self.number)+ ' ids '+str(self.currentNumber))
+        print('Row: Timer '+str(self.time)+' greenGo '+str(self.greenGo)+ ' correct '+str(self.correct)+' timeout '+ str(self.timeout))
+
+    def getData(self):
+        color='Ξεκίνα'
+        if (self.greenGo!='green'):
+            color='Στοπ'
+        correctGR='Σωστά'
+        if(not self.correct):
+            correctGR='Λάθος'
+        data=[str(self.time),str(color),str(correctGR)]  
+        return data
+    
+    def getHeader(self):
+        return [' Χρόνος απάντησεις ','Χρώμα ',' Απάντησεs']
