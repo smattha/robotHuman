@@ -30,15 +30,28 @@ class controller5():
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
             self._ui.corbiLabel.setText('')
+            self.displayBackground('img/back.png')
+        if (event.text()=='s' or event.text()==' ') and (self.step=='finished'):
+            self.step='color'
+            self._ui.corbiLabel.setText('')
+            self.displayBackground('img/back.png')
+            self.init()
+            try:
+                self.table.table1.hide()
+            except:
+                print('...')
+
         elif(event.text()==chr(27)):
             self.finish()
         elif (event.text()==' '):
-            print('event.text()==' '')
-            self.sleep=-1
+              self.sleep=-1
 
     def finish(self):
         print('Finish')
         self.exA.stop()
+        self.step='finished'
+        self._ui.corbiLabel.setText(self.MSG.FINISHED)
+        self.displayBackground('img/happy.png')
 
         try:
             self.button1.hide()
@@ -60,11 +73,16 @@ class controller5():
                 data.append(row.getData())
                 headers=row.getHeader()
         if (len(self.rows)):
-            self.table = TableView(self._ui.widget,data,headers)
+            self.table = TableView(self._ui.widget,data,headers,'sart')
 
     def __init__(self, ui,timerUI):
         self._ui=ui
         self.timerUI=timerUI
+
+        self.init()
+
+    def init(self):
+
         self.stats=stats()
         self.height=1200
         self.width=1600
@@ -134,6 +152,11 @@ class controller5():
         self.currentRow=row();
         self.currentRow.greenGo=color
     
+    def displayBackground(self,img):
+        pixmap = QPixmap(img)
+        self._ui.label.setPixmap(pixmap)
+        self._ui.label.setScaledContents( True );
+        self._ui.label.show()
 
     def displayLabel(self,img):
         self.label = QLabel(self._ui.widget)

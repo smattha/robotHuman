@@ -4,7 +4,9 @@ from PyQt5.QtGui import QIcon
 import datetime
 from PyQt5 import QtCore,Qt, QtGui, QtWidgets
 from PyQt5.QtGui import * 
-
+import time
+import csv
+ 
 from PyQt5.QtWidgets import (
     QApplication,
     QGridLayout,
@@ -13,9 +15,9 @@ from PyQt5.QtWidgets import (
 )
 
 class TableView():
-    def __init__(self, ui, data,header):
+    def __init__(self, ui, data,header,name):
         self.data = data
-
+        self.name=name
 
         self.table1 = QTableWidget(ui)
 
@@ -25,7 +27,20 @@ class TableView():
         self.table1.resizeColumnsToContents()
         self.table1.resizeRowsToContents()
         
- 
+
+        ct = datetime.datetime.now()
+        print("current time:-", str(ct).replace(" ", ""))
+
+        s=str(ct).replace(" ", "").replace(":","_")
+
+        with open('data/'+s, 'w',encoding="utf-8", newline='') as file:
+            writer = csv.writer(file)
+            
+            writer.writerow(header)
+            for d in data :
+                writer.writerow(d)
+
+
     def setData(self): 
         numrows = len(self.data)  
         numcols = len(self.data[0])  

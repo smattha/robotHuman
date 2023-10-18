@@ -250,4 +250,4 @@ class stroopController():
             for row in self.rows:
                 data.append(row.getData())
                 headers=row.getHeader()
-            self.table = TableView(self._ui.widget,data,headers)
+            self.table = TableView(self._ui.widget,data,headers,'stroop')

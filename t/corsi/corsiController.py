@@ -362,4 +362,4 @@ class corsi():
             for row in self.currentRows:
                 data.append(row.getData())
                 headers=row.getHeader()
-            self.table = TableView(self._ui.widget,data,headers)
+            self.table = TableView(self._ui.widget,data,headers,'corsi')
