@@ -20,7 +20,7 @@ from sart.state import state
 import random
 from PyQt5.QtWidgets import QLabel 
 from PyQt5.QtGui import * 
-from TableView import TableView
+from utilities.TableView import TableView
 import os
 
 class controller5():
@@ -140,7 +140,7 @@ class controller5():
         self.button1.setText(str(i))
      
         self.button1.setObjectName("pushButton"+str(self.counter1))
-        self.button1.setGeometry(QtCore.QRect(x,y, 250/ratio, 160/ratio))
+        self.button1.setGeometry(QtCore.QRect(int(x),int(y), int(250/ratio), int(160/ratio)))
         self.button1.hide()
         
         if color=='green':
@@ -167,7 +167,7 @@ class controller5():
         x=(500+2*100)/ratio
         y=(int(1.5*100+100))/ratio
 
-        self.label.setGeometry(x,y,300,300)
+        self.label.setGeometry(int(x),int(y),300,300)
         self.label.setScaledContents( True );
         self.label.show()
         

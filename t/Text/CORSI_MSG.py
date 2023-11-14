@@ -1,4 +1,4 @@
-class msg:
+class CORSI_MSG:
 
     INSTRUNCTIONS="<b><h1>Corsi memory tasks<h1></b> <br> \
     Θα εμφανιστούν στην οθόνη εννέα τετραγωνάκια. <br>\
@@ -20,9 +20,6 @@ class msg:
     CORRECT="<b><h1>Corsi memory tasks</h1></b><br><br>\
     Σωστά"
 
-    FINISHED="<b><h1>Corsi memory tasks</h1></b><br><br>\
-    Τέλος"
-
     TIMEOUT="<br>Corsi memory tasks</b><br><br>\
     Ο χρόνος έληξε!"
     
@@ -36,5 +33,4 @@ class msg:
         Μέσος χρόνος ανά αλυσίδα: '+ str(time)+ \
         ' Μήκος μέγιστης αλυσίδα '+ str(maxC)+\
         '<br>Πάτα το space  για να ξεκινήσουμε το παιχνίδι από την αρχή!'
-    
     

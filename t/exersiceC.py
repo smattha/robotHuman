@@ -5,11 +5,10 @@ from PyQt5.QtWidgets import ( QMainWindow)
 
 from PyQt5 import QtCore, QtWidgets
 from time import sleep
-import time
-from   exersiceDigitSpan.controller2 import controller2
+from exercises.exersiceDigitSpan.DigitSpanController import DigitSpanController
 from stroop.stroopController import stroopController
 from sart.controller5 import controller5
-from corsi.corsiController import corsi
+from exercises.corsi.CorsiController import CorsiController
 from goNoGo.goNoGoController import goNoGoController
 from PyQt5.QtWidgets import QApplication
 
@@ -27,8 +26,7 @@ class ExersiceC(QMainWindow):
         width = event.size().width()
         self.c.height=height
         self.c.width=width
-        # print (str(height)+' '+str(width))
-        self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, 10, width, height))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect( int(0), int(10), int(width), int(height)))
 
 
     def __init__(self,exercise):
@@ -44,16 +42,15 @@ class ExersiceC(QMainWindow):
         exercise=self.exercise
 
         if(exercise=='1'):  
-          self.c=corsi(ui,self)
+          self.c=CorsiController(ui,self)
         elif (exercise=='2'):
-          self.c=controller2(ui,self)
+          self.c=DigitSpanController(ui,self)
         elif (exercise=='3'):
           self.c=goNoGoController(ui,self)
         elif (exercise=='4'):
           self.c=stroopController(ui,self)
         elif (exercise=='5'):
           self.c=controller5(ui,self)
-        
         self.c.height=1920
         self.c.width=1200
     

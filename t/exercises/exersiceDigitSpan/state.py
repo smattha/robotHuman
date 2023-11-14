@@ -1,5 +1,5 @@
 from random import randint
-from exersiceDigitSpan.msgList import msg
+from Text.DIGITAL_SPAN_MSG import DIGITAL_SPAN_MSG
 class stateRecord:
     def __init__(self, pauseCicles, label, ui,number='0',color='blue'):
         self.pause=4
@@ -10,11 +10,9 @@ class stateRecord:
         self.color=color
 
     
-
 class state():
     def __init__(self):
-
-        self.MSG= msg()
+        self.MSG= DIGITAL_SPAN_MSG()
         self.firstStep()
 
 

@@ -14,14 +14,13 @@ import random
 path_of_image = '/home/stergios/Desktop/a.png'
 import time
 import random
-from exersiceDigitSpan.stats import stats
-from exersiceDigitSpan.row import row
-from exersiceDigitSpan.msgList import msg
-from exersiceDigitSpan.state import state
-from TableView import TableView
-from exersiceDigitSpan.msgList import msg
+from utilities.stats import stats
+from exercises.exersiceDigitSpan.row import row
+from exercises.exersiceDigitSpan.state import state
+from utilities.TableView import TableView
+from Text.DIGITAL_SPAN_MSG import DIGITAL_SPAN_MSG
 
-class controller2():
+class DigitSpanController():
 
 
     def keyPressEvent(self, event):
@@ -42,7 +41,7 @@ class controller2():
     def __init__(self, ui,timerUI):
         self.init(ui,timerUI)
         self.stateVariable='start'
-        self.MSG=msg()
+        self.msg= DIGITAL_SPAN_MSG()
 
     def init(self,ui,timerUI):
         self._ui=ui
@@ -63,13 +62,13 @@ class controller2():
         # self.drawUI()
         self.exA = QtCore.QTimer()
         self.exA.timeout.connect(self.exALoop)
-        self.exA.start(100/3)
+        self.exA.start(int(100/3))
         self.sleep=00;
         self.state=state()
         self.currentNumber=''
         self.draw1Done=False
 
-        self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, 10, self.width, 900))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect( 0, int(10), int( self.width), int(900)))
 
         self.buttonArray=[]
 
@@ -102,7 +101,7 @@ class controller2():
                     self.buttonArray.append( button1)
                     self.buttonArray[self.counter1].setObjectName("pushButton"+str(self.counter1))
                     self.buttonArray[self.counter1].clicked.connect( lambda: self.exAClick)
-                    self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x,y, 200/ratio, 100/ratio))
+                    self.buttonArray[self.counter1].setGeometry(QtCore.QRect(int(x),int(y), int(200/ratio), int(100/ratio)))
                     self.buttonArray[self.counter1].setStyleSheet("background-color : pink; font-size: 34pt; " )
 
                     fontId = QFontDatabase.addApplicationFont("fonts/Mansalva.ttf")
@@ -121,16 +120,16 @@ class controller2():
         x=(250+1*220)/ratio
         y=(int(5)*100+150)/ratio
         
-        self.buttonArray[3].setText(msg.CLEAR)
-        self.buttonArray[3].setGeometry(QtCore.QRect(x,y, 200/ratio+80, 120/ratio))
+        self.buttonArray[3].setText(self.msg.CLEAR)
+        self.buttonArray[3].setGeometry(QtCore.QRect(int(x),int(y), int(200/ratio+80), int(120/ratio)))
         self.buttonArray[3].setStyleSheet("background-color : pink; font-size: 22pt; " )
         
         self.buttonArray[7].setText('0')
 
         x=(250+3*220)/ratio
         y=(int(5)*100+150)/ratio
-        self.buttonArray[11].setGeometry(QtCore.QRect(x-80,y, 200/ratio+80, 120/ratio))
-        self.buttonArray[11].setText(msg.CONTINUE)
+        self.buttonArray[11].setGeometry(QtCore.QRect(int(x-80),int(y), int(200/ratio+80), int(120/ratio)))
+        self.buttonArray[11].setText(self.msg.CONTINUE)
         self.buttonArray[11].setStyleSheet("background-color : pink; font-size: 22pt; " )
 
         self.buttonArray[0].clicked.connect( lambda: self.exAClick(1,self.buttonArray[0]))
@@ -170,7 +169,7 @@ class controller2():
         self.buttonArray.append( button1)
         self.buttonArray[self.counter1].setObjectName("pushButton"+str(self.counter1))
         self.buttonArray[self.counter1].clicked.connect( lambda: self.exAClick)
-        self.buttonArray[self.counter1].setGeometry(QtCore.QRect(x-40,y-40, 160/ratio, 160/ratio))
+        self.buttonArray[self.counter1].setGeometry(QtCore.QRect(int(x-40),int(y-40), int(160/ratio), int(160/ratio)))
         self.buttonArray[self.counter1].setStyleSheet("background-color : pink;font-size: 34pt; " )
         
         self.buttonArray[self.counter1].show()
@@ -214,7 +213,7 @@ class controller2():
         if (curState.UI=='backhide'):
             self._ui.label.hide()
 
-        self.msg=msg()
+        self.msg= DIGITAL_SPAN_MSG()
         self._ui.corbiLabel.setText(curState.label)   
         self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : "+curState.color )
 
@@ -297,7 +296,7 @@ class controller2():
             self.rowsTotal.append(i)
         
         if(len(spans)<2):
-            self._ui.corbiLabel.setText(self.MSG.ZERO_CORRECT_DATA)
+            self._ui.corbiLabel.setText(self.msg.ZERO_CORRECT_DATA)
         else:
             span=len(spans)//2
             self._ui.corbiLabel.setText( )

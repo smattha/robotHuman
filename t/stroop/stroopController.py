@@ -19,7 +19,7 @@ from stroop.row import row
 from stroop.state import state
 import random
 import time
-from TableView import TableView
+from utilities.TableView import TableView
 from PyQt5.QtGui import QPixmap
 
 
@@ -166,7 +166,7 @@ class stroopController():
 
         self.button1= QtWidgets.QPushButton(self._ui.widget)
         self.button1.setObjectName("pushButton"+str(self.counter1))
-        self.button1.setGeometry(QtCore.QRect(x1,y1, x,y))       
+        self.button1.setGeometry(QtCore.QRect(int(x1),int(y1), int(x),int(y)))       
         
         self.textGR=''
         if (self.text=='green'):

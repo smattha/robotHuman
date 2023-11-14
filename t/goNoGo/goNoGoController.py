@@ -17,7 +17,7 @@ from goNoGo.stats import stats
 from goNoGo.row import row
 from goNoGo.state import state
 import datetime
-from TableView import TableView
+from utilities.TableView import TableView
 
 class goNoGoController():
 
@@ -81,7 +81,7 @@ class goNoGoController():
 
         self.counterTotal=0
         self.sleepFactor=100/2
-        self.exA.start(100/self.sleepFactor)
+        self.exA.start(int(100/self.sleepFactor))
         self.sleep=00;
         self.state=state()
         self.currentNumber=''
@@ -101,7 +101,7 @@ class goNoGoController():
 
         self.button1= QtWidgets.QPushButton(self._ui.widget)
         self.button1.setObjectName("pushButton"+str(1))
-        self.button1.setGeometry(QtCore.QRect(x1,y1, x,y))
+        self.button1.setGeometry(QtCore.QRect(int(x1),int(y1), int(x),int(y)))
 
 
         self.button1.hide()
@@ -117,8 +117,8 @@ class goNoGoController():
                                         Πάτα το space  για να ξεκινήσουμε!<br>\
     Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC') 
         
-        self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
-        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 1200))
+        self._ui.widget.setGeometry(QtCore.QRect(0, 0,int(self.timerUI.width() ), int(self.timerUI.height())))
+        self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,int(self.timerUI.width()) , 1200))
 
         self.correctCounter=0
         self.falseCounter=0
@@ -134,14 +134,14 @@ class goNoGoController():
         self.labelInstStart = QLabel(self._ui.widget)
         pixmap = QPixmap("start.png")
         self.labelInstStart.setPixmap(pixmap)
-        self.labelInstStart.setGeometry(x,y,w,h)
+        self.labelInstStart.setGeometry(int(x),int(y),int(w),int(h))
         self.labelInstStart.setScaledContents( True );
 
 
         self.labelInstStop = QLabel(self._ui.widget)
         pixmap = QPixmap("stop.png")
         self.labelInstStop.setPixmap(pixmap)
-        self.labelInstStop.setGeometry(x+1.1*w,y,w,h)
+        self.labelInstStop.setGeometry(int(x+1.1*w),int(y),int(w),int(h))
         self.labelInstStop.setScaledContents( True );
 
     def displayImg1(self):
@@ -181,17 +181,17 @@ class goNoGoController():
             self.button1.setDisabled(True)
             
             self.button1.setStyleSheet("background-color : green ;font-size: 22pt; " )
-            pixmap = QPixmap("start.png")
+            pixmap = QPixmap("img/start.png")
             self.label.setPixmap(pixmap)
-            self.label.setGeometry(xPos,yPos,width,height)
+            self.label.setGeometry(int(xPos),int(yPos),int(width),int(height))
             self.label.show()
           
         else :
             self.button1.hide()           
             self.button1.setDisabled(True)
-            pixmap = QPixmap("stop.png")
+            pixmap = QPixmap("img/stop.png")
             self.label.setPixmap(pixmap)            
-            self.label.setGeometry(xPos,yPos,width,height)
+            self.label.setGeometry(int(xPos),int(yPos),int(width),int(height))
             self.label.show()
         # self.button1.show()
         self.counter1=self.counter1+1

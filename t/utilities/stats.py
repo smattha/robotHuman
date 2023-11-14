@@ -1,8 +1,10 @@
 import time
 class stats():
     def __init__(self):
-        self.level=2
+        self.level=3
         self.time=300
+
+        #2
         self.number=''
         self.wrong=0
         self.currentNumber=''

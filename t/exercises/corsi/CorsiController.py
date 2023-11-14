@@ -7,12 +7,12 @@ from PyQt5.QtWidgets import QLabel
 import random
 
 import random
-from corsi.stats import stats
-from corsi.row import row
-from corsi.msgList import msg
-from TableView import TableView
+from utilities.stats import stats
+from exercises.corsi.row import row
+from Text.CORSI_MSG import CORSI_MSG
+from utilities.TableView import TableView
 
-class corsi():
+class CorsiController():
 
     def keyPressEvent(self, event):
         if(event.text()==chr(27)):
@@ -46,7 +46,7 @@ class corsi():
         self.corbi=3
         self.countdown=2
         self.first=True
-        self.msg=msg()
+        self.msg=CORSI_MSG()
         self._ui.corbiLabel.setText(  self.msg.INSTRUNCTIONS)    
         self.currentRows=[]
         self.stepA=True
@@ -93,7 +93,7 @@ class corsi():
                 self.buttonArray.append( QtWidgets.QPushButton(self._ui.widget) )
                 self.buttonArray[counter1].setObjectName("pushButton"+str(counter1))
                 self.buttonArray[counter1].clicked.connect( lambda: self.exAClick)
-                self.buttonArray[counter1].setGeometry(QtCore.QRect(x,y, 75/ratio, 80/ratio))
+                self.buttonArray[counter1].setGeometry(QtCore.QRect(int(x),int(y), int(75/ratio), int(80/ratio)))
                 self.buttonArray[counter1].setStyleSheet("background-color : pink;" )
                 
                 self.buttonArray[counter1].show()
@@ -340,7 +340,7 @@ class corsi():
         self.corbi=3
         self.countdown=2
         self.first=True
-        self.msg=msg()
+        self.msg=CORSI_MSG()
         self.currentRows=[]
         self.stepA=True
 

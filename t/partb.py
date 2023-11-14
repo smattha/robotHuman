@@ -68,7 +68,7 @@ class Ui_MainWindow(object):
         pixmap = QPixmap("img/wrong.png")
         self.wrongIMG.setPixmap(pixmap)
         self.wrongIMG.setScaledContents( True );
-        self.wrongIMG.setGeometry(QtCore.QRect(1900/2-200, 1200/2-200, 400, 400))
+        self.wrongIMG.setGeometry(QtCore.QRect(950-200, 600-200, 400, 400))
         self.wrongIMG.hide()
 
         self.retranslateUi(MainWindow)

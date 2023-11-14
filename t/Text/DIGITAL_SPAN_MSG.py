@@ -1,4 +1,4 @@
-class msg:
+class DIGITAL_SPAN_MSG:
 
     START_MSG='Ξεκινάμε'
 
