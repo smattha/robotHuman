@@ -13,10 +13,10 @@ import random
 path_of_image = '/home/stergios/Desktop/a.png'
 import time
 import random
-from sart.stats import stats
-from sart.row import row
-from sart.msgList import msg
-from sart.state import state
+from utilities.stats import stats
+from exercises.sart.row import row
+from exercises.sart.msgList import msg
+# from exercises.sart.state import state
 import random
 from PyQt5.QtWidgets import QLabel 
 from PyQt5.QtGui import * 
@@ -98,7 +98,7 @@ class controller5():
         self.exA.start(5)
         self.timeFactor=20
         self.sleep=00;
-        self.state=state()
+        # self.state=state()
         self.currentNumber=''
         self.draw1Done=False
         self.currentRow=row()
@@ -117,6 +117,7 @@ class controller5():
 
         i=round(random.randint(0,9))
 
+        self._ui.corbiLabel.setText('')
         color='red'
         if i<8: 
             color='green'
@@ -199,7 +200,10 @@ class controller5():
                 self.currentRow.stopTimer()
                 self.rows.append(self.currentRow)
                 self.step='hide'
-                self.sleep=3*self.timeFactor
+                if (self.currentRow.correct):
+                    self.sleep=3*self.timeFactor
+                else:
+                    self.sleep=10*self.timeFactor
             else:
                 print('...')
                 self.currentRow.timeout=False
@@ -207,8 +211,13 @@ class controller5():
                 self.currentRow.stopTimer()
                 self.rows.append(self.currentRow)
                 self.step='hide'
-                self.sleep=3*self.timeFactor
+                if (self.currentRow.correct):
+                    self.sleep=3*self.timeFactor
+                else:
+                    self.sleep=10*self.timeFactor
         elif(self.step=='hide'):
+            # print(self.currentRow.correct)
+            self._ui.corbiLabel.setText(self.currentRow.correctGR)
             if(self.sleep>0):
                 self.sleep=self.sleep-1
                 self.button1.hide()

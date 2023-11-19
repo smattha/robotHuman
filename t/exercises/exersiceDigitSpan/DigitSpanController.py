@@ -298,8 +298,8 @@ class DigitSpanController():
         if(len(spans)<2):
             self._ui.corbiLabel.setText(self.msg.ZERO_CORRECT_DATA)
         else:
-            span=len(spans)//2
-            self._ui.corbiLabel.setText( )
+            span=len(spans)//2+1
+            self._ui.corbiLabel.setText(self.msg.finishedMsg(span) )
 
         
         self.rows=[]

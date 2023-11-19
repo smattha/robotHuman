@@ -30,6 +30,6 @@ class DIGITAL_SPAN_MSG:
            return '    '
        return 'Είσαι στο επίπεδο '+str(level)+'!!!\n\n\n Ξεκινάμε σε  '+str(countdown)
     
-    def finishedMsg(self,time,maxC):
-        return 'Αποτελέσματα \n Χρόνος: '+ str(time)+ ' μήκος μέγιστης αλυσίδα '+ str(maxC)
+    def finishedMsg(self,mikos):
+        return 'Αποτελέσματα \n Digital span'+ str(mikos)
     

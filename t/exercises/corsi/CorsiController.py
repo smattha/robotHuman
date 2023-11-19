@@ -328,7 +328,7 @@ class CorsiController():
             if (len1>maxCorsi):
                     maxCorsi=len1
     
-        if (self.currentRows==0):
+        if (len(self.currentRows)!=0):
             s=round(s/len(self.currentRows),2)
         else:
             s=0

@@ -20,7 +20,7 @@ from PyQt5.QtWidgets import (
 
 from PyQt5.QtWidgets import QLabel 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow1(object):
 
 
     def setupUi(self, MainWindow):

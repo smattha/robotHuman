@@ -13,9 +13,9 @@ from time import sleep
 import random
 import time
 
-from goNoGo.stats import stats
-from goNoGo.row import row
-from goNoGo.state import state
+from utilities.stats import stats
+from exercises.goNoGo.row import row
+from exercises.goNoGo.state import state
 import datetime
 from utilities.TableView import TableView
 
@@ -132,14 +132,14 @@ class goNoGoController():
 
     def displayImgInstr(self,x,y,w,h):
         self.labelInstStart = QLabel(self._ui.widget)
-        pixmap = QPixmap("start.png")
+        pixmap = QPixmap("img/start.png")
         self.labelInstStart.setPixmap(pixmap)
         self.labelInstStart.setGeometry(int(x),int(y),int(w),int(h))
         self.labelInstStart.setScaledContents( True );
 
 
         self.labelInstStop = QLabel(self._ui.widget)
-        pixmap = QPixmap("stop.png")
+        pixmap = QPixmap("img/stop.png")
         self.labelInstStop.setPixmap(pixmap)
         self.labelInstStop.setGeometry(int(x+1.1*w),int(y),int(w),int(h))
         self.labelInstStop.setScaledContents( True );

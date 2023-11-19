@@ -1,4 +1,4 @@
-from goNoGo.stats import stats
+from utilities.stats import stats
 class row():
 
 

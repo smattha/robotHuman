@@ -13,10 +13,10 @@ import random
 path_of_image = '/home/stergios/Desktop/a.png'
 import time
 import random
-from stroop.stats import stats
-from stroop.row import row
+from utilities.stats import stats
+from exercises.stroop.row import row
 # from stroop.msgList import msg
-from stroop.state import state
+from exercises.stroop.state import state
 import random
 import time
 from utilities.TableView import TableView
@@ -42,10 +42,14 @@ class stroopController():
             self.step='hide'
             self.sleep=2
             self.row.stopTimer(True)
+            self.button1.hide()
             if(self.row.correctAnswer()):
                     self.correctCounter=self.correctCounter+1
+                    self._ui.corbiLabel.setText('Σωστά') 
             else:
+                    self.sleep=5
                     self.falseCounter=self.falseCounter+1
+                    self._ui.corbiLabel.setText('Λάθος') 
             # self.row.pressed=
             self.rows.append(self.row)
 
@@ -129,6 +133,7 @@ class stroopController():
             self.color='green'
         elif i<9:
             self.color='blue'
+    
         
         p=random.randint(0,100)
         if(p>self.calculatePerc()):       
@@ -179,9 +184,10 @@ class stroopController():
             self.textGR='Κίτρινο'   
 
         self.button1.setText(self.textGR)     
-        self.button1.setStyleSheet('QPushButton {background-color : rgb(204,229,255) ; color: '+self.color+'; font-size: 100pt; }' )
+        self.button1.setStyleSheet('QPushButton {background-color : rgb(255,255,255) ; color: '+self.color+'; font-size: 100pt; }' )
         self.button1.show()
         self.button1.setDisabled(True)
+        self._ui.corbiLabel.setText('') 
         self.counter1=self.counter1+1
         
     

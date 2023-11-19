@@ -1,4 +1,4 @@
-from goNoGo.stats import stats
+from utilities.stats import stats
 class row():
 
 
@@ -9,10 +9,17 @@ class row():
         self.timeout=False;
         self.stats=stats()
         self.stats.startTimer()
+        self.pressed=False
 
     def stopTimer(self):
         self.stats.stopTimer()
         self.time=self.stats.timePrint()
+        if self.greenGo=='green' and self.pressed:
+            self.correct=True
+            self.correctGR='Σωστά'
+        else:
+            self.correct=False
+            self.correctGR='Λάθος'
     
     def print(self):
 
