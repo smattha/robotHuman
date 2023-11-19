@@ -17,6 +17,9 @@ class row():
         if self.greenGo=='green' and self.pressed:
             self.correct=True
             self.correctGR='Σωστά'
+        elif self.greenGo!='green' and not self.pressed:
+            self.correct=True
+            self.correctGR='Σωστά'
         else:
             self.correct=False
             self.correctGR='Λάθος'

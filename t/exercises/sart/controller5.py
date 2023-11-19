@@ -98,6 +98,8 @@ class controller5():
         self.exA.start(5)
         self.timeFactor=20
         self.sleep=00;
+        self.maxCounter=12000 
+        self.counterTotal=0
         # self.state=state()
         self.currentNumber=''
         self.draw1Done=False
@@ -148,7 +150,6 @@ class controller5():
             self.button1.setStyleSheet("background-color : pink ;font-size: 22pt; " )
         else :
             self.button1.setStyleSheet("background-color : pink ;font-size: 22pt; " )
-
         self.counter1=self.counter1+1
         self.currentRow=row();
         self.currentRow.greenGo=color
@@ -170,17 +171,20 @@ class controller5():
 
         self.label.setGeometry(int(x),int(y),300,300)
         self.label.setScaledContents( True );
-        self.label.show()
+        self.label.show()    
         
-    
-        
+
     def button_released(self):
         sending_button = self.sender()
         self.status_label.setText('%s Clicked!' % str(sending_button.objectName()))
 
 
-
     def exALoop(self):
+
+        self.counterTotal=self.counterTotal+1
+        if (self.counterTotal>=self.maxCounter):
+            self.finish()
+            return
         if (self.step=='instruction'):
             self._ui.corbiLabel.setText(self.MSG.INSTRUNCTIONS)
             self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : blue" )
@@ -226,9 +230,6 @@ class controller5():
             else :
                 self.button1.hide()
                 self.step='color'
-
-
-
       
     def storedata(self):
         print('Store data!!')

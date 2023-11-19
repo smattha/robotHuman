@@ -69,6 +69,7 @@ class CorsiController():
             self._ui.button7.deleteLater()
             self._ui.button8.deleteLater()
             self._ui.button9.deleteLater()
+            self.label1.hide()
         self.first=True
 
     def drawUI(self):
@@ -162,7 +163,7 @@ class CorsiController():
                 self.currentRow.ids.append(i)
                 for ii in self.buttonArray:
                         ii.setStyleSheet("background-color : pink; " )
-                self.buttonArray[i].setStyleSheet(" background-image : url(img/monkey.png) 0 0 0 0 stretch stretch;;")
+                # self.buttonArray[i].setStyleSheet(" background-image : url(img/monkey.png) 0 0 0 0 stretch stretch;;")
                 
                 self.buttonArray[i].setFlat(True)
                 self.buttonArray[i].setAutoFillBackground(True)
