@@ -1,4 +1,4 @@
-class msg:
+class SART_MSG:
 
     INSTRUNCTIONS="<h1>SART</h1> <br>\
         Θα εμφανιζόνται εικόνες στην οθόνη.<br> <br> \

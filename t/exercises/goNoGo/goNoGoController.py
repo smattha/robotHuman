@@ -18,7 +18,7 @@ from exercises.goNoGo.row import row
 from exercises.goNoGo.state import state
 import datetime
 from utilities.TableView import TableView
-
+from Text.GO_NO_GO_CONTROLLER_MSG import GO_NO_GO_CONTROLLER_MSG
 class goNoGoController():
 
     def keyPressEvent(self, event):
@@ -64,6 +64,7 @@ class goNoGoController():
         self.stateVariable ='start'     
         self._ui=ui
         self.timerUI=timerUI
+        self.msg= GO_NO_GO_CONTROLLER_MSG()
         self.init()
 
     def init(self):
@@ -110,12 +111,7 @@ class goNoGoController():
 
         self.tick=time.time()
         
-        self._ui.corbiLabel.setText('<h1>Go/No-go task</h1> <br>\
-                                     Σε αυτό το παιχνίδι εμφανίζονται διαδοχικά δυο εικόνες.<br> \
- Πάτα το space όταν εμφανίζετε η εικόνα αριστερά.<br> \
- Μη κάνεις τίποτα όταν το εμφανίζετε η εικόνα δεξιά.\
-                                        Πάτα το space  για να ξεκινήσουμε!<br>\
-    Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC') 
+        self._ui.corbiLabel.setText(self.msg.DESCRIPTION) 
         
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,int(self.timerUI.width() ), int(self.timerUI.height())))
         self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,int(self.timerUI.width()) , 1200))
@@ -232,9 +228,7 @@ class goNoGoController():
             self.label.hide()
 
             str(self.correctCounter)+'/'+str(self.falseCounter)
-            self._ui.corbiLabel.setText('<h1> Τέλος </h1>\
-                                         Απάντησες σωστά σε '+str(self.correctCounter)+' σε συνολικά '+str(self.correctCounter+self.falseCounter)\
-                                                                                                           +".<br>Πάτα το space  για να ξεκινήσουμε από την αρχή!") 
+            self._ui.corbiLabel.setText(self.msg.result(self.correctCounter,self.falseCounter))
             
             pixmap = QPixmap('img/happy.png')
             self._ui.label.setPixmap(pixmap)
@@ -263,7 +257,7 @@ class goNoGoController():
 
             else:
                 self.row.correct=False
-                self._ui.corbiLabel.setText('<h1>Λάθος απάντηση</h1>') 
+                self._ui.corbiLabel.setText(self.msg.WRONG_ANSWER) 
                 self.sleep=10*self.sleepFactor
                 self.falseCounter=self.falseCounter+1
 
@@ -298,7 +292,7 @@ class goNoGoController():
                 self.sleep=3*self.sleepFactor
                 self.correctCounter=self.correctCounter+1
             else :
-                self._ui.corbiLabel.setText('<h1>Λάθος απάντηση</h1>') 
+                self._ui.corbiLabel.setText(self.msg.WRONG_ANSWER) 
                 self.step='color'
                 self.sleep=10*self.sleepFactor
                 self.falseCounter=self.falseCounter+1

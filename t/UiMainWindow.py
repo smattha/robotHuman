@@ -54,7 +54,7 @@ class Ui_MainWindow1(object):
             self.corbiLabel.setStyleSheet("font-size: 24pt; color : blue; " )
           
       
-        self.centralwidget.setStyleSheet("#centralwidget{border-image: url(img/back2.png) 0 0 0 0 stretch stretch;}");
+        self.centralwidget.setStyleSheet("#centralwidget{border-image: url(img/c.png) 0 0 0 0 stretch stretch;}");
         
 
 

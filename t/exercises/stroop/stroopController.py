@@ -16,7 +16,8 @@ import random
 from utilities.stats import stats
 from exercises.stroop.row import row
 # from stroop.msgList import msg
-from exercises.stroop.state import state
+# from exercises.stroop.state import state
+from Text.STROOP_MSG import STROOP_MSG
 import random
 import time
 from utilities.TableView import TableView
@@ -45,11 +46,11 @@ class stroopController():
             self.button1.hide()
             if(self.row.correctAnswer()):
                     self.correctCounter=self.correctCounter+1
-                    self._ui.corbiLabel.setText('Σωστά') 
+                    self._ui.corbiLabel.setText(self.msg.CORRECT) 
             else:
                     self.sleep=5
                     self.falseCounter=self.falseCounter+1
-                    self._ui.corbiLabel.setText('Λάθος') 
+                    self._ui.corbiLabel.setText(self.msg.WRONG) 
             # self.row.pressed=
             self.rows.append(self.row)
 
@@ -60,7 +61,9 @@ class stroopController():
 
         self._ui=ui
         self.timerUI=timerUI
+        self.msg=STROOP_MSG()
         self.init()
+
 
 
     def init(self):
@@ -79,7 +82,6 @@ class stroopController():
         self.exA.timeout.connect(self.exALoop)
         self.exA.start(100)
         self.sleep=00;
-        self.state=state()
         self.currentNumber=''
         self.draw1Done=False
 
@@ -96,11 +98,7 @@ class stroopController():
         self.falseCounter=0
         
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
-        self._ui.corbiLabel.setText('<h1>Stroop</h1> <br> <br>\
-                                    Στην οθόνη θα εμφανίζονται λέξεις. <br><br>\
-                                     Πάτα το space όταν το χρώμα της λέξης και το νόημα της είναι το ίδιο.<br><br><br>\
-                                    Πάτα το space  για να ξεκινήσουμε!<br>\
-                                    Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC') 
+        self._ui.corbiLabel.setText(self.msg.INSTRUNCTIONS) 
         self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 1200))
         
 
@@ -207,8 +205,7 @@ class stroopController():
             self._ui.label.setPixmap(pixmap)
             self._ui.label.setScaledContents( True );
             self._ui.label.show()
-            self._ui.corbiLabel.setText('<h1>Τέλος</h1>\
-                                        Πάτα το space  για να ξεκινήσουμε από την αρχή!<br>')
+            self._ui.corbiLabel.setText(self.msg.FINISHED)
         self.showTable()
 
     def exALoop(self):

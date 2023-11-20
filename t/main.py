@@ -7,7 +7,7 @@ from PyQt5 import QtCore, QtWidgets
 from time import sleep
 from exercises.exersiceDigitSpan.DigitSpanController import DigitSpanController
 from exercises.stroop.stroopController import stroopController
-from exercises.sart.controller5 import controller5
+from exercises.sart.sart import sartController
 from exercises.corsi.CorsiController import CorsiController
 from exercises.goNoGo.goNoGoController import goNoGoController
 from PyQt5.QtWidgets import QApplication
@@ -57,7 +57,7 @@ class ExersiceC(QMainWindow):
         elif (exercise=='4'):
           self.c=stroopController(ui,self)
         elif (exercise=='5'):
-          self.c=controller5(ui,self)
+          self.c=sartController(ui,self)
         self.c.height=1920
         self.c.width=1200
     

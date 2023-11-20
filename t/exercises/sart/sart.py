@@ -15,7 +15,7 @@ import time
 import random
 from utilities.stats import stats
 from exercises.sart.row import row
-from exercises.sart.msgList import msg
+from Text.SART_MSG import SART_MSG
 # from exercises.sart.state import state
 import random
 from PyQt5.QtWidgets import QLabel 
@@ -23,7 +23,7 @@ from PyQt5.QtGui import *
 from utilities.TableView import TableView
 import os
 
-class controller5():
+class sartController():
 
 
     def keyPressEvent(self, event):
@@ -108,12 +108,11 @@ class controller5():
         self.step='instruction'
         self.counter=10
     
-        self.MSG=msg()
+        self.MSG=SART_MSG()
 
         self.path = "img/sart"
         self.dir_list = os.listdir(self.path)
         
-        # print(len(self.dir_list))
    
     def draw1(self):
 
