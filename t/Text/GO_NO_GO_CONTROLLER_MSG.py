@@ -11,7 +11,8 @@ class GO_NO_GO_CONTROLLER_MSG:
                     Αν θέλεις να τερματίσεις το παιχνίδι πάτα το ESC'
 
 
-    def result(self, correctCounter,falseCounter):
+    def result(self, time, correctCounter,falseCounter):
         return '<h1> Τέλος </h1>\
-                                         Απάντησες σωστά σε '+str(correctCounter)+' σε συνολικά '+str(correctCounter+falseCounter)\
-                                                                                                           +".<br>Πάτα το space  για να ξεκινήσουμε από την αρχή!"
+                Απάντησες σωστά σε '+str(correctCounter)+' σε συνολικά '+str(correctCounter+falseCounter)+\
+                '.<br> Mέσος χρόνος ανά απάντηση '+str(time)+'<br>\
+                    Πάτα το space  για να ξεκινήσουμε από την αρχή!'

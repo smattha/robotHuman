@@ -1,31 +1,24 @@
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtGui,QtCore
 from PyQt5.QtWidgets import ( QMainWindow)
+from PyQt5.QtGui import QPixmap
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-# import tty
-import sys
-# import termios
 from threading import Thread
-from time import sleep
+from time import sleep 
 import random
-path_of_image = '/home/stergios/Desktop/a.png'
-import time
-import random
+import time 
+
 from utilities.stats import stats
-from exercises.stroop.row import row
-# from stroop.msgList import msg
-# from exercises.stroop.state import state
-from Text.STROOP_MSG import STROOP_MSG
-import random
-import time
 from utilities.TableView import TableView
-from PyQt5.QtGui import QPixmap
+from exercises.stroop.row import row
+from Text.STROOP_MSG import STROOP_MSG
+
+
 
 
 class stroopController():
-
 
     def keyPressEvent(self, event):
          
@@ -51,20 +44,13 @@ class stroopController():
                     self.sleep=5
                     self.falseCounter=self.falseCounter+1
                     self._ui.corbiLabel.setText(self.msg.WRONG) 
-            # self.row.pressed=
             self.rows.append(self.row)
-
-            # self.finish()
             
     def __init__(self, ui,timerUI):
-
-
         self._ui=ui
         self.timerUI=timerUI
         self.msg=STROOP_MSG()
         self.init()
-
-
 
     def init(self):
         self.stepStart='start'
@@ -187,7 +173,6 @@ class stroopController():
         self.button1.setDisabled(True)
         self._ui.corbiLabel.setText('') 
         self.counter1=self.counter1+1
-        
     
         
     def button_released(self):
@@ -205,15 +190,29 @@ class stroopController():
             self._ui.label.setPixmap(pixmap)
             self._ui.label.setScaledContents( True );
             self._ui.label.show()
-            self._ui.corbiLabel.setText(self.msg.FINISHED)
+
+            meanTime=0
+            correctCounter=0
+            falseCounter=0
+            
+            for i in self.rows:
+                i.print()
+                meanTime=meanTime+i.time
+                if (i.correctAnswer()):
+                    correctCounter=correctCounter+1
+                else:
+                    falseCounter=falseCounter+1
+
+            if (len(self.rows)):
+                meanTime= round(meanTime/len(self.rows),2)
+
+            self._ui.corbiLabel.setText(self.msg.result(meanTime,correctCounter,falseCounter))
         self.showTable()
 
     def exALoop(self):
-        # print(str(self.timerUI.width())+' '+str(self.timerUI.height()))
         if (self.step!='instruction'):
             self.counterTotal=self.counterTotal+1 
             self.tock=time.time()
-            # print( str(self.counterTotal) +' ' +str(round(self.tock-self.tick,2)))
         if (self.counterTotal>300):
             self.finish()
             return

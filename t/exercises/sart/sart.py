@@ -50,7 +50,25 @@ class sartController():
         print('Finish')
         self.exA.stop()
         self.step='finished'
-        self._ui.corbiLabel.setText(self.MSG.FINISHED)
+
+
+        meanTime=0
+        correctCounter=0
+        falseCounter=0
+        
+        for i in self.rows:
+            i.print()
+            meanTime=meanTime+i.time
+            if (i.correct):
+                correctCounter=correctCounter+1
+            else:
+                falseCounter=falseCounter+1
+
+        if (len(self.rows)):
+            meanTime= round(meanTime/len(self.rows),2)
+
+
+        self._ui.corbiLabel.setText(self.MSG.result(meanTime,correctCounter,falseCounter))
         self.displayBackground('img/happy.png')
 
         try:

@@ -218,17 +218,24 @@ class goNoGoController():
         
     def exALoop(self):
 
+        meanTime=0
         if (self.counterTotal>=self.maxCounter):
             self.table1=self.showTable()
 
             for i in self.rows:
                 i.print()
+                meanTime=meanTime+i.time
             self.exA.stop()
             self.button1.hide()
             self.label.hide()
 
+            if (len(self.rows)):
+                meanTime= round(meanTime/len(self.rows),2)
+
+
+
             str(self.correctCounter)+'/'+str(self.falseCounter)
-            self._ui.corbiLabel.setText(self.msg.result(self.correctCounter,self.falseCounter))
+            self._ui.corbiLabel.setText(self.msg.result(meanTime,self.correctCounter,self.falseCounter))
             
             pixmap = QPixmap('img/happy.png')
             self._ui.label.setPixmap(pixmap)

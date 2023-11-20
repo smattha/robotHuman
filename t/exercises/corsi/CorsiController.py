@@ -1,16 +1,14 @@
-from PyQt5.QtCore import pyqtSlot
-from PyQt5 import QtCore, QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import * 
-from time import sleep
 from PyQt5.QtWidgets import QLabel 
 
-import random
-
-import random
 from utilities.stats import stats
+from utilities.TableView import TableView
 from exercises.corsi.row import row
 from Text.CORSI_MSG import CORSI_MSG
-from utilities.TableView import TableView
+
+from time import sleep
+import random
 
 class CorsiController():
 
@@ -119,7 +117,6 @@ class CorsiController():
     def exALoop(self):
         if (self.factor>0):
              self.factor=self.factor-1
-            #  print(self.factor)
              return
         self.factor=6
         self.buttonArray = [] 
@@ -149,7 +146,6 @@ class CorsiController():
             self.stats.startTimer()
             self.counterTimeout=6
             self.exC.start(1000)
-            
         else:
             self.state='yellow'
 
@@ -164,11 +160,8 @@ class CorsiController():
                 for ii in self.buttonArray:
                         ii.setStyleSheet("background-color : pink; " )
                 # self.buttonArray[i].setStyleSheet(" background-image : url(img/monkey.png) 0 0 0 0 stretch stretch;;")
-                
                 self.buttonArray[i].setFlat(True)
                 self.buttonArray[i].setAutoFillBackground(True)
-                # self.buttonArray[i].setScaledContents(True)
-
                 pixmap = QPixmap("img/monkey3.png")
                 self.label1 = QLabel( self._ui.widget) 
                 self.label1.setPixmap(pixmap)
@@ -176,14 +169,12 @@ class CorsiController():
                 self.label1.setScaledContents( True );
                 self.label1.show()             
                 self.counter=self.counter+1
-            
             else:
                 self.factor=20
                 self.stepA=True
                 for ii in self.buttonArray:
                         ii.setStyleSheet("background-color : pink;" )
                         self.label1.hide()
-
 
     def initialize(self):
         if(self.tableShow):
@@ -199,11 +190,9 @@ class CorsiController():
         
         self.counter=0
         self.state='Read'
-
         self.currentRow=r_o_w
         self.exA = QtCore.QTimer(self.timerUI)
         self.exA.stop()
-
         self.exB = QtCore.QTimer(self.timerUI)
         self.exB.stop()
         if(self.countdownWrong==0):
@@ -310,12 +299,9 @@ class CorsiController():
         except:
             print("An exception occurred")
 
-
         self.showTable()
         self.exA.stop()
-
         self.exB.stop()
-
         self.exC.stop()
         s=0
         counter=0
@@ -344,12 +330,7 @@ class CorsiController():
         self.msg=CORSI_MSG()
         self.currentRows=[]
         self.stepA=True
-
-
-
         self._ui.corbiLabel.setText(self.msg.finishedMsg(s,maxCorsi))
-        
-
         self.clearUI()
 
     def showTable(self):

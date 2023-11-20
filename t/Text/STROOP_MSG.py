@@ -14,3 +14,10 @@ class STROOP_MSG:
     CORRECT='Σωστά'
 
     WRONG='Λάθος'
+
+
+    def result(self, time, correctCounter,falseCounter):
+        return '<h1> Τέλος </h1>\
+                Απάντησες σωστά σε '+str(correctCounter)+' σε συνολικά '+str(correctCounter+falseCounter)+\
+                '.<br> Mέσος χρόνος ανά απάντηση '+str(time)+'<br>\
+                    Πάτα το space  για να ξεκινήσουμε από την αρχή!'

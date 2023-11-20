@@ -1,19 +1,13 @@
 from PyQt5.QtCore import pyqtSlot
 from PyQt5 import QtGui,QtCore
 from PyQt5.QtWidgets import ( QMainWindow)
-
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-# import tty
 from PyQt5.QtGui import * 
-import sys
-# import termios
+
+
 from threading import Thread
 from time import sleep
-import random
-path_of_image = '/home/stergios/Desktop/a.png'
-import time
-import random
+
 from utilities.stats import stats
 from exercises.exersiceDigitSpan.row import row
 from exercises.exersiceDigitSpan.state import state
@@ -51,9 +45,6 @@ class DigitSpanController():
         self.height=self.timerUI.height()
         self.width=self.timerUI.width()
         self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : blue; " )
-
-
-
         self.buttonsExist=False
  
         self.rows=[]
@@ -147,20 +138,17 @@ class DigitSpanController():
 
         self.buttonArray[11].setEnabled(False)
         self.buttonArray[3].setEnabled(False)
-       
         self.stats.startTimer()
 
     def draw1(self, number):
-        
            
         self.stats.number=self.stats.number+str(number)
         self.clearUI()
         self.counter1=0
         self.buttonArray = [] 
         self.buttonsExist=True
-        
-        ratio=1600/self.width
-        
+      
+        ratio=1600/self.width       
 
         x=(560+2*100)/ratio
         y=(int(1.5*100+150))/ratio
@@ -170,24 +158,15 @@ class DigitSpanController():
         self.buttonArray[self.counter1].setObjectName("pushButton"+str(self.counter1))
         self.buttonArray[self.counter1].clicked.connect( lambda: self.exAClick)
         self.buttonArray[self.counter1].setGeometry(QtCore.QRect(int(x-40),int(y-40), int(160/ratio), int(160/ratio)))
-        self.buttonArray[self.counter1].setStyleSheet("background-color : pink;font-size: 34pt; " )
-        
+        self.buttonArray[self.counter1].setStyleSheet("background-color : pink;font-size: 34pt; " )        
         self.buttonArray[self.counter1].show()
-
-
         self.counter1=self.counter1+1
-
-        
-    
-        
+            
     def button_released(self):
         sending_button = self.sender()
         self.status_label.setText('%s Clicked!' % str(sending_button.objectName()))
 
-
-
     def exALoop(self):
-        # print(self.state.current)
         if (self.sleep==-10):
             print(".", end="")
             return
@@ -221,8 +200,6 @@ class DigitSpanController():
         self.state.changeState(self.stats.number)
 
 
-
-
     def exAClick(self,i,button):
         self.buttonArray[11].setEnabled(True)
         self.buttonArray[3].setEnabled(True)
@@ -233,10 +210,7 @@ class DigitSpanController():
         curState=self.state.getCurrentRecord()
         curState.label=self.currentNumber
         curState.color='red'
-
         return
-       
-    
 
     def hide(self):
         if (len(self.buttonArray)==0):
@@ -245,7 +219,6 @@ class DigitSpanController():
         for b in self.buttonArray:
             b.setDisabled(True)
             b.hide()
-
 
     def exAClickContinuou(self,i):
         self.stats.stopTimer()
@@ -264,7 +237,6 @@ class DigitSpanController():
                 self.finishEx()
             print (str(self.stats.wrong)+' '+self.stats.number+' !== '+self.currentNumber)
 
-
         
         self.stats.number=''
         self.state.addChangeState(wrong,self.stats.wrong,self.stats.number)
@@ -276,30 +248,33 @@ class DigitSpanController():
         self.stateVariable='end'
         self.showTable()
         self.stats.wrong=0
-        # self.clearUI()    
         self.hide()
 
         self.state.restart()    
         self.exA.stop()           
 
-        # self.state.current=self.state.current+1
         self.currentNumber=''
         self.stats.number=''
 
         spans=[]
         counter=0
+        meanTimer=0
         for i in self.rows:
+            meanTimer=meanTimer+i.timePrint
             if(i.correctFlag):
                 span=len(i.number)
                 spans.append(span)    
             i.print(counter=counter+1)
             self.rowsTotal.append(i)
         
+        if (len(self.rows)>0):
+            meanTimer=meanTimer/len(self.rows)
+
         if(len(spans)<2):
             self._ui.corbiLabel.setText(self.msg.ZERO_CORRECT_DATA)
         else:
             span=len(spans)//2+1
-            self._ui.corbiLabel.setText(self.msg.finishedMsg(span) )
+            self._ui.corbiLabel.setText(self.msg.finishedMsg(meanTimer,span) )
 
         
         self.rows=[]
