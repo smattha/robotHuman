@@ -9,16 +9,20 @@ from Text.CORSI_MSG import CORSI_MSG
 
 from time import sleep
 import random
+import re
 
 class CorsiController():
 
     def keyPressEvent(self, event):
+        if (self._ui.ros.isTalking):
+            return
         if(event.text()==chr(27)):
             self.finishEx()
             try:
                 self.clearUI()
             except:
                 print("An exception occurred")
+
         if (event.text()=='s' or event.text()==' ') and self.step=='A':
                 self._ui.label.show()
                 self.initialize()
@@ -30,7 +34,9 @@ class CorsiController():
                 self._ui.wrongIMG.hide()
 
 
+
     def __init__(self, ui,timerUI):
+        # ui._rosInterface.talker('kalhmera!')
         print(timerUI)
         self._ui=ui
         self.timerUI=timerUI
@@ -45,7 +51,13 @@ class CorsiController():
         self.countdown=2
         self.first=True
         self.msg=CORSI_MSG()
-        self._ui.corbiLabel.setText(  self.msg.INSTRUNCTIONS)    
+        self._ui.corbiLabel.setText(  self.msg.INSTRUNCTIONS)  
+
+        self.pattern = re.compile('<.*?>')
+        self._ui.ros.startUpdateThread(re.sub(self.pattern, '', self.msg.INSTRUNCTIONS_ROS))
+
+        
+
         self.currentRows=[]
         self.stepA=True
 
@@ -54,6 +66,8 @@ class CorsiController():
         self.countdownWrong=0
         self.tableShow=False
         self.factor=6
+ 
+        
 
     
     def clearUI(self):
@@ -115,6 +129,8 @@ class CorsiController():
 
 
     def exALoop(self):
+        if (self._ui.ros.isTalking):
+            return
         if (self.factor>0):
              self.factor=self.factor-1
              return
@@ -226,6 +242,9 @@ class CorsiController():
 
     def countdownA(self):
         
+        if (self._ui.ros.isTalking):
+            return
+
         if (self.countdown>3):
 
             print('----')
@@ -238,6 +257,9 @@ class CorsiController():
             return
         self._ui.wrongIMG.hide()
         self._ui.corbiLabel.setText(self.msg.countDown(str(self.currentRow.currentCorsi),str(self.countdown)))
+        msg=self.msg.countDown_ros(str(self.currentRow.currentCorsi),str(self.countdown))
+        if msg !='':
+            self._ui.ros.startUpdateThread(re.sub(self.pattern, '', msg))
         self.countdown=self.countdown-1
 
     def exAClick(self,i):
@@ -251,6 +273,7 @@ class CorsiController():
                 self.counterPause=10
                 self.countdownWrong=5
                 self._ui.corbiLabel.setText(self.msg.WRONG)
+                
                 
                 self._ui.wrongIMG.show()
                 
@@ -270,6 +293,8 @@ class CorsiController():
                 if self.errorCurrent==2 or self.totalError==3:
                     self.finishEx()
                     return
+                else:
+                    self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.WRONG_ROS))
                 self.start(a)   
                 return
 

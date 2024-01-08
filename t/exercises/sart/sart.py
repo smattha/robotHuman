@@ -22,11 +22,15 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import * 
 from utilities.TableView import TableView
 import os
-
+import re
 class sartController():
 
 
     def keyPressEvent(self, event):
+                
+        if (self._ui.ros.isTalking):
+            return
+        
         if (event.text()=='s' or event.text()==' ') and (self.step=='instruction'):
             self.step='color'
             self._ui.corbiLabel.setText('')
@@ -127,9 +131,11 @@ class sartController():
         self.counter=10
     
         self.MSG=SART_MSG()
+        self.pattern = re.compile('<.*?>')  
 
         self.path = "img/sart"
         self.dir_list = os.listdir(self.path)
+        
         
    
     def draw1(self):
@@ -197,13 +203,17 @@ class sartController():
 
 
     def exALoop(self):
+                
+        if (self._ui.ros.isTalking):
+            return
 
         self.counterTotal=self.counterTotal+1
         if (self.counterTotal>=self.maxCounter):
             self.finish()
             return
-        if (self.step=='instruction'):
-            self._ui.corbiLabel.setText(self.MSG.INSTRUNCTIONS)
+        if (self.step=='instruction')and self._ui.corbiLabel.text()!=self.MSG.INSTRUNCTIONS:
+            self._ui.corbiLabel.setText(self.MSG.INSTRUNCTIONS)     
+            self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.MSG.INSTRUNCTIONS_ROS))
             self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : blue" )
             return
         elif (self.step=='color'):

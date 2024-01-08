@@ -19,9 +19,12 @@ from exercises.goNoGo.state import state
 import datetime
 from utilities.TableView import TableView
 from Text.GO_NO_GO_CONTROLLER_MSG import GO_NO_GO_CONTROLLER_MSG
+import re
 class goNoGoController():
 
     def keyPressEvent(self, event):
+        if (self._ui.ros.isTalking):
+            return
         if(event.text()==chr(27)):
             self.counterTotal=self.maxCounter
         if (self.stateVariable=='end' and  event.text()==' '):
@@ -62,6 +65,7 @@ class goNoGoController():
 
     def __init__(self, ui,timerUI):
         self.stateVariable ='start'     
+        self.pattern = re.compile('<.*?>')
         self._ui=ui
         self.timerUI=timerUI
         self.msg= GO_NO_GO_CONTROLLER_MSG()
@@ -112,6 +116,7 @@ class goNoGoController():
         self.tick=time.time()
         
         self._ui.corbiLabel.setText(self.msg.DESCRIPTION) 
+        self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.DESCRIPTION_ROS))
         
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,int(self.timerUI.width() ), int(self.timerUI.height())))
         self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,int(self.timerUI.width()) , 1200))
@@ -217,7 +222,9 @@ class goNoGoController():
         # table.show()
         
     def exALoop(self):
-
+        if (self._ui.ros.isTalking):
+            return
+        
         meanTime=0
         if (self.counterTotal>=self.maxCounter):
             self.table1=self.showTable()

@@ -17,7 +17,7 @@ from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication
 # from exersiceC import ExersiceC
 from sys import exit
-
+from ros_interface.ros_interface import ros_interface
 
 class ExersiceC(QMainWindow):
     
@@ -36,13 +36,14 @@ class ExersiceC(QMainWindow):
         self._ui.corbiLabel.setGeometry(QtCore.QRect( int(0), int(10), int(width), int(height)))
 
 
-    def __init__(self,exercise):
+    def __init__(self,exercise,ros):
         self.exercise=exercise
         super().__init__()
         self._ui = Ui_MainWindow1()
         self._ui.setupUi(self)
-      
+        self._ui.ros=ros
         self.init(self._ui)
+
         
     def init(self,ui):
 
@@ -69,10 +70,20 @@ class ExersiceC(QMainWindow):
 
 class App(QApplication):
     def __init__(self, sys_argv):
+        self._rosInterface=ros_interface()
+        if (len(sys_argv)==3):
+          self._rosInterface.flag=sys_argv[2]
+        else:
+          self._rosInterface.flag=False
+
+
+
         super(App, self).__init__(sys_argv)
 
-        self.menu_view =ExersiceC(sys.argv[1])
+        self.menu_view =ExersiceC(sys.argv[1],self._rosInterface)
         self.menu_view.show()
+
+        
 
 
 if __name__ == '__main__':

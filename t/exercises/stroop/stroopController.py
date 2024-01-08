@@ -14,14 +14,17 @@ from utilities.stats import stats
 from utilities.TableView import TableView
 from exercises.stroop.row import row
 from Text.STROOP_MSG import STROOP_MSG
-
+import re
 
 
 
 class stroopController():
 
     def keyPressEvent(self, event):
-         
+        
+        if (self._ui.ros.isTalking):
+            return
+        
         if(event.text()==chr(27)):
             self.finish()
         if ( event.text()==' '  and self.stepStart=='finish'):   
@@ -82,11 +85,12 @@ class stroopController():
         self.row=row('--','--')
         self.correctCounter=0
         self.falseCounter=0
-        
+        self.pattern = re.compile('<.*?>')        
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
         self._ui.corbiLabel.setText(self.msg.INSTRUNCTIONS) 
+        self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.INSTRUNCTIONS_ROS))
+
         self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 1200))
-        
 
 
     def calculatePerc(self):

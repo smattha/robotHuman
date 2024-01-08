@@ -1,13 +1,14 @@
 from random import randint
 from Text.DIGITAL_SPAN_MSG import DIGITAL_SPAN_MSG
 class stateRecord:
-    def __init__(self, pauseCicles, label, ui,number='0',color='blue'):
+    def __init__(self, pauseCicles, label, ui,number='0',color='blue',ros=''):
         self.pause=4
         self.pause=pauseCicles
         self.label=label
         self.UI=ui
         self.number=number
         self.color=color
+        self.ros=ros
 
     
 class state():
@@ -36,7 +37,7 @@ class state():
         
         backhide=stateRecord(0,'','backhide',str(randint(1, 9)))
         
-        label1=stateRecord(-10,self.MSG.INSTRUNCTIONS,'',0)
+        label1=stateRecord(-10,self.MSG.INSTRUNCTIONS,'',0,'blue',self.MSG.INSTRUNCTIONS_ROS)
                     
         self.records.append(backhide)
         self.records.append(label1)
@@ -77,11 +78,11 @@ class state():
         while( nextNumber in numbers):
             nextNumber=str(randint(1, 9))
         
-        label2=stateRecord(60,self.MSG.CORRECT,'',1,'red')
+        label2=stateRecord(10,self.MSG.CORRECT,'',1,'red',self.MSG.CORRECT)
     
         if (wrong):
-            label2=stateRecord(60,self.MSG.WRONG,'',1,'red')
-            back=stateRecord(0,'img/rain.jpg','back',str(randint(1, 9)))
+            label2=stateRecord(10,self.MSG.WRONG,'',1,'red',self.MSG.WRONG,)
+            back=stateRecord(0,'img/rain.jpg','back',str(randint(1, 9)),self.MSG.CORRECT)
             self.records.append(back)
         elif(self.changeRecord):
             self.number=self.number+1
