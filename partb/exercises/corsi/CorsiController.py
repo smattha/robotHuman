@@ -10,7 +10,7 @@ from Text.CORSI_MSG import CORSI_MSG
 from time import sleep
 import random
 import re
-
+from Constants.POSITIONS import POSITIONS
 class CorsiController():
 
     def keyPressEvent(self, event):
@@ -51,10 +51,12 @@ class CorsiController():
         self.countdown=2
         self.first=True
         self.msg=CORSI_MSG()
+        self.positions=POSITIONS()
         self._ui.corbiLabel.setText(  self.msg.INSTRUNCTIONS)  
 
         self.pattern = re.compile('<.*?>')
         self._ui.ros.startUpdateThread(re.sub(self.pattern, '', self.msg.INSTRUNCTIONS_ROS))
+        self._ui.ros.moveRobotFromFile(self.positions.CORSI_INIT)
 
         
 

@@ -81,7 +81,7 @@ class ros_interface(object):
 
 
     def moveRobotFromFile(self,name):
-        print ("Robot is about to move in "+self.flag+" mode")
+        print ("Robot is about to move in "+str(self.flag)+" mode")
 
 
         # sleep(1)
