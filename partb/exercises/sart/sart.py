@@ -100,7 +100,7 @@ class sartController():
     def __init__(self, ui,timerUI):
         self._ui=ui
         self.timerUI=timerUI
-
+        self.positions_files=POSITIONS()
         self.init()
 
     def init(self):
@@ -213,7 +213,7 @@ class sartController():
             return
         if (self.step=='instruction')and self._ui.corbiLabel.text()!=self.MSG.INSTRUNCTIONS:
             self._ui.corbiLabel.setText(self.MSG.INSTRUNCTIONS)     
-            self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.MSG.INSTRUNCTIONS_ROS))
+            self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.MSG.INSTRUNCTIONS_ROS),self.positions_files.SART_INIT)
             self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : blue" )
             return
         elif (self.step=='color'):

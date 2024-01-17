@@ -15,7 +15,7 @@ from utilities.TableView import TableView
 from exercises.stroop.row import row
 from Text.STROOP_MSG import STROOP_MSG
 import re
-
+from Constants.POSITIONS import POSITIONS
 
 
 class stroopController():
@@ -50,6 +50,7 @@ class stroopController():
             self.rows.append(self.row)
             
     def __init__(self, ui,timerUI):
+        self.positions_files=POSITIONS()
         self._ui=ui
         self.timerUI=timerUI
         self.msg=STROOP_MSG()
@@ -88,7 +89,7 @@ class stroopController():
         self.pattern = re.compile('<.*?>')        
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , self.timerUI.height()))
         self._ui.corbiLabel.setText(self.msg.INSTRUNCTIONS) 
-        self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.INSTRUNCTIONS_ROS))
+        self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.INSTRUNCTIONS_ROS),self.positions_files.STROOP_INIT)
 
         self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,self.timerUI.width() , 1200))
 

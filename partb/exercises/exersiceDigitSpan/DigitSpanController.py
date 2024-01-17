@@ -14,6 +14,7 @@ from exercises.exersiceDigitSpan.state import state
 from utilities.TableView import TableView
 from Text.DIGITAL_SPAN_MSG import DIGITAL_SPAN_MSG
 import re
+from Constants.POSITIONS import POSITIONS
 
 class DigitSpanController():
 
@@ -40,6 +41,7 @@ class DigitSpanController():
         self.stateVariable='start'
         self.msg= DIGITAL_SPAN_MSG()
         self.pattern = re.compile('<.*?>')
+        self.positions_files=POSITIONS()
 
     def init(self,ui,timerUI):
         self._ui=ui
@@ -201,7 +203,7 @@ class DigitSpanController():
         self.msg= DIGITAL_SPAN_MSG()
         self._ui.corbiLabel.setText(curState.label)   
         if(curState.ros!=''):
-            self._ui.ros.startUpdateThread(re.sub(self.pattern, '',curState.ros))
+            self._ui.ros.startUpdateThread(re.sub(self.pattern, '',curState.ros),self.positions_files.DIGITAL_SPAN_INIT)
         self._ui.corbiLabel.setStyleSheet("font-size: 24pt; color : "+curState.color )
 
         self.sleep=curState.pause

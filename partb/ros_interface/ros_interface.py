@@ -192,10 +192,11 @@ class ros_interface(object):
         resp2 = getText_ROS.call(  position )
 
 
-    def startUpdateThread(self,msg):
+    def startUpdateThread(self,msg,robotPath):
         thread = Thread(target=self.threadF, args=(msg,), daemon=True)
         thread.start()
         print("Thread started")
+        self.moveRobotFromFile(robotPath)
 
     
     def threadF(self,msg):

@@ -51,12 +51,12 @@ class CorsiController():
         self.countdown=2
         self.first=True
         self.msg=CORSI_MSG()
-        self.positions=POSITIONS()
+        self.positions_files=POSITIONS()
         self._ui.corbiLabel.setText(  self.msg.INSTRUNCTIONS)  
 
         self.pattern = re.compile('<.*?>')
-        self._ui.ros.startUpdateThread(re.sub(self.pattern, '', self.msg.INSTRUNCTIONS_ROS))
-        self._ui.ros.moveRobotFromFile(self.positions.CORSI_INIT)
+        self._ui.ros.startUpdateThread(re.sub(self.pattern, '', self.msg.INSTRUNCTIONS_ROS),self.positions_files.CORSI_INIT)
+        
 
         
 
@@ -261,7 +261,7 @@ class CorsiController():
         self._ui.corbiLabel.setText(self.msg.countDown(str(self.currentRow.currentCorsi),str(self.countdown)))
         msg=self.msg.countDown_ros(str(self.currentRow.currentCorsi),str(self.countdown))
         if msg !='':
-            self._ui.ros.startUpdateThread(re.sub(self.pattern, '', msg))
+            self._ui.ros.startUpdateThread(re.sub(self.pattern, '', msg),self.positions_files.CORSI_INIT)
         self.countdown=self.countdown-1
 
     def exAClick(self,i):
@@ -296,7 +296,7 @@ class CorsiController():
                     self.finishEx()
                     return
                 else:
-                    self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.WRONG_ROS))
+                    self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.WRONG_ROS),self.positions_files.CORSI_INIT)
                 self.start(a)   
                 return
 

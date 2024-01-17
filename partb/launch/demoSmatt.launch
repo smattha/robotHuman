@@ -1,8 +1,7 @@
 <launch>
 
   <node pkg="audio_service" type="audioServiceBlocking.py" name="text2Speech"  />
-
-  <include file="$(find motors_controller)/launch/demoMotorOnline.launch"/> 
+  <include file="$(find motors_controller)/launch/demoMotorOffline.launch"/>
 
 </launch>
 

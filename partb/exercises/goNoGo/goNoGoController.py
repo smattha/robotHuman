@@ -20,6 +20,8 @@ import datetime
 from utilities.TableView import TableView
 from Text.GO_NO_GO_CONTROLLER_MSG import GO_NO_GO_CONTROLLER_MSG
 import re
+from Constants.POSITIONS import POSITIONS
+
 class goNoGoController():
 
     def keyPressEvent(self, event):
@@ -69,6 +71,7 @@ class goNoGoController():
         self._ui=ui
         self.timerUI=timerUI
         self.msg= GO_NO_GO_CONTROLLER_MSG()
+        self.positions_files=POSITIONS()
         self.init()
 
     def init(self):
@@ -116,7 +119,7 @@ class goNoGoController():
         self.tick=time.time()
         
         self._ui.corbiLabel.setText(self.msg.DESCRIPTION) 
-        self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.DESCRIPTION_ROS))
+        self._ui.ros.startUpdateThread(re.sub(self.pattern, '',self.msg.DESCRIPTION_ROS),self.positions_files.GO_NO_INIT)
         
         self._ui.widget.setGeometry(QtCore.QRect(0, 0,int(self.timerUI.width() ), int(self.timerUI.height())))
         self._ui.corbiLabel.setGeometry(QtCore.QRect(0, 0,int(self.timerUI.width()) , 1200))
