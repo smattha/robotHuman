@@ -1,3 +1,7 @@
 *.pyc
 user_interface/views/ui/__pycache__/page1.cpython-38.pyc
 user_interface/views/ui/__pycache__/page2.cpython-38.pyc
+
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
