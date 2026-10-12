@@ -41,6 +41,12 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
   }, [stop])
 
   useEffect(() => {
+    if (!currentFrame || storyComplete) return
+    const timer = setTimeout(() => setFrameIndex((index) => index + 1), 4000)
+    return () => clearTimeout(timer)
+  }, [currentFrame, storyComplete, frameIndex])
+
+  useEffect(() => {
     if (!waitingForVoiceAnswer || !finalTranscript) return
     SpeechRecognition.stopListening()
     const optionId = matchSpokenOption(finalTranscript, exercise.options)
@@ -121,6 +127,7 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
               <p className="frame-count">Εικόνα {Math.min(frameIndex + 1, frames.length)} από {frames.length}</p>
               <img src={currentFrame.imagePath} alt={currentFrame.text} />
               <p>{currentFrame.text}</p>
+              {!storyComplete && <div className="frame-auto-advance" aria-hidden="true"><span key={frameIndex} /></div>}
               {!storyComplete && <button className="secondary-button" type="button" onClick={() => setFrameIndex((index) => index + 1)}>
                 {frameIndex === frames.length - 1 ? 'Στην ερώτηση' : 'Επόμενη εικόνα'} <span aria-hidden="true">→</span>
               </button>}

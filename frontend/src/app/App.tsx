@@ -154,6 +154,15 @@ export function App() {
     setDialogOpen(true)
   }
 
+  function openPartB() {
+    if (activeTimedTask || preparedTimedTask || completedTimedTask) leaveTimedTask()
+    else goHome()
+    setSelectedTimedTask(null)
+    setDialogOpen(false)
+    dispatch({ type: 'BACK_TO_LIBRARY' })
+    setTimeout(() => document.getElementById('timed-tasks')?.scrollIntoView({ behavior: 'smooth' }), 50)
+  }
+
   function finishTimedTask(taskId: TimedTaskId, userName: string, trials: Trial[], summary: TaskSummary) {
     const result: TimedTaskResult = {
       id: crypto.randomUUID(), taskId, userName,
@@ -190,13 +199,13 @@ export function App() {
   }
 
   return (
-    <AppShell exercises={exercises} onHome={goHome} onSelectExercise={openExercise} onTestAll={openTestDialog} onStatistics={openStatistics}>
+    <AppShell exercises={exercises} onHome={goHome} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics}>
       {showStatistics && <StatisticsScreen results={savedResults} timedResults={timedTaskResults} onDelete={removeResult} onDeleteAll={removeAllResults} />}
       {!showStatistics && !activeTimedTask && !preparedTimedTask && !completedTimedTask && state.screen === 'welcome' && <WelcomeScreen onStart={startExerciseLibrary} />}
       {!showStatistics && !activeTimedTask && !preparedTimedTask && !completedTimedTask && state.screen === 'library' && (
         <>
           <ExerciseLibrary exercises={exercises} onSelect={(selected) => openExercise(exercises.indexOf(selected))} />
-          <section className="page-section timed-task-library" aria-labelledby="timed-tasks-title">
+          <section id="timed-tasks" className="page-section timed-task-library" aria-labelledby="timed-tasks-title">
             <div className="section-heading"><div><p className="eyebrow">Δραστηριότητες μνήμης και προσοχής</p><h2 id="timed-tasks-title">Χρονικές δοκιμασίες</h2></div></div>
             <div className="timed-task-grid">
               {timedTaskDefinitions.map((task) => (

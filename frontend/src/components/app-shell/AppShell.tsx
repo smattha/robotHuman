@@ -7,10 +7,11 @@ type AppShellProps = {
   onHome: () => void
   onSelectExercise: (index: number) => void
   onTestAll: () => void
+  onPartB: () => void
   onStatistics: () => void
 }
 
-export function AppShell({ children, exercises, onHome, onSelectExercise, onTestAll, onStatistics }: AppShellProps) {
+export function AppShell({ children, exercises, onHome, onSelectExercise, onTestAll, onPartB, onStatistics }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [exerciseListOpen, setExerciseListOpen] = useState(false)
 
@@ -70,7 +71,8 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
               </nav>
             </div>
           )}
-          <button className="sidebar-link test" type="button" onClick={() => { onTestAll(); setExerciseListOpen(false); closeSidebar() }}>Test all</button>
+          <button className="sidebar-link test" type="button" onClick={() => { onTestAll(); setExerciseListOpen(false); closeSidebar() }}>Πλήρες τεστ</button>
+          <button className="sidebar-link" type="button" onClick={() => { onPartB(); setExerciseListOpen(false); closeSidebar() }}>Part B · Χρονικές</button>
           <button className="sidebar-link" type="button" onClick={() => { onStatistics(); setExerciseListOpen(false); closeSidebar() }}>Στατιστικά</button>
         </nav>
         <footer className="footer">Ένα βήμα τη φορά. Μπορείς!</footer>
