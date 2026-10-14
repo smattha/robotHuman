@@ -16,10 +16,10 @@ export function TaskResultsTable({ summary, trials, stimulusLabel, responseLabel
   return (
     <div className="task-results">
       <div className="task-summary">
-        <div><strong>{summary.correctCount}</strong> σωστές</div>
-        <div><strong>{summary.wrongCount}</strong> λάθος</div>
-        <div><strong>{summary.totalTrials}</strong> συνολικά</div>
-        <div><strong>{(summary.meanResponseTimeMs / 1000).toFixed(1)}s</strong> μέσος χρόνος</div>
+        <div><strong>{summary.correctCount}</strong> που βρήκα</div>
+        <div><strong>{summary.wrongCount}</strong> δοκιμές που μας έμαθαν κάτι</div>
+        <div><strong>{summary.totalTrials}</strong> προσπάθειες</div>
+        <div><strong>{(summary.meanResponseTimeMs / 1000).toFixed(1)}s</strong> για σκέψη</div>
         {sequenceLabel}
       </div>
       {trials.length > 0 && (
@@ -33,7 +33,7 @@ export function TaskResultsTable({ summary, trials, stimulusLabel, responseLabel
                 <td>{trial.stimulus}</td>
                 <td>{trial.response}</td>
                 <td>{(trial.responseTimeMs / 1000).toFixed(2)}s</td>
-                <td>{trial.isCorrect ? 'Σωστό' : 'Λάθος'}</td>
+                <td>{trial.isCorrect ? 'Το βρήκα!' : 'Μια νέα δοκιμή'}</td>
               </tr>
             ))}
           </tbody>

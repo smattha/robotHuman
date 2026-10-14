@@ -26,9 +26,9 @@ export function ProgressMap({ exercises, exerciseResults, timedTaskDefinitions, 
     <section className="progress-map" aria-labelledby="progress-map-title">
       <div className="progress-map-heading">
         <div>
-          <p className="eyebrow">Η διαδρομή σου</p>
-          <h2 id="progress-map-title">Ο χάρτης των αποστολών</h2>
-          <p>Κάθε σύμβολο που φωτίζεται δείχνει μια δραστηριότητα που ολοκλήρωσες σε αυτή τη συσκευή.</p>
+          <p className="eyebrow">Τα κατορθώματά σου</p>
+          <h2 id="progress-map-title">Ο χάρτης της περιπέτειάς σου</h2>
+          <p>Κάθε αστεράκι θυμίζει κάτι καινούριο που δοκίμασες. Προχωράς με τον δικό σου ρυθμό!</p>
         </div>
         <span className="progress-map-star" aria-hidden="true">✦</span>
       </div>

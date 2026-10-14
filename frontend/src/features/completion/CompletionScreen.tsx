@@ -19,8 +19,8 @@ export function CompletionScreen({ isCorrect, isSingle, result, helper, onRestar
       <div className="child-helper" aria-hidden="true">{helperIcons[helper]}</div>
       <div className="completion-icon" aria-hidden="true">{isCorrect ? '✓' : '★'}</div>
       <p className="eyebrow">Αποστολή ολοκληρώθηκε</p>
-      <h1 id="completion-title">Μπράβο για την προσπάθειά σου!</h1>
-      <p className="lead">Κάθε γρίφος είναι μια καινούρια ευκαιρία να σκεφτείς και να μάθεις.</p>
+      <h1 id="completion-title">Τα κατάφερες, εξερευνητή!</h1>
+      <p className="lead">Μπράβο που δοκίμασες! Κάθε ιδέα και κάθε προσπάθεια σε βοηθά να ανακαλύπτεις περισσότερα.</p>
       {isSingle && <p className="mission-badge"><span aria-hidden="true">★</span> Κονκάρδα: Μικρός Εξερευνητής</p>}
       {result && <p className="lead">{result.userName}: {result.answers.filter((answer) => answer.isCorrect).length} σωστές από {result.answers.length} ασκήσεις.</p>}
       <div className="completion-actions">

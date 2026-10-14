@@ -45,7 +45,7 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
           <button className="close-button sidebar-close" type="button" aria-label="Κλείσιμο μενού" onClick={closeSidebar}>×</button>
         </div>
         <nav className="sidebar-nav" aria-label="Κύριο μενού">
-          <button className="sidebar-link test" type="button" onClick={() => { if (!onRequireUser()) return; onTestAll(); setExerciseListOpen(false); closeSidebar() }}>Ξεκίνα τη Μεγάλη Περιπέτεια</button>
+          <button className="sidebar-link test" type="button" onClick={() => { if (!onRequireUser()) return; onTestAll(); setExerciseListOpen(false); closeSidebar() }}>🌈 Μεγάλη περιπέτεια</button>
           <button
             className="sidebar-link exercise-menu-toggle"
             type="button"
@@ -56,7 +56,7 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
               setExerciseListOpen((open) => !open)
             }}
           >
-            Μικρές Αποστολές <span aria-hidden="true">{exerciseListOpen ? '−' : '+'}</span>
+            🗺️ Μικρές αποστολές <span aria-hidden="true">{exerciseListOpen ? '−' : '+'}</span>
           </button>
           {exerciseListOpen && (
             <div className="exercise-dropdown" id="exercise-menu-list">
@@ -77,11 +77,11 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
               </nav>
             </div>
           )}
-          <button className="sidebar-link" type="button" onClick={() => { if (!onRequireUser()) return; onPartB(); setExerciseListOpen(false); closeSidebar() }}>Προκλήσεις Μνήμης</button>
-          <button className="sidebar-link" type="button" onClick={() => { onStatistics(); setExerciseListOpen(false); closeSidebar() }}>Στατιστικά</button>
-          <button className="sidebar-link" type="button" onClick={() => { onSettings(); setExerciseListOpen(false); closeSidebar() }}>Ρυθμίσεις</button>
+          <button className="sidebar-link" type="button" onClick={() => { if (!onRequireUser()) return; onPartB(); setExerciseListOpen(false); closeSidebar() }}>🧠 Παιχνίδια σκέψης</button>
+          <button className="sidebar-link" type="button" onClick={() => { onStatistics(); setExerciseListOpen(false); closeSidebar() }}>⭐ Τα κατορθώματά μου</button>
+          <button className="sidebar-link" type="button" onClick={() => { onSettings(); setExerciseListOpen(false); closeSidebar() }}>⚙️ Ρυθμίσεις</button>
         </nav>
-        <footer className="footer">Ένα βήμα τη φορά. Μπορείς!</footer>
+        <footer className="footer">Κάθε προσπάθεια είναι ένα κατόρθωμα!</footer>
       </aside>
       <div className="main-area">
         <div className="mobile-topbar">

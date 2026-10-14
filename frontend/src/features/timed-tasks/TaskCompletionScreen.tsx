@@ -21,8 +21,8 @@ export function TaskCompletionScreen({ result, saved, onStatistics, onBack, help
       <div className="child-helper" aria-hidden="true">{helperIcons[helper]}</div>
       <div className="completion-icon" aria-hidden="true">✓</div>
       <p className="eyebrow">{taskTitle}</p>
-      <h1 id="task-completion-title">Η δοκιμασία ολοκληρώθηκε!</h1>
-      <p className="lead">Μπράβο, {result.userName}! Ολοκλήρωσες {result.summary.totalTrials} γύρους με {result.summary.correctCount} σωστές απαντήσεις.</p>
+      <h1 id="task-completion-title">Ολοκλήρωσες το παιχνίδι!</h1>
+      <p className="lead">Μπράβο, {result.userName}! Έκανες {result.summary.totalTrials} γύρους και έδωσες τον καλύτερό σου εαυτό.</p>
       <p>{saved ? 'Το αποτέλεσμα αποθηκεύτηκε σε αυτή τη συσκευή.' : 'Δεν ήταν δυνατή η αποθήκευση του αποτελέσματος σε αυτή τη συσκευή.'}</p>
       <div className="completion-actions">
         <button className="primary-button" type="button" onClick={onStatistics}>Δες τα στατιστικά</button>

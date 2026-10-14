@@ -20,12 +20,12 @@ export function NewUserDialog({ existingUserNames, onSave, onClose }: NewUserDia
         <button className="close-button" type="button" aria-label="Κλείσιμο" onClick={onClose}>×</button>
         <p className="eyebrow">Νέος χρήστης</p>
         <h2 id="new-user-title">Πώς σε λένε;</h2>
-        <p>Το όνομα βοηθά να κρατάμε τις προσπάθειες ξεχωριστές σε αυτή τη συσκευή.</p>
+        <p>Γράψε το όνομα ή το παρατσούκλι σου, για να κρατάμε τις αποστολές σου ξεχωριστά σε αυτή τη συσκευή.</p>
         <form onSubmit={(event) => { event.preventDefault(); if (name.trim()) onSave(name.trim()) }}>
-          <label htmlFor="new-user-name">Όνομα</label>
-          <input id="new-user-name" autoFocus maxLength={80} required value={name} onChange={(event) => setName(event.target.value)} />
+          <label htmlFor="new-user-name">Πώς θα σε φωνάζουμε;</label>
+          <input id="new-user-name" autoFocus maxLength={80} required value={name} onChange={(event) => setName(event.target.value)} placeholder="Το όνομά σου" />
           {duplicateName && <p className="duplicate-name-warning" role="status">Υπάρχει ήδη χρήστης με αυτό το όνομα. Μπορείς να συνεχίσεις αν είναι το ίδιο άτομο.</p>}
-          <button className="primary-button full-width" type="submit" disabled={!name.trim()}>Συνέχισε <span aria-hidden="true">→</span></button>
+          <button className="primary-button full-width" type="submit" disabled={!name.trim()}>Πάμε! <span aria-hidden="true">→</span></button>
         </form>
       </section>
     </div>

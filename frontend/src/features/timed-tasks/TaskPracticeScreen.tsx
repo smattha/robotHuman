@@ -12,17 +12,17 @@ const practiceContent: Record<TimedTaskId, PracticeContent> = {
   stroop: {
     instruction: 'Πάτησε μόνο όταν το χρώμα της λέξης ταιριάζει με αυτό που λέει η λέξη.',
     example: 'Η λέξη «Κόκκινο» γραμμένη με κόκκινο χρώμα σημαίνει: πατάω.',
-    reminder: 'Αν η λέξη και το χρώμα δεν ταιριάζουν, περιμένω.',
+    reminder: 'Αν η λέξη και το χρώμα δεν ταιριάζουν, περιμένω. Και τα δύο είναι σωστές επιλογές!',
   },
   'go-no-go': {
     instruction: 'Πάτησε μόνο όταν δεις «Ξεκίνα».',
     example: 'Όταν δεις «Ξεκίνα», πατάς το κουμπί.',
-    reminder: 'Όταν δεις «Στοπ», δεν πατάς.',
+    reminder: 'Όταν δεις «Στοπ», περιμένεις. Και το να περιμένεις είναι μέρος του παιχνιδιού!',
   },
   sart: {
     instruction: 'Πάτησε σε κάθε εικόνα, εκτός από το μήλο.',
     example: 'Για τη μπάλα ή το αυτοκίνητο, πατάς το κουμπί.',
-    reminder: 'Για το μήλο, δεν πατάς.',
+    reminder: 'Για το μήλο, περιμένεις. Θυμήσου, δεν χρειάζεται να βιαστείς.',
   },
   corsi: {
     instruction: 'Παρακολούθησε ποια πλακίδια φωτίζονται και πάτησέ τα με την ίδια σειρά.',
@@ -52,7 +52,7 @@ export function TaskPracticeScreen({ task, onStart, onBack, helper }: TaskPracti
       <div className="task-practice-card">
         <span className="task-transition-icon" aria-hidden="true">{task.icon}</span>
         <span className="child-helper" aria-hidden="true">{helperIcons[helper]}</span>
-        <p className="eyebrow">Δοκιμαστικός γύρος · δεν καταγράφεται</p>
+        <p className="eyebrow">Προπόνηση · χωρίς βαθμολογία</p>
         <h1 id="practice-title">Ας κάνουμε μία πρόβα</h1>
         <p className="lead">{content.instruction}</p>
         <div className="practice-example">
@@ -61,7 +61,7 @@ export function TaskPracticeScreen({ task, onStart, onBack, helper }: TaskPracti
         </div>
         <p className="practice-reminder">{content.reminder}</p>
         <div className="task-transition-actions">
-          <button className="primary-button" type="button" onClick={onStart}>Ξεκίνα την κανονική δοκιμασία <span aria-hidden="true">→</span></button>
+          <button className="primary-button" type="button" onClick={onStart}>Είμαι έτοιμος/η! <span aria-hidden="true">→</span></button>
           <button className="text-button" type="button" onClick={onBack}>Πίσω στις ασκήσεις</button>
         </div>
       </div>

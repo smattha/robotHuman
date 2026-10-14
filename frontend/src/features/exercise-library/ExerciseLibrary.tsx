@@ -17,22 +17,22 @@ export function ExerciseLibrary({ exercises, exerciseResults, timedTaskDefinitio
     <section className="page-section library-section" aria-labelledby="library-title">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Οι 12 Μικρές Αποστολές</p>
-          <h1 id="library-title">Διάλεξε μια μικρή αποστολή</h1>
+          <p className="eyebrow">Ο δικός σου χάρτης περιπέτειας</p>
+          <h1 id="library-title">Ποια αποστολή θα διαλέξεις;</h1>
         </div>
-        <span className="counter">{exercises.length} διαθέσιμες</span>
+        <span className="counter">{exercises.length} αποστολές σε περιμένουν ✨</span>
       </div>
       <ProgressMap exercises={exercises} exerciseResults={exerciseResults} timedTaskDefinitions={timedTaskDefinitions} timedTaskResults={timedTaskResults} />
       <div className="exercise-grid">
         {exercises.map((exercise) => (
           <article className="exercise-card" key={exercise.id}>
-            <div className="exercise-icon" aria-hidden="true">♢</div>
+            <div className="exercise-icon" aria-hidden="true">{['🔍', '🧩', '🎨', '🧠', '🌟'][exercises.indexOf(exercise) % 5]}</div>
             <div className="exercise-card-copy">
-              <p className="card-category">{exercise.category}</p>
+              <p className="card-category">Μικρή αποστολή · {exercise.category}</p>
               <h2>{exercise.title}</h2>
               <p>{exercise.description}</p>
             </div>
-            <button className="secondary-button" type="button" onClick={() => onSelect(exercise)}>Παίξε τώρα <span aria-hidden="true">↗</span></button>
+            <button className="secondary-button" type="button" onClick={() => onSelect(exercise)}>Δοκίμασέ την <span aria-hidden="true">→</span></button>
           </article>
         ))}
       </div>

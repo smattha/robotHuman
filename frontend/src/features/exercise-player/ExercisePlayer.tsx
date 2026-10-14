@@ -31,21 +31,6 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
   const { voices } = useVoices()
   const { browserSupportsSpeechRecognition, finalTranscript, isMicrophoneAvailable, listening, resetTranscript } = useSpeechRecognition()
 
-  useEffect(() => {
-    console.log('[SR] listening:', listening, 'transcript:', JSON.stringify(finalTranscript), 'mic:', isMicrophoneAvailable)
-  }, [listening, finalTranscript, isMicrophoneAvailable])
-
-  useEffect(() => {
-    const sr = (SpeechRecognition as unknown as { recognition: { onerror: ((e: { error: string }) => void) | null } | null }).recognition
-    if (!sr) return
-    const originalOnError = sr.onerror
-    sr.onerror = (event: { error: string }) => {
-      console.log('[SR] ERROR:', event.error)
-      originalOnError?.call(sr, event)
-    }
-  }, [])
-
-
   const onlineAudioRef = useRef<HTMLAudioElement | null>(null)
   const audioUrlRef = useRef<string | null>(null)
   const audioRequestRef = useRef(0)
