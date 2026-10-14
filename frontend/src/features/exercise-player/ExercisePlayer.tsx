@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useSpeak, useVoices } from 'react-text-to-speech'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import type { Exercise } from '../../domain/exercise'
+import { getExerciseSpokenText, getGreekVoiceAudio, isGreekVoiceStored } from '../../domain/greek-voice'
 import { matchSpokenOption } from '../../domain/speech'
 import { fetchVoiceRssAudio, isVoiceRssConfigured } from '../../domain/voicerss-tts'
 
@@ -12,21 +13,42 @@ type ExercisePlayerProps = {
   isSubmitted: boolean
   feedback: string | null
   isCorrect: boolean | null
+  storyFrameDurationMs: number
+  speechEnabled: boolean
   onSelect: (optionId: string) => void
   onSubmit: () => void
   onComplete: () => void
 }
 
-export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitted, feedback, isCorrect, onSelect, onSubmit, onComplete }: ExercisePlayerProps) {
+export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitted, feedback, isCorrect, storyFrameDurationMs, speechEnabled, onSelect, onSubmit, onComplete }: ExercisePlayerProps) {
   const [showHint, setShowHint] = useState(false)
   const [frameIndex, setFrameIndex] = useState(0)
   const [voiceMessage, setVoiceMessage] = useState('')
   const [waitingForVoiceAnswer, setWaitingForVoiceAnswer] = useState(false)
-  const [isFetchingOnlineAudio, setIsFetchingOnlineAudio] = useState(false)
+  const [isLoadingAudio, setIsLoadingAudio] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(false)
   const { speak, stop } = useSpeak()
   const { voices } = useVoices()
   const { browserSupportsSpeechRecognition, finalTranscript, isMicrophoneAvailable, listening, resetTranscript } = useSpeechRecognition()
+
+  useEffect(() => {
+    console.log('[SR] listening:', listening, 'transcript:', JSON.stringify(finalTranscript), 'mic:', isMicrophoneAvailable)
+  }, [listening, finalTranscript, isMicrophoneAvailable])
+
+  useEffect(() => {
+    const sr = (SpeechRecognition as unknown as { recognition: { onerror: ((e: { error: string }) => void) | null } | null }).recognition
+    if (!sr) return
+    const originalOnError = sr.onerror
+    sr.onerror = (event: { error: string }) => {
+      console.log('[SR] ERROR:', event.error)
+      originalOnError?.call(sr, event)
+    }
+  }, [])
+
+
   const onlineAudioRef = useRef<HTMLAudioElement | null>(null)
+  const audioUrlRef = useRef<string | null>(null)
+  const audioRequestRef = useRef(0)
   const frames = exercise.storyFrames ?? []
   const storyComplete = frames.length === 0 || frameIndex >= frames.length
   const currentFrame = frames.length > 0 ? frames[Math.min(frameIndex, frames.length - 1)] : undefined
@@ -34,17 +56,51 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
 
   useEffect(() => {
     return () => {
-      stop()
-      SpeechRecognition.abortListening()
+      audioRequestRef.current += 1
       onlineAudioRef.current?.pause()
+      if (audioUrlRef.current) URL.revokeObjectURL(audioUrlRef.current)
     }
-  }, [stop])
+  }, [])
+
+  const stopRef = useRef(stop)
+  stopRef.current = stop
+
+  useEffect(() => {
+    return () => {
+      stopRef.current()
+    }
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      audioRequestRef.current += 1
+      onlineAudioRef.current?.pause()
+      onlineAudioRef.current = null
+      if (audioUrlRef.current) URL.revokeObjectURL(audioUrlRef.current)
+      audioUrlRef.current = null
+    }
+  }, [exercise.id, frameIndex])
+
+  useEffect(() => {
+    setIsLoadingAudio(false)
+    setVoiceMessage('')
+  }, [exercise.id, frameIndex])
+
+  useEffect(() => {
+    if (speechEnabled) void speakText()
+  }, [exercise.id])
+
+  useEffect(() => {
+    if (!speechEnabled || !currentFrame || storyComplete) return
+    void speakText()
+  }, [frameIndex])
 
   useEffect(() => {
     if (!currentFrame || storyComplete) return
-    const timer = setTimeout(() => setFrameIndex((index) => index + 1), 4000)
+    if (speechEnabled && isSpeaking) return
+    const timer = setTimeout(() => setFrameIndex((index) => index + 1), storyFrameDurationMs)
     return () => clearTimeout(timer)
-  }, [currentFrame, storyComplete, frameIndex])
+  }, [currentFrame, storyComplete, frameIndex, storyFrameDurationMs, isSpeaking, speechEnabled])
 
   useEffect(() => {
     if (!waitingForVoiceAnswer || !finalTranscript) return
@@ -71,44 +127,87 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
     resetTranscript()
     setWaitingForVoiceAnswer(true)
     setVoiceMessage('Σε ακούω...')
-    SpeechRecognition.startListening({ language: 'el-GR', interimResults: false }).catch(() => {
-      setWaitingForVoiceAnswer(false)
-      setVoiceMessage('Δεν ήταν δυνατή η αναγνώριση φωνής. Μπορείς να πατήσεις μία επιλογή.')
-    })
+    setTimeout(() => {
+      SpeechRecognition.startListening({ language: 'el-GR', interimResults: true }).catch((error) => {
+        console.log('error', error)
+        setWaitingForVoiceAnswer(false)
+        setVoiceMessage('Δεν ήταν δυνατή η αναγνώριση φωνής. Μπορείς να πατήσεις μία επιλογή.')
+      })
+    }, 150)
   }
 
   async function speakText() {
+    if (!speechEnabled) return
+    const request = ++audioRequestRef.current
+    setIsSpeaking(Boolean(speechEnabled && currentFrame))
     onlineAudioRef.current?.pause()
+    if (audioUrlRef.current) URL.revokeObjectURL(audioUrlRef.current)
+    audioUrlRef.current = null
+    onlineAudioRef.current = null
     stop()
+    setVoiceMessage('')
     if (greekVoice) {
       speak(spokenText, { lang: 'el-GR', rate: 0.9, voiceURI: greekVoice.voiceURI })
+      setIsSpeaking(false)
       return
     }
-    if (!isVoiceRssConfigured()) {
-      speak(spokenText, { lang: 'el-GR', rate: 0.9 })
-      return
-    }
-    setIsFetchingOnlineAudio(true)
-    setVoiceMessage('')
-    const result = await fetchVoiceRssAudio(spokenText)
-    setIsFetchingOnlineAudio(false)
-    if (!result.ok) {
+
+    setIsLoadingAudio(true)
+    setVoiceMessage('Ετοιμάζω την ελληνική φωνή...')
+    try {
+      if (!await isGreekVoiceStored() && request === audioRequestRef.current) {
+        setVoiceMessage('Η πρώτη χρήση χρειάζεται λήψη περίπου 63 MB. Ετοιμάζω την ελληνική φωνή...')
+      }
+      const wav = await getGreekVoiceAudio(spokenText, true)
+
+      if (request !== audioRequestRef.current) return
+      const url = URL.createObjectURL(wav)
+      audioUrlRef.current = url
+      const audio = new Audio(url)
+      onlineAudioRef.current = audio
+      await audio.play()
+      if (request === audioRequestRef.current) setVoiceMessage('')
+      if (request === audioRequestRef.current) setIsSpeaking(false)
+    } catch {
+      if (request !== audioRequestRef.current) return
+      if (isVoiceRssConfigured()) {
+        const result = await fetchVoiceRssAudio(spokenText)
+        if (request !== audioRequestRef.current) return
+        if (result.ok) {
+          const audio = new Audio(result.audioDataUrl)
+          onlineAudioRef.current = audio
+          try {
+            await audio.play()
+            setVoiceMessage('')
+            setIsSpeaking(false)
+            return
+          } catch {
+            // Keep the readable text available when playback is blocked.
+          }
+        }
+      }
       setVoiceMessage('Δεν ήταν δυνατή η αναπαραγωγή ήχου αυτή τη στιγμή. Μπορείς να διαβάσεις το κείμενο.')
-      return
+      setIsSpeaking(false)
+    } finally {
+      if (request === audioRequestRef.current) setIsLoadingAudio(false)
     }
-    const audio = new Audio(result.audioDataUrl)
-    onlineAudioRef.current = audio
-    audio.play().catch(() => setVoiceMessage('Δεν ήταν δυνατή η αναπαραγωγή ήχου αυτή τη στιγμή. Μπορείς να διαβάσεις το κείμενο.'))
   }
 
   function stopAudio() {
+    audioRequestRef.current += 1
+    setIsLoadingAudio(false)
+    setIsSpeaking(false)
     stop()
     SpeechRecognition.abortListening()
     onlineAudioRef.current?.pause()
+    onlineAudioRef.current = null
+    if (audioUrlRef.current) URL.revokeObjectURL(audioUrlRef.current)
+    audioUrlRef.current = null
+    setVoiceMessage('')
     setWaitingForVoiceAnswer(false)
   }
 
-  const spokenText = currentFrame?.text ?? `${exercise.instructions} ${exercise.question} ${exercise.options.map((option) => `${option.label}: ${option.detail}`).join('. ')}`
+  const spokenText = currentFrame?.text ?? getExerciseSpokenText(exercise)
 
   return (
     <section className="page-section player-section" aria-labelledby="exercise-title">
@@ -127,8 +226,8 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
               <p className="frame-count">Εικόνα {Math.min(frameIndex + 1, frames.length)} από {frames.length}</p>
               <img src={currentFrame.imagePath} alt={currentFrame.text} />
               <p>{currentFrame.text}</p>
-              {!storyComplete && <div className="frame-auto-advance" aria-hidden="true"><span key={frameIndex} /></div>}
-              {!storyComplete && <button className="secondary-button" type="button" onClick={() => setFrameIndex((index) => index + 1)}>
+              {!storyComplete && <div className="frame-auto-advance" aria-hidden="true"><span key={frameIndex} style={{ animationDuration: `${storyFrameDurationMs}ms` }} /></div>}
+                {!storyComplete && <button className="secondary-button" type="button" disabled={speechEnabled && isSpeaking} onClick={() => setFrameIndex((index) => index + 1)}>
                 {frameIndex === frames.length - 1 ? 'Στην ερώτηση' : 'Επόμενη εικόνα'} <span aria-hidden="true">→</span>
               </button>}
             </div>
@@ -138,10 +237,10 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
               {exercise.imagePath && <div className="exercise-media"><img src={exercise.imagePath} alt={`Εικόνα για την άσκηση ${exercise.title}`} /></div>}
             </>
           )}
-          <div className="voice-actions">
-            <button className="hint-button" type="button" onClick={speakText} disabled={isFetchingOnlineAudio}>{isFetchingOnlineAudio ? 'Φόρτωση ήχου...' : 'Άκουσε το κείμενο'}</button>
+          {speechEnabled && <div className="voice-actions">
+            <button className="hint-button" type="button" onClick={speakText} disabled={isLoadingAudio}>{isLoadingAudio ? 'Φόρτωση ήχου...' : 'Άκουσε το κείμενο'}</button>
             <button className="hint-button" type="button" onClick={stopAudio}>Σταμάτα τον ήχο</button>
-          </div>
+          </div>}
           {storyComplete && <button className="hint-button" type="button" onClick={() => setShowHint((visible) => !visible)} aria-expanded={showHint}>☼ {showHint ? 'Κρύψε τη βοήθεια' : 'Χρειάζεσαι βοήθεια;'}</button>}
           {showHint && <p className="hint">Ξαναδιάβασε προσεκτικά: {exercise.instructions}</p>}
         </div>
@@ -164,7 +263,6 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
           {!isSubmitted ? (
             <>
               <button className="hint-button" type="button" onClick={listenForAnswer}>{listening ? 'Σε ακούω...' : 'Απάντησε με τη φωνή σου'}</button>
-              {voiceMessage && <p className="voice-message" role="status">{voiceMessage}</p>}
               <button className="primary-button full-width" type="button" disabled={!selectedOptionId} onClick={onSubmit}>Έλεγξε την απάντηση <span aria-hidden="true">→</span></button>
             </>
           ) : (
@@ -176,6 +274,7 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
           )}
         </div>}
       </div>
+      {voiceMessage && <p className="voice-message" role="status">{voiceMessage}</p>}
     </section>
   )
 }

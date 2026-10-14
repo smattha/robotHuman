@@ -11,6 +11,7 @@ export type TestResult = {
   startedAt: string
   completedAt: string | null
   answers: ExerciseResult[]
+  kind?: 'single'
 }
 
 const STORAGE_KEY = 'childrens-exercises-results-v1'

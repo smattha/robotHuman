@@ -21,4 +21,25 @@ describe('sessionReducer', () => {
     const next = sessionReducer(answered, { type: 'NEXT_EXERCISE' })
     expect(next).toMatchObject({ mode: 'all', userName: 'Alex', exerciseIndex: 1, selectedOptionId: null, evaluation: null })
   })
+
+  it('resumes an adventure from its saved mission without carrying over an answer', () => {
+    const resumed = sessionReducer(initialSessionState, { type: 'RESUME_ALL', userName: 'Alex', exerciseIndex: 4 })
+
+    expect(resumed).toMatchObject({ screen: 'exercise', mode: 'all', userName: 'Alex', exerciseIndex: 4, selectedOptionId: null, evaluation: null })
+  })
+
+  it('continues the next exercise after a break without carrying over an answer', () => {
+    const stateAtBreak = {
+      ...initialSessionState,
+      screen: 'exercise' as const,
+      mode: 'all' as const,
+      exerciseIndex: 2,
+      selectedOptionId: 'four',
+      evaluation: { isCorrect: true, feedback: 'Well done' },
+    }
+    const onBreak = sessionReducer(stateAtBreak, { type: 'TAKE_BREAK' })
+    const continued = sessionReducer(onBreak, { type: 'CONTINUE_AFTER_BREAK' })
+
+    expect(continued).toMatchObject({ screen: 'exercise', exerciseIndex: 3, selectedOptionId: null, evaluation: null })
+  })
 })

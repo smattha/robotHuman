@@ -1,17 +1,22 @@
 import type { TimedTaskDefinition } from './timed-task-definitions'
+import type { ChildHelper } from '../../domain/preferences'
 
 type TaskPreparationScreenProps = {
   task: TimedTaskDefinition
   userName: string
   onContinue: () => void
   onBack: () => void
+  helper: ChildHelper
 }
 
-export function TaskPreparationScreen({ task, userName, onContinue, onBack }: TaskPreparationScreenProps) {
+const helperIcons: Record<ChildHelper, string> = { robot: '🤖', fox: '🦊', owl: '🦉', unicorn: '🦄' }
+
+export function TaskPreparationScreen({ task, userName, onContinue, onBack, helper }: TaskPreparationScreenProps) {
   return (
     <section className="page-section task-transition" aria-labelledby="task-preparation-title">
       <div className="task-transition-card">
         <span className="task-transition-icon" aria-hidden="true">{task.icon}</span>
+        <span className="child-helper" aria-hidden="true">{helperIcons[helper]}</span>
         <p className="eyebrow">Επόμενη δοκιμασία · {task.category}</p>
         <h1 id="task-preparation-title">Ετοιμάσου για το {task.title}</h1>
         <p className="lead">{task.description}</p>

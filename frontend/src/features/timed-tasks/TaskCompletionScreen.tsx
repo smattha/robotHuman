@@ -1,4 +1,5 @@
 import type { TimedTaskResult } from '../../domain/timed-task'
+import type { ChildHelper } from '../../domain/preferences'
 import { timedTaskDefinitions } from './timed-task-definitions'
 
 type TaskCompletionScreenProps = {
@@ -6,14 +7,18 @@ type TaskCompletionScreenProps = {
   saved: boolean
   onStatistics: () => void
   onBack: () => void
+  helper: ChildHelper
 }
 
-export function TaskCompletionScreen({ result, saved, onStatistics, onBack }: TaskCompletionScreenProps) {
+const helperIcons: Record<ChildHelper, string> = { robot: '🤖', fox: '🦊', owl: '🦉', unicorn: '🦄' }
+
+export function TaskCompletionScreen({ result, saved, onStatistics, onBack, helper }: TaskCompletionScreenProps) {
   const taskTitle = timedTaskDefinitions.find((task) => task.id === result.taskId)?.title ?? result.taskId
 
   return (
     <section className="page-section completion-screen" aria-labelledby="task-completion-title">
       <div className="completion-confetti" aria-hidden="true">✦ ✧ ✦</div>
+      <div className="child-helper" aria-hidden="true">{helperIcons[helper]}</div>
       <div className="completion-icon" aria-hidden="true">✓</div>
       <p className="eyebrow">{taskTitle}</p>
       <h1 id="task-completion-title">Η δοκιμασία ολοκληρώθηκε!</h1>

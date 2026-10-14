@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from 'react'
 import { exercises } from '../content/exercises'
 import { evaluateAnswer } from '../domain/exercise'
+import { isGreekVoiceStored, prepareGreekVoiceAudio } from '../domain/greek-voice'
 import { clearResults, deleteResult, loadResults, saveResult } from '../domain/results'
 import type { TestResult } from '../domain/results'
 import { initialSessionState, sessionReducer } from '../state/exercise-session-reducer'
@@ -9,6 +10,7 @@ import { CompletionScreen } from '../features/completion/CompletionScreen'
 import { ExerciseLibrary } from '../features/exercise-library/ExerciseLibrary'
 import { ExercisePlayer } from '../features/exercise-player/ExercisePlayer'
 import { StartTestDialog } from '../features/test-all/StartTestDialog'
+import { BreakScreen } from '../features/test-all/BreakScreen'
 import { WelcomeScreen } from '../features/welcome/WelcomeScreen'
 import type { TimedTaskId, TaskSummary, Trial, TimedTaskResult } from '../domain/timed-task'
 import { clearTimedTaskResults, deleteTimedTaskResult, loadTimedTaskResults, saveTimedTaskResult } from '../domain/timed-task-results'
@@ -21,7 +23,13 @@ import { DigitSpanTask } from '../features/timed-tasks/DigitSpanTask'
 import { SartTask } from '../features/timed-tasks/SartTask'
 import { TaskPreparationScreen } from '../features/timed-tasks/TaskPreparationScreen'
 import { TaskCompletionScreen } from '../features/timed-tasks/TaskCompletionScreen'
+import { TaskPracticeScreen } from '../features/timed-tasks/TaskPracticeScreen'
 import { StatisticsScreen } from '../features/statistics/StatisticsScreen'
+import { getStoryFrameDuration, loadPreferences, savePreferences } from '../domain/preferences'
+import type { ChildHelper, StorySpeed } from '../domain/preferences'
+import { SettingsScreen } from '../features/settings/SettingsScreen'
+import { loadUserNames, saveUserName } from '../domain/users'
+import { NewUserDialog } from '../features/welcome/NewUserDialog'
 
 export function App() {
   const [state, dispatch] = useReducer(sessionReducer, initialSessionState)
@@ -33,9 +41,23 @@ export function App() {
   const [selectedTimedTask, setSelectedTimedTask] = useState<TimedTaskId | null>(null)
   const [activeTimedTask, setActiveTimedTask] = useState<{ id: TimedTaskId; userName: string } | null>(null)
   const [preparedTimedTask, setPreparedTimedTask] = useState<{ id: TimedTaskId; userName: string } | null>(null)
+  const [practicingTimedTask, setPracticingTimedTask] = useState<{ id: TimedTaskId; userName: string } | null>(null)
   const [completedTimedTask, setCompletedTimedTask] = useState<{ result: TimedTaskResult; saved: boolean } | null>(null)
   const [showStatistics, setShowStatistics] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
+  const [preferences, setPreferences] = useState(loadPreferences)
+  const [userName, setUserName] = useState<string | null>(null)
+  const [userNames, setUserNames] = useState(loadUserNames)
+  const [newUserDialogOpen, setNewUserDialogOpen] = useState(false)
   const exercise = exercises[state.exerciseIndex]
+
+  useEffect(() => {
+    let active = true
+    void isGreekVoiceStored().then((stored) => {
+      if (active && stored && preferences.speechEnabled) void prepareGreekVoiceAudio(exercises).catch(() => {})
+    }).catch(() => {})
+    return () => { active = false }
+  }, [preferences.speechEnabled])
 
   useEffect(() => {
     if (!dialogOpen) return
@@ -52,32 +74,70 @@ export function App() {
       setStorageError(!saveResult(interrupted))
       setSavedResults(loadResults())
     }
-    dispatch({ type: 'BACK_TO_LIBRARY' })
+    dispatch({ type: 'GO_TO_WELCOME' })
     setActiveResult(null)
     setDialogOpen(false)
     setSelectedTimedTask(null)
     setPreparedTimedTask(null)
+    setPracticingTimedTask(null)
     setActiveTimedTask(null)
     setCompletedTimedTask(null)
     setShowStatistics(false)
+    setShowSettings(false)
   }
 
   function leaveTimedTask() {
     setActiveTimedTask(null)
     setPreparedTimedTask(null)
+    setPracticingTimedTask(null)
     setCompletedTimedTask(null)
     setSelectedTimedTask(null)
     dispatch({ type: 'BACK_TO_LIBRARY' })
   }
 
   function openStatistics() {
-    if (activeTimedTask || preparedTimedTask || completedTimedTask) leaveTimedTask()
+    if (activeTimedTask || preparedTimedTask || practicingTimedTask || completedTimedTask) leaveTimedTask()
     else goHome()
     setDialogOpen(false)
     setSelectedTimedTask(null)
     setSavedResults(loadResults())
     setTimedTaskResults(loadTimedTaskResults())
     setShowStatistics(true)
+  }
+
+  function openSettings() {
+    if (activeTimedTask || preparedTimedTask || practicingTimedTask || completedTimedTask) leaveTimedTask()
+    else goHome()
+    setDialogOpen(false)
+    setSelectedTimedTask(null)
+    setShowSettings(true)
+  }
+
+  function changeStorySpeed(storySpeed: StorySpeed) {
+    const updated = { ...preferences, storySpeed }
+    setPreferences(updated)
+    setStorageError(!savePreferences(updated))
+  }
+
+  function changeChildHelper(childHelper: ChildHelper) {
+    const updated = { ...preferences, childHelper }
+    setPreferences(updated)
+    setStorageError(!savePreferences(updated))
+  }
+
+  function changeAccessibility(setting: 'largeButtons' | 'reducedMotion' | 'highContrast', enabled: boolean) {
+    const updated = { ...preferences, [setting]: enabled }
+    setPreferences(updated)
+    setStorageError(!savePreferences(updated))
+  }
+
+  function changeSpeechEnabled(speechEnabled: boolean) {
+    const updated = { ...preferences, speechEnabled }
+    setPreferences(updated)
+    setStorageError(!savePreferences(updated))
+    if (speechEnabled) void isGreekVoiceStored().then((stored) => {
+      if (stored) void prepareGreekVoiceAudio(exercises).catch(() => {})
+    }).catch(() => {})
   }
 
   function openExercise(index: number) {
@@ -89,9 +149,11 @@ export function App() {
     setActiveResult(null)
     setSelectedTimedTask(null)
     setPreparedTimedTask(null)
+    setPracticingTimedTask(null)
     setActiveTimedTask(null)
     setCompletedTimedTask(null)
     setShowStatistics(false)
+    setShowSettings(false)
     dispatch({ type: 'OPEN_EXERCISE', index })
   }
 
@@ -107,7 +169,8 @@ export function App() {
     dispatch({ type: 'START' })
   }
 
-  function startAll(userName: string) {
+  function startAll() {
+    if (!userName) return
     const result: TestResult = {
       id: crypto.randomUUID(), userName, startedAt: new Date().toISOString(), completedAt: null, answers: [],
     }
@@ -118,24 +181,44 @@ export function App() {
     dispatch({ type: 'START_ALL', userName })
   }
 
+  function resumeAll() {
+    const resumableResult = getResumableResult()
+    if (!resumableResult) return
+    setActiveResult(resumableResult)
+    setDialogOpen(false)
+    dispatch({ type: 'RESUME_ALL', userName: resumableResult.userName, exerciseIndex: resumableResult.answers.length })
+  }
+
+  function getResumableResult(): TestResult | null {
+    return savedResults.find((result) => result.completedAt === null && result.answers.length < exercises.length) ?? null
+  }
+
   function submitAnswer() {
     if (!state.selectedOptionId || state.evaluation) return
     const evaluation = evaluateAnswer(exercise, state.selectedOptionId)
     dispatch({ type: 'SUBMIT_ANSWER', evaluation })
+    const answer = {
+      exerciseId: exercise.id, optionId: state.selectedOptionId,
+      isCorrect: evaluation.isCorrect, answeredAt: new Date().toISOString(),
+    }
     if (activeResult) {
-      const updated = { ...activeResult, answers: [...activeResult.answers, {
-        exerciseId: exercise.id, optionId: state.selectedOptionId,
-        isCorrect: evaluation.isCorrect, answeredAt: new Date().toISOString(),
-      }] }
+      const updated = { ...activeResult, answers: [...activeResult.answers, answer] }
       setActiveResult(updated)
       setStorageError(!saveResult(updated))
+      setSavedResults(loadResults())
+    } else if (userName) {
+      const result: TestResult = {
+        id: crypto.randomUUID(), userName, startedAt: answer.answeredAt, completedAt: answer.answeredAt, answers: [answer], kind: 'single',
+      }
+      setStorageError(!saveResult(result))
       setSavedResults(loadResults())
     }
   }
 
   function continueTest() {
     if (state.mode === 'all' && state.exerciseIndex < exercises.length - 1) {
-      dispatch({ type: 'NEXT_EXERCISE' })
+      if (shouldShowBreak()) dispatch({ type: 'TAKE_BREAK' })
+      else dispatch({ type: 'NEXT_EXERCISE' })
       return
     }
     if (activeResult) {
@@ -147,15 +230,29 @@ export function App() {
     dispatch({ type: 'COMPLETE' })
   }
 
+  function shouldShowBreak(): boolean {
+    const completedCount = state.exerciseIndex + 1
+    return completedCount % 3 === 0
+  }
+
+  function finishTestLater() {
+    if (activeResult) {
+      setStorageError(!saveResult(activeResult))
+      setSavedResults(loadResults())
+    }
+    setActiveResult(null)
+    dispatch({ type: 'BACK_TO_LIBRARY' })
+  }
+
   function openTestDialog() {
-    if (activeTimedTask || preparedTimedTask || completedTimedTask) leaveTimedTask()
+    if (activeTimedTask || preparedTimedTask || practicingTimedTask || completedTimedTask) leaveTimedTask()
     else goHome()
     setSelectedTimedTask(null)
     setDialogOpen(true)
   }
 
   function openPartB() {
-    if (activeTimedTask || preparedTimedTask || completedTimedTask) leaveTimedTask()
+    if (activeTimedTask || preparedTimedTask || practicingTimedTask || completedTimedTask) leaveTimedTask()
     else goHome()
     setSelectedTimedTask(null)
     setDialogOpen(false)
@@ -175,10 +272,23 @@ export function App() {
     setCompletedTimedTask({ result, saved })
   }
 
-  function startTimedTask(userName: string) {
-    if (!selectedTimedTask) return
+  function startTimedTask() {
+    if (!selectedTimedTask || !userName) return
     setPreparedTimedTask({ id: selectedTimedTask, userName })
     setSelectedTimedTask(null)
+  }
+
+  function saveNewUser(userName: string) {
+    setStorageError(!saveUserName(userName))
+    setUserName(userName)
+    setUserNames(loadUserNames())
+    setNewUserDialogOpen(false)
+  }
+
+  function requireUser(): boolean {
+    if (userName) return true
+    setNewUserDialogOpen(true)
+    return false
   }
 
   function removeResult(type: 'exercise' | 'timed', id: string): boolean {
@@ -199,14 +309,22 @@ export function App() {
   }
 
   return (
-    <AppShell exercises={exercises} onHome={goHome} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics}>
+    <div className={`${preferences.largeButtons ? 'large-buttons' : ''}${preferences.reducedMotion ? ' reduced-motion' : ''}${preferences.highContrast ? ' high-contrast' : ''}`}>
+      <AppShell exercises={exercises} onHome={goHome} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics} onSettings={openSettings} onRequireUser={requireUser}>
       {showStatistics && <StatisticsScreen results={savedResults} timedResults={timedTaskResults} onDelete={removeResult} onDeleteAll={removeAllResults} />}
-      {!showStatistics && !activeTimedTask && !preparedTimedTask && !completedTimedTask && state.screen === 'welcome' && <WelcomeScreen onStart={startExerciseLibrary} />}
-      {!showStatistics && !activeTimedTask && !preparedTimedTask && !completedTimedTask && state.screen === 'library' && (
+      {showSettings && <SettingsScreen preferences={preferences} onStorySpeedChange={changeStorySpeed} onChildHelperChange={changeChildHelper} onAccessibilityChange={changeAccessibility} onSpeechEnabledChange={changeSpeechEnabled} />}
+      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'welcome' && <WelcomeScreen onStart={startExerciseLibrary} onNewUser={() => setNewUserDialogOpen(true)} userName={userName} />}
+      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'library' && (
         <>
-          <ExerciseLibrary exercises={exercises} onSelect={(selected) => openExercise(exercises.indexOf(selected))} />
+          <ExerciseLibrary
+            exercises={exercises}
+            exerciseResults={savedResults}
+            timedTaskDefinitions={timedTaskDefinitions}
+            timedTaskResults={timedTaskResults}
+            onSelect={(selected) => openExercise(exercises.indexOf(selected))}
+          />
           <section id="timed-tasks" className="page-section timed-task-library" aria-labelledby="timed-tasks-title">
-            <div className="section-heading"><div><p className="eyebrow">Δραστηριότητες μνήμης και προσοχής</p><h2 id="timed-tasks-title">Χρονικές δοκιμασίες</h2></div></div>
+            <div className="section-heading"><div><p className="eyebrow">Δραστηριότητες μνήμης και προσοχής</p><h2 id="timed-tasks-title">Προκλήσεις Μνήμης και Προσοχής</h2></div></div>
             <div className="timed-task-grid">
               {timedTaskDefinitions.map((task) => (
                 <article className="timed-task-card" key={task.id}>
@@ -221,7 +339,7 @@ export function App() {
           </section>
         </>
       )}
-      {!showStatistics && !activeTimedTask && !preparedTimedTask && !completedTimedTask && state.screen === 'exercise' && (
+      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'exercise' && (
         <ExercisePlayer
           key={`${state.mode}-${state.exerciseIndex}`}
           exercise={exercise}
@@ -233,12 +351,25 @@ export function App() {
           onSelect={(optionId) => dispatch({ type: 'SELECT_OPTION', optionId })}
           onSubmit={submitAnswer}
           onComplete={continueTest}
+          storyFrameDurationMs={getStoryFrameDuration(preferences.storySpeed)}
+          speechEnabled={preferences.speechEnabled}
         />
       )}
-      {!showStatistics && !activeTimedTask && !preparedTimedTask && !completedTimedTask && state.screen === 'completed' && (
+      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'break' && (
+        <BreakScreen
+          completedCount={state.exerciseIndex + 1}
+          totalCount={exercises.length}
+          onContinue={() => dispatch({ type: 'CONTINUE_AFTER_BREAK' })}
+          onFinish={finishTestLater}
+          helper={preferences.childHelper}
+        />
+      )}
+      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'completed' && (
         <CompletionScreen
           isCorrect={state.evaluation?.isCorrect ?? false}
           result={activeResult}
+          isSingle={state.mode === 'single'}
+          helper={preferences.childHelper}
           onRestart={() => state.mode === 'all' ? setDialogOpen(true) : dispatch({ type: 'RESTART' })}
           onHome={goHome}
         />
@@ -246,14 +377,22 @@ export function App() {
       {preparedTimedTask && <TaskPreparationScreen
         task={timedTaskDefinitions.find((task) => task.id === preparedTimedTask.id)!}
         userName={preparedTimedTask.userName}
-        onContinue={() => { setActiveTimedTask(preparedTimedTask); setPreparedTimedTask(null) }}
+        onContinue={() => { setPracticingTimedTask(preparedTimedTask); setPreparedTimedTask(null) }}
         onBack={leaveTimedTask}
+        helper={preferences.childHelper}
+      />}
+      {practicingTimedTask && <TaskPracticeScreen
+        task={timedTaskDefinitions.find((task) => task.id === practicingTimedTask.id)!}
+        onStart={() => { setActiveTimedTask(practicingTimedTask); setPracticingTimedTask(null) }}
+        onBack={leaveTimedTask}
+        helper={preferences.childHelper}
       />}
       {completedTimedTask && <TaskCompletionScreen
         result={completedTimedTask.result}
         saved={completedTimedTask.saved}
         onStatistics={openStatistics}
         onBack={leaveTimedTask}
+        helper={preferences.childHelper}
       />}
       {activeTimedTask && (
         <>
@@ -264,9 +403,11 @@ export function App() {
           {activeTimedTask.id === 'digit-span' && <DigitSpanTask key="digit-span" userName={activeTimedTask.userName} onExit={leaveTimedTask} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
         </>
       )}
-      {storageError && !showStatistics && <p className="storage-warning" role="alert">Δεν ήταν δυνατή η αποθήκευση. Οι απαντήσεις μένουν μόνο μέχρι να κλείσει η σελίδα.</p>}
-      {dialogOpen && <StartTestDialog onStart={startAll} onClose={() => setDialogOpen(false)} />}
-      {selectedTimedTask && <TaskNameDialog taskTitle={timedTaskDefinitions.find((task) => task.id === selectedTimedTask)?.title ?? ''} onStart={startTimedTask} onClose={() => setSelectedTimedTask(null)} />}
-    </AppShell>
+      {storageError && !showStatistics && !showSettings && <p className="storage-warning" role="alert">Δεν ήταν δυνατή η αποθήκευση. Οι απαντήσεις μένουν μόνο μέχρι να κλείσει η σελίδα.</p>}
+      {dialogOpen && <StartTestDialog onStart={startAll} resumableResult={getResumableResult()} onResume={resumeAll} onClose={() => setDialogOpen(false)} />}
+      {selectedTimedTask && userName && <TaskNameDialog taskTitle={timedTaskDefinitions.find((task) => task.id === selectedTimedTask)?.title ?? ''} userName={userName} onStart={startTimedTask} onClose={() => setSelectedTimedTask(null)} />}
+      {newUserDialogOpen && <NewUserDialog existingUserNames={userNames} onSave={saveNewUser} onClose={() => setNewUserDialogOpen(false)} />}
+      </AppShell>
+    </div>
   )
 }

@@ -8,11 +8,18 @@ import { App } from './App'
 describe('App', () => {
   beforeEach(() => localStorage.clear())
 
+  async function startAsNewUser(user: ReturnType<typeof userEvent.setup>, name = 'Alex') {
+    await user.click(screen.getByRole('button', { name: 'Νέος χρήστης' }))
+    await user.type(screen.getByLabelText('Όνομα'), name)
+    await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
+    await user.click(screen.getByRole('button', { name: /^Ξεκινάμε/i }))
+  }
+
   it('allows a child to complete the first exercise', async () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /Ξεκινάμε/i }))
+    await startAsNewUser(user)
     const lionCard = screen.getByRole('heading', { name: 'Το λιοντάρι και τα παπάκια' }).closest('article')
     expect(lionCard).not.toBeNull()
     await user.click(within(lionCard!).getByRole('button', { name: /Παίξε τώρα/i }))
@@ -23,20 +30,30 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
 
     expect(screen.getByRole('heading', { name: /Μπράβο για την προσπάθειά σου/i })).toBeInTheDocument()
+    expect(screen.getByText(/Κονκάρδα: Μικρός Εξερευνητής/)).toBeInTheDocument()
+    expect(JSON.parse(localStorage.getItem('childrens-exercises-results-v1') ?? '[]')).toMatchObject([{
+      userName: 'Alex', kind: 'single', completedAt: expect.any(String),
+      answers: [{ exerciseId: 'lion-and-ducklings', optionId: 'four', isCorrect: true }],
+    }])
+    await user.click(screen.getByRole('button', { name: 'Στατιστικά' }))
+    expect(screen.getByText(/Το λιοντάρι και τα παπάκια · 1\/1 σωστές/i)).toBeInTheDocument()
+    expect(screen.getByText(/Κονκάρδα: Μικρός Εξερευνητής/)).toBeInTheDocument()
   })
 
-  it('shows a preparation screen before the Part B task instructions', async () => {
+  it('shows a preparation screen before the memory challenge instructions', async () => {
     const user = userEvent.setup()
     render(<App />)
-    await user.click(screen.getByRole('button', { name: /Ξεκινάμε/i }))
+    await startAsNewUser(user)
     const taskCard = screen.getByRole('heading', { name: 'Stroop' }).closest('article')
     await user.click(within(taskCard!).getByRole('button', { name: /Ξεκίνα δοκιμασία/i }))
-    await user.type(screen.getByLabelText('Όνομα'), 'Alex')
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
 
     expect(screen.getByRole('heading', { name: 'Ετοιμάσου για το Stroop' })).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Απόκριση' })).not.toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /Δες τις οδηγίες/i }))
+    expect(screen.getByRole('heading', { name: 'Ας κάνουμε μία πρόβα' })).toBeInTheDocument()
+    expect(screen.getByText(/δεν καταγράφεται/i)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /Ξεκίνα την κανονική δοκιμασία/i }))
     expect(screen.getByText(/Θα εμφανίζονται λέξεις χρωμάτων/i)).toBeInTheDocument()
   })
 
@@ -66,33 +83,112 @@ describe('App', () => {
     expect(screen.getByText('Δεν υπάρχουν ακόμα αποτελέσματα')).toBeInTheDocument()
   })
 
-  it('starts a Part B task only after both preparation steps', async () => {
+  it('starts a memory challenge only after preparation and practice screens', async () => {
     const user = userEvent.setup()
     render(<App />)
-    await user.click(screen.getByRole('button', { name: /Ξεκινάμε/i }))
+    await startAsNewUser(user)
     const taskCard = screen.getByRole('heading', { name: 'Stroop' }).closest('article')
     await user.click(within(taskCard!).getByRole('button', { name: /Ξεκίνα δοκιμασία/i }))
-    await user.type(screen.getByLabelText('Όνομα'), 'Alex')
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
     await user.click(screen.getByRole('button', { name: /Δες τις οδηγίες/i }))
+    await user.click(screen.getByRole('button', { name: /Ξεκίνα την κανονική δοκιμασία/i }))
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
 
     expect(screen.getByRole('button', { name: 'Απόκριση' })).toBeInTheDocument()
   })
 
-  it('discards a cancelled Part B task without changing saved results', async () => {
+  it('discards a cancelled memory challenge without changing saved results', async () => {
     const user = userEvent.setup()
     render(<App />)
-    await user.click(screen.getByRole('button', { name: /Ξεκινάμε/i }))
+    await startAsNewUser(user)
     const taskCard = screen.getByRole('heading', { name: 'Stroop' }).closest('article')
     await user.click(within(taskCard!).getByRole('button', { name: /Ξεκίνα δοκιμασία/i }))
-    await user.type(screen.getByLabelText('Όνομα'), 'Alex')
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
     await user.click(screen.getByRole('button', { name: 'Πίσω στις ασκήσεις' }))
 
-    expect(screen.getByRole('heading', { name: 'Χρονικές δοκιμασίες' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Προκλήσεις Μνήμης και Προσοχής' })).toBeInTheDocument()
     expect(localStorage.getItem('childrens-exercises-timed-tasks-v1')).toBeNull()
   })
+
+  it('stores the selected story speed in settings', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    await user.click(screen.getByRole('button', { name: 'Ρυθμίσεις' }))
+
+    expect(screen.getByRole('heading', { name: 'Ρυθμίσεις' })).toBeInTheDocument()
+    expect(screen.getByRole('radio', { name: /Αργά/i })).toHaveAttribute('aria-checked', 'true')
+    await user.click(screen.getByRole('radio', { name: /Γρήγορα/i }))
+    expect(screen.getByRole('radio', { name: /Γρήγορα/i })).toHaveAttribute('aria-checked', 'true')
+    expect(localStorage.getItem('childrens-exercises-preferences-v1')).toContain('fast')
+  })
+
+  it('warns about an existing name but lets the user continue', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('childrens-exercises-users-v1', JSON.stringify(['Alex']))
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: 'Νέος χρήστης' }))
+    await user.type(screen.getByLabelText('Όνομα'), 'Alex')
+    expect(screen.getByText(/Υπάρχει ήδη χρήστης με αυτό το όνομα/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Συνέχισε/i })).toBeEnabled()
+    await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
+
+    expect(screen.getByText('Γεια σου, Alex!')).toBeInTheDocument()
+  })
+
+  it('asks for a name before sidebar navigation when no user is active', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: 'Ρυθμίσεις' }))
+
+    expect(screen.getByRole('heading', { name: 'Πώς σε λένε;' })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Ρυθμίσεις' })).not.toBeInTheDocument()
+  })
+
+  it('opens statistics and settings without an active user', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: 'Στατιστικά' }))
+    expect(screen.getByRole('heading', { name: 'Στατιστικά' })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Ρυθμίσεις' }))
+    expect(screen.getByRole('heading', { name: 'Ρυθμίσεις' })).toBeInTheDocument()
+  })
+
+  it('continues an unfinished adventure from its next mission', async () => {
+    const user = userEvent.setup()
+    saveResult({
+      id: 'unfinished-adventure', userName: 'Alex', startedAt: '2026-10-05', completedAt: null,
+      answers: [{ exerciseId: 'lion-and-ducklings', optionId: 'four', isCorrect: true, answeredAt: '2026-10-05' }],
+    })
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: 'Νέος χρήστης' }))
+    await user.type(screen.getByLabelText('Όνομα'), 'Alex')
+    await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
+    await user.click(screen.getByRole('button', { name: 'Ξεκίνα τη Μεγάλη Περιπέτεια' }))
+    expect(screen.getByText('Η περιπέτεια του/της Alex περιμένει.')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /Συνέχισε την Περιπέτεια/i }))
+
+    expect(screen.getByText('Αποστολή 2 / 12')).toBeInTheDocument()
+  })
+
+  it('shows completed activities in the progress map', async () => {
+    const user = userEvent.setup()
+    saveResult({ id: 'exercise-one', userName: 'Alex', startedAt: '2026-10-05', completedAt: '2026-10-05', answers: [{ exerciseId: 'lion-and-ducklings', optionId: 'four', isCorrect: true, answeredAt: '2026-10-05' }] })
+    saveTimedTaskResult({
+      id: 'timed-one', taskId: 'stroop', userName: 'Alex', startedAt: '2026-10-05', completedAt: '2026-10-05', trials: [],
+      summary: { totalTrials: 0, correctCount: 0, wrongCount: 0, meanResponseTimeMs: 0, maxSequenceLength: null },
+    })
+    render(<App />)
+    await startAsNewUser(user)
+
+    expect(screen.getByRole('heading', { name: 'Ο χάρτης των αποστολών' })).toBeInTheDocument()
+    expect(screen.getByLabelText('Ολοκληρώθηκαν 1 από 12 Μικρές Αποστολές')).toBeInTheDocument()
+    expect(screen.getByLabelText('Ολοκληρώθηκαν 1 από 5 Προκλήσεις Μνήμης')).toBeInTheDocument()
+  })
+
 
   // it('starts a named test from the drawer and saves the first answer', async () => {
   //   const user = userEvent.setup()

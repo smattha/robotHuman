@@ -1,20 +1,28 @@
 import type { Exercise } from '../../domain/exercise'
+import type { TestResult } from '../../domain/results'
+import type { TimedTaskResult } from '../../domain/timed-task'
+import type { TimedTaskDefinition } from '../timed-tasks/timed-task-definitions'
+import { ProgressMap } from '../progress-map/ProgressMap'
 
 type ExerciseLibraryProps = {
   exercises: Exercise[]
+  exerciseResults: TestResult[]
+  timedTaskDefinitions: TimedTaskDefinition[]
+  timedTaskResults: TimedTaskResult[]
   onSelect: (exercise: Exercise) => void
 }
 
-export function ExerciseLibrary({ exercises, onSelect }: ExerciseLibraryProps) {
+export function ExerciseLibrary({ exercises, exerciseResults, timedTaskDefinitions, timedTaskResults, onSelect }: ExerciseLibraryProps) {
   return (
     <section className="page-section library-section" aria-labelledby="library-title">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Η γωνιά των αποστολών</p>
-          <h1 id="library-title">Διάλεξε μια αποστολή</h1>
+          <p className="eyebrow">Οι 12 Μικρές Αποστολές</p>
+          <h1 id="library-title">Διάλεξε μια μικρή αποστολή</h1>
         </div>
         <span className="counter">{exercises.length} διαθέσιμες</span>
       </div>
+      <ProgressMap exercises={exercises} exerciseResults={exerciseResults} timedTaskDefinitions={timedTaskDefinitions} timedTaskResults={timedTaskResults} />
       <div className="exercise-grid">
         {exercises.map((exercise) => (
           <article className="exercise-card" key={exercise.id}>

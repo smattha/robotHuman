@@ -49,11 +49,14 @@ export function StatisticsScreen({ results, timedResults, onDelete, onDeleteAll 
       {!hasResults && <div className="statistics-empty"><span aria-hidden="true">✧</span><h2>Δεν υπάρχουν ακόμα αποτελέσματα</h2><p>Όταν ολοκληρώσεις μια άσκηση, τα στατιστικά της θα εμφανιστούν εδώ.</p></div>}
 
       {results.length > 0 && <div className="statistics-group">
-        <h2>Ασκήσεις <span>{results.length}</span></h2>
-        <div className="statistics-entries">{results.map((result) => (
-          <article key={result.id} className="result-entry">
+        <h2>Μικρές Αποστολές και Μεγάλη Περιπέτεια <span>{results.length}</span></h2>
+        <div className="statistics-entries">{results.map((result) => {
+          const isSingle = result.kind === 'single' || (result.kind === undefined && result.answers.length === 1 && result.completedAt === result.startedAt)
+          return <article key={result.id} className="result-entry">
             <div className="result-entry-header">
-              <div><strong>{result.userName}</strong><p>{result.answers.filter((answer) => answer.isCorrect).length}/{result.answers.length} σωστές · {result.completedAt ? 'Ολοκληρώθηκε' : 'Σε εξέλιξη'} · {new Date(result.completedAt ?? result.startedAt).toLocaleString('el-GR')}</p></div>
+              <div><strong>{result.userName}</strong><p>{isSingle
+                ? exercises.find((exercise) => exercise.id === result.answers[0].exerciseId)?.title ?? 'Μικρή Αποστολή'
+                : 'Μεγάλη Περιπέτεια'} · {result.answers.filter((answer) => answer.isCorrect).length}/{result.answers.length} σωστές · {result.completedAt ? 'Ολοκληρώθηκε' : 'Σε εξέλιξη'} · {new Date(result.completedAt ?? result.startedAt).toLocaleString('el-GR')}</p>{isSingle && <span className="mission-badge"><span aria-hidden="true">★</span> Κονκάρδα: Μικρός Εξερευνητής</span>}</div>
               <button className="delete-button" type="button" onClick={() => setDeletionTarget({ type: 'exercise', id: result.id, label: result.userName })} aria-label={`Διαγραφή αποτελέσματος για ${result.userName}`}>Διαγραφή</button>
             </div>
             <details><summary>Απαντήσεις</summary>
@@ -64,7 +67,7 @@ export function StatisticsScreen({ results, timedResults, onDelete, onDeleteAll 
               })}</ul>
             </details>
           </article>
-        ))}</div>
+        })}</div>
       </div>}
 
       {timedResults.length > 0 && <div className="statistics-group">

@@ -9,9 +9,11 @@ type AppShellProps = {
   onTestAll: () => void
   onPartB: () => void
   onStatistics: () => void
+  onSettings: () => void
+  onRequireUser: () => boolean
 }
 
-export function AppShell({ children, exercises, onHome, onSelectExercise, onTestAll, onPartB, onStatistics }: AppShellProps) {
+export function AppShell({ children, exercises, onHome, onSelectExercise, onTestAll, onPartB, onStatistics, onSettings, onRequireUser }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [exerciseListOpen, setExerciseListOpen] = useState(false)
 
@@ -43,18 +45,22 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
           <button className="close-button sidebar-close" type="button" aria-label="Κλείσιμο μενού" onClick={closeSidebar}>×</button>
         </div>
         <nav className="sidebar-nav" aria-label="Κύριο μενού">
+          <button className="sidebar-link test" type="button" onClick={() => { if (!onRequireUser()) return; onTestAll(); setExerciseListOpen(false); closeSidebar() }}>Ξεκίνα τη Μεγάλη Περιπέτεια</button>
           <button
             className="sidebar-link exercise-menu-toggle"
             type="button"
             aria-expanded={exerciseListOpen}
             aria-controls="exercise-menu-list"
-            onClick={() => setExerciseListOpen((open) => !open)}
+            onClick={() => {
+              if (!onRequireUser()) return
+              setExerciseListOpen((open) => !open)
+            }}
           >
-            Ασκήσεις <span aria-hidden="true">{exerciseListOpen ? '−' : '+'}</span>
+            Μικρές Αποστολές <span aria-hidden="true">{exerciseListOpen ? '−' : '+'}</span>
           </button>
           {exerciseListOpen && (
             <div className="exercise-dropdown" id="exercise-menu-list">
-              <nav aria-label="Διαθέσιμες ασκήσεις">
+              <nav aria-label="Διαθέσιμες μικρές αποστολές">
                 {exercises.map((exercise, index) => (
                   <button
                     type="button"
@@ -71,9 +77,9 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
               </nav>
             </div>
           )}
-          <button className="sidebar-link test" type="button" onClick={() => { onTestAll(); setExerciseListOpen(false); closeSidebar() }}>Πλήρες τεστ</button>
-          <button className="sidebar-link" type="button" onClick={() => { onPartB(); setExerciseListOpen(false); closeSidebar() }}>Part B · Χρονικές</button>
+          <button className="sidebar-link" type="button" onClick={() => { if (!onRequireUser()) return; onPartB(); setExerciseListOpen(false); closeSidebar() }}>Προκλήσεις Μνήμης</button>
           <button className="sidebar-link" type="button" onClick={() => { onStatistics(); setExerciseListOpen(false); closeSidebar() }}>Στατιστικά</button>
+          <button className="sidebar-link" type="button" onClick={() => { onSettings(); setExerciseListOpen(false); closeSidebar() }}>Ρυθμίσεις</button>
         </nav>
         <footer className="footer">Ένα βήμα τη φορά. Μπορείς!</footer>
       </aside>
@@ -81,6 +87,7 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
         <div className="mobile-topbar">
           <button className="mobile-menu-button" type="button" aria-label="Μενού" aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(true)}>☰</button>
           <span className="mobile-topbar-title">Μικρές Αποστολές</span>
+          <button className="mobile-home-button" type="button" aria-label="Αρχική" onClick={onHome}>🏠</button>
         </div>
         <main>{children}</main>
       </div>
