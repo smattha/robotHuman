@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useSpeak, useVoices } from 'react-text-to-speech'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import type { Exercise } from '../../domain/exercise'
+import type { ChildHelper as ChildHelperType } from '../../domain/preferences'
+import { ChildHelper } from '../../components/child-helper/ChildHelper'
 import { getExerciseSpokenText, getGreekVoiceAudio, isGreekVoiceStored } from '../../domain/greek-voice'
 import { matchSpokenOption } from '../../domain/speech'
 import { fetchVoiceRssAudio, isVoiceRssConfigured } from '../../domain/voicerss-tts'
@@ -15,12 +17,13 @@ type ExercisePlayerProps = {
   isCorrect: boolean | null
   storyFrameDurationMs: number
   speechEnabled: boolean
+  helper: ChildHelperType
   onSelect: (optionId: string) => void
   onSubmit: () => void
   onComplete: () => void
 }
 
-export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitted, feedback, isCorrect, storyFrameDurationMs, speechEnabled, onSelect, onSubmit, onComplete }: ExercisePlayerProps) {
+export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitted, feedback, isCorrect, storyFrameDurationMs, speechEnabled, helper, onSelect, onSubmit, onComplete }: ExercisePlayerProps) {
   const [showHint, setShowHint] = useState(false)
   const [frameIndex, setFrameIndex] = useState(0)
   const [voiceMessage, setVoiceMessage] = useState('')
@@ -201,6 +204,9 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
         <span className="category-pill">{exercise.category}</span>
       </div>
       <div className="progress-track" aria-label="Πρόοδος αποστολών"><span style={{ width: `${((progress?.current ?? 1) / (progress?.total ?? 1)) * 100}%` }} /></div>
+      <ChildHelper helper={helper} message={isSubmitted
+        ? isCorrect ? 'Το σκέφτηκες πολύ καλά! Ετοιμάσου για την επόμενη αποστολή.' : 'Δεν πειράζει! Κάθε δοκιμή μάς βοηθά να μάθουμε.'
+        : storyComplete ? 'Κοίτα προσεκτικά και διάλεξε ό,τι σου φαίνεται σωστό.' : 'Ας δούμε μαζί την ιστορία. Δεν χρειάζεται να βιαστείς!'} />
       <div className="player-layout">
         <div className="story-panel">
           <div className="story-badge" aria-hidden="true">✦</div>
@@ -226,8 +232,8 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
             <button className="hint-button" type="button" onClick={speakText} disabled={isLoadingAudio}>{isLoadingAudio ? 'Φόρτωση ήχου...' : 'Άκουσε το κείμενο'}</button>
             <button className="hint-button" type="button" onClick={stopAudio}>Σταμάτα τον ήχο</button>
           </div>}
-          {storyComplete && <button className="hint-button" type="button" onClick={() => setShowHint((visible) => !visible)} aria-expanded={showHint}>☼ {showHint ? 'Κρύψε τη βοήθεια' : 'Χρειάζεσαι βοήθεια;'}</button>}
-          {showHint && <p className="hint">Ξαναδιάβασε προσεκτικά: {exercise.instructions}</p>}
+          {storyComplete && <button className="hint-button" type="button" onClick={() => setShowHint((visible) => !visible)} aria-expanded={showHint}>☼ {showHint ? 'Κρύψε τη βοήθεια' : 'Θέλεις ένα στοιχείο;'}</button>}
+          {showHint && <p className="hint">Μπορείς να το κάνεις με τον δικό σου ρυθμό. {exercise.instructions}</p>}
         </div>
         {storyComplete && <div className="question-panel">
           <p className="eyebrow">Η ερώτηση</p>

@@ -283,6 +283,19 @@ h2 { font-size: 1.7rem; }
 .helper-option strong { font-family: 'Fredoka', sans-serif; font-size: 1.05rem; }
 .helper-option small { color: var(--muted); margin-top: 2px; }
 .child-helper { animation: float 2s ease-in-out infinite; margin: 0 0 12px; }
+.child-helper-card { align-items: center; background: linear-gradient(110deg, #fff 15%, #fff4df); border: 2px solid #f4dfad; border-radius: 22px; box-shadow: 0 8px 18px rgba(90,65,24,.08); display: flex; gap: 14px; margin: 0 0 22px; max-width: 760px; padding: 14px 18px; }
+.child-helper-art { align-items: center; background: #fff; border: 2px solid rgba(45,27,105,.08); border-radius: 20px; display: flex; flex: 0 0 auto; font-size: 2.7rem; height: 72px; justify-content: center; width: 72px; }
+.child-helper-copy { display: grid; gap: 3px; }
+.child-helper-copy strong { color: var(--ink); font-family: 'Fredoka', sans-serif; font-size: 1.05rem; }
+.child-helper-copy > span { color: #51436f; line-height: 1.45; }
+.helper-robot .child-helper-art { background: #e8f7ff; }
+.helper-fox .child-helper-art { background: #fff0df; }
+.helper-owl .child-helper-art { background: #f2edff; }
+.helper-unicorn .child-helper-art { background: #fff0f8; }
+.child-helper-card.compact { margin: 14px 0 18px; padding: 10px 14px; }
+.child-helper-card.compact .child-helper-art { border-radius: 16px; font-size: 2rem; height: 54px; width: 54px; }
+.child-helper-card.compact .child-helper-copy strong { font-size: .95rem; }
+.child-helper-card.compact .child-helper-copy > span { font-size: .9rem; }
 .accessibility-options { display: grid; gap: 12px; margin-top: 22px; }
 .accessibility-option { align-items: center; background: #fef9f0; border: 2px solid transparent; border-radius: 20px; cursor: pointer; display: flex; gap: 16px; justify-content: space-between; padding: 16px; }
 .accessibility-option:hover { border-color: rgba(255,107,157,.3); }
@@ -341,6 +354,10 @@ h2 { font-size: 1.7rem; }
   .player-topline { margin-bottom: 8px; }
   .progress-track { height: 7px; margin-bottom: 10px; }
   .player-layout { gap: 10px; }
+  .child-helper-card { border-radius: 18px; gap: 10px; margin-bottom: 14px; padding: 10px 12px; }
+  .child-helper-art { border-radius: 15px; font-size: 2.1rem; height: 56px; width: 56px; }
+  .child-helper-copy strong { font-size: .95rem; }
+  .child-helper-copy > span { font-size: .9rem; }
   .story-panel { padding: 0; }
   .story-badge { height: 42px; width: 42px; font-size: 1.2rem; margin-bottom: 8px; }
   .story-panel .eyebrow, .question-panel .eyebrow { font-size: .68rem; margin-bottom: 6px; }

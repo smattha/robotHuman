@@ -353,6 +353,7 @@ export function App() {
           onComplete={continueTest}
           storyFrameDurationMs={getStoryFrameDuration(preferences.storySpeed)}
           speechEnabled={preferences.speechEnabled}
+          helper={preferences.childHelper}
         />
       )}
       {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'break' && (

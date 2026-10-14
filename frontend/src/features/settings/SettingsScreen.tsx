@@ -120,7 +120,7 @@ export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperC
       </div>
       <div className="settings-card">
         <h2>Ο βοηθός σου</h2>
-        <p>Διάλεξε ποιος θα σε συνοδεύει στις οθόνες προετοιμασίας και ενθάρρυνσης.</p>
+        <p>Διάλεξε ποιος φίλος θα είναι δίπλα σου στις αποστολές και θα σε ενθαρρύνει.</p>
         <div className="helper-options" role="radiogroup" aria-label="Επιλογή βοηθού">
           {helperOptions.map((option) => {
             const selected = preferences.childHelper === option.value
