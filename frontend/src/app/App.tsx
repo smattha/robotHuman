@@ -145,9 +145,6 @@ export function App() {
     const updated = { ...preferences, speechEnabled }
     setPreferences(updated)
     setStorageError(!savePreferences(updated))
-    if (speechEnabled) void isGreekVoiceStored().then((stored) => {
-      if (stored) void prepareGreekVoiceAudio(exercises).catch(() => {})
-    }).catch(() => {})
   }
 
   function openExercise(index: number, isTest = false) {
@@ -269,6 +266,10 @@ export function App() {
   }
 
   function openPartB() {
+    if (!userName) {
+      setNewUserDialogOpen(true)
+      return
+    }
     if (activeTimedTask || preparedTimedTask || practicingTimedTask || completedTimedTask) leaveTimedTask()
     else goHome()
     setSelectedTimedTask(null)
@@ -327,7 +328,7 @@ export function App() {
 
   return (
     <div className={`${preferences.largeButtons ? 'large-buttons' : ''}${preferences.reducedMotion ? ' reduced-motion' : ''}${preferences.highContrast ? ' high-contrast' : ''}`}>
-      <AppShell exercises={exercises} onHome={goHome} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics} onSettings={openSettings} onRequireUser={requireUser} onSwitchUser={switchUser}>
+      <AppShell exercises={exercises} onHome={goHome} onLibrary={startExerciseLibrary} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics} onSettings={openSettings} onRequireUser={requireUser} onSwitchUser={switchUser} activityActive={state.screen === 'exercise' || state.screen === 'break' || Boolean(activeTimedTask || preparedTimedTask || practicingTimedTask)}>
       {showStatistics && <StatisticsScreen results={savedResults} timedResults={timedTaskResults} onDelete={removeResult} onDeleteAll={removeAllResults} />}
       {showSettings && <SettingsScreen preferences={preferences} onStorySpeedChange={changeStorySpeed} onChildHelperChange={changeChildHelper} onAccessibilityChange={changeAccessibility} onSpeechEnabledChange={changeSpeechEnabled} />}
       {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'welcome' && <WelcomeScreen onStart={startExerciseLibrary} onNewUser={() => setNewUserDialogOpen(true)} userName={userName} />}

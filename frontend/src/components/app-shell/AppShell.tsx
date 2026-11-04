@@ -5,6 +5,7 @@ type AppShellProps = {
   children: React.ReactNode
   exercises: Exercise[]
   onHome: () => void
+  onLibrary: () => void
   onSelectExercise: (index: number) => void
   onTestAll: () => void
   onPartB: () => void
@@ -12,9 +13,10 @@ type AppShellProps = {
   onSettings: () => void
   onRequireUser: () => boolean
   onSwitchUser: () => void
+  activityActive: boolean
 }
 
-export function AppShell({ children, exercises, onHome, onSelectExercise, onTestAll, onPartB, onStatistics, onSettings, onRequireUser, onSwitchUser }: AppShellProps) {
+export function AppShell({ children, exercises, onHome, onLibrary, onSelectExercise, onTestAll, onPartB, onStatistics, onSettings, onRequireUser, onSwitchUser, activityActive }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [exerciseListOpen, setExerciseListOpen] = useState(false)
 
@@ -47,13 +49,13 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
         </div>
         <nav className="sidebar-nav" aria-label="Κύριο μενού">
           <button className="sidebar-link test" type="button" onClick={() => { if (!onRequireUser()) return; onTestAll(); setExerciseListOpen(false); closeSidebar() }}>🌈 Μεγάλη περιπέτεια</button>
+          <button className="sidebar-link" type="button" onClick={() => { onLibrary(); setExerciseListOpen(false); closeSidebar() }}>🗺️ Όλες οι αποστολές</button>
           <button
             className="sidebar-link exercise-menu-toggle"
             type="button"
             aria-expanded={exerciseListOpen}
             aria-controls="exercise-menu-list"
             onClick={() => {
-              if (!onRequireUser()) return
               setExerciseListOpen((open) => !open)
             }}
           >
@@ -78,7 +80,7 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
               </nav>
             </div>
           )}
-          <button className="sidebar-link" type="button" onClick={() => { if (!onRequireUser()) return; onPartB(); setExerciseListOpen(false); closeSidebar() }}>🧠 Παιχνίδια σκέψης</button>
+          <button className="sidebar-link" type="button" onClick={() => { onPartB(); setExerciseListOpen(false); closeSidebar() }}>🧠 Παιχνίδια σκέψης</button>
           <button className="sidebar-link" type="button" onClick={() => { onStatistics(); setExerciseListOpen(false); closeSidebar() }}>⭐ Τα κατορθώματά μου</button>
           <button className="sidebar-link" type="button" onClick={() => { onSettings(); setExerciseListOpen(false); closeSidebar() }}>⚙️ Ρυθμίσεις</button>
           <button className="sidebar-link" type="button" onClick={() => { onSwitchUser(); setExerciseListOpen(false); closeSidebar() }}>🔁 Αλλαγή χρήστη</button>
@@ -87,11 +89,17 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
       </aside>
       <div className="main-area">
         <div className="mobile-topbar">
-          <button className="mobile-menu-button" type="button" aria-label="Μενού" aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(true)}>☰</button>
+          <span className="mobile-topbar-mark" aria-hidden="true">✦</span>
           <span className="mobile-topbar-title">Μικρές Αποστολές</span>
-          <button className="mobile-home-button" type="button" aria-label="Αρχική" onClick={onHome}>🏠</button>
+          {activityActive && <button className="mobile-home-button" type="button" aria-label="Πίσω στις αποστολές" onClick={onHome}>Πίσω</button>}
         </div>
         <main>{children}</main>
+        {!activityActive && <nav className="bottom-nav" aria-label="Γρήγορη πλοήγηση">
+          <button type="button" onClick={() => { onLibrary(); closeSidebar() }}><span aria-hidden="true">⌂</span>Αποστολές</button>
+          <button type="button" onClick={() => { onPartB(); closeSidebar() }}><span aria-hidden="true">✧</span>Παιχνίδια</button>
+          <button type="button" onClick={() => { onStatistics(); closeSidebar() }}><span aria-hidden="true">★</span>Πρόοδος</button>
+          <button type="button" aria-label="Άνοιγμα μενού" aria-expanded={sidebarOpen} onClick={() => setSidebarOpen(true)}><span aria-hidden="true">☰</span>Μενού</button>
+        </nav>}
       </div>
     </div>
   )

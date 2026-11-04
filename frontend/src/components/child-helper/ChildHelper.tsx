@@ -26,14 +26,16 @@ export function ChildHelper({ helper, message, compact = false, playing = false 
       void video.play().catch(() => {})
     } else {
       video.pause()
+      video.currentTime = 0
     }
-  }, [playing])
+    return () => video.pause()
+  }, [playing, helper])
 
   return (
     <aside className={`child-helper-card${compact ? ' compact' : ''} helper-${character.color}`} aria-label={`${character.name}, ο βοηθός σου`}>
       <span className={`child-helper-art${playing ? ' is-playing' : ''}`} aria-hidden="true">
         {character.icon}
-        <video className="child-helper-video" ref={videoRef} src={character.video} muted loop playsInline preload="metadata" />
+        <video className="child-helper-video" ref={videoRef} src={character.video} muted loop playsInline preload="none" />
       </span>
       <span className="child-helper-copy">
         <strong>{character.name}, ο βοηθός σου</strong>

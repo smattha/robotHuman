@@ -40,6 +40,23 @@ Build the signed APK/AAB from Android Studio (Build → Generate Signed App Bund
 - Statistics with CSV export and print view.
 - PWA: installable, offline-capable (service worker in `images/sw.js`, manifest, generated icons).
 
+## Mobile-first layout
+
+The UI is designed for portrait smartphones first (360–430px), then tablets and desktops. Key points:
+
+- Bottom navigation (Αποστολές / Παιχνίδια / Πρόοδος / Μενού) on phones; it is hidden while an activity is running.
+- The exercise player is a full-screen experience: story on top, question below, and a fixed bottom action bar for the main action (thumb reach).
+- Dialogs open as bottom sheets on small screens.
+- Safe areas (`env(safe-area-inset-*)`) are respected; the viewport uses `viewport-fit=cover`.
+- Touch targets are at least 44px. `largeButtons` grows them further.
+
+## Native (Capacitor) notes
+
+- Audio is user-initiated: narration starts on tap (avoids mobile autoplay blocks). The Piper voice model downloads only from Ρυθμίσεις, never automatically.
+- Audio and speech recognition are paused when the tab/app is hidden.
+- No browser-only APIs are used outside the existing service worker and speech features; the app runs unchanged in a WebView.
+- The Piper TTS engine and the generated WAV clips are the largest runtime assets; the Greek voice is a one-time ~63 MB download.
+
 ## Privacy
 
 Named test results, including the selected answer for each exercise, are saved in this browser's local storage and displayed on the exercise library. This is device-local storage, not an authenticated or encrypted record system; avoid entering identifying child information on shared devices. The microphone starts only when **Απάντησε με τη φωνή σου** is pressed. Spoken answers require manual confirmation with **Έλεγξε την απάντηση**. Some browsers may process microphone input using an external speech service; use the on-screen answer buttons if that is not acceptable.

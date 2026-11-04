@@ -3,6 +3,7 @@ import { exercises } from '../../content/exercises'
 import { GREEK_VOICE_ID, getGreekVoicePreparationStatus, isGreekVoiceStored, prepareGreekVoiceAudio, subscribeToGreekVoicePreparation } from '../../domain/greek-voice'
 import type { GreekVoicePreparationStatus } from '../../domain/greek-voice'
 import type { ChildHelper, Preferences, StorySpeed } from '../../domain/preferences'
+import { ChildHelper as CharacterPreview } from '../../components/child-helper/ChildHelper'
 
 type SettingsScreenProps = {
   preferences: Preferences
@@ -77,7 +78,7 @@ export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperC
           <span><strong>Εκφώνηση οδηγιών</strong><small>Ενεργοποιεί ή απενεργοποιεί την εκφώνηση των ασκήσεων.</small></span>
           <input type="checkbox" checked={preferences.speechEnabled} onChange={(event) => onSpeechEnabledChange(event.target.checked)} />
         </label>
-        <p>Αν θέλεις να ακούς τις αποστολές, κατέβασε τη φωνή μία φορά σε αυτόν τον browser (περίπου 63 MB). Η λήψη χρειάζεται σύνδεση στο διαδίκτυο.</p>
+        <p>Η εκφώνηση ξεκινά μόνο όταν πατήσεις «Άκουσε». Αν δεν υπάρχει ελληνική φωνή στη συσκευή σου, μπορείς να την κατεβάσεις εδώ (περίπου 63 MB). Η λήψη χρειάζεται διαδίκτυο.</p>
         {voiceStatus === 'missing' || voiceStatus === 'error' ? (
           <button className="secondary-button" type="button" onClick={downloadGreekVoice}>Λήψη ελληνικής φωνής</button>
         ) : null}
@@ -121,6 +122,7 @@ export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperC
       <div className="settings-card">
         <h2>Ο βοηθός σου</h2>
         <p>Διάλεξε ποιος φίλος θα είναι δίπλα σου στις αποστολές και θα σε ενθαρρύνει.</p>
+        <CharacterPreview helper={preferences.childHelper} message="Θα είμαι μαζί σου σε κάθε αποστολή!" compact />
         <div className="helper-options" role="radiogroup" aria-label="Επιλογή βοηθού">
           {helperOptions.map((option) => {
             const selected = preferences.childHelper === option.value

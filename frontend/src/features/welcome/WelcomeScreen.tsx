@@ -11,6 +11,7 @@ export function WelcomeScreen({ onStart, onNewUser, userName }: WelcomeScreenPro
         <p className="eyebrow">Η περιπέτειά σου αρχίζει εδώ</p>
         <h1 id="welcome-title">Πάμε να ανακαλύψουμε κάτι καινούριο;</h1>
         <p className="lead">{userName ? `Γεια σου, ${userName}! Κάθε μικρή αποστολή είναι μια νέα ευκαιρία να δοκιμάσεις τις ιδέες σου.` : 'Παρατήρησε, σκέψου και δοκίμασε. Εδώ κάθε προσπάθεια μετράει!'}</p>
+        <p className="welcome-quest"><span aria-hidden="true">✦</span> Διάλεξε αποστολή, άκουσε την ιστορία και βρες την απάντηση!</p>
         <div className="welcome-actions">
           {!userName && <button className="welcome-user-button" type="button" onClick={onNewUser}>Διάλεξε το όνομά σου <span aria-hidden="true">→</span></button>}
           <button className="primary-button" type="button" onClick={onStart}>Δες τις αποστολές <span aria-hidden="true">→</span></button>
@@ -26,6 +27,9 @@ export function WelcomeScreen({ onStart, onNewUser, userName }: WelcomeScreenPro
           <strong>Παίξε</strong>
           <span>και ανακάλυψε!</span>
         </div>
+        <span className="welcome-character welcome-character-fox">🦊</span>
+        <span className="welcome-character welcome-character-owl">🦉</span>
+        <span className="welcome-character welcome-character-robot">🤖</span>
         <div className="doodle doodle-left">⌁</div>
         <div className="doodle doodle-right">✳</div>
       </div>

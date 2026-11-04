@@ -76,6 +76,7 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
       onlineAudioRef.current = null
       if (audioUrlRef.current) URL.revokeObjectURL(audioUrlRef.current)
       audioUrlRef.current = null
+      SpeechRecognition.abortListening()
     }
   }, [exercise.id, frameIndex])
 
@@ -86,20 +87,26 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
   }, [exercise.id, frameIndex])
 
   useEffect(() => {
-    if (speechEnabled) void speakText()
-  }, [exercise.id])
-
-  useEffect(() => {
-    if (!speechEnabled || !currentFrame || storyComplete) return
-    void speakText()
-  }, [frameIndex])
-
-  useEffect(() => {
     if (!currentFrame || storyComplete) return
-    if (speechEnabled && isSpeaking) return
+    if (isSpeaking || isAudioPlaying) return
     const timer = setTimeout(() => setFrameIndex((index) => index + 1), storyFrameDurationMs)
     return () => clearTimeout(timer)
-  }, [currentFrame, storyComplete, frameIndex, storyFrameDurationMs, isSpeaking, speechEnabled])
+  }, [currentFrame, storyComplete, frameIndex, storyFrameDurationMs, isSpeaking, isAudioPlaying])
+
+  useEffect(() => {
+    function pauseWhenHidden() {
+      if (document.visibilityState !== 'hidden') return
+      audioRequestRef.current += 1
+      onlineAudioRef.current?.pause()
+      stopRef.current()
+      setIsAudioPlaying(false)
+      setIsSpeaking(false)
+      setIsLoadingAudio(false)
+      SpeechRecognition.abortListening()
+    }
+    document.addEventListener('visibilitychange', pauseWhenHidden)
+    return () => document.removeEventListener('visibilitychange', pauseWhenHidden)
+  }, [])
 
   useEffect(() => {
     feedbackHandledRef.current = false
@@ -170,8 +177,10 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
     setIsLoadingAudio(true)
     setVoiceMessage('Ετοιμάζω την ελληνική φωνή...')
     try {
-      if (!await isGreekVoiceStored() && request === audioRequestRef.current) {
-        setVoiceMessage('Η πρώτη χρήση χρειάζεται λήψη περίπου 63 MB. Ετοιμάζω την ελληνική φωνή...')
+      if (!await isGreekVoiceStored()) {
+        setVoiceMessage('Για ελληνική εκφώνηση μπορείς να κατεβάσεις τη φωνή από τις Ρυθμίσεις.')
+        setIsSpeaking(false)
+        return
       }
       const wav = await getGreekVoiceAudio(spokenText, true)
 
@@ -237,7 +246,7 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
         <span className="category-pill">{exercise.category}</span>
       </div>
       {userName && !testMode && <p className="player-greeting">Γεια σου, {userName}!</p>}
-      {testMode && <p className="test-mode-banner" role="status">Δοκιμή — τίποτα δεν αποθηκεύεται</p>}
+      {testMode && <p className="test-mode-banner" role="status">Δοκιμή: τίποτα δεν αποθηκεύεται</p>}
       <div className="progress-track" aria-label="Πρόοδος αποστολών"><span style={{ width: `${((progress?.current ?? 1) / (progress?.total ?? 1)) * 100}%` }} /></div>
       <ChildHelper helper={helper} playing={isAudioPlaying} message={isSubmitted
         ? isCorrect ? 'Το σκέφτηκες πολύ καλά! Ετοιμάσου για την επόμενη αποστολή.' : 'Δεν πειράζει! Κάθε δοκιμή μάς βοηθά να μάθουμε.'
@@ -252,8 +261,8 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
               <p className="frame-count">Εικόνα {Math.min(frameIndex + 1, frames.length)} από {frames.length}</p>
               <img src={currentFrame.imagePath} alt={currentFrame.text} />
               <p>{currentFrame.text}</p>
-              {!storyComplete && <div className="frame-auto-advance" aria-hidden="true"><span key={frameIndex} style={{ animationDuration: `${storyFrameDurationMs}ms` }} /></div>}
-                {!storyComplete && <button className="secondary-button" type="button" disabled={speechEnabled && isSpeaking} onClick={() => setFrameIndex((index) => index + 1)}>
+               {!storyComplete && <div className="frame-auto-advance" aria-hidden="true"><span key={frameIndex} style={{ animationDuration: `${storyFrameDurationMs}ms` }} /></div>}
+              {!storyComplete && <button className="secondary-button" type="button" disabled={isSpeaking} onClick={() => setFrameIndex((index) => index + 1)}>
                 {frameIndex === frames.length - 1 ? 'Στην ερώτηση' : 'Επόμενη εικόνα'} <span aria-hidden="true">→</span>
               </button>}
             </div>
@@ -263,9 +272,9 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
               {exercise.imagePath && <div className="exercise-media"><img src={exercise.imagePath} alt={`Εικόνα για την άσκηση ${exercise.title}`} /></div>}
             </>
           )}
-          {speechEnabled && <div className="voice-actions">
-            <button className="hint-button" type="button" onClick={speakText} disabled={isLoadingAudio}>{isLoadingAudio ? 'Φόρτωση ήχου...' : 'Άκουσε το κείμενο'}</button>
-            <button className="hint-button" type="button" onClick={stopAudio}>Σταμάτα τον ήχο</button>
+           {speechEnabled && <div className="voice-actions">
+            <button className="hint-button" type="button" onClick={speakText} disabled={isLoadingAudio} aria-label="Άκουσε το κείμενο">{isLoadingAudio ? 'Ετοιμάζω τον ήχο...' : '▶ Άκουσε την ιστορία'}</button>
+            {(isAudioPlaying || isLoadingAudio) && <button className="hint-button" type="button" onClick={stopAudio}>■ Σταμάτα</button>}
           </div>}
           {storyComplete && <button className="hint-button" type="button" onClick={() => setShowHint((visible) => !visible)} aria-expanded={showHint}>☼ {showHint ? 'Κρύψε τη βοήθεια' : 'Θέλεις ένα στοιχείο;'}</button>}
           {showHint && <p className="hint">Μπορείς να το κάνεις με τον δικό σου ρυθμό. {exercise.instructions}</p>}
@@ -277,31 +286,28 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
             {exercise.options.map((option) => {
               const isSelected = selectedOptionId === option.id
               return (
-                 <button className={`answer-option${option.imagePath ? ' answer-option-image' : ''}${isSelected ? ' selected' : ''}`} type="button" role="radio" aria-label={`${option.label}: ${option.detail}`} aria-checked={isSelected} disabled={isSubmitted} key={option.id} onClick={() => onSelect(option.id)}>
-                   {option.imagePath ? <img className="option-image" src={option.imagePath} alt="" /> : <>
-                     <span className="option-number" aria-hidden="true">{option.label}</span>
-                     <span aria-hidden="true">{option.detail}</span>
-                     <span className="option-check" aria-hidden="true">{isSelected ? '●' : '○'}</span>
-                   </>}
-                 </button>
+                <button className={`answer-option${option.imagePath ? ' answer-option-image' : ''}${isSelected ? ' selected' : ''}`} type="button" role="radio" aria-label={`${option.label}: ${option.detail}`} aria-checked={isSelected} disabled={isSubmitted} key={option.id} onClick={() => onSelect(option.id)}>
+                  {option.imagePath ? <img className="option-image" src={option.imagePath} alt="" /> : <>
+                    <span className="option-number" aria-hidden="true">{option.label}</span>
+                    <span aria-hidden="true">{option.detail}</span>
+                    <span className="option-check" aria-hidden="true">{isSelected ? '●' : '○'}</span>
+                  </>}
+                </button>
               )
             })}
           </div>
-          {!isSubmitted ? (
-            <>
-              <button className="hint-button" type="button" onClick={listenForAnswer}>{listening ? 'Σε ακούω...' : 'Απάντησε με τη φωνή σου'}</button>
-              <button className="primary-button full-width" type="button" disabled={!selectedOptionId} onClick={onSubmit}>Έλεγξε την απάντηση <span aria-hidden="true">→</span></button>
-            </>
-          ) : (
+          {!isSubmitted ? <button className="hint-button" type="button" onClick={listenForAnswer}>{listening ? 'Σε ακούω...' : 'Απάντησε με τη φωνή σου'}</button> : (
             <div className={`feedback ${isCorrect ? 'feedback-correct' : 'feedback-try'}`} role="status">
               <span className="feedback-icon" aria-hidden="true">{isCorrect ? '✓' : '!'}</span>
               <p>{feedback}</p>
-              <button className="primary-button full-width" type="button" onClick={onComplete}>Συνέχισε <span aria-hidden="true">→</span></button>
             </div>
           )}
         </div>}
       </div>
       {voiceMessage && <p className="voice-message" role="status">{voiceMessage}</p>}
+      {storyComplete && <div className="player-action-bar"><button className="primary-button full-width" type="button" disabled={!isSubmitted && !selectedOptionId} onClick={isSubmitted ? onComplete : onSubmit}>
+        {isSubmitted ? 'Συνέχισε' : 'Έλεγξε την απάντηση'} <span aria-hidden="true">→</span>
+      </button></div>}
     </section>
   )
 }

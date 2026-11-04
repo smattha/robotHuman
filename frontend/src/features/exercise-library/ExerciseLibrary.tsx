@@ -34,7 +34,7 @@ export function ExerciseLibrary({ exercises, exerciseResults, timedTaskDefinitio
               <p>{exercise.description}</p>
             </div>
             <div className="exercise-card-actions">
-              <button className="secondary-button" type="button" onClick={() => onSelect(exercise)}>Πάμε με όνομα <span aria-hidden="true">→</span></button>
+              <button className="secondary-button" type="button" onClick={() => onSelect(exercise)}>Παίξε και κράτησε την πρόοδο <span aria-hidden="true">→</span></button>
               <button className="secondary-button test-button" type="button" onClick={() => onTest(exercise)}>Δοκιμή χωρίς καταγραφή</button>
             </div>
           </article>

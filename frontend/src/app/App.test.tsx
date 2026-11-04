@@ -22,7 +22,7 @@ describe('App', () => {
     await startAsNewUser(user)
     const lionCard = screen.getByRole('heading', { name: 'Το λιοντάρι και τα παπάκια' }).closest('article')
     expect(lionCard).not.toBeNull()
-    await user.click(within(lionCard!).getByRole('button', { name: /Πάμε με όνομα/i }))
+    await user.click(within(lionCard!).getByRole('button', { name: /Παίξε και κράτησε την πρόοδο/i }))
     await user.click(screen.getByRole('radio', { name: /Τέσσερα παπάκια/i }))
     await user.click(screen.getByRole('button', { name: /Έλεγξε την απάντηση/i }))
 
@@ -35,7 +35,7 @@ describe('App', () => {
       userName: 'Alex', kind: 'single', completedAt: expect.any(String),
       answers: [{ exerciseId: 'lion-and-ducklings', optionId: 'four', isCorrect: true }],
     }])
-    await user.click(screen.getByRole('button', { name: 'Στατιστικά' }))
+    await user.click(screen.getByRole('button', { name: /Τα κατορθώματά μου/i }))
     expect(screen.getByText(/Το λιοντάρι και τα παπάκια · 1\/1 σωστές/i)).toBeInTheDocument()
     expect(screen.getByText(/Κονκάρδα: Μικρός Εξερευνητής/)).toBeInTheDocument()
   })
@@ -52,8 +52,8 @@ describe('App', () => {
     expect(screen.queryByRole('button', { name: 'Απόκριση' })).not.toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /Δες τις οδηγίες/i }))
     expect(screen.getByRole('heading', { name: 'Ας κάνουμε μία πρόβα' })).toBeInTheDocument()
-    expect(screen.getByText(/δεν καταγράφεται/i)).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: /Ξεκίνα την κανονική δοκιμασία/i }))
+    expect(screen.getByText(/χωρίς βαθμολογία/i)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /Είμαι έτοιμος/i }))
     expect(screen.getByText(/Θα εμφανίζονται λέξεις χρωμάτων/i)).toBeInTheDocument()
   })
 
@@ -65,7 +65,7 @@ describe('App', () => {
       summary: { totalTrials: 0, correctCount: 0, wrongCount: 0, meanResponseTimeMs: 0, maxSequenceLength: null },
     })
     render(<App />)
-    await user.click(screen.getByRole('button', { name: 'Στατιστικά' }))
+    await user.click(screen.getByRole('button', { name: /Τα κατορθώματά μου/i }))
 
     expect(screen.getByRole('heading', { name: 'Στατιστικά' })).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: 'Διαγραφή αποτελέσματος για Alex' }))
@@ -91,7 +91,7 @@ describe('App', () => {
     await user.click(within(taskCard!).getByRole('button', { name: /Ξεκίνα δοκιμασία/i }))
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
     await user.click(screen.getByRole('button', { name: /Δες τις οδηγίες/i }))
-    await user.click(screen.getByRole('button', { name: /Ξεκίνα την κανονική δοκιμασία/i }))
+    await user.click(screen.getByRole('button', { name: /Είμαι έτοιμος/i }))
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
 
     expect(screen.getByRole('button', { name: 'Απόκριση' })).toBeInTheDocument()
@@ -113,7 +113,7 @@ describe('App', () => {
   it('stores the selected story speed in settings', async () => {
     const user = userEvent.setup()
     render(<App />)
-    await user.click(screen.getByRole('button', { name: 'Ρυθμίσεις' }))
+    await user.click(screen.getByRole('button', { name: /Ρυθμίσεις/ }))
 
     expect(screen.getByRole('heading', { name: 'Ρυθμίσεις' })).toBeInTheDocument()
     expect(screen.getByRole('radio', { name: /Αργά/i })).toHaveAttribute('aria-checked', 'true')
@@ -127,32 +127,32 @@ describe('App', () => {
     localStorage.setItem('childrens-exercises-users-v1', JSON.stringify(['Alex']))
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: 'Νέος χρήστης' }))
-    await user.type(screen.getByLabelText('Όνομα'), 'Alex')
+    await user.click(screen.getByRole('button', { name: /Παίξε με άλλο όνομα/i }))
+    await user.type(screen.getByLabelText('Πώς θα σε φωνάζουμε;'), 'Alex')
     expect(screen.getByText(/Υπάρχει ήδη χρήστης με αυτό το όνομα/i)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /Συνέχισε/i })).toBeEnabled()
-    await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
+    expect(screen.getByRole('button', { name: /^Πάμε!/i })).toBeEnabled()
+    await user.click(screen.getByRole('button', { name: /^Πάμε!/i }))
 
-    expect(screen.getByText('Γεια σου, Alex!')).toBeInTheDocument()
+    expect(screen.getByText(/Γεια σου, Alex!/i)).toBeInTheDocument()
   })
 
   it('asks for a name before sidebar navigation when no user is active', async () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: 'Ρυθμίσεις' }))
+    await user.click(screen.getByRole('button', { name: /Μεγάλη περιπέτεια/i }))
 
     expect(screen.getByRole('heading', { name: 'Πώς σε λένε;' })).toBeInTheDocument()
-    expect(screen.queryByRole('heading', { name: 'Ρυθμίσεις' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Η Μεγάλη Περιπέτεια' })).not.toBeInTheDocument()
   })
 
   it('opens statistics and settings without an active user', async () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: 'Στατιστικά' }))
+    await user.click(screen.getByRole('button', { name: /Τα κατορθώματά μου/i }))
     expect(screen.getByRole('heading', { name: 'Στατιστικά' })).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: 'Ρυθμίσεις' }))
+    await user.click(screen.getByRole('button', { name: /Ρυθμίσεις/ }))
     expect(screen.getByRole('heading', { name: 'Ρυθμίσεις' })).toBeInTheDocument()
   })
 
@@ -164,10 +164,10 @@ describe('App', () => {
     })
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: 'Νέος χρήστης' }))
-    await user.type(screen.getByLabelText('Όνομα'), 'Alex')
-    await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
-    await user.click(screen.getByRole('button', { name: 'Ξεκίνα τη Μεγάλη Περιπέτεια' }))
+    await user.click(screen.getByRole('button', { name: /Διάλεξε το όνομά σου/i }))
+    await user.type(screen.getByLabelText('Πώς θα σε φωνάζουμε;'), 'Alex')
+    await user.click(screen.getByRole('button', { name: /^Πάμε!/i }))
+    await user.click(screen.getByRole('button', { name: /Μεγάλη περιπέτεια/i }))
     expect(screen.getByText('Η περιπέτεια του/της Alex περιμένει.')).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /Συνέχισε την Περιπέτεια/i }))
 
@@ -184,7 +184,7 @@ describe('App', () => {
     render(<App />)
     await startAsNewUser(user)
 
-    expect(screen.getByRole('heading', { name: 'Ο χάρτης των αποστολών' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Ο χάρτης της περιπέτειάς σου' })).toBeInTheDocument()
     expect(screen.getByLabelText('Ολοκληρώθηκαν 1 από 12 Μικρές Αποστολές')).toBeInTheDocument()
     expect(screen.getByLabelText('Ολοκληρώθηκαν 1 από 5 Προκλήσεις Μνήμης')).toBeInTheDocument()
   })
