@@ -10,9 +10,10 @@ type ExerciseLibraryProps = {
   timedTaskDefinitions: TimedTaskDefinition[]
   timedTaskResults: TimedTaskResult[]
   onSelect: (exercise: Exercise) => void
+  onTest: (exercise: Exercise) => void
 }
 
-export function ExerciseLibrary({ exercises, exerciseResults, timedTaskDefinitions, timedTaskResults, onSelect }: ExerciseLibraryProps) {
+export function ExerciseLibrary({ exercises, exerciseResults, timedTaskDefinitions, timedTaskResults, onSelect, onTest }: ExerciseLibraryProps) {
   return (
     <section className="page-section library-section" aria-labelledby="library-title">
       <div className="section-heading">
@@ -32,7 +33,10 @@ export function ExerciseLibrary({ exercises, exerciseResults, timedTaskDefinitio
               <h2>{exercise.title}</h2>
               <p>{exercise.description}</p>
             </div>
-            <button className="secondary-button" type="button" onClick={() => onSelect(exercise)}>Δοκίμασέ την <span aria-hidden="true">→</span></button>
+            <div className="exercise-card-actions">
+              <button className="secondary-button" type="button" onClick={() => onSelect(exercise)}>Πάμε με όνομα <span aria-hidden="true">→</span></button>
+              <button className="secondary-button test-button" type="button" onClick={() => onTest(exercise)}>Δοκιμή χωρίς καταγραφή</button>
+            </div>
           </article>
         ))}
       </div>

@@ -9,6 +9,11 @@ export function loadUserNames(): string[] {
   }
 }
 
+export function loadLastUserName(): string | null {
+  const userNames = loadUserNames()
+  return userNames.length > 0 ? userNames[userNames.length - 1] ?? null : null
+}
+
 export function saveUserName(userName: string): boolean {
   try {
     const normalizedName = userName.trim()

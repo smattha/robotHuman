@@ -9,10 +9,10 @@ describe('App', () => {
   beforeEach(() => localStorage.clear())
 
   async function startAsNewUser(user: ReturnType<typeof userEvent.setup>, name = 'Alex') {
-    await user.click(screen.getByRole('button', { name: 'Νέος χρήστης' }))
-    await user.type(screen.getByLabelText('Όνομα'), name)
-    await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
-    await user.click(screen.getByRole('button', { name: /^Ξεκινάμε/i }))
+    await user.click(screen.getByRole('button', { name: /Διάλεξε το όνομά σου/i }))
+    await user.type(screen.getByLabelText('Πώς θα σε φωνάζουμε;'), name)
+    await user.click(screen.getByRole('button', { name: /^Πάμε!/i }))
+    await user.click(screen.getByRole('button', { name: /Δες τις αποστολές/i }))
   }
 
   it('allows a child to complete the first exercise', async () => {
@@ -22,14 +22,14 @@ describe('App', () => {
     await startAsNewUser(user)
     const lionCard = screen.getByRole('heading', { name: 'Το λιοντάρι και τα παπάκια' }).closest('article')
     expect(lionCard).not.toBeNull()
-    await user.click(within(lionCard!).getByRole('button', { name: /Παίξε τώρα/i }))
+    await user.click(within(lionCard!).getByRole('button', { name: /Πάμε με όνομα/i }))
     await user.click(screen.getByRole('radio', { name: /Τέσσερα παπάκια/i }))
     await user.click(screen.getByRole('button', { name: /Έλεγξε την απάντηση/i }))
 
     expect(screen.getByText(/Μπράβο! Το βρήκες!/i)).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
 
-    expect(screen.getByRole('heading', { name: /Μπράβο για την προσπάθειά σου/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /Τα κατάφερες, εξερευνητή/i })).toBeInTheDocument()
     expect(screen.getByText(/Κονκάρδα: Μικρός Εξερευνητής/)).toBeInTheDocument()
     expect(JSON.parse(localStorage.getItem('childrens-exercises-results-v1') ?? '[]')).toMatchObject([{
       userName: 'Alex', kind: 'single', completedAt: expect.any(String),

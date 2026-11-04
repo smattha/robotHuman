@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react'
 import { exercises } from '../content/exercises'
+import type { Exercise } from '../domain/exercise'
 import { evaluateAnswer } from '../domain/exercise'
 import { isGreekVoiceStored, prepareGreekVoiceAudio } from '../domain/greek-voice'
 import { clearResults, deleteResult, loadResults, saveResult } from '../domain/results'
@@ -7,6 +8,7 @@ import type { TestResult } from '../domain/results'
 import { initialSessionState, sessionReducer } from '../state/exercise-session-reducer'
 import { AppShell } from '../components/app-shell/AppShell'
 import { CompletionScreen } from '../features/completion/CompletionScreen'
+import { GrandPrizeScreen } from '../features/completion/GrandPrizeScreen'
 import { ExerciseLibrary } from '../features/exercise-library/ExerciseLibrary'
 import { ExercisePlayer } from '../features/exercise-player/ExercisePlayer'
 import { StartTestDialog } from '../features/test-all/StartTestDialog'
@@ -28,7 +30,7 @@ import { StatisticsScreen } from '../features/statistics/StatisticsScreen'
 import { getStoryFrameDuration, loadPreferences, savePreferences } from '../domain/preferences'
 import type { ChildHelper, StorySpeed } from '../domain/preferences'
 import { SettingsScreen } from '../features/settings/SettingsScreen'
-import { loadUserNames, saveUserName } from '../domain/users'
+import { loadLastUserName, loadUserNames, saveUserName } from '../domain/users'
 import { NewUserDialog } from '../features/welcome/NewUserDialog'
 
 export function App() {
@@ -45,8 +47,9 @@ export function App() {
   const [completedTimedTask, setCompletedTimedTask] = useState<{ result: TimedTaskResult; saved: boolean } | null>(null)
   const [showStatistics, setShowStatistics] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [testMode, setTestMode] = useState(false)
   const [preferences, setPreferences] = useState(loadPreferences)
-  const [userName, setUserName] = useState<string | null>(null)
+  const [userName, setUserName] = useState<string | null>(loadLastUserName)
   const [userNames, setUserNames] = useState(loadUserNames)
   const [newUserDialogOpen, setNewUserDialogOpen] = useState(false)
   const exercise = exercises[state.exerciseIndex]
@@ -84,6 +87,13 @@ export function App() {
     setCompletedTimedTask(null)
     setShowStatistics(false)
     setShowSettings(false)
+    setTestMode(false)
+  }
+
+  function switchUser() {
+    goHome()
+    setUserName(null)
+    setNewUserDialogOpen(true)
   }
 
   function leaveTimedTask() {
@@ -140,7 +150,8 @@ export function App() {
     }).catch(() => {})
   }
 
-  function openExercise(index: number) {
+  function openExercise(index: number, isTest = false) {
+    if (!isTest && !requireUser()) return
     if (activeResult && !activeResult.completedAt) {
       const interrupted = { ...activeResult, completedAt: new Date().toISOString() }
       setStorageError(!saveResult(interrupted))
@@ -154,7 +165,12 @@ export function App() {
     setCompletedTimedTask(null)
     setShowStatistics(false)
     setShowSettings(false)
+    setTestMode(isTest)
     dispatch({ type: 'OPEN_EXERCISE', index })
+  }
+
+  function openTestExercise(exercise: Exercise) {
+    openExercise(exercises.indexOf(exercise), true)
   }
 
   function selectTimedTask(id: TimedTaskId) {
@@ -201,6 +217,7 @@ export function App() {
       exerciseId: exercise.id, optionId: state.selectedOptionId,
       isCorrect: evaluation.isCorrect, answeredAt: new Date().toISOString(),
     }
+    if (testMode) return
     if (activeResult) {
       const updated = { ...activeResult, answers: [...activeResult.answers, answer] }
       setActiveResult(updated)
@@ -310,7 +327,7 @@ export function App() {
 
   return (
     <div className={`${preferences.largeButtons ? 'large-buttons' : ''}${preferences.reducedMotion ? ' reduced-motion' : ''}${preferences.highContrast ? ' high-contrast' : ''}`}>
-      <AppShell exercises={exercises} onHome={goHome} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics} onSettings={openSettings} onRequireUser={requireUser}>
+      <AppShell exercises={exercises} onHome={goHome} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics} onSettings={openSettings} onRequireUser={requireUser} onSwitchUser={switchUser}>
       {showStatistics && <StatisticsScreen results={savedResults} timedResults={timedTaskResults} onDelete={removeResult} onDeleteAll={removeAllResults} />}
       {showSettings && <SettingsScreen preferences={preferences} onStorySpeedChange={changeStorySpeed} onChildHelperChange={changeChildHelper} onAccessibilityChange={changeAccessibility} onSpeechEnabledChange={changeSpeechEnabled} />}
       {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'welcome' && <WelcomeScreen onStart={startExerciseLibrary} onNewUser={() => setNewUserDialogOpen(true)} userName={userName} />}
@@ -322,6 +339,7 @@ export function App() {
             timedTaskDefinitions={timedTaskDefinitions}
             timedTaskResults={timedTaskResults}
             onSelect={(selected) => openExercise(exercises.indexOf(selected))}
+            onTest={openTestExercise}
           />
           <section id="timed-tasks" className="page-section timed-task-library" aria-labelledby="timed-tasks-title">
             <div className="section-heading"><div><p className="eyebrow">Δραστηριότητες μνήμης και προσοχής</p><h2 id="timed-tasks-title">Προκλήσεις Μνήμης και Προσοχής</h2></div></div>
@@ -354,6 +372,8 @@ export function App() {
           storyFrameDurationMs={getStoryFrameDuration(preferences.storySpeed)}
           speechEnabled={preferences.speechEnabled}
           helper={preferences.childHelper}
+          userName={userName}
+          testMode={testMode}
         />
       )}
       {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'break' && (
@@ -365,11 +385,19 @@ export function App() {
           helper={preferences.childHelper}
         />
       )}
-      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'completed' && (
+      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'completed' && state.mode === 'all' && (
+        <GrandPrizeScreen
+          result={activeResult}
+          helper={preferences.childHelper}
+          onRestart={() => setDialogOpen(true)}
+          onHome={goHome}
+        />
+      )}
+      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'completed' && state.mode === 'single' && (
         <CompletionScreen
           isCorrect={state.evaluation?.isCorrect ?? false}
           result={activeResult}
-          isSingle={state.mode === 'single'}
+          isSingle={state.mode === 'single' && !testMode}
           helper={preferences.childHelper}
           onRestart={() => state.mode === 'all' ? setDialogOpen(true) : dispatch({ type: 'RESTART' })}
           onHome={goHome}

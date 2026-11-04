@@ -11,9 +11,10 @@ type AppShellProps = {
   onStatistics: () => void
   onSettings: () => void
   onRequireUser: () => boolean
+  onSwitchUser: () => void
 }
 
-export function AppShell({ children, exercises, onHome, onSelectExercise, onTestAll, onPartB, onStatistics, onSettings, onRequireUser }: AppShellProps) {
+export function AppShell({ children, exercises, onHome, onSelectExercise, onTestAll, onPartB, onStatistics, onSettings, onRequireUser, onSwitchUser }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [exerciseListOpen, setExerciseListOpen] = useState(false)
 
@@ -80,6 +81,7 @@ export function AppShell({ children, exercises, onHome, onSelectExercise, onTest
           <button className="sidebar-link" type="button" onClick={() => { if (!onRequireUser()) return; onPartB(); setExerciseListOpen(false); closeSidebar() }}>🧠 Παιχνίδια σκέψης</button>
           <button className="sidebar-link" type="button" onClick={() => { onStatistics(); setExerciseListOpen(false); closeSidebar() }}>⭐ Τα κατορθώματά μου</button>
           <button className="sidebar-link" type="button" onClick={() => { onSettings(); setExerciseListOpen(false); closeSidebar() }}>⚙️ Ρυθμίσεις</button>
+          <button className="sidebar-link" type="button" onClick={() => { onSwitchUser(); setExerciseListOpen(false); closeSidebar() }}>🔁 Αλλαγή χρήστη</button>
         </nav>
         <footer className="footer">Κάθε προσπάθεια είναι ένα κατόρθωμα!</footer>
       </aside>

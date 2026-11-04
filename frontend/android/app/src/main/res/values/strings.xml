@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Μικρές Αποστολές</string>
+    <string name="title_activity_main">Μικρές Αποστολές</string>
+    <string name="package_name">com.mikresapostoles.app</string>
+    <string name="custom_url_scheme">com.mikresapostoles.app</string>
+</resources>

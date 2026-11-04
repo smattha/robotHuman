@@ -4,8 +4,10 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import type { Exercise } from '../../domain/exercise'
 import type { ChildHelper as ChildHelperType } from '../../domain/preferences'
 import { ChildHelper } from '../../components/child-helper/ChildHelper'
+import { Confetti } from '../../components/confetti/Confetti'
 import { getExerciseSpokenText, getGreekVoiceAudio, isGreekVoiceStored } from '../../domain/greek-voice'
 import { matchSpokenOption } from '../../domain/speech'
+import { playCorrectSound, playIncorrectSound } from '../../domain/sound-effects'
 import { fetchVoiceRssAudio, isVoiceRssConfigured } from '../../domain/voicerss-tts'
 
 type ExercisePlayerProps = {
@@ -18,19 +20,27 @@ type ExercisePlayerProps = {
   storyFrameDurationMs: number
   speechEnabled: boolean
   helper: ChildHelperType
+  userName: string | null
+  testMode: boolean
   onSelect: (optionId: string) => void
   onSubmit: () => void
   onComplete: () => void
 }
 
-export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitted, feedback, isCorrect, storyFrameDurationMs, speechEnabled, helper, onSelect, onSubmit, onComplete }: ExercisePlayerProps) {
+export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitted, feedback, isCorrect, storyFrameDurationMs, speechEnabled, helper, userName, testMode, onSelect, onSubmit, onComplete }: ExercisePlayerProps) {
   const [showHint, setShowHint] = useState(false)
   const [frameIndex, setFrameIndex] = useState(0)
   const [voiceMessage, setVoiceMessage] = useState('')
   const [waitingForVoiceAnswer, setWaitingForVoiceAnswer] = useState(false)
   const [isLoadingAudio, setIsLoadingAudio] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
-  const { speak, stop } = useSpeak()
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false)
+  const [celebrate, setCelebrate] = useState(false)
+  const feedbackHandledRef = useRef(false)
+  const { speak, stop } = useSpeak({
+    onStart: () => setIsAudioPlaying(true),
+    onStop: () => setIsAudioPlaying(false),
+  })
   const { voices } = useVoices()
   const { browserSupportsSpeechRecognition, finalTranscript, isMicrophoneAvailable, listening, resetTranscript } = useSpeechRecognition()
 
@@ -71,6 +81,7 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
 
   useEffect(() => {
     setIsLoadingAudio(false)
+    setIsAudioPlaying(false)
     setVoiceMessage('')
   }, [exercise.id, frameIndex])
 
@@ -89,6 +100,22 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
     const timer = setTimeout(() => setFrameIndex((index) => index + 1), storyFrameDurationMs)
     return () => clearTimeout(timer)
   }, [currentFrame, storyComplete, frameIndex, storyFrameDurationMs, isSpeaking, speechEnabled])
+
+  useEffect(() => {
+    feedbackHandledRef.current = false
+    setCelebrate(false)
+  }, [exercise.id])
+
+  useEffect(() => {
+    if (!isSubmitted || feedbackHandledRef.current) return
+    feedbackHandledRef.current = true
+    if (isCorrect) {
+      setCelebrate(true)
+      playCorrectSound()
+    } else {
+      playIncorrectSound()
+    }
+  }, [isCorrect, isSubmitted])
 
   useEffect(() => {
     if (!waitingForVoiceAnswer || !finalTranscript) return
@@ -153,8 +180,10 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
       audioUrlRef.current = url
       const audio = new Audio(url)
       onlineAudioRef.current = audio
+      audio.onended = () => setIsAudioPlaying(false)
       await audio.play()
       if (request === audioRequestRef.current) setVoiceMessage('')
+      if (request === audioRequestRef.current) setIsAudioPlaying(true)
       if (request === audioRequestRef.current) setIsSpeaking(false)
     } catch {
       if (request !== audioRequestRef.current) return
@@ -164,9 +193,11 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
         if (result.ok) {
           const audio = new Audio(result.audioDataUrl)
           onlineAudioRef.current = audio
+          audio.onended = () => setIsAudioPlaying(false)
           try {
             await audio.play()
             setVoiceMessage('')
+            setIsAudioPlaying(true)
             setIsSpeaking(false)
             return
           } catch {
@@ -185,6 +216,7 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
     audioRequestRef.current += 1
     setIsLoadingAudio(false)
     setIsSpeaking(false)
+    setIsAudioPlaying(false)
     stop()
     SpeechRecognition.abortListening()
     onlineAudioRef.current?.pause()
@@ -199,12 +231,15 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
 
   return (
     <section className="page-section player-section" aria-labelledby="exercise-title">
+      <Confetti trigger={celebrate} />
       <div className="player-topline">
         <span className="step-label">Αποστολή {progress?.current ?? 1} / {progress?.total ?? 1}</span>
         <span className="category-pill">{exercise.category}</span>
       </div>
+      {userName && !testMode && <p className="player-greeting">Γεια σου, {userName}!</p>}
+      {testMode && <p className="test-mode-banner" role="status">Δοκιμή — τίποτα δεν αποθηκεύεται</p>}
       <div className="progress-track" aria-label="Πρόοδος αποστολών"><span style={{ width: `${((progress?.current ?? 1) / (progress?.total ?? 1)) * 100}%` }} /></div>
-      <ChildHelper helper={helper} message={isSubmitted
+      <ChildHelper helper={helper} playing={isAudioPlaying} message={isSubmitted
         ? isCorrect ? 'Το σκέφτηκες πολύ καλά! Ετοιμάσου για την επόμενη αποστολή.' : 'Δεν πειράζει! Κάθε δοκιμή μάς βοηθά να μάθουμε.'
         : storyComplete ? 'Κοίτα προσεκτικά και διάλεξε ό,τι σου φαίνεται σωστό.' : 'Ας δούμε μαζί την ιστορία. Δεν χρειάζεται να βιαστείς!'} />
       <div className="player-layout">
@@ -242,12 +277,13 @@ export function ExercisePlayer({ exercise, progress, selectedOptionId, isSubmitt
             {exercise.options.map((option) => {
               const isSelected = selectedOptionId === option.id
               return (
-                <button className={`answer-option${isSelected ? ' selected' : ''}`} type="button" role="radio" aria-checked={isSelected} disabled={isSubmitted} key={option.id} onClick={() => onSelect(option.id)}>
-                  <span className="option-number">{option.label}</span>
-                  {option.imagePath && <img className="option-image" src={option.imagePath} alt="" />}
-                  <span>{option.detail}</span>
-                  <span className="option-check" aria-hidden="true">{isSelected ? '●' : '○'}</span>
-                </button>
+                 <button className={`answer-option${option.imagePath ? ' answer-option-image' : ''}${isSelected ? ' selected' : ''}`} type="button" role="radio" aria-label={`${option.label}: ${option.detail}`} aria-checked={isSelected} disabled={isSubmitted} key={option.id} onClick={() => onSelect(option.id)}>
+                   {option.imagePath ? <img className="option-image" src={option.imagePath} alt="" /> : <>
+                     <span className="option-number" aria-hidden="true">{option.label}</span>
+                     <span aria-hidden="true">{option.detail}</span>
+                     <span className="option-check" aria-hidden="true">{isSelected ? '●' : '○'}</span>
+                   </>}
+                 </button>
               )
             })}
           </div>

@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import { exercises } from '../../content/exercises'
 import type { TestResult } from '../../domain/results'
 import type { TimedTaskResult } from '../../domain/timed-task'
+import { downloadResultsCsv } from './export-results'
 import { timedTaskDefinitions } from '../timed-tasks/timed-task-definitions'
+import { BADGES, getEarnedBadgeIds } from '../../domain/badges'
 
 type DeletionTarget = { type: 'exercise' | 'timed'; id: string; label: string } | { type: 'all' }
 
@@ -17,6 +19,7 @@ export function StatisticsScreen({ results, timedResults, onDelete, onDeleteAll 
   const [deletionTarget, setDeletionTarget] = useState<DeletionTarget | null>(null)
   const [deletionError, setDeletionError] = useState(false)
   const hasResults = results.length + timedResults.length > 0
+  const earnedBadges = getEarnedBadgeIds(results, timedResults)
 
   useEffect(() => {
     if (!deletionTarget) return
@@ -42,11 +45,29 @@ export function StatisticsScreen({ results, timedResults, onDelete, onDeleteAll 
           <h1 id="statistics-title">Στατιστικά</h1>
           <p className="lead">Οι απαντήσεις και οι δοκιμασίες αποθηκεύονται μόνο σε αυτόν τον browser.</p>
         </div>
-        {hasResults && <button className="delete-button" type="button" onClick={() => setDeletionTarget({ type: 'all' })}>Διαγραφή όλων</button>}
+        {hasResults && <div className="statistics-actions">
+          <button className="secondary-button" type="button" onClick={() => downloadResultsCsv(results, timedResults)}>Λήψη CSV</button>
+          <button className="secondary-button" type="button" onClick={() => window.print()}>Εκτύπωση</button>
+          <button className="delete-button" type="button" onClick={() => setDeletionTarget({ type: 'all' })}>Διαγραφή όλων</button>
+        </div>}
       </div>
 
       {deletionError && <p className="storage-warning" role="alert">Δεν ήταν δυνατή η διαγραφή. Δοκίμασε ξανά.</p>}
       {!hasResults && <div className="statistics-empty"><span aria-hidden="true">✧</span><h2>Δεν υπάρχουν ακόμα αποτελέσματα</h2><p>Όταν ολοκληρώσεις μια άσκηση, τα στατιστικά της θα εμφανιστούν εδώ.</p></div>}
+
+      <div className="badges-section" aria-labelledby="badges-title">
+        <h2 id="badges-title">Κονκάρδες <span>{earnedBadges.size}/{BADGES.length}</span></h2>
+        <div className="badge-grid">
+          {BADGES.map((badge) => {
+            const earned = earnedBadges.has(badge.id)
+            return <div className={`badge-card${earned ? ' earned' : ''}`} key={badge.id} aria-label={`${badge.title}${earned ? '' : ' — δεν έχει κερδηθεί ακόμα'}`}>
+              <span className="badge-icon" aria-hidden="true">{earned ? badge.icon : '🔒'}</span>
+              <strong>{badge.title}</strong>
+              <p>{badge.description}</p>
+            </div>
+          })}
+        </div>
+      </div>
 
       {results.length > 0 && <div className="statistics-group">
         <h2>Μικρές Αποστολές και Μεγάλη Περιπέτεια <span>{results.length}</span></h2>

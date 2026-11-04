@@ -1,11 +1,12 @@
 # Μικρές Αποστολές
 
-Initial React web application for the children's exercise experience in this repository.
+React web application for the children's exercise experience in this repository. Runs as a browser PWA and as a native Android app (Capacitor).
 
 ## Requirements
 
 - Node.js 20 or newer
 - npm
+- For Android builds: Android Studio with the Android SDK
 
 ## Commands
 
@@ -19,16 +20,32 @@ npm run test
 npm run build
 ```
 
-The browser app includes 12 exercises. Open the exercise drawer to select an individual activity, or choose **Test all**, enter a name, and answer the exercises in order. Story exercises present their images one at a time. Exercises 5 and 11 use one image each.
+### Android (Capacitor)
 
-Named test results, including the selected answer for each exercise, are saved in this browser's local storage and displayed on the exercise library. This is device-local storage, not an authenticated or encrypted record system; avoid entering identifying child information on shared devices. Individual exercises are not stored as named test results.
+```bash
+npm run build
+npm run android:sync    # copies the fresh dist into android/
+npm run android:open    # opens the project in Android Studio
+```
 
-The player offers Greek text-to-speech and optional speech recognition where the browser supports them. The microphone starts only when **Απάντησε με τη φωνή σου** is pressed. Spoken answers require manual confirmation with **Έλεγξε την απάντηση**. Some browsers may process microphone input using an external speech service; use the on-screen answer buttons if that is not acceptable. ROS and robot/gesture integration remain deferred.
+Build the signed APK/AAB from Android Studio (Build → Generate Signed App Bundle / APK). The app id is `com.mikresapostoles.app` and the app name is «Μικρές Αποστολές». Launcher icons are generated from `scripts/generate-icons.mjs` (PWA) and `scripts/generate-android-icons.mjs` (Android mipmaps).
+
+## Features
+
+- 12 story exercises plus 5 memory/attention challenges (Stroop, Go/No-Go, SART, Corsi, Digit Span).
+- Child-friendly UI with a selectable helper character (Ρόμπι 🤖, Φοίβος 🦊, Ίρις 🦉, Νεφέλη 🦄).
+- The helper plays its own animated video while the Greek narration is speaking.
+- Greek text-to-speech (Piper TTS, local) and optional speech recognition where the browser supports them.
+- Confetti and reward sounds on correct answers, plus a Grand Prize screen after completing all missions.
+- Statistics with CSV export and print view.
+- PWA: installable, offline-capable (service worker in `images/sw.js`, manifest, generated icons).
+
+## Privacy
+
+Named test results, including the selected answer for each exercise, are saved in this browser's local storage and displayed on the exercise library. This is device-local storage, not an authenticated or encrypted record system; avoid entering identifying child information on shared devices. The microphone starts only when **Απάντησε με τη φωνή σου** is pressed. Spoken answers require manual confirmation with **Έλεγξε την απάντηση**. Some browsers may process microphone input using an external speech service; use the on-screen answer buttons if that is not acceptable.
 
 ## Exercise images
 
 The app serves images from `images/` (configured as Vite's `publicDir`), so files under `images/ex1` through `images/ex12` are served at root-level URLs such as `/ex1/main-image.png`.
 
-Exercises 1 and 2 show their supplied answer images; exercises 3, 4, 9 and 10 display ordered story images. Exercises 5 and 11 show their single main image.
-
-Future hardware capabilities should be added as optional adapters so the exercise player remains usable without those integrations.
+Exercises 1 and 2 show their supplied answer images; exercises 3, 4, 9 and 10 display ordered story images. Exercises 5 and 11 show their single main image. Helper animations live under `images/videos/`.
