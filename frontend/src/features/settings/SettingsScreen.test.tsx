@@ -30,7 +30,7 @@ describe('SettingsScreen voice download', () => {
   })
 
   function renderSettings() {
-    return render(<SettingsScreen preferences={DEFAULT_PREFERENCES} onStorySpeedChange={vi.fn()} onChildHelperChange={vi.fn()} onAccessibilityChange={vi.fn()} onSpeechEnabledChange={vi.fn()} />)
+    return render(<SettingsScreen preferences={DEFAULT_PREFERENCES} onStorySpeedChange={vi.fn()} onChildHelperChange={vi.fn()} onAccessibilityChange={vi.fn()} onSpeechEnabledChange={vi.fn()} onNarrationModeChange={vi.fn()} />)
   }
 
   it('downloads the Greek model on request and recognizes it on revisit', async () => {

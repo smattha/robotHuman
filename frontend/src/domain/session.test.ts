@@ -6,40 +6,26 @@ describe('sessionReducer', () => {
     expect(sessionReducer(initialSessionState, { type: 'START' })).toMatchObject({ screen: 'library' })
   })
 
-  it('does not allow changing an answer after submission', () => {
-    const submitted = sessionReducer(
-      { ...initialSessionState, screen: 'exercise', selectedOptionId: 'four', evaluation: { isCorrect: true, feedback: 'Well done' } },
-      { type: 'SELECT_OPTION', optionId: 'two' },
-    )
-
-    expect(submitted.selectedOptionId).toBe('four')
-  })
-
-  it('starts a named run and advances without carrying over the previous answer', () => {
+  it('starts a named run and advances to the next exercise', () => {
     const started = sessionReducer(initialSessionState, { type: 'START_ALL', userName: 'Alex' })
-    const answered = sessionReducer(started, { type: 'SELECT_OPTION', optionId: 'four' })
-    const next = sessionReducer(answered, { type: 'NEXT_EXERCISE' })
-    expect(next).toMatchObject({ mode: 'all', userName: 'Alex', exerciseIndex: 1, selectedOptionId: null, evaluation: null })
+    const next = sessionReducer(started, { type: 'NEXT_EXERCISE' })
+    expect(next).toMatchObject({ mode: 'all', userName: 'Alex', exerciseIndex: 1 })
   })
 
-  it('resumes an adventure from its saved mission without carrying over an answer', () => {
+  it('resumes an adventure from its saved mission', () => {
     const resumed = sessionReducer(initialSessionState, { type: 'RESUME_ALL', userName: 'Alex', exerciseIndex: 4 })
-
-    expect(resumed).toMatchObject({ screen: 'exercise', mode: 'all', userName: 'Alex', exerciseIndex: 4, selectedOptionId: null, evaluation: null })
+    expect(resumed).toMatchObject({ screen: 'exercise', mode: 'all', userName: 'Alex', exerciseIndex: 4 })
   })
 
-  it('continues the next exercise after a break without carrying over an answer', () => {
+  it('continues the next exercise after a break', () => {
     const stateAtBreak = {
       ...initialSessionState,
       screen: 'exercise' as const,
       mode: 'all' as const,
       exerciseIndex: 2,
-      selectedOptionId: 'four',
-      evaluation: { isCorrect: true, feedback: 'Well done' },
     }
     const onBreak = sessionReducer(stateAtBreak, { type: 'TAKE_BREAK' })
     const continued = sessionReducer(onBreak, { type: 'CONTINUE_AFTER_BREAK' })
-
-    expect(continued).toMatchObject({ screen: 'exercise', exerciseIndex: 3, selectedOptionId: null, evaluation: null })
+    expect(continued).toMatchObject({ screen: 'exercise', exerciseIndex: 3 })
   })
 })

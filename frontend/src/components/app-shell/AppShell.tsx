@@ -14,9 +14,10 @@ type AppShellProps = {
   onRequireUser: () => boolean
   onSwitchUser: () => void
   activityActive: boolean
+  showBottomNav: boolean
 }
 
-export function AppShell({ children, exercises, onHome, onLibrary, onSelectExercise, onTestAll, onPartB, onStatistics, onSettings, onRequireUser, onSwitchUser, activityActive }: AppShellProps) {
+export function AppShell({ children, exercises, onHome, onLibrary, onSelectExercise, onTestAll, onPartB, onStatistics, onSettings, onRequireUser, onSwitchUser, activityActive, showBottomNav }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [exerciseListOpen, setExerciseListOpen] = useState(false)
 
@@ -94,7 +95,7 @@ export function AppShell({ children, exercises, onHome, onLibrary, onSelectExerc
           {activityActive && <button className="mobile-home-button" type="button" aria-label="Πίσω στις αποστολές" onClick={onHome}>Πίσω</button>}
         </div>
         <main>{children}</main>
-        {!activityActive && <nav className="bottom-nav" aria-label="Γρήγορη πλοήγηση">
+        {showBottomNav && !activityActive && <nav className="bottom-nav" aria-label="Γρήγορη πλοήγηση">
           <button type="button" onClick={() => { onLibrary(); closeSidebar() }}><span aria-hidden="true">⌂</span>Αποστολές</button>
           <button type="button" onClick={() => { onPartB(); closeSidebar() }}><span aria-hidden="true">✧</span>Παιχνίδια</button>
           <button type="button" onClick={() => { onStatistics(); closeSidebar() }}><span aria-hidden="true">★</span>Πρόοδος</button>

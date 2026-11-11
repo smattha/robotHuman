@@ -1,5 +1,6 @@
 export type StorySpeed = 'slow' | 'normal' | 'fast'
 export type ChildHelper = 'robot' | 'fox' | 'owl' | 'unicorn'
+export type NarrationMode = 'auto' | 'manual' | 'muted'
 
 export type Preferences = {
   storySpeed: StorySpeed
@@ -8,17 +9,19 @@ export type Preferences = {
   reducedMotion: boolean
   highContrast: boolean
   speechEnabled: boolean
+  narrationMode: NarrationMode
 }
 
 const STORAGE_KEY = 'childrens-exercises-preferences-v1'
 
 export const DEFAULT_PREFERENCES: Preferences = {
   storySpeed: 'slow',
-  childHelper: 'robot',
+  childHelper: 'fox',
   largeButtons: false,
   reducedMotion: false,
   highContrast: false,
   speechEnabled: true,
+  narrationMode: 'auto',
 }
 
 export const storySpeedDurations: Record<StorySpeed, number> = {
@@ -38,6 +41,7 @@ export function loadPreferences(): Preferences {
     const storedPreferences = parsed as Record<string, unknown>
     const storySpeed = storedPreferences.storySpeed
     const childHelper = storedPreferences.childHelper
+    const narrationMode = storedPreferences.narrationMode
     if (storySpeed !== 'slow' && storySpeed !== 'normal' && storySpeed !== 'fast') return DEFAULT_PREFERENCES
     return {
       storySpeed,
@@ -46,6 +50,7 @@ export function loadPreferences(): Preferences {
       reducedMotion: storedPreferences.reducedMotion === true,
       highContrast: storedPreferences.highContrast === true,
       speechEnabled: storedPreferences.speechEnabled !== false,
+      narrationMode: narrationMode === 'manual' || narrationMode === 'muted' ? narrationMode : 'auto',
     }
   } catch {
     return DEFAULT_PREFERENCES

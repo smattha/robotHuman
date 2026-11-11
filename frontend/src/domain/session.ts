@@ -1,5 +1,3 @@
-import type { AnswerEvaluation } from './exercise'
-
 export type Screen = 'welcome' | 'library' | 'exercise' | 'break' | 'completed'
 
 export type SessionState = {
@@ -7,8 +5,6 @@ export type SessionState = {
   exerciseIndex: number
   mode: 'single' | 'all'
   userName: string | null
-  selectedOptionId: string | null
-  evaluation: AnswerEvaluation | null
 }
 
 export type SessionAction =
@@ -16,8 +12,6 @@ export type SessionAction =
   | { type: 'OPEN_EXERCISE'; index: number }
   | { type: 'START_ALL'; userName: string }
   | { type: 'RESUME_ALL'; userName: string; exerciseIndex: number }
-  | { type: 'SELECT_OPTION'; optionId: string }
-  | { type: 'SUBMIT_ANSWER'; evaluation: AnswerEvaluation }
   | { type: 'COMPLETE' }
   | { type: 'NEXT_EXERCISE' }
   | { type: 'TAKE_BREAK' }
@@ -31,8 +25,6 @@ export const initialSessionState: SessionState = {
   exerciseIndex: 0,
   mode: 'single',
   userName: null,
-  selectedOptionId: null,
-  evaluation: null,
 }
 
 export function sessionReducer(state: SessionState, action: SessionAction): SessionState {
@@ -45,18 +37,14 @@ export function sessionReducer(state: SessionState, action: SessionAction): Sess
       return { ...initialSessionState, screen: 'exercise', mode: 'all', userName: action.userName }
     case 'RESUME_ALL':
       return { ...initialSessionState, screen: 'exercise', mode: 'all', userName: action.userName, exerciseIndex: action.exerciseIndex }
-    case 'SELECT_OPTION':
-      return state.evaluation ? state : { ...state, selectedOptionId: action.optionId }
-    case 'SUBMIT_ANSWER':
-      return { ...state, evaluation: action.evaluation }
     case 'COMPLETE':
       return { ...state, screen: 'completed' }
     case 'NEXT_EXERCISE':
-      return { ...state, exerciseIndex: state.exerciseIndex + 1, selectedOptionId: null, evaluation: null }
+      return { ...state, exerciseIndex: state.exerciseIndex + 1 }
     case 'TAKE_BREAK':
       return { ...state, screen: 'break' }
     case 'CONTINUE_AFTER_BREAK':
-      return { ...state, screen: 'exercise', exerciseIndex: state.exerciseIndex + 1, selectedOptionId: null, evaluation: null }
+      return { ...state, screen: 'exercise', exerciseIndex: state.exerciseIndex + 1 }
     case 'RESTART':
       return { ...initialSessionState, screen: 'exercise', exerciseIndex: state.exerciseIndex }
     case 'BACK_TO_LIBRARY':

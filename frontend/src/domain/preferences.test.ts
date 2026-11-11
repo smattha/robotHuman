@@ -10,8 +10,8 @@ describe('preferences', () => {
   })
 
   it('stores and loads selected preferences', () => {
-    expect(savePreferences({ storySpeed: 'fast', childHelper: 'owl', largeButtons: true, reducedMotion: true, highContrast: true, speechEnabled: false })).toBe(true)
-    expect(loadPreferences()).toEqual({ storySpeed: 'fast', childHelper: 'owl', largeButtons: true, reducedMotion: true, highContrast: true, speechEnabled: false })
+    expect(savePreferences({ storySpeed: 'fast', childHelper: 'owl', largeButtons: true, reducedMotion: true, highContrast: true, speechEnabled: false, narrationMode: 'manual' })).toBe(true)
+    expect(loadPreferences()).toEqual({ storySpeed: 'fast', childHelper: 'owl', largeButtons: true, reducedMotion: true, highContrast: true, speechEnabled: false, narrationMode: 'manual' })
     expect(getStoryFrameDuration('fast')).toBe(2500)
   })
 
@@ -20,8 +20,8 @@ describe('preferences', () => {
     expect(loadPreferences()).toEqual(DEFAULT_PREFERENCES)
   })
 
-  it('uses the robot helper for saved preferences from before helper selection', () => {
+  it('uses the robot helper and auto narration for saved preferences from before those options existed', () => {
     localStorage.setItem('childrens-exercises-preferences-v1', JSON.stringify({ storySpeed: 'normal' }))
-    expect(loadPreferences()).toEqual({ storySpeed: 'normal', childHelper: 'robot', largeButtons: false, reducedMotion: false, highContrast: false, speechEnabled: true })
+    expect(loadPreferences()).toEqual({ storySpeed: 'normal', childHelper: 'robot', largeButtons: false, reducedMotion: false, highContrast: false, speechEnabled: true, narrationMode: 'auto' })
   })
 })

@@ -1,5 +1,9 @@
+import type { ChildHelper, NarrationMode } from '../../domain/preferences'
 import type { TaskSummary, TimedTaskId, Trial } from '../../domain/timed-task'
+import { InstructionBriefing } from './InstructionBriefing'
 import { createCorsiState, getCorsiSummary, respondCorsi, startCorsi, tickCorsi } from './corsi-logic'
+import { CorsiScene } from './phaser/CorsiScene'
+import { PhaserGame } from '../phaser/PhaserGame'
 import { TimedTaskFrame } from './TimedTaskFrame'
 import { useTimedTask } from './use-timed-task'
 
@@ -7,9 +11,15 @@ type CorsiTaskProps = {
   userName: string
   onExit: () => void
   onComplete: (taskId: TimedTaskId, trials: Trial[], summary: TaskSummary) => void
+  helper: ChildHelper
+  narrationMode: NarrationMode
+  speechEnabled: boolean
 }
 
-export function CorsiTask({ userName, onExit, onComplete }: CorsiTaskProps) {
+const INSTRUCTION =
+  'Θα φωτίσουν μανιτάρια ένα-ένα σε μια σειρά. Θυμήσου τη σειρά και πάτησέ τα με την ίδια σειρά. Κάθε σωστή απάντηση προσθέτει ένα μανιτάρι.'
+
+export function CorsiTask({ userName, onExit, onComplete, helper, narrationMode, speechEnabled }: CorsiTaskProps) {
   const { state, setState } = useTimedTask({
     create: createCorsiState,
     tick: tickCorsi,
@@ -20,31 +30,30 @@ export function CorsiTask({ userName, onExit, onComplete }: CorsiTaskProps) {
   return (
     <TimedTaskFrame title="Corsi" category="Μνήμη" onExit={onExit}>
       {state.phase === 'instruction' && (
-        <div className="task-instruction">
-          <p className="lead">Θα εμφανιστούν εννέα πλακίδια. Παρακολούθησε τη σειρά που φωτίζονται και πάτησέ τα με την ίδια σειρά. Κάθε σωστή απάντηση προσθέτει ένα πλακίδιο.</p>
-          <p className="task-user">Παίκτης: {userName}</p>
-          <button className="primary-button" type="button" onClick={() => setState((previous) => startCorsi(previous, Date.now()))}>Ξεκίνα</button>
-        </div>
+        <InstructionBriefing
+          helper={helper}
+          message={INSTRUCTION}
+          userName={userName}
+          narrationMode={narrationMode}
+          speechEnabled={speechEnabled}
+          onStart={() => setState((previous) => startCorsi(previous, Date.now()))}
+        />
       )}
-      {(state.phase === 'showing' || state.phase === 'answering') && (
-        <div className="sequence-task">
-          <p className="sequence-status" aria-live="polite">
-            {state.phase === 'showing' ? 'Παρακολούθησε τη σειρά' : 'Επανάλαβε τη σειρά'} · επίπεδο {state.level}
-          </p>
-          <div className="corsi-board" aria-label="Πίνακας με εννέα πλακίδια">
-            {Array.from({ length: 9 }, (_, tile) => (
-              <button
-                className={`corsi-tile${state.phase === 'showing' && state.sequenceIndex > 0 && state.sequence[state.sequenceIndex - 1] === tile ? ' active' : ''}`}
-                key={tile}
-                type="button"
-                disabled={state.phase !== 'answering'}
-                aria-label={`Πλακίδιο ${tile + 1}`}
-                onClick={() => setState((previous) => respondCorsi(previous, tile, Date.now()))}
-              >{tile + 1}</button>
-            ))}
-          </div>
-          <p className="sequence-status" aria-live="polite">{state.phase === 'answering' ? `Επιλογές: ${state.answer.length} / ${state.sequence.length}` : ' '}</p>
-        </div>
+      {state.phase !== 'instruction' && (
+        <PhaserGame
+          scene={CorsiScene}
+          sceneProps={{
+            phase: state.phase,
+            sequence: state.sequence,
+            sequenceIndex: state.sequenceIndex,
+            level: state.level,
+            answerLength: state.answer.length,
+            helper,
+            onTapTile: (tile: number) => setState((previous) => respondCorsi(previous, tile, Date.now())),
+          }}
+          testId="corsi-game"
+          ariaLabel="Παιχνίδι μνήμης με μανιτάρια"
+        />
       )}
     </TimedTaskFrame>
   )

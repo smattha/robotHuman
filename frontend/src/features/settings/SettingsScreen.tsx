@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { exercises } from '../../content/exercises'
 import { GREEK_VOICE_ID, getGreekVoicePreparationStatus, isGreekVoiceStored, prepareGreekVoiceAudio, subscribeToGreekVoicePreparation } from '../../domain/greek-voice'
 import type { GreekVoicePreparationStatus } from '../../domain/greek-voice'
-import type { ChildHelper, Preferences, StorySpeed } from '../../domain/preferences'
+import type { ChildHelper, NarrationMode, Preferences, StorySpeed } from '../../domain/preferences'
 import { ChildHelper as CharacterPreview } from '../../components/child-helper/ChildHelper'
+
+type SettingsTab = 'voice' | 'speed' | 'helper' | 'display'
 
 type SettingsScreenProps = {
   preferences: Preferences
@@ -11,6 +13,7 @@ type SettingsScreenProps = {
   onChildHelperChange: (childHelper: ChildHelper) => void
   onAccessibilityChange: (setting: 'largeButtons' | 'reducedMotion' | 'highContrast', enabled: boolean) => void
   onSpeechEnabledChange: (enabled: boolean) => void
+  onNarrationModeChange: (mode: NarrationMode) => void
 }
 
 const speedOptions: { value: StorySpeed; title: string; description: string }[] = [
@@ -26,7 +29,14 @@ const helperOptions: { value: ChildHelper; icon: string; title: string; descript
   { value: 'unicorn', icon: '🦄', title: 'Νεφέλη ο μονόκερος', description: 'Φωτεινή και παιχνιδιάρικη βοηθός' },
 ]
 
-export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperChange, onAccessibilityChange, onSpeechEnabledChange }: SettingsScreenProps) {
+const narrationOptions: { value: NarrationMode; title: string; description: string }[] = [
+  { value: 'auto', title: 'Αυτόματη', description: 'Ο Φοίβος διαβάζει κάθε ερώτηση από μόνος του.' },
+  { value: 'manual', title: 'Με πάτημα', description: 'Πάτα «Άκουσε ξανά» για να ακούσεις την ερώτηση.' },
+  { value: 'muted', title: 'Σιγανή', description: 'Χωρίς φωνή, μόνο εικόνες και κείμενο.' },
+]
+
+export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperChange, onAccessibilityChange, onSpeechEnabledChange, onNarrationModeChange }: SettingsScreenProps) {
+  const [activeTab, setActiveTab] = useState<SettingsTab>('voice')
   const [voiceStatus, setVoiceStatus] = useState<'checking' | 'available' | 'missing' | 'downloading' | 'error'>('checking')
   const [downloadPercent, setDownloadPercent] = useState<number | null>(null)
   const [preparationStatus, setPreparationStatus] = useState<GreekVoicePreparationStatus>(getGreekVoicePreparationStatus)
@@ -72,13 +82,39 @@ export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperC
       <p className="eyebrow">Ρύθμισε την εμπειρία</p>
       <h1 id="settings-title">Ρυθμίσεις</h1>
       <p className="lead">Διάλεξε πόσο γρήγορα θα αλλάζουν οι εικόνες στις ιστορίες.</p>
-      <div className="settings-card">
+      <div className="tab-bar" role="tablist" aria-label="Ενότητες ρυθμίσεων">
+        <button className={`tab-button${activeTab === 'voice' ? ' active' : ''}`} type="button" role="tab" aria-selected={activeTab === 'voice'} onClick={() => setActiveTab('voice')}>🔊 Φωνή</button>
+        <button className={`tab-button${activeTab === 'speed' ? ' active' : ''}`} type="button" role="tab" aria-selected={activeTab === 'speed'} onClick={() => setActiveTab('speed')}>🚶 Ταχύτητα</button>
+        <button className={`tab-button${activeTab === 'helper' ? ' active' : ''}`} type="button" role="tab" aria-selected={activeTab === 'helper'} onClick={() => setActiveTab('helper')}>🦊 Βοηθός</button>
+        <button className={`tab-button${activeTab === 'display' ? ' active' : ''}`} type="button" role="tab" aria-selected={activeTab === 'display'} onClick={() => setActiveTab('display')}>👁️ Προβολή</button>
+      </div>
+
+      {activeTab === 'voice' && <div className="page-panel settings-card" role="tabpanel">
         <h2>Ελληνική φωνή</h2>
         <label className="accessibility-option">
           <span><strong>Εκφώνηση οδηγιών</strong><small>Ενεργοποιεί ή απενεργοποιεί την εκφώνηση των ασκήσεων.</small></span>
           <input type="checkbox" checked={preferences.speechEnabled} onChange={(event) => onSpeechEnabledChange(event.target.checked)} />
         </label>
-        <p>Η εκφώνηση ξεκινά μόνο όταν πατήσεις «Άκουσε». Αν δεν υπάρχει ελληνική φωνή στη συσκευή σου, μπορείς να την κατεβάσεις εδώ (περίπου 63 MB). Η λήψη χρειάζεται διαδίκτυο.</p>
+        <h2>Πώς θα μιλάει ο Φοίβος</h2>
+        <div className="speed-options" role="radiogroup" aria-label="Τρόπος εκφώνησης">
+          {narrationOptions.map((option) => {
+            const selected = preferences.narrationMode === option.value
+            return (
+              <button
+                className={`speed-option${selected ? ' selected' : ''}`}
+                type="button"
+                role="radio"
+                aria-checked={selected}
+                key={option.value}
+                onClick={() => onNarrationModeChange(option.value)}
+              >
+                <span className="speed-option-icon" aria-hidden="true">{option.value === 'auto' ? '🔊' : option.value === 'manual' ? '👆' : '🔇'}</span>
+                <span><strong>{option.title}</strong><small>{option.description}</small></span>
+              </button>
+            )
+          })}
+        </div>
+        <p>Αν δεν υπάρχει ελληνική φωνή στη συσκευή σου, μπορείς να την κατεβάσεις εδώ (περίπου 63 MB). Η λήψη χρειάζεται διαδίκτυο.</p>
         {voiceStatus === 'missing' || voiceStatus === 'error' ? (
           <button className="secondary-button" type="button" onClick={downloadGreekVoice}>Λήψη ελληνικής φωνής</button>
         ) : null}
@@ -96,8 +132,9 @@ export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperC
           {preparationStatus.state === 'error' && 'Η δημιουργία των προτάσεων σταμάτησε. Θα γίνει νέα προσπάθεια όταν ζητηθεί ήχος.'}
         </p>}
         {preparationStatus.state === 'preparing' && <progress value={preparationStatus.completed} max={preparationStatus.total} aria-label="Πρόοδος δημιουργίας προτάσεων" style={{ width: '100%' }} />}
-      </div>
-      <div className="settings-card">
+      </div>}
+
+      {activeTab === 'speed' && <div className="page-panel settings-card" role="tabpanel">
         <h2>Ταχύτητα ιστοριών</h2>
         <p>Η επιλογή αυτή δεν επηρεάζει τις Προκλήσεις Μνήμης και Προσοχής.</p>
         <div className="speed-options" role="radiogroup" aria-label="Ταχύτητα ιστοριών">
@@ -118,8 +155,9 @@ export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperC
             )
           })}
         </div>
-      </div>
-      <div className="settings-card">
+      </div>}
+
+      {activeTab === 'helper' && <div className="page-panel settings-card" role="tabpanel">
         <h2>Ο βοηθός σου</h2>
         <p>Διάλεξε ποιος φίλος θα είναι δίπλα σου στις αποστολές και θα σε ενθαρρύνει.</p>
         <CharacterPreview helper={preferences.childHelper} message="Θα είμαι μαζί σου σε κάθε αποστολή!" compact />
@@ -141,8 +179,9 @@ export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperC
             )
           })}
         </div>
-      </div>
-      <div className="settings-card">
+      </div>}
+
+      {activeTab === 'display' && <div className="page-panel settings-card" role="tabpanel">
         <h2>Ευκολότερη προβολή</h2>
         <p>Ρύθμισε την εμφάνιση ώστε να είναι πιο άνετη για εσένα.</p>
         <div className="accessibility-options">
@@ -159,7 +198,7 @@ export function SettingsScreen({ preferences, onStorySpeedChange, onChildHelperC
             <input type="checkbox" checked={preferences.highContrast} onChange={(event) => onAccessibilityChange('highContrast', event.target.checked)} />
           </label>
         </div>
-      </div>
+      </div>}
     </section>
   )
 }

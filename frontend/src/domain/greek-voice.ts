@@ -1,4 +1,5 @@
 import type { Exercise } from './exercise'
+import { getPrimaryQuestion, getStoryFrames } from './exercise'
 
 export const GREEK_VOICE_ID = 'el_GR-rapunzelina-low'
 const MODEL_SIZE_BYTES = 63104526
@@ -33,11 +34,12 @@ export function subscribeToGreekVoicePreparation(listener: (status: GreekVoicePr
 }
 
 export function getExerciseSpokenText(exercise: Exercise): string {
-  return `${exercise.instructions} ${exercise.question} ${exercise.options.map((option) => `${option.label}: ${option.detail}`).join('. ')}`
+  const question = getPrimaryQuestion(exercise)
+  return `${exercise.instructions} ${question.text} ${question.options.map((option) => `${option.label}: ${option.detail}`).join('. ')}`
 }
 
 export function getExerciseSpeechTexts(exercise: Exercise): string[] {
-  return [...new Set([...(exercise.storyFrames?.map((frame) => frame.text) ?? []), getExerciseSpokenText(exercise)])]
+  return [...new Set([...getStoryFrames(exercise).map((frame) => frame.text), getExerciseSpokenText(exercise)])]
 }
 
 async function audioFile(text: string, create: boolean): Promise<FileSystemFileHandle> {

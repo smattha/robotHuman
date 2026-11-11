@@ -8,6 +8,7 @@ type ProgressMapProps = {
   exerciseResults: TestResult[]
   timedTaskDefinitions: TimedTaskDefinition[]
   timedTaskResults: TimedTaskResult[]
+  compact?: boolean
 }
 
 function hasCompletedExercise(exerciseId: string, results: TestResult[]): boolean {
@@ -18,20 +19,21 @@ function hasCompletedTimedTask(taskId: string, results: TimedTaskResult[]): bool
   return results.some((result) => result.taskId === taskId)
 }
 
-export function ProgressMap({ exercises, exerciseResults, timedTaskDefinitions, timedTaskResults }: ProgressMapProps) {
+export function ProgressMap({ exercises, exerciseResults, timedTaskDefinitions, timedTaskResults, compact = false }: ProgressMapProps) {
   const completedExercises = exercises.filter((exercise) => hasCompletedExercise(exercise.id, exerciseResults)).length
   const completedTimedTasks = timedTaskDefinitions.filter((task) => hasCompletedTimedTask(task.id, timedTaskResults)).length
 
   return (
-    <section className="progress-map" aria-labelledby="progress-map-title">
-      <div className="progress-map-heading">
+    <section className={`progress-map${compact ? ' compact' : ''}`} aria-labelledby="progress-map-title">
+      {!compact && <div className="progress-map-heading">
         <div>
           <p className="eyebrow">Τα κατορθώματά σου</p>
           <h2 id="progress-map-title">Ο χάρτης της περιπέτειάς σου</h2>
           <p>Κάθε αστεράκι θυμίζει κάτι καινούριο που δοκίμασες. Προχωράς με τον δικό σου ρυθμό!</p>
         </div>
         <span className="progress-map-star" aria-hidden="true">✦</span>
-      </div>
+      </div>}
+      {compact && <h2 id="progress-map-title">Ο χάρτης της περιπέτειάς σου</h2>}
       <div className="progress-map-groups">
         <div className="progress-map-group">
           <div className="progress-map-group-heading">

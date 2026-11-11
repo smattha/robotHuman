@@ -1,5 +1,9 @@
+import type { ChildHelper, NarrationMode } from '../../domain/preferences'
 import type { TaskSummary, TimedTaskId, Trial } from '../../domain/timed-task'
+import { InstructionBriefing } from './InstructionBriefing'
 import { createSartState, getSartSummary, respondSart, startSart, tickSart } from './sart-logic'
+import { PhaserGame } from '../phaser/PhaserGame'
+import { SartScene } from './phaser/SartScene'
 import { TimedTaskFrame } from './TimedTaskFrame'
 import { useTimedTask } from './use-timed-task'
 
@@ -7,9 +11,14 @@ type SartTaskProps = {
   userName: string
   onExit: () => void
   onComplete: (taskId: TimedTaskId, trials: Trial[], summary: TaskSummary) => void
+  helper: ChildHelper
+  narrationMode: NarrationMode
+  speechEnabled: boolean
 }
 
-export function SartTask({ userName, onExit, onComplete }: SartTaskProps) {
+const INSTRUCTION = 'Θα εμφανίζονται διάφορα αντικείμενα στο καλάθι. Πάτησε «Απόκριση» σε κάθε αντικείμενο, εκτός από το μήλο. Έχεις ένα λεπτό.'
+
+export function SartTask({ userName, onExit, onComplete, helper, narrationMode, speechEnabled }: SartTaskProps) {
   const { state, setState } = useTimedTask({
     create: createSartState,
     tick: tickSart,
@@ -20,17 +29,28 @@ export function SartTask({ userName, onExit, onComplete }: SartTaskProps) {
   return (
     <TimedTaskFrame title="SART" category="Προσοχή" onExit={onExit}>
       {state.phase === 'instruction' && (
-        <div className="task-instruction">
-          <p className="lead">Θα εμφανίζονται διάφορες εικόνες. Πάτησε «Απόκριση» σε κάθε εικόνα, εκτός από το μήλο. Έχεις ένα λεπτό.</p>
-          <p className="task-user">Παίκτης: {userName}</p>
-          <button className="primary-button" type="button" onClick={() => setState((previous) => startSart(previous, Date.now()))}>Ξεκίνα</button>
-        </div>
+        <InstructionBriefing
+          helper={helper}
+          message={INSTRUCTION}
+          userName={userName}
+          narrationMode={narrationMode}
+          speechEnabled={speechEnabled}
+          onStart={() => setState((previous) => startSart(previous, Date.now()))}
+        />
       )}
-      {state.phase === 'running' && (
-        <div className="task-running">
-          <div className="sart-stimulus" aria-label={state.isApple ? 'Μήλο' : 'Αντικείμενο'}>{state.stimulus}</div>
-          <button className="primary-button full-width" type="button" onClick={() => setState((previous) => respondSart(previous, Date.now()))}>Απόκριση</button>
-        </div>
+      {state.phase !== 'instruction' && (
+        <PhaserGame
+          scene={SartScene}
+          sceneProps={{
+            phase: state.phase,
+            stimulus: state.stimulus,
+            trialStartedAt: state.trialStartedAt,
+            helper,
+            onRespond: () => setState((previous) => respondSart(previous, Date.now())),
+          }}
+          testId="sart-game"
+          ariaLabel="Παιχνίδι προσοχής με το μαγικό καλάθι"
+        />
       )}
     </TimedTaskFrame>
   )

@@ -1,9 +1,21 @@
-import { render, screen, within } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { saveResult } from '../domain/results'
 import { saveTimedTaskResult } from '../domain/timed-task-results'
 import { App } from './App'
+
+vi.mock('../features/phaser/PhaserGame', () => ({
+  PhaserGame: (props: { testId?: string; ariaLabel?: string; sceneProps?: { onAnswer?: (id: string) => void; correctOptionId?: string } }) => (
+    <div data-testid={props.testId} aria-label={props.ariaLabel}>
+      {props.sceneProps?.onAnswer ? (
+        <button type="button" data-testid={`${props.testId}-answer`} onClick={() => props.sceneProps?.onAnswer?.(props.sceneProps.correctOptionId ?? '')}>
+          δώσε απάντηση
+        </button>
+      ) : null}
+    </div>
+  ),
+}))
 
 describe('App', () => {
   beforeEach(() => localStorage.clear())
@@ -15,8 +27,18 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /Δες τις αποστολές/i }))
   }
 
+  async function passParentalGate(user: ReturnType<typeof userEvent.setup>) {
+    const dialog = screen.getByRole('dialog')
+    const question = within(dialog).getByText(/πόσο κάνει το/i)
+    const match = question.textContent!.match(/(\d+)\s*-\s*(\d+)/)
+    expect(match).not.toBeNull()
+    const answer = Number(match![1]) - Number(match![2])
+    await user.click(within(dialog).getByRole('button', { name: (content) => content === String(answer) }))
+  }
+
   it('allows a child to complete the first exercise', async () => {
-    const user = userEvent.setup()
+    vi.useFakeTimers()
+    const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime })
     render(<App />)
 
     await startAsNewUser(user)
@@ -24,10 +46,9 @@ describe('App', () => {
     expect(lionCard).not.toBeNull()
     await user.click(within(lionCard!).getByRole('button', { name: /Παίξε και κράτησε την πρόοδο/i }))
     await user.click(screen.getByRole('radio', { name: /Τέσσερα παπάκια/i }))
-    await user.click(screen.getByRole('button', { name: /Έλεγξε την απάντηση/i }))
 
     expect(screen.getByText(/Μπράβο! Το βρήκες!/i)).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: /Συνέχισε/i }))
+    act(() => { vi.advanceTimersByTime(3000) })
 
     expect(screen.getByRole('heading', { name: /Τα κατάφερες, εξερευνητή/i })).toBeInTheDocument()
     expect(screen.getByText(/Κονκάρδα: Μικρός Εξερευνητής/)).toBeInTheDocument()
@@ -36,14 +57,18 @@ describe('App', () => {
       answers: [{ exerciseId: 'lion-and-ducklings', optionId: 'four', isCorrect: true }],
     }])
     await user.click(screen.getByRole('button', { name: /Τα κατορθώματά μου/i }))
+    await passParentalGate(user)
+    await user.click(screen.getByRole('button', { name: /Λίστα/i }))
     expect(screen.getByText(/Το λιοντάρι και τα παπάκια · 1\/1 σωστές/i)).toBeInTheDocument()
     expect(screen.getByText(/Κονκάρδα: Μικρός Εξερευνητής/)).toBeInTheDocument()
+    vi.useRealTimers()
   })
 
   it('shows a preparation screen before the memory challenge instructions', async () => {
     const user = userEvent.setup()
     render(<App />)
     await startAsNewUser(user)
+    await user.click(screen.getByRole('button', { name: /Παιχνίδια σκέψης/i }))
     const taskCard = screen.getByRole('heading', { name: 'Stroop' }).closest('article')
     await user.click(within(taskCard!).getByRole('button', { name: /Ξεκίνα δοκιμασία/i }))
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
@@ -66,8 +91,10 @@ describe('App', () => {
     })
     render(<App />)
     await user.click(screen.getByRole('button', { name: /Τα κατορθώματά μου/i }))
+    await passParentalGate(user)
 
     expect(screen.getByRole('heading', { name: 'Στατιστικά' })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /Λίστα/i }))
     await user.click(screen.getByRole('button', { name: 'Διαγραφή αποτελέσματος για Alex' }))
     expect(localStorage.getItem('childrens-exercises-results-v1')).toContain('Alex')
     await user.click(screen.getByRole('button', { name: 'Ακύρωση' }))
@@ -87,6 +114,7 @@ describe('App', () => {
     const user = userEvent.setup()
     render(<App />)
     await startAsNewUser(user)
+    await user.click(screen.getByRole('button', { name: /Παιχνίδια σκέψης/i }))
     const taskCard = screen.getByRole('heading', { name: 'Stroop' }).closest('article')
     await user.click(within(taskCard!).getByRole('button', { name: /Ξεκίνα δοκιμασία/i }))
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
@@ -94,13 +122,14 @@ describe('App', () => {
     await user.click(screen.getByRole('button', { name: /Είμαι έτοιμος/i }))
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
 
-    expect(screen.getByRole('button', { name: 'Απόκριση' })).toBeInTheDocument()
+    expect(screen.getByTestId('stroop-game')).toBeInTheDocument()
   })
 
   it('discards a cancelled memory challenge without changing saved results', async () => {
     const user = userEvent.setup()
     render(<App />)
     await startAsNewUser(user)
+    await user.click(screen.getByRole('button', { name: /Παιχνίδια σκέψης/i }))
     const taskCard = screen.getByRole('heading', { name: 'Stroop' }).closest('article')
     await user.click(within(taskCard!).getByRole('button', { name: /Ξεκίνα δοκιμασία/i }))
     await user.click(screen.getByRole('button', { name: 'Ξεκίνα' }))
@@ -114,8 +143,10 @@ describe('App', () => {
     const user = userEvent.setup()
     render(<App />)
     await user.click(screen.getByRole('button', { name: /Ρυθμίσεις/ }))
+    await passParentalGate(user)
 
     expect(screen.getByRole('heading', { name: 'Ρυθμίσεις' })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /Ταχύτητα/i }))
     expect(screen.getByRole('radio', { name: /Αργά/i })).toHaveAttribute('aria-checked', 'true')
     await user.click(screen.getByRole('radio', { name: /Γρήγορα/i }))
     expect(screen.getByRole('radio', { name: /Γρήγορα/i })).toHaveAttribute('aria-checked', 'true')
@@ -151,8 +182,10 @@ describe('App', () => {
     render(<App />)
 
     await user.click(screen.getByRole('button', { name: /Τα κατορθώματά μου/i }))
+    await passParentalGate(user)
     expect(screen.getByRole('heading', { name: 'Στατιστικά' })).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /Ρυθμίσεις/ }))
+    await passParentalGate(user)
     expect(screen.getByRole('heading', { name: 'Ρυθμίσεις' })).toBeInTheDocument()
   })
 

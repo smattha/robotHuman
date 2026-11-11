@@ -1,7 +1,6 @@
 import { useEffect, useReducer, useState } from 'react'
 import { exercises } from '../content/exercises'
-import type { Exercise } from '../domain/exercise'
-import { evaluateAnswer } from '../domain/exercise'
+import type { AnswerEvaluation, Exercise } from '../domain/exercise'
 import { isGreekVoiceStored, prepareGreekVoiceAudio } from '../domain/greek-voice'
 import { clearResults, deleteResult, loadResults, saveResult } from '../domain/results'
 import type { TestResult } from '../domain/results'
@@ -10,7 +9,9 @@ import { AppShell } from '../components/app-shell/AppShell'
 import { CompletionScreen } from '../features/completion/CompletionScreen'
 import { GrandPrizeScreen } from '../features/completion/GrandPrizeScreen'
 import { ExerciseLibrary } from '../features/exercise-library/ExerciseLibrary'
-import { ExercisePlayer } from '../features/exercise-player/ExercisePlayer'
+import type { LibraryTab } from '../features/exercise-library/ExerciseLibrary'
+import { ExerciseEngine } from '../features/exercise-player/ExerciseEngine'
+import type { ExerciseEngineState } from '../features/exercise-player/engine/useExerciseEngine'
 import { StartTestDialog } from '../features/test-all/StartTestDialog'
 import { BreakScreen } from '../features/test-all/BreakScreen'
 import { WelcomeScreen } from '../features/welcome/WelcomeScreen'
@@ -27,11 +28,12 @@ import { TaskPreparationScreen } from '../features/timed-tasks/TaskPreparationSc
 import { TaskCompletionScreen } from '../features/timed-tasks/TaskCompletionScreen'
 import { TaskPracticeScreen } from '../features/timed-tasks/TaskPracticeScreen'
 import { StatisticsScreen } from '../features/statistics/StatisticsScreen'
-import { getStoryFrameDuration, loadPreferences, savePreferences } from '../domain/preferences'
-import type { ChildHelper, StorySpeed } from '../domain/preferences'
+import { loadPreferences, savePreferences } from '../domain/preferences'
+import type { ChildHelper, NarrationMode, StorySpeed } from '../domain/preferences'
 import { SettingsScreen } from '../features/settings/SettingsScreen'
 import { loadLastUserName, loadUserNames, saveUserName } from '../domain/users'
 import { NewUserDialog } from '../features/welcome/NewUserDialog'
+import { ParentalGate } from '../features/parental-gate/ParentalGate'
 
 export function App() {
   const [state, dispatch] = useReducer(sessionReducer, initialSessionState)
@@ -52,6 +54,9 @@ export function App() {
   const [userName, setUserName] = useState<string | null>(loadLastUserName)
   const [userNames, setUserNames] = useState(loadUserNames)
   const [newUserDialogOpen, setNewUserDialogOpen] = useState(false)
+  const [parentalGateTarget, setParentalGateTarget] = useState<'settings' | 'statistics' | null>(null)
+  const [libraryTab, setLibraryTab] = useState<LibraryTab>('missions')
+  const [engineState, setEngineState] = useState<ExerciseEngineState | null>(null)
   const exercise = exercises[state.exerciseIndex]
 
   useEffect(() => {
@@ -102,6 +107,7 @@ export function App() {
     setPracticingTimedTask(null)
     setCompletedTimedTask(null)
     setSelectedTimedTask(null)
+    setLibraryTab('games')
     dispatch({ type: 'BACK_TO_LIBRARY' })
   }
 
@@ -112,7 +118,7 @@ export function App() {
     setSelectedTimedTask(null)
     setSavedResults(loadResults())
     setTimedTaskResults(loadTimedTaskResults())
-    setShowStatistics(true)
+    setParentalGateTarget('statistics')
   }
 
   function openSettings() {
@@ -120,7 +126,14 @@ export function App() {
     else goHome()
     setDialogOpen(false)
     setSelectedTimedTask(null)
-    setShowSettings(true)
+    setParentalGateTarget('settings')
+  }
+
+  function passParentalGate() {
+    const target = parentalGateTarget
+    setParentalGateTarget(null)
+    if (target === 'settings') setShowSettings(true)
+    if (target === 'statistics') setShowStatistics(true)
   }
 
   function changeStorySpeed(storySpeed: StorySpeed) {
@@ -143,6 +156,12 @@ export function App() {
 
   function changeSpeechEnabled(speechEnabled: boolean) {
     const updated = { ...preferences, speechEnabled }
+    setPreferences(updated)
+    setStorageError(!savePreferences(updated))
+  }
+
+  function changeNarrationMode(narrationMode: NarrationMode) {
+    const updated = { ...preferences, narrationMode }
     setPreferences(updated)
     setStorageError(!savePreferences(updated))
   }
@@ -179,6 +198,7 @@ export function App() {
   function startExerciseLibrary() {
     setActiveResult(null)
     setStorageError(false)
+    setLibraryTab('missions')
     dispatch({ type: 'START' })
   }
 
@@ -206,12 +226,9 @@ export function App() {
     return savedResults.find((result) => result.completedAt === null && result.answers.length < exercises.length) ?? null
   }
 
-  function submitAnswer() {
-    if (!state.selectedOptionId || state.evaluation) return
-    const evaluation = evaluateAnswer(exercise, state.selectedOptionId)
-    dispatch({ type: 'SUBMIT_ANSWER', evaluation })
+  function answerOption(optionId: string, evaluation: AnswerEvaluation) {
     const answer = {
-      exerciseId: exercise.id, optionId: state.selectedOptionId,
+      exerciseId: exercise.id, optionId,
       isCorrect: evaluation.isCorrect, answeredAt: new Date().toISOString(),
     }
     if (testMode) return
@@ -227,6 +244,34 @@ export function App() {
       setStorageError(!saveResult(result))
       setSavedResults(loadResults())
     }
+  }
+
+  function startAdventure() {
+    if (activeResult && !activeResult.completedAt) {
+      const interrupted = { ...activeResult, completedAt: new Date().toISOString() }
+      setStorageError(!saveResult(interrupted))
+      setSavedResults(loadResults())
+    }
+    if (userName) {
+      const result: TestResult = {
+        id: crypto.randomUUID(), userName, startedAt: new Date().toISOString(), completedAt: null, answers: [],
+      }
+      setActiveResult(result)
+      setStorageError(!saveResult(result))
+      setSavedResults(loadResults())
+    } else {
+      setActiveResult(null)
+    }
+    setDialogOpen(false)
+    setSelectedTimedTask(null)
+    setPreparedTimedTask(null)
+    setPracticingTimedTask(null)
+    setActiveTimedTask(null)
+    setCompletedTimedTask(null)
+    setShowStatistics(false)
+    setShowSettings(false)
+    setTestMode(false)
+    dispatch({ type: 'START_ALL', userName: userName ?? '' })
   }
 
   function continueTest() {
@@ -274,8 +319,8 @@ export function App() {
     else goHome()
     setSelectedTimedTask(null)
     setDialogOpen(false)
+    setLibraryTab('games')
     dispatch({ type: 'BACK_TO_LIBRARY' })
-    setTimeout(() => document.getElementById('timed-tasks')?.scrollIntoView({ behavior: 'smooth' }), 50)
   }
 
   function finishTimedTask(taskId: TimedTaskId, userName: string, trials: Trial[], summary: TaskSummary) {
@@ -328,53 +373,37 @@ export function App() {
 
   return (
     <div className={`${preferences.largeButtons ? 'large-buttons' : ''}${preferences.reducedMotion ? ' reduced-motion' : ''}${preferences.highContrast ? ' high-contrast' : ''}`}>
-      <AppShell exercises={exercises} onHome={goHome} onLibrary={startExerciseLibrary} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics} onSettings={openSettings} onRequireUser={requireUser} onSwitchUser={switchUser} activityActive={state.screen === 'exercise' || state.screen === 'break' || Boolean(activeTimedTask || preparedTimedTask || practicingTimedTask)}>
+      <AppShell exercises={exercises} onHome={goHome} onLibrary={startExerciseLibrary} onSelectExercise={openExercise} onTestAll={openTestDialog} onPartB={openPartB} onStatistics={openStatistics} onSettings={openSettings} onRequireUser={requireUser} onSwitchUser={switchUser} activityActive={state.screen === 'exercise' || state.screen === 'break' || Boolean(activeTimedTask || preparedTimedTask || practicingTimedTask)} showBottomNav={state.screen !== 'welcome' || showStatistics || showSettings}>
       {showStatistics && <StatisticsScreen results={savedResults} timedResults={timedTaskResults} onDelete={removeResult} onDeleteAll={removeAllResults} />}
-      {showSettings && <SettingsScreen preferences={preferences} onStorySpeedChange={changeStorySpeed} onChildHelperChange={changeChildHelper} onAccessibilityChange={changeAccessibility} onSpeechEnabledChange={changeSpeechEnabled} />}
-      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'welcome' && <WelcomeScreen onStart={startExerciseLibrary} onNewUser={() => setNewUserDialogOpen(true)} userName={userName} />}
+      {showSettings && <SettingsScreen preferences={preferences} onStorySpeedChange={changeStorySpeed} onChildHelperChange={changeChildHelper} onAccessibilityChange={changeAccessibility} onSpeechEnabledChange={changeSpeechEnabled} onNarrationModeChange={changeNarrationMode} />}
+      {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'welcome' && <WelcomeScreen onStart={startAdventure} onLibrary={startExerciseLibrary} onNewUser={() => setNewUserDialogOpen(true)} userName={userName} />}
       {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'library' && (
-        <>
-          <ExerciseLibrary
-            exercises={exercises}
-            exerciseResults={savedResults}
-            timedTaskDefinitions={timedTaskDefinitions}
-            timedTaskResults={timedTaskResults}
-            onSelect={(selected) => openExercise(exercises.indexOf(selected))}
-            onTest={openTestExercise}
-          />
-          <section id="timed-tasks" className="page-section timed-task-library" aria-labelledby="timed-tasks-title">
-            <div className="section-heading"><div><p className="eyebrow">Δραστηριότητες μνήμης και προσοχής</p><h2 id="timed-tasks-title">Προκλήσεις Μνήμης και Προσοχής</h2></div></div>
-            <div className="timed-task-grid">
-              {timedTaskDefinitions.map((task) => (
-                <article className="timed-task-card" key={task.id}>
-                  <div className="exercise-icon" aria-hidden="true">{task.icon}</div>
-                  <p className="card-category">{task.category}</p>
-                  <h3>{task.title}</h3>
-                  <p>{task.description}</p>
-                  <button className="secondary-button" type="button" onClick={() => selectTimedTask(task.id)}>Ξεκίνα δοκιμασία <span aria-hidden="true">↗</span></button>
-                </article>
-              ))}
-            </div>
-          </section>
-        </>
+        <ExerciseLibrary
+          exercises={exercises}
+          exerciseResults={savedResults}
+          timedTaskDefinitions={timedTaskDefinitions}
+          timedTaskResults={timedTaskResults}
+          activeTab={libraryTab}
+          onTabChange={setLibraryTab}
+          onSelect={(selected) => openExercise(exercises.indexOf(selected))}
+          onTest={openTestExercise}
+          onSelectTimedTask={selectTimedTask}
+        />
       )}
       {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'exercise' && (
-        <ExercisePlayer
+        <ExerciseEngine
           key={`${state.mode}-${state.exerciseIndex}`}
           exercise={exercise}
           progress={state.mode === 'all' ? { current: state.exerciseIndex + 1, total: exercises.length } : null}
-          selectedOptionId={state.selectedOptionId}
-          isSubmitted={state.evaluation !== null}
-          feedback={state.evaluation?.feedback ?? null}
-          isCorrect={state.evaluation?.isCorrect ?? null}
-          onSelect={(optionId) => dispatch({ type: 'SELECT_OPTION', optionId })}
-          onSubmit={submitAnswer}
-          onComplete={continueTest}
-          storyFrameDurationMs={getStoryFrameDuration(preferences.storySpeed)}
+          narrationMode={preferences.narrationMode}
           speechEnabled={preferences.speechEnabled}
+          storySpeed={preferences.storySpeed}
           helper={preferences.childHelper}
           userName={userName}
           testMode={testMode}
+          onAnswer={answerOption}
+          onComplete={continueTest}
+          onStateChange={setEngineState}
         />
       )}
       {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'break' && (
@@ -396,10 +425,12 @@ export function App() {
       )}
       {!showStatistics && !showSettings && !activeTimedTask && !preparedTimedTask && !practicingTimedTask && !completedTimedTask && state.screen === 'completed' && state.mode === 'single' && (
         <CompletionScreen
-          isCorrect={state.evaluation?.isCorrect ?? false}
+          isCorrect={engineState?.isCorrect ?? false}
           result={activeResult}
           isSingle={state.mode === 'single' && !testMode}
           helper={preferences.childHelper}
+          narrationMode={preferences.narrationMode}
+          speechEnabled={preferences.speechEnabled}
           onRestart={() => state.mode === 'all' ? setDialogOpen(true) : dispatch({ type: 'RESTART' })}
           onHome={goHome}
         />
@@ -426,17 +457,18 @@ export function App() {
       />}
       {activeTimedTask && (
         <>
-          {activeTimedTask.id === 'stroop' && <StroopTask key="stroop" userName={activeTimedTask.userName} onExit={leaveTimedTask} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
-          {activeTimedTask.id === 'go-no-go' && <GoNoGoTask key="go-no-go" userName={activeTimedTask.userName} onExit={leaveTimedTask} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
-          {activeTimedTask.id === 'sart' && <SartTask key="sart" userName={activeTimedTask.userName} onExit={leaveTimedTask} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
-          {activeTimedTask.id === 'corsi' && <CorsiTask key="corsi" userName={activeTimedTask.userName} onExit={leaveTimedTask} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
-          {activeTimedTask.id === 'digit-span' && <DigitSpanTask key="digit-span" userName={activeTimedTask.userName} onExit={leaveTimedTask} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
+          {activeTimedTask.id === 'stroop' && <StroopTask key="stroop" userName={activeTimedTask.userName} onExit={leaveTimedTask} helper={preferences.childHelper} narrationMode={preferences.narrationMode} speechEnabled={preferences.speechEnabled} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
+          {activeTimedTask.id === 'go-no-go' && <GoNoGoTask key="go-no-go" userName={activeTimedTask.userName} onExit={leaveTimedTask} helper={preferences.childHelper} narrationMode={preferences.narrationMode} speechEnabled={preferences.speechEnabled} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
+          {activeTimedTask.id === 'sart' && <SartTask key="sart" userName={activeTimedTask.userName} onExit={leaveTimedTask} helper={preferences.childHelper} narrationMode={preferences.narrationMode} speechEnabled={preferences.speechEnabled} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
+          {activeTimedTask.id === 'corsi' && <CorsiTask key="corsi" userName={activeTimedTask.userName} onExit={leaveTimedTask} helper={preferences.childHelper} narrationMode={preferences.narrationMode} speechEnabled={preferences.speechEnabled} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
+          {activeTimedTask.id === 'digit-span' && <DigitSpanTask key="digit-span" userName={activeTimedTask.userName} onExit={leaveTimedTask} helper={preferences.childHelper} narrationMode={preferences.narrationMode} speechEnabled={preferences.speechEnabled} onComplete={(id, trials, summary) => finishTimedTask(id, activeTimedTask.userName, trials, summary)} />}
         </>
       )}
       {storageError && !showStatistics && !showSettings && <p className="storage-warning" role="alert">Δεν ήταν δυνατή η αποθήκευση. Οι απαντήσεις μένουν μόνο μέχρι να κλείσει η σελίδα.</p>}
       {dialogOpen && <StartTestDialog onStart={startAll} resumableResult={getResumableResult()} onResume={resumeAll} onClose={() => setDialogOpen(false)} />}
       {selectedTimedTask && userName && <TaskNameDialog taskTitle={timedTaskDefinitions.find((task) => task.id === selectedTimedTask)?.title ?? ''} userName={userName} onStart={startTimedTask} onClose={() => setSelectedTimedTask(null)} />}
       {newUserDialogOpen && <NewUserDialog existingUserNames={userNames} onSave={saveNewUser} onClose={() => setNewUserDialogOpen(false)} />}
+      {parentalGateTarget && <ParentalGate onPass={passParentalGate} onClose={() => setParentalGateTarget(null)} />}
       </AppShell>
     </div>
   )

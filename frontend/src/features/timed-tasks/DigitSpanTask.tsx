@@ -1,5 +1,9 @@
+import type { ChildHelper, NarrationMode } from '../../domain/preferences'
 import type { TaskSummary, TimedTaskId, Trial } from '../../domain/timed-task'
+import { InstructionBriefing } from './InstructionBriefing'
 import { clearDigit, createDigitSpanState, enterDigit, getDigitSpanSummary, startDigitSpan, submitDigitSpan, tickDigitSpan } from './digit-span-logic'
+import { DigitSpanScene } from './phaser/DigitSpanScene'
+import { PhaserGame } from '../phaser/PhaserGame'
 import { TimedTaskFrame } from './TimedTaskFrame'
 import { useTimedTask } from './use-timed-task'
 
@@ -7,9 +11,15 @@ type DigitSpanTaskProps = {
   userName: string
   onExit: () => void
   onComplete: (taskId: TimedTaskId, trials: Trial[], summary: TaskSummary) => void
+  helper: ChildHelper
+  narrationMode: NarrationMode
+  speechEnabled: boolean
 }
 
-export function DigitSpanTask({ userName, onExit, onComplete }: DigitSpanTaskProps) {
+const INSTRUCTION =
+  'Θα εμφανιστούν ψηφία ένα-ένα σε ένα αστέρι. Θυμήσου τη σειρά και πληκτρολόγησέ την με τα κουμπιά. Η ακολουθία μεγαλώνει μετά από κάθε σωστή απάντηση. Το παιχνίδι τελειώνει μετά από δύο διαδοχικά λάθη.'
+
+export function DigitSpanTask({ userName, onExit, onComplete, helper, narrationMode, speechEnabled }: DigitSpanTaskProps) {
   const { state, setState } = useTimedTask({
     create: createDigitSpanState,
     tick: tickDigitSpan,
@@ -20,41 +30,32 @@ export function DigitSpanTask({ userName, onExit, onComplete }: DigitSpanTaskPro
   return (
     <TimedTaskFrame title="Digit Span" category="Μνήμη" onExit={onExit}>
       {state.phase === 'instruction' && (
-        <div className="task-instruction">
-          <p className="lead">Θα εμφανιστεί μια ακολουθία ψηφίων. Θυμήσου την και πληκτρολόγησέ την με την ίδια σειρά. Η ακολουθία μεγαλώνει μετά από κάθε σωστή απάντηση. Το παιχνίδι τελειώνει μετά από δύο διαδοχικά λάθη.</p>
-          <p className="task-user">Παίκτης: {userName}</p>
-          <button className="primary-button" type="button" onClick={() => setState((previous) => startDigitSpan(previous, Date.now()))}>Ξεκίνα</button>
-        </div>
+        <InstructionBriefing
+          helper={helper}
+          message={INSTRUCTION}
+          userName={userName}
+          narrationMode={narrationMode}
+          speechEnabled={speechEnabled}
+          onStart={() => setState((previous) => startDigitSpan(previous, Date.now()))}
+        />
       )}
-      {(state.phase === 'showing' || state.phase === 'answering') && (
-        <div className="sequence-task">
-          <p className="sequence-status" aria-live="polite">
-            {state.phase === 'showing' ? 'Θυμήσου τα ψηφία' : 'Πληκτρολόγησε τη σειρά'} · επίπεδο {state.level}
-          </p>
-          <div className="digit-stimulus" aria-live="assertive" aria-label={state.phase === 'showing' ? `Ψηφίο ${state.sequence[state.sequenceIndex - 1] ?? ''}` : 'Τα ψηφία έχουν κρυφτεί'}>
-            {state.phase === 'showing' ? state.sequence[state.sequenceIndex - 1] ?? ' ' : '•••'}
-          </div>
-          {state.phase === 'answering' && (
-            <>
-              <output className="digit-answer" aria-label="Η απάντησή σου">{state.answer || ' '}</output>
-              <div className="digit-keypad">
-                {['1', '2', '3', '4', '5', '6', '7', '8', '9', 'clear', '0', 'submit'].map((key) => (
-                  <button
-                    className={key === 'submit' ? 'primary-button' : 'digit-key'}
-                    key={key}
-                    type="button"
-                    disabled={key === 'submit' && state.answer.length === 0}
-                    onClick={() => {
-                      if (key === 'clear') setState((previous) => clearDigit(previous))
-                      else if (key === 'submit') setState((previous) => submitDigitSpan(previous, Date.now()))
-                      else setState((previous) => enterDigit(previous, key))
-                    }}
-                  >{key === 'clear' ? 'Διόρθωση' : key === 'submit' ? 'Συνέχεια' : key}</button>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
+      {state.phase !== 'instruction' && (
+        <PhaserGame
+          scene={DigitSpanScene}
+          sceneProps={{
+            phase: state.phase,
+            sequence: state.sequence,
+            sequenceIndex: state.sequenceIndex,
+            level: state.level,
+            answer: state.answer,
+            helper,
+            onEnterDigit: (digit: string) => setState((previous) => enterDigit(previous, digit)),
+            onClear: () => setState((previous) => clearDigit(previous)),
+            onSubmit: () => setState((previous) => submitDigitSpan(previous, Date.now())),
+          }}
+          testId="digit-span-game"
+          ariaLabel="Παιχνίδι μνήμης με τα μαγικά αστέρια"
+        />
       )}
     </TimedTaskFrame>
   )

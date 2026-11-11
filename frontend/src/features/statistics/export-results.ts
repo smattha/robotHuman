@@ -1,4 +1,5 @@
 import { exercises } from '../../content/exercises'
+import { getPrimaryQuestion } from '../../domain/exercise'
 import type { TestResult } from '../../domain/results'
 import type { TimedTaskResult } from '../../domain/timed-task'
 import { timedTaskDefinitions } from '../timed-tasks/timed-task-definitions'
@@ -31,7 +32,7 @@ function exerciseResultToRows(result: TestResult): string[] {
   const correctCount = result.answers.filter((answer) => answer.isCorrect).length
   return result.answers.map((answer) => {
     const exercise = exercises.find((entry) => entry.id === answer.exerciseId)
-    const option = exercise?.options.find((entry) => entry.id === answer.optionId)
+    const option = exercise ? getPrimaryQuestion(exercise).options.find((entry) => entry.id === answer.optionId) : undefined
     return [
       result.userName,
       isSingle ? 'Μικρή Αποστολή' : 'Μεγάλη Περιπέτεια',
