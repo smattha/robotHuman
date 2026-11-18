@@ -2,8 +2,7 @@ import type { ChildHelper, NarrationMode } from '../../domain/preferences'
 import type { TaskSummary, TimedTaskId, Trial } from '../../domain/timed-task'
 import { InstructionBriefing } from './InstructionBriefing'
 import { createGoNoGoState, getGoNoGoSummary, respondGoNoGo, startGoNoGo, tickGoNoGo } from './go-no-go-logic'
-import { GoNoGoScene } from './phaser/GoNoGoScene'
-import { PhaserGame } from '../phaser/PhaserGame'
+import { GoNoGoBoard } from './GoNoGoBoard'
 import { TimedTaskFrame } from './TimedTaskFrame'
 import { useTimedTask } from './use-timed-task'
 
@@ -40,17 +39,10 @@ export function GoNoGoTask({ userName, onExit, onComplete, helper, narrationMode
         />
       )}
       {state.phase !== 'instruction' && (
-        <PhaserGame
-          scene={GoNoGoScene}
-          sceneProps={{
-            phase: state.phase,
-            isGo: state.isGo,
-            trialStartedAt: state.trialStartedAt,
-            helper,
-            onRespond: () => setState((previous) => respondGoNoGo(previous, Date.now())),
-          }}
-          testId="go-nogo-game"
-          ariaLabel="Παιχνίδι προσοχής Ξεκίνα Στοπ"
+        <GoNoGoBoard
+          state={state}
+          helper={helper}
+          onRespond={() => setState((previous) => respondGoNoGo(previous, Date.now()))}
         />
       )}
     </TimedTaskFrame>

@@ -31,8 +31,10 @@ export function ImageQuestion({ exercise, selectedOptionId, isSubmitted, narrati
 
   return (
     <div className={`question-panel${exercise.imagePath ? ' question-panel-with-reference' : ''}`}>
-      <p className="eyebrow">Η ερώτηση</p>
-      <h2 id="exercise-title">{question.text}</h2>
+      <div className="question-header">
+        {/*<p className="eyebrow">Η ερώτηση</p>*/}
+        <h2 id="exercise-title">{question.text}</h2>
+      </div>
       {exercise.imagePath && <div className="question-reference"><img src={exercise.imagePath} alt={`Εικόνα για την άσκηση ${exercise.title}`} /></div>}
       <AnswerGrid options={question.options} selectedOptionId={selectedOptionId} isSubmitted={isSubmitted} onAnswer={onAnswer} />
       <div className="player-action-bar">

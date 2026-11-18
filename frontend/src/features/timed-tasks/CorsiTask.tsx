@@ -1,9 +1,8 @@
 import type { ChildHelper, NarrationMode } from '../../domain/preferences'
 import type { TaskSummary, TimedTaskId, Trial } from '../../domain/timed-task'
 import { InstructionBriefing } from './InstructionBriefing'
+import { CorsiBoard } from './CorsiBoard'
 import { createCorsiState, getCorsiSummary, respondCorsi, startCorsi, tickCorsi } from './corsi-logic'
-import { CorsiScene } from './phaser/CorsiScene'
-import { PhaserGame } from '../phaser/PhaserGame'
 import { TimedTaskFrame } from './TimedTaskFrame'
 import { useTimedTask } from './use-timed-task'
 
@@ -40,19 +39,10 @@ export function CorsiTask({ userName, onExit, onComplete, helper, narrationMode,
         />
       )}
       {state.phase !== 'instruction' && (
-        <PhaserGame
-          scene={CorsiScene}
-          sceneProps={{
-            phase: state.phase,
-            sequence: state.sequence,
-            sequenceIndex: state.sequenceIndex,
-            level: state.level,
-            answerLength: state.answer.length,
-            helper,
-            onTapTile: (tile: number) => setState((previous) => respondCorsi(previous, tile, Date.now())),
-          }}
-          testId="corsi-game"
-          ariaLabel="Παιχνίδι μνήμης με μανιτάρια"
+        <CorsiBoard
+          state={state}
+          helper={helper}
+          onTapTile={(tile) => setState((previous) => respondCorsi(previous, tile, Date.now()))}
         />
       )}
     </TimedTaskFrame>

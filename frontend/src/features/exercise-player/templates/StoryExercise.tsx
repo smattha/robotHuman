@@ -59,8 +59,10 @@ export function StoryExercise({ exercise, selectedOptionId, isSubmitted, narrati
 
   return (
     <div className="question-panel">
-      <p className="eyebrow">Η ερώτηση</p>
-      <h2 id="exercise-title">{question.text}</h2>
+      <div className="question-header">
+        <p className="eyebrow">Η ερώτηση</p>
+        <h2 id="exercise-title">{question.text}</h2>
+      </div>
       <AnswerGrid options={question.options} selectedOptionId={selectedOptionId} isSubmitted={isSubmitted} onAnswer={onAnswer} />
       <div className="player-action-bar">
         {!isSubmitted && (

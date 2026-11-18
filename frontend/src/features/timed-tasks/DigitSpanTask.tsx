@@ -2,8 +2,7 @@ import type { ChildHelper, NarrationMode } from '../../domain/preferences'
 import type { TaskSummary, TimedTaskId, Trial } from '../../domain/timed-task'
 import { InstructionBriefing } from './InstructionBriefing'
 import { clearDigit, createDigitSpanState, enterDigit, getDigitSpanSummary, startDigitSpan, submitDigitSpan, tickDigitSpan } from './digit-span-logic'
-import { DigitSpanScene } from './phaser/DigitSpanScene'
-import { PhaserGame } from '../phaser/PhaserGame'
+import { DigitSpanBoard } from './DigitSpanBoard'
 import { TimedTaskFrame } from './TimedTaskFrame'
 import { useTimedTask } from './use-timed-task'
 
@@ -40,21 +39,12 @@ export function DigitSpanTask({ userName, onExit, onComplete, helper, narrationM
         />
       )}
       {state.phase !== 'instruction' && (
-        <PhaserGame
-          scene={DigitSpanScene}
-          sceneProps={{
-            phase: state.phase,
-            sequence: state.sequence,
-            sequenceIndex: state.sequenceIndex,
-            level: state.level,
-            answer: state.answer,
-            helper,
-            onEnterDigit: (digit: string) => setState((previous) => enterDigit(previous, digit)),
-            onClear: () => setState((previous) => clearDigit(previous)),
-            onSubmit: () => setState((previous) => submitDigitSpan(previous, Date.now())),
-          }}
-          testId="digit-span-game"
-          ariaLabel="Παιχνίδι μνήμης με τα μαγικά αστέρια"
+        <DigitSpanBoard
+          state={state}
+          helper={helper}
+          onEnterDigit={(digit) => setState((previous) => enterDigit(previous, digit))}
+          onClear={() => setState((previous) => clearDigit(previous))}
+          onSubmit={() => setState((previous) => submitDigitSpan(previous, Date.now()))}
         />
       )}
     </TimedTaskFrame>

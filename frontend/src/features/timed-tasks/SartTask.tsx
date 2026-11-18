@@ -2,8 +2,7 @@ import type { ChildHelper, NarrationMode } from '../../domain/preferences'
 import type { TaskSummary, TimedTaskId, Trial } from '../../domain/timed-task'
 import { InstructionBriefing } from './InstructionBriefing'
 import { createSartState, getSartSummary, respondSart, startSart, tickSart } from './sart-logic'
-import { PhaserGame } from '../phaser/PhaserGame'
-import { SartScene } from './phaser/SartScene'
+import { SartBoard } from './SartBoard'
 import { TimedTaskFrame } from './TimedTaskFrame'
 import { useTimedTask } from './use-timed-task'
 
@@ -39,17 +38,10 @@ export function SartTask({ userName, onExit, onComplete, helper, narrationMode, 
         />
       )}
       {state.phase !== 'instruction' && (
-        <PhaserGame
-          scene={SartScene}
-          sceneProps={{
-            phase: state.phase,
-            stimulus: state.stimulus,
-            trialStartedAt: state.trialStartedAt,
-            helper,
-            onRespond: () => setState((previous) => respondSart(previous, Date.now())),
-          }}
-          testId="sart-game"
-          ariaLabel="Παιχνίδι προσοχής με το μαγικό καλάθι"
+        <SartBoard
+          state={state}
+          helper={helper}
+          onRespond={() => setState((previous) => respondSart(previous, Date.now()))}
         />
       )}
     </TimedTaskFrame>

@@ -40,6 +40,16 @@ Build the signed APK/AAB from Android Studio (Build → Generate Signed App Bund
 - Statistics with CSV export and print view.
 - PWA: installable, offline-capable (service worker in `images/sw.js`, manifest, generated icons).
 
+## Memory/attention challenges (Part B)
+
+The 5 timed tasks (Stroop, Go/No-Go, SART, Corsi, Digit Span) are built as plain React + CSS
+boards with no game engine. Each task keeps a pure logic module plus the shared `useTimedTask`
+hook as the source of truth for timing and scoring; the on-screen board is presentational and
+reports through the same callbacks. A lightweight `TimedGameShell` provides the themed
+background, the helper character, and the progress/feedback area, and decorative motion uses
+CSS only (respecting the reduced-motion setting). Stroop is complete and is the template for
+the remaining four — see `docs/part-b-react-ui-plan.md`.
+
 ## Mobile-first layout
 
 The UI is designed for portrait smartphones first (360–430px), then tablets and desktops. Key points:

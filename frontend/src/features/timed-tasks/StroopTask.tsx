@@ -2,8 +2,7 @@ import type { ChildHelper, NarrationMode } from '../../domain/preferences'
 import type { TaskSummary, TimedTaskId, Trial } from '../../domain/timed-task'
 import { InstructionBriefing } from './InstructionBriefing'
 import { createStroopState, getStroopSummary, respondStroop, startStroop, tickStroop } from './stroop-logic'
-import { PhaserGame } from '../phaser/PhaserGame'
-import { StroopScene } from './phaser/StroopScene'
+import { StroopBoard } from './StroopBoard'
 import { TimedTaskFrame } from './TimedTaskFrame'
 import { useTimedTask } from './use-timed-task'
 
@@ -40,18 +39,10 @@ export function StroopTask({ userName, onExit, onComplete, helper, narrationMode
         />
       )}
       {state.phase !== 'instruction' && (
-        <PhaserGame
-          scene={StroopScene}
-          sceneProps={{
-            phase: state.phase,
-            word: state.word,
-            ink: state.ink,
-            trialStartedAt: state.trialStartedAt,
-            helper,
-            onRespond: () => setState((previous) => respondStroop(previous, Date.now())),
-          }}
-          testId="stroop-game"
-          ariaLabel="Παιχνίδι προσοχής με τα μαγικά χρώματα"
+        <StroopBoard
+          state={state}
+          helper={helper}
+          onRespond={() => setState((previous) => respondStroop(previous, Date.now()))}
         />
       )}
     </TimedTaskFrame>
